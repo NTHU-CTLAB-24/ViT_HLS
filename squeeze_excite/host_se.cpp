@@ -371,7 +371,6 @@ int main(int argc, char* argv[]) {
     float* ptr_DataIn_3;  // kernel_1 for reduce
     float* ptr_DataIn_4;  // kernel_2 for expand
     float* ptr_se_result;
-    float* ptr_sigmoid;
     float* ptr_result;
     // These commands will allocate memory on the .Device
     // The cl::Buffer objects can be used to reference the memory locations on the
@@ -484,21 +483,6 @@ int main(int argc, char* argv[]) {
     cout << "HOST-Info: Generating buffer_se_result ..." << endl;
 
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_sigmoid_result for RES Array ... "
-        << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_sigmoid_result(context, CL_MEM_WRITE_ONLY,
-        size_se_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_result to ptr_sigmoid_result ... " << endl;
-#endif
-    OCL_CHECK(err, ptr_sigmoid = (float*)q.enqueueMapBuffer(
-        buffer_sigmoid_result, CL_TRUE, CL_MAP_READ, 0, size_se_bytes,
-        NULL, NULL, &err));
-
-    cout << "HOST-Info: Generating buffer_sigmoid_result ..." << endl;
-
-#ifdef ALL_MESSAGES
     cout << "HOST-Info: Allocating Memory buffer_result for RES Array ... "
         << endl;
 #endif
@@ -520,7 +504,7 @@ int main(int argc, char* argv[]) {
         err = q.enqueueMigrateMemObjects({ buffer_DataIn_2, buffer_DataIn_3, buffer_DataIn_4 },
             0 /* 0 means from host*/));
     OCL_CHECK(err,
-        err = q.enqueueMigrateMemObjects({ buffer_DataIn_1, buffer_sigmoid_result },
+        err = q.enqueueMigrateMemObjects({ buffer_DataIn_1, buffer_se_result},
             0 /* 0 means from host*/));
 
     // ============================================================================
@@ -535,7 +519,7 @@ int main(int argc, char* argv[]) {
     //               kernel_se      3               GlobMem_BUF_se_result
     //   
     //               kernel_mul     0               GlobMem_BUF_DataIn_1
-    //               kernel_mul     1               GlobMem_BUF_sigmoid_result
+    //               kernel_mul     1               GlobMem_BUF_se_result
     //               kernel_mul     2               GlobMem_BUF_result
     // 				----------------------------------------------------
     //         
@@ -564,6 +548,10 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, err = kernel_se.setArg(1, buffer_DataIn_3));
     OCL_CHECK(err, err = kernel_se.setArg(2, buffer_DataIn_4));
     OCL_CHECK(err, err = kernel_se.setArg(3, buffer_se_result));  
+
+    OCL_CHECK(err, err = kernel_mul.setArg(0, buffer_DataIn_1));
+    OCL_CHECK(err, err = kernel_mul.setArg(1, buffer_se_result));
+    OCL_CHECK(err, err = kernel_mul.setArg(2, buffer_result));
     // ----------------------------------------
     // Step 5.2: Submit Kernels for Execution
     // ----------------------------------------
@@ -583,13 +571,12 @@ int main(int argc, char* argv[]) {
     // ============================================================================
     // Step 6: Processing Output Results
     //         o) Check correctness of the output results
-    // process sigmoid(x_se)
     // ============================================================================
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: "
         "============================================================= "
         << endl;
-    cout << "HOST-Info: (Step 6-1) Compute Sigmoid                   "
+    cout << "HOST-Info: (Step 6-1) Compute SE                 "
         "     "
         << endl;
     cout << "HOST-Info: "
@@ -603,29 +590,10 @@ int main(int argc, char* argv[]) {
         }
         cout << endl;
     }
-    //sigmoid (x_se)
-
-    for (int b = 0; b < BATCH_SIZE; b++) {
-        for (int c = 0; c < CHANNEL_IN; c++) {
-            float tmp = ptr_se_result[b * CHANNEL_IN + c];
-            ptr_sigmoid[b * CHANNEL_IN + c] = 1 / (1 + exp(-tmp));
-        }
-    }
-    cout << " X_SE after sigmoid" << endl;
-    for (int b = 0; b < BATCH_SIZE; b++) {
-        for (int c = 0; c < CHANNEL_IN; c++) {
-            cout << ptr_sigmoid[b * CHANNEL_IN + c] << " ";
-        }
-        cout << endl;
-    }
-
 
     // ----------------------------------------
       // Step 5.2: Submit Kernels for Execution
       // ----------------------------------------
-    OCL_CHECK(err, err = kernel_mul.setArg(0, buffer_DataIn_1));
-    OCL_CHECK(err, err = kernel_mul.setArg(1, buffer_sigmoid_result));
-    OCL_CHECK(err, err = kernel_mul.setArg(2, buffer_result));
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Submitting Kernel kernel_mul ..." << endl;
 #endif
@@ -691,7 +659,6 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_3, ptr_DataIn_3));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_4, ptr_DataIn_4));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_se_result, ptr_se_result));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_sigmoid_result, ptr_sigmoid));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, ptr_result));
     OCL_CHECK(err, err = q.finish());
 

@@ -1,5 +1,6 @@
 // Includes
 #include <hls_stream.h>
+#include <hls_math.h>
 #include <stdint.h>
 // TRIPCOUNT identifier
 const int BATCH_SIZE = 1;
@@ -130,8 +131,8 @@ static void compute_relu(float* input, float output[BATCH_SIZE][CHANNEL_OUT][HEI
     }
 }
 static void compute_conv_expand(float in[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
-                                float kernel[CHANNEL_IN][KERNEL_SIZE][KERNEL_SIZE],
-                                float* buffer_result) {
+    float kernel[CHANNEL_IN][KERNEL_SIZE][KERNEL_SIZE],
+    float* buffer_result) {
     // The kernel is operating with vector of NUM_WORDS integers. The + operator performs
     // an element-wise add, resulting in NUM_WORDS parallel additions.
 
@@ -176,6 +177,16 @@ Batch:
         }
     }
 }
+static void compute_sigmoid(float* result) {
+    for (int b = 0; b < BATCH_SIZE; b++) {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_IN; c++) {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
+            float tmp = result[b * CHANNEL_IN + c];
+            result[b * CHANNEL_IN + c] = 1 / (1 + exp(-tmp));
+        }
+    }
+}
 
 extern "C" {
     void kernel_se(float* image_mean, float* kernel_reduce, float* kernel_expand, float* buffer_result) {
@@ -203,6 +214,6 @@ extern "C" {
         compute_conv_reduce(in, kernel_1, tmp);
         compute_relu(tmp, relu_x);
         compute_conv_expand(relu_x, kernel_2, buffer_result);
-
+        compute_sigmoid(buffer_result);
     }
 }
