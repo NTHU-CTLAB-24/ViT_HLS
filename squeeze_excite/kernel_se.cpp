@@ -177,12 +177,12 @@ Batch:
         }
     }
 }
-static void compute_sigmoid(float* result) {
+static void compute_sigmoid(float* input, float* result) {
     for (int b = 0; b < BATCH_SIZE; b++) {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
         for (int c = 0; c < CHANNEL_IN; c++) {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
-            float tmp = result[b * CHANNEL_IN + c];
+            float tmp = input[b * CHANNEL_IN + c];
             result[b * CHANNEL_IN + c] = 1 / (1 + exp(-tmp));
         }
     }
@@ -213,7 +213,7 @@ extern "C" {
         load_input(image_mean, kernel_reduce, kernel_expand, in, kernel_1, kernel_2);
         compute_conv_reduce(in, kernel_1, tmp);
         compute_relu(tmp, relu_x);
-        compute_conv_expand(relu_x, kernel_2, buffer_result);
-        compute_sigmoid(buffer_result);
+        compute_conv_expand(relu_x, kernel_2, tmp);
+        compute_sigmoid(tmp, buffer_result);
     }
 }
