@@ -4,6 +4,8 @@
 #include <stdint.h>
 // TRIPCOUNT identifier
 const int BATCH_SIZE = 1;
+const int IMAGE_H = 16;
+const int IMAGE_W = 16;
 const int HEIGHT_IN = 1;
 const int WIDTH_IN = 1;
 const int CHANNEL_IN = 16;
@@ -15,7 +17,7 @@ const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 
 static void load_input(float* data, float* kernel_reduce, float* kernel_expand,
-    float store_in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
+    float store_in[BATCH_SIZE][CHANNEL_IN][IMAGE_H][IMAGE_W],
     float store_kernel1[CHANNEL_OUT][KERNEL_SIZE][KERNEL_SIZE],
     float store_kernel2[CHANNEL_IN][KERNEL_SIZE][KERNEL_SIZE]) {
 input_data:
@@ -23,11 +25,11 @@ input_data:
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
         for (int c = 0; c < CHANNEL_IN; c++) {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
-            for (int h = 0; h < HEIGHT_IN; h++) {
-#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_IN max = HEIGHT_IN
-                for (int w = 0; w < WIDTH_IN; w++) {
-#pragma HLS LOOP_TRIPCOUNT min = WIDTH_IN max = WIDTH_IN
-                    store_in[n][c][h][w] = data[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w];
+            for (int h = 0; h < IMAGE_H; h++) {
+#pragma HLS LOOP_TRIPCOUNT min = IMAGE_H max = IMAGE_H
+                for (int w = 0; w < IMAGE_W; w++) {
+#pragma HLS LOOP_TRIPCOUNT min = IMAGE_W max = IMAGE_W
+                    store_in[n][c][h][w] = data[n * CHANNEL_IN * IMAGE_H * IMAGE_W + c * IMAGE_H * IMAGE_W + h * IMAGE_W + w];
                 }
             }
         }
@@ -56,6 +58,26 @@ init_kernel_expand:
             }
         }
     }
+}
+static void compute_mean(float in[BATCH_SIZE][CHANNEL_IN][IMAGE_H][IMAGE_W],
+    float mean[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN]) {
+    int total = IMAGE_H * IMAGE_W;
+    for (int b = 0; b < BATCH_SIZE; b++) {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_IN; c++) {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
+            float sum = 0;
+            for (int i = 0; i < IMAGE_H; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = IMAGE_H max = IMAGE_H
+                for (int j = 0; j < IMAGE_W; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = IMAGE_W max = IMAGE_W
+                    sum += in[b][c][i][j];
+                }
+            }
+            mean[b][c][0][0] = sum / total;
+        }
+    }
+
 }
 
 static void compute_conv_reduce(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
@@ -177,43 +199,69 @@ Batch:
         }
     }
 }
-static void compute_sigmoid(float* input, float* result) {
+static void compute_sigmoid(float* input, float* sigmoid) {
     for (int b = 0; b < BATCH_SIZE; b++) {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
         for (int c = 0; c < CHANNEL_IN; c++) {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
             float tmp = input[b * CHANNEL_IN + c];
-            result[b * CHANNEL_IN + c] = 1 / (1 + exp(-tmp));
+            sigmoid[b * CHANNEL_IN + c] = 1 / (1 + exp(-tmp));
+        }
+    }
+}
+
+static void compute_mul(float in1[BATCH_SIZE][CHANNEL_IN][IMAGE_H][IMAGE_W], float* in2,
+    float* result) {
+    float val = 0;
+    for (int b = 0; b < BATCH_SIZE; b++) {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_IN; c++) {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
+            val = in2[b * CHANNEL_IN + c];
+            for (int i = 0; i < IMAGE_H; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = IMAGE_H max = IMAGE_H
+                for (int j = 0; j < IMAGE_W; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = IMAGE_W max = IMAGE_W
+                    result[b * CHANNEL_IN * IMAGE_H * IMAGE_W + c * IMAGE_H * IMAGE_W + i * IMAGE_W + j] = in1[b][c][i][j] * val;
+                }
+            }
         }
     }
 }
 
 extern "C" {
-    void kernel_se(float* image_mean, float* kernel_reduce, float* kernel_expand, float* buffer_result) {
-#pragma HLS INTERFACE m_axi port = image_mean bundle = gmem0
+    void kernel_se(float* image, float* kernel_reduce, float* kernel_expand, float* buffer_result) {
+#pragma HLS INTERFACE m_axi port = image bundle = gmem0
 #pragma HLS INTERFACE m_axi port = kernel_reduce bundle = gmem1
 #pragma HLS INTERFACE m_axi port = kernel_expand bundle = gmem2
 #pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0
 
 #pragma HLS dataflow
 
-        float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
+        float in[BATCH_SIZE][CHANNEL_IN][IMAGE_H][IMAGE_W];
 #pragma HLS array_partition variable = in complete dim = 1
         float kernel_1[CHANNEL_OUT][KERNEL_SIZE][KERNEL_SIZE];
 #pragma HLS array_partition variable = kernel_1 complete dim = 1
         float kernel_2[CHANNEL_IN][KERNEL_SIZE][KERNEL_SIZE];
 #pragma HLS array_partition variable = kernel_2 complete dim = 1
 
+        float mean[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
+#pragma HLS array_partition variable = mean complete dim = 1
         float tmp[BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
 #pragma HLS array_partition variable = tmp complete dim = 1
         float relu_x[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
 #pragma HLS array_partition variable = relu_x complete dim = 1
+        float sigmoid[BATCH_SIZE * CHANNEL_IN];
+#pragma HLS array_partition variable = sigmoid complete dim = 1
 
 
-        load_input(image_mean, kernel_reduce, kernel_expand, in, kernel_1, kernel_2);
-        compute_conv_reduce(in, kernel_1, tmp);
+
+        load_input(image, kernel_reduce, kernel_expand, in, kernel_1, kernel_2);
+        compute_mean(in, mean);
+        compute_conv_reduce(mean, kernel_1, tmp);
         compute_relu(tmp, relu_x);
         compute_conv_expand(relu_x, kernel_2, tmp);
-        compute_sigmoid(tmp, buffer_result);
+        compute_sigmoid(tmp, sigmoid);
+        compute_mul(in, sigmoid, buffer_result);
     }
 }

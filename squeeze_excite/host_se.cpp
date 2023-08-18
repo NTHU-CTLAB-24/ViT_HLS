@@ -325,18 +325,12 @@ int main(int argc, char* argv[]) {
     // -------------------------------------------------------------
     // Step 3.3: Create a Kernels
     // -------------------------------------------------------------
-    cl::Kernel kernel_se, kernel_mul;
+    cl::Kernel kernel_se;
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Creating a Kernel: kernel_se ..." << endl;
 #endif
     OCL_CHECK(err,
         kernel_se = cl::Kernel(program, "kernel_se", &err));
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Creating a Kernel: kernel_mul ..." << endl;
-#endif
-    OCL_CHECK(err,
-        kernel_mul = cl::Kernel(program, "kernel_mul", &err));
 
     // ================================================================
     // Step 4: Prepare Data to Run Kernel
@@ -367,10 +361,8 @@ int main(int argc, char* argv[]) {
     // ------------------------------------------------------------------
     /*定義Input和output型別*/
     float* ptr_DataIn_1;  // image data
-    float* ptr_DataIn_2;  // image mean
-    float* ptr_DataIn_3;  // kernel_1 for reduce
-    float* ptr_DataIn_4;  // kernel_2 for expand
-    float* ptr_se_result;
+    float* ptr_DataIn_2;  // kernel_1 for reduce
+    float* ptr_DataIn_3;  // kernel_2 for expand
     float* ptr_result;
     // These commands will allocate memory on the .Device
     // The cl::Buffer objects can be used to reference the memory locations on the
@@ -399,88 +391,41 @@ int main(int argc, char* argv[]) {
 #endif
 
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_2 for DataIn_2 ... "
-        << endl;
+    cout << "HOST-Info: Allocating Memory buffer_DataIn_2 for DataIn_2 ... " << endl;
 #endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY,
-        size_se_bytes, NULL, &err));
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY, size_kernel_reduce_bytes, NULL, &err));
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_2 to ptr_DataIn_2 ... " << endl;
+    cout << "HOST-Info: Mapping buffer_DataIn_3 to ptr_DataIn_2 ... " << endl;
 #endif
-    OCL_CHECK(err, ptr_DataIn_2 = (float*)q.enqueueMapBuffer(
-        buffer_DataIn_2, CL_TRUE, CL_MAP_WRITE, 0,
-        size_se_bytes, NULL, NULL, &err));
+    OCL_CHECK(err,
+        ptr_DataIn_2 = (float*)q.enqueueMapBuffer(buffer_DataIn_2, CL_TRUE, CL_MAP_WRITE, 0, size_kernel_reduce_bytes, NULL, NULL, &err));
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Generating buffer_DataIn_2 ..." << endl;
 #endif
-    // (b, c, h, w) => (b, c, 1, 1)
-    int total = HEIGHT_IN * WIDTH_IN;
-    for (int b = 0; b < BATCH_SIZE; b++) {
-        for (int c = 0; c < CHANNEL_IN; c++) {
-            float sum = 0;
-            for (int i = 0; i < HEIGHT_IN; i++) {
-                for (int j = 0; j < WIDTH_IN; j++) {
-                    sum += ptr_DataIn_1[b * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + i * WIDTH_IN + j];
-                }
-            }
-            ptr_DataIn_2[b * CHANNEL_IN + c] = sum / total;
-        }
-    }
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << SE_SIZE << " values" << endl;
-#endif
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_3 for DataIn_3 ... " << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_3(context, CL_MEM_READ_ONLY, size_kernel_reduce_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_3 to ptr_DataIn_3 ... " << endl;
-#endif
-    OCL_CHECK(err,
-        ptr_DataIn_3 = (float*)q.enqueueMapBuffer(buffer_DataIn_3, CL_TRUE, CL_MAP_WRITE, 0, size_kernel_reduce_bytes, NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_DataIn_3 ..." << endl;
-#endif
-    KernelPrepare(ptr_DataIn_3, REDUCE_CHS, 1, 0);
+    KernelPrepare(ptr_DataIn_2, REDUCE_CHS, 1, 0);
 #ifdef ALL_MESSAGES
     cout << "           Generated " << KERNEL_REDUCE_SIZE << " values" << endl;
 #endif
 
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_4 for DataIn_4 ... "
+    cout << "HOST-Info: Allocating Memory buffer_DataIn_3 for DataIn_3 ... "
         << endl;
 #endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_4(context, CL_MEM_READ_ONLY,
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_3(context, CL_MEM_READ_ONLY,
         size_kernel_expand_bytes, NULL, &err));
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_4 to ptr_DataIn_4 ... " << endl;
+    cout << "HOST-Info: Mapping buffer_DataIn_3 to ptr_DataIn_3 ... " << endl;
 #endif
-    OCL_CHECK(err, ptr_DataIn_4 = (float*)q.enqueueMapBuffer(
-        buffer_DataIn_4, CL_TRUE, CL_MAP_WRITE, 0,
+    OCL_CHECK(err, ptr_DataIn_3 = (float*)q.enqueueMapBuffer(
+        buffer_DataIn_3, CL_TRUE, CL_MAP_WRITE, 0,
         size_kernel_expand_bytes, NULL, NULL, &err));
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_DataIn_4 ..." << endl;
+    cout << "HOST-Info: Generating buffer_DataIn_3 ..." << endl;
 #endif
-    KernelPrepare(ptr_DataIn_4, CHANNEL_IN, 1, 1);
+    KernelPrepare(ptr_DataIn_3, CHANNEL_IN, 1, 1);
 #ifdef ALL_MESSAGES
     cout << "           Generated " << KERNEL_EXPAND_SIZE << " values" << endl;
 #endif
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_se_result for RES Array ... "
-        << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_se_result(context, CL_MEM_WRITE_ONLY,
-        size_se_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_result to ptr_se_result ... " << endl;
-#endif
-    OCL_CHECK(err, ptr_se_result = (float*)q.enqueueMapBuffer(
-        buffer_se_result, CL_TRUE, CL_MAP_READ, 0, size_se_bytes,
-        NULL, NULL, &err));
-
-    cout << "HOST-Info: Generating buffer_se_result ..." << endl;
 
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Allocating Memory buffer_result for RES Array ... "
@@ -501,10 +446,7 @@ int main(int argc, char* argv[]) {
     cout << "HOST-Info: Migrating memory objects ..." << endl;
     // 考慮input量，若有多份則要改成{buffer_DataIn1, buffer_DataIn2...}
     OCL_CHECK(err,
-        err = q.enqueueMigrateMemObjects({ buffer_DataIn_2, buffer_DataIn_3, buffer_DataIn_4 },
-            0 /* 0 means from host*/));
-    OCL_CHECK(err,
-        err = q.enqueueMigrateMemObjects({ buffer_DataIn_1, buffer_se_result},
+        err = q.enqueueMigrateMemObjects({ buffer_DataIn_1, buffer_DataIn_2, buffer_DataIn_3 },
             0 /* 0 means from host*/));
 
     // ============================================================================
@@ -513,14 +455,10 @@ int main(int argc, char* argv[]) {
     // 				----------------------------------------------------
     // 				 Kernel	  		Argument Nb		Description
     // 				----------------------------------------------------
-    //  			 kernel_se      0				GlobMem_BUF_DataIn_2 
-    //  			 kernel_se     	1				GlobMem_BUF_DataIn_3
-    //               kernel_se      2               GlobMem_BUF DataIn_4
+    //  			 kernel_se      0				GlobMem_BUF_DataIn_1
+    //  			 kernel_se     	1				GlobMem_BUF_DataIn_2
+    //               kernel_se      2               GlobMem_BUF DataIn_3
     //               kernel_se      3               GlobMem_BUF_se_result
-    //   
-    //               kernel_mul     0               GlobMem_BUF_DataIn_1
-    //               kernel_mul     1               GlobMem_BUF_se_result
-    //               kernel_mul     2               GlobMem_BUF_result
     // 				----------------------------------------------------
     //         
     //         o) Submit Kernels for Execution
@@ -544,14 +482,11 @@ int main(int argc, char* argv[]) {
     cout << "HOST-Info: Setting Kernel arguments ..." << endl;
 #endif
     // set the kernel Arguments
-    OCL_CHECK(err, err = kernel_se.setArg(0, buffer_DataIn_2));
-    OCL_CHECK(err, err = kernel_se.setArg(1, buffer_DataIn_3));
-    OCL_CHECK(err, err = kernel_se.setArg(2, buffer_DataIn_4));
-    OCL_CHECK(err, err = kernel_se.setArg(3, buffer_se_result));  
-
-    OCL_CHECK(err, err = kernel_mul.setArg(0, buffer_DataIn_1));
-    OCL_CHECK(err, err = kernel_mul.setArg(1, buffer_se_result));
-    OCL_CHECK(err, err = kernel_mul.setArg(2, buffer_result));
+    int narg = 0;
+    OCL_CHECK(err, err = kernel_se.setArg(narg++, buffer_DataIn_1));
+    OCL_CHECK(err, err = kernel_se.setArg(narg++, buffer_DataIn_2));
+    OCL_CHECK(err, err = kernel_se.setArg(narg++, buffer_DataIn_3));
+    OCL_CHECK(err, err = kernel_se.setArg(narg++, buffer_result));  
     // ----------------------------------------
     // Step 5.2: Submit Kernels for Execution
     // ----------------------------------------
@@ -560,45 +495,6 @@ int main(int argc, char* argv[]) {
 #endif
     // Launch the Kernel
     OCL_CHECK(err, err = q.enqueueTask(kernel_se));
-
-    // The result of the previous kernel execution will need to be retrieved in
-    // order to view the results. This call will transfer the data from FPGA to
-    // source_results vector
-    OCL_CHECK(err, q.enqueueMigrateMemObjects({ buffer_se_result },
-        CL_MIGRATE_MEM_OBJECT_HOST));
-    OCL_CHECK(err, q.finish());
-
-    // ============================================================================
-    // Step 6: Processing Output Results
-    //         o) Check correctness of the output results
-    // ============================================================================
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: "
-        "============================================================= "
-        << endl;
-    cout << "HOST-Info: (Step 6-1) Compute SE                 "
-        "     "
-        << endl;
-    cout << "HOST-Info: "
-        "============================================================= "
-        << endl;
-#endif
-    cout << "kernel_se done" << endl;
-    for (int b = 0; b < BATCH_SIZE; b++) {
-        for (int c = 0; c < CHANNEL_IN; c++) {
-            cout << ptr_se_result[b * CHANNEL_IN + c] << " ";
-        }
-        cout << endl;
-    }
-
-    // ----------------------------------------
-      // Step 5.2: Submit Kernels for Execution
-      // ----------------------------------------
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Submitting Kernel kernel_mul ..." << endl;
-#endif
-    // Launch the Kernel
-    OCL_CHECK(err, err = q.enqueueTask(kernel_mul));
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
@@ -615,7 +511,7 @@ int main(int argc, char* argv[]) {
     cout << "HOST-Info: "
         "============================================================= "
         << endl;
-    cout << "HOST-Info: (Step 6-2) Check the Output Results                        "
+    cout << "HOST-Info: (Step 6) Check the Output Results                        "
         "     "
         << endl;
     cout << "HOST-Info: "
@@ -657,8 +553,6 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, ptr_DataIn_1));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_2, ptr_DataIn_2));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_3, ptr_DataIn_3));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_4, ptr_DataIn_4));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_se_result, ptr_se_result));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, ptr_result));
     OCL_CHECK(err, err = q.finish());
 
