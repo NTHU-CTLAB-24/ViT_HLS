@@ -1,4 +1,5 @@
 #include <math.h>
+#include <cmath>
 #include <iostream>
 
 // In and out parameters
@@ -39,6 +40,9 @@ int main()
     float Bias[CHANNEL_OUT];
 
     bool isBias = true;
+    bool isRelu = false;
+    bool isSilu = false;
+    bool isGelu = true;
 
 Initalize_In:
     for (int n = 0; n < BATCH_SIZE; n++)
@@ -82,7 +86,6 @@ Initalize_Kernel:
     }
 
 Initialize_Bias:
-
     if (isBias)
     {
         for (int c = 0; c < CHANNEL_OUT; c++)
@@ -189,8 +192,9 @@ CHANNEL:
             }
         }
     }
+
 std::cout << "afterBN array: " << std::endl;
-for (int n = 0; n < BATCH_SIZE; n++)
+    for (int n = 0; n < BATCH_SIZE; n++)
     {
         for (int c = 0; c < CHANNEL_OUT; c++)
         {
@@ -198,7 +202,6 @@ for (int n = 0; n < BATCH_SIZE; n++)
             {
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
-
                     if (w == WIDTH_OUT - 1)
                         std::cout << afterBN[n][c][h][w] << std::endl;
                     else
@@ -207,8 +210,10 @@ for (int n = 0; n < BATCH_SIZE; n++)
             }
         }
     }
+
 std::cout << std::endl;
-    
+Relu:
+if(isRelu){
 for (int n = 0; n < BATCH_SIZE; n++)
         {
     for (int c = 0; c < CHANNEL_OUT; c++)
@@ -225,6 +230,42 @@ for (int n = 0; n < BATCH_SIZE; n++)
             }
         }
     }
+}
+
+Silu:
+if(isSilu){
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+                    Out[n][c][h][w] = afterBN[n][c][h][w] * (1 / (1 + exp(-afterBN[n][c][h][w])));
+                }
+            }
+        }
+    }
+}
+
+Gelu:
+if(isGelu){
+     for (int n = 0; n < BATCH_SIZE; n++)
+    {
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+                    float x = afterBN[n][c][h][w];
+                    Out[n][c][h][w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / M_PI) * (x + 0.044715 * pow(x, 3))));
+                }
+            }
+        }
+    }
+}
 
     std::cout << "Output array: " << std::endl;
 
