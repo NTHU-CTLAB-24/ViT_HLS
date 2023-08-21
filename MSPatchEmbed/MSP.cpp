@@ -4,8 +4,8 @@
 #define BATCH_SIZE 1
 #define CHANNEL_IN 3
 #define CHANNEL_OUT 16
-#define HEIGHT_IN 224
-#define WIDTH_IN 224
+#define HEIGHT_IN 14
+#define WIDTH_IN 14
 
 #define KERNEL_SIZE 3
 #define PADDING 1
@@ -113,7 +113,7 @@ int main() {
 
 
 
-    //print
+    //print result[0, 0, :, :]
     for (int b = 0; b < 1; b++) {
         for (int c = 0; c < 1; c++) {
             for (int i = 0; i < HEIGHT_OUT; i++) {
