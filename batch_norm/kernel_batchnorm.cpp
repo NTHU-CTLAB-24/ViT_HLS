@@ -1,84 +1,3 @@
-/*******************************************************************************
-Vendor: Xilinx
-Associated Filename: vadd.h
-Purpose: VITIS vector addition
-
-*******************************************************************************
-Copyright (C) 2019 XILINX, Inc.
-
-This file contains confidential and proprietary information of Xilinx, Inc. and
-is protected under U.S. and international copyright and other intellectual
-property laws.
-
-DISCLAIMER
-This disclaimer is not a license and does not grant any rights to the materials
-distributed herewith. Except as otherwise provided in a valid license issued to
-you by Xilinx, and to the maximum extent permitted by applicable law:
-(1) THESE MATERIALS ARE MADE AVAILABLE "AS IS" AND WITH ALL FAULTS, AND XILINX
-HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY,
-INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT, OR
-FITNESS FOR ANY PARTICULAR PURPOSE; and (2) Xilinx shall not be liable (whether
-in contract or tort, including negligence, or under any other theory of
-liability) for any loss or damage of any kind or nature related to, arising under
-or in connection with these materials, including for any direct, or any indirect,
-special, incidental, or consequential loss or damage (including loss of data,
-profits, goodwill, or any type of loss or damage suffered as a result of any
-action brought by a third party) even if such damage or loss was reasonably
-foreseeable or Xilinx had been advised of the possibility of the same.
-
-CRITICAL APPLICATIONS
-Xilinx products are not designed or intended to be fail-safe, or for use in any
-application requiring fail-safe performance, such as life-support or safety
-devices or systems, Class III medical devices, nuclear facilities, applications
-related to the deployment of airbags, or any other applications that could lead
-to death, personal injury, or severe property or environmental damage
-(individually and collectively, "Critical Applications"). Customer assumes the
-sole risk and liability of any use of Xilinx products in Critical Applications,
-subject only to applicable laws and regulations governing limitations on product
-liability.
-
-THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS PART OF THIS FILE AT
-ALL TIMES.
-
-*******************************************************************************/
-
-/*******************************************************************************
-Description:
-
-    This example uses the load/compute/store coding style which is generally
-    the most efficient for implementing kernels using HLS. The load and store
-    functions are responsible for moving data in and out of the kernel as
-    efficiently as possible. The core functionality is decomposed across one
-    of more compute functions. Whenever possible, the compute function should
-    pass data through HLS streams and should contain a single set of nested loops.
-
-    HLS stream objects are used to pass data between producer and consumer
-    functions. Stream read and write operations have a blocking behavior which
-    allows consumers and producers to synchronize with each other automatically.
-
-    The dataflow pragma instructs the compiler to enable task-level pipelining.
-    This is required for to load/compute/store functions to execute in a parallel
-    and pipelined manner. Here the kernel loads, computes and stores NUM_WORDS integer values per
-    clock cycle and is implemented as below:
-                                       _____________
-                                      |             |<----- Input Vector 1 from Global Memory
-                                      |  load_input |       __
-                                      |_____________|----->|  |
-                                       _____________       |  | in1_stream
-Input Vector 2 from Global Memory --->|             |      |__|
-                               __     |  load_input |        |
-                              |  |<---|_____________|        |
-                   in2_stream |  |     _____________         |
-                              |__|--->|             |<--------
-                                      | compute_add |      __
-                                      |_____________|---->|  |
-                                       ______________     |  | out_stream
-                                      |              |<---|__|
-                                      | store_result |
-                                      |______________|-----> Output result to Global Memory
-
-*******************************************************************************/
-
 // Includes
 #include <hls_math.h>
 #include <hls_stream.h>
@@ -86,17 +5,43 @@ Input Vector 2 from Global Memory --->|             |      |__|
 
 // TRIPCOUNT identifier
 const int BATCH_SIZE = 2;
-const int CHANNEL_IN = 3;
-const int HEIGHT_IN = 16;
-const int WIDTH_IN = 16;
-const int DATA_SIZE = BATCH_SIZE * CHANNEL_IN * HEIGHT_IN * WIDTH_IN ;
-const float RUNNING_MEAN[CHANNEL_IN] = {8, 8, 8};
-const float RUNNING_VAR[CHANNEL_IN] = {21.5, 21.5, 21.5};
+const int CHANNEL_IN = 6;
+const int CHANNEL_OUT = 3;
+const int HEIGHT_IN = 8;
+const int WIDTH_IN = 8;
+
+// Convolution parameters
+const int KERNEL_SIZE = 3;
+const int PADDING = 0;
+const int STRIDE = 1;
+const int GROUP = 3;
+const bool isBias = true;
+const bool isSkip = false;
+const int NORM_LAYER = 0; // 0:batch_norm;
+const int ACT_LAYER = 0;  // 0: relu, 1: silu, 2:gelu
+const int DROP_PATH = 0;
+const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
+const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
+const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
+const int inGroupNums = CHANNEL_IN / GROUP;
+const int outGroupNums = CHANNEL_OUT / GROUP;
+const bool isRelu = false;
+const bool isSilu = false;
+const bool isGelu = true;
+
+// BatchNorm parameters
 const float EPS = 1e-5;
 const float GAMMA = 0.5;
 const float BETA = 0.2;
 
 // Coding Style: function宣告要為static，遇到for迴圈前可以取error_type的名稱(ex: mem_rd)
+// static void load_input(float* in, hls::stream<float>& inStream, int size) {
+// mem_rd:
+//     for (int i = 0; i < size; i++) {
+// #pragma HLS LOOP_TRIPCOUNT min = in_size max = in_size
+//         inStream << in[i];
+//     }
+// }
 
 static void load_input(float *buffer_DataIn_1,
                        float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN])
@@ -121,40 +66,231 @@ init_in:
     }
 }
 
-static void batch_norm(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN], float *buffer_result)
+static void compute_conv(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
+                         float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT])
 {
-        BATCH:
-        for (int n = 0; n < BATCH_SIZE; n++)
-        {
-#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-CHANNEL:
-    for (int c = 0; c < CHANNEL_IN; c++)
+    // The kernel is operating with vector of NUM_WORDS integers. The + operator performs
+    // an element-wise add, resulting in NUM_WORDS parallel additions.
+
+    float kernel[CHANNEL_OUT][KERNEL_CHANNEL][KERNEL_SIZE][KERNEL_SIZE];
+#pragma HLS array_partition variable = kernel complete dim = 1
+    float bias[CHANNEL_OUT];
+#pragma HLS array_partition variable = bias complete dim = 1
+
+init_kernel_bias:
+    for (int k = 0; k < CHANNEL_OUT; k++)
     {
-#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
-        HEIGHT:
-            for (int h = 0; h < HEIGHT_IN; h++)
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+        bias[k] = k + 10;
+        for (int l = 0; l < KERNEL_CHANNEL; l++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
+            for (int i = 0; i < KERNEL_SIZE; i++)
             {
-#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_IN max = HEIGHT_IN
-
-            WIDTH:
-                for (int w = 0; w < WIDTH_IN; w++)
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+                for (int j = 0; j < KERNEL_SIZE; j++)
                 {
-#pragma HLS LOOP_TRIPCOUNT min = WIDTH_IN max = WIDTH_IN
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
 
-                    buffer_result[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w] = ((in[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * GAMMA + BETA;
+                    kernel[k][l][i][j] = j + k;
+                }
+            }
+        }
+    }
+
+init_output:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                    afterConv[n][c][h][w] = 0;
+                }
+            }
+        }
+    }
+
+execute:
+Batch:
+    for (int batch = 0; batch < BATCH_SIZE; batch++)
+    {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+    Out_Row:
+        for (int row = 0; row < HEIGHT_OUT; row++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+        Out_Column:
+            for (int col = 0; col < WIDTH_OUT; col++)
+            {
+// #pragma HLS PIPELINE
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                int groupIndex = 0;
+            Output_Channel:
+                for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+                    int kernelChannelIdx = 0;
+                    // float sum = 0.0;
+                In_Channel:
+                    for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
+                    {
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
+                    Kernel_Row:
+                        for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
+                        {
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+                        Kernel_Col:
+                            for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
+                            {
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+                                afterConv[batch][out_ch][row][col] += in[batch][in_ch][row * STRIDE + kernel_row][col * STRIDE + kernel_col] * kernel[out_ch][kernelChannelIdx][kernel_row][kernel_col];
+                            }
+                        }
+                        kernelChannelIdx++;
+                        if ((in_ch + 1) % inGroupNums == 0)
+                            break;
+                    }
+                    if ((out_ch + 1) % outGroupNums == 0)
+                        groupIndex++;
+                    if (isBias)
+                        afterConv[batch][out_ch][row][col] += bias[out_ch];
+                    // buffer_result[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] = sum;
                 }
             }
         }
     }
 }
 
-// static void store_result(uint32_t *out, hls::stream<uint32_t> &out_stream, int size)
-// {
+static void compute_norm(float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
+                         float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
+                         float *buffer_result)
+{
+    const float RUNNING_MEAN[CHANNEL_OUT] = {82, 227, 444};
+#pragma HLS array_partition variable = RUNNING_MEAN complete dim = 1
+    const float RUNNING_VAR[CHANNEL_OUT] = {945, 3780, 8505};
+#pragma HLS array_partition variable = RUNNING_VAR complete dim = 1
+
+init_output:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                    afterNorm[n][c][h][w] = 0;
+                }
+            }
+        }
+    }
+
+Batch_norm:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                    afterNorm[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * GAMMA + BETA;
+                    // afterNorm[n][c][h][w] = sqrt(RUNNING_VAR[c] + EPS);
+                }
+            }
+        }
+    }
+
+store_result:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                    buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterNorm[n][c][h][w];
+                }
+            }
+        }
+    }
+}
+
+static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
+                        float *buffer_result)
+{
+    switch (ACT_LAYER)
+    {
+    case 0:
+        for (int n = 0; n < BATCH_SIZE; n++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+            for (int c = 0; c < CHANNEL_OUT; c++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+
+                for (int h = 0; h < HEIGHT_OUT; h++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                        if (afterNorm[n][c][h][w] < 0)
+                            buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;
+                        else
+                            buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterNorm[n][c][h][w];
+                    }
+                }
+            }
+        }
+    case 1:
+        break;
+    case 2:
+        break;
+    default:
+        break;
+    }
+}
+
+// static void store_result(uint32_t* out, hls::stream<uint32_t>& out_stream, int size) {
 // mem_wr:
-//     for (int i = 0; i < size; i++)
-//     {
+//     for (int i = 0; i < size; i++) {
 // #pragma HLS LOOP_TRIPCOUNT min = c_size max = c_size
 //         out[i] = out_stream.read();
+//     }
+// }
+
+// static void store_result(float *buffer_result, float out[HEIGHT_OUT][WIDTH_OUT])
+// {
+//     for (int i = 0; i < HEIGHT_OUT; i++)
+//     {
+// #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+//         for (int j = 0; j < WIDTH_OUT; j++)
+//         {
+// #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+//             buffer_result[i * WIDTH_OUT + j] = out[i][j];
+//         }
 //     }
 // }
 
@@ -166,23 +302,36 @@ extern "C"
 
         Arguments:
             in1  (input)  --> Input vector 1
+            in2  (input)  --> Input vector 2
             out  (output) --> Output vector
+            size (input)  --> Number of elements in vector
     */
 
-    void krnl_batchnorm(float *buffer_DataIn_1, float *buffer_result)
+    void kernel_conv_norm_act(float *buffer_DataIn_1,
+                              float *buffer_result)
     {
 #pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0
 #pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0
 
-#pragma HLS dataflow
+        // static hls::stream<float> in_stream("input_stream");
+        // static hls::stream<float> kernel_stream("kernel_stream");
+        // static hls::stream<float> out_stream("output_stream");
+
+// #pragma HLS dataflow
         // dataflow pragma instruct compiler to run following three APIs in parallel
+        // load_input(in1, in1_stream, size);
+        // load_input(in2, in2_stream, size);
         float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
 #pragma HLS array_partition variable = in complete dim = 1
-        //         float out[BATCH_SIZE][HEIGHT_IN][WIDTH_IN][CHANNEL_IN];
-        // #pragma HLS array_partition variable = out complete dim = 1
+        float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
+#pragma HLS array_partition variable = afterConv complete dim = 1
+        float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
+#pragma HLS array_partition variable = afterNorm complete dim = 1
         load_input(buffer_DataIn_1, in);
-        batch_norm(in, buffer_result);
-        // compute_add(in1_stream, in2_stream, out_stream, size);
+        compute_conv(in, afterConv);
+        compute_norm(afterConv, afterNorm, buffer_result);
+        // compute_act(afterNorm, buffer_result);
+        // store_result(buffer_result, out);
         // store_result(out, out_stream, size);
     }
 }

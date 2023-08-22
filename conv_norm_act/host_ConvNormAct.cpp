@@ -26,7 +26,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ** HOST Code
 *******************************************************************************/
 
-#include "host_conv.hpp"
+#include "host_ConvNormAct.hpp"
 #include <cstring>
 #include <fcntl.h>
 #include <fstream>
@@ -53,6 +53,7 @@ using namespace std;
 // 可以在這裡塞一點需要用到的常數
 static const int BATCH_SIZE = 2;
 static const int CHANNEL_IN = 6;
+static const int CHANNEL_OUT = 3;
 static const int HEIGHT_IN = 8;
 static const int WIDTH_IN = 8;
 
@@ -60,29 +61,28 @@ static const int WIDTH_IN = 8;
 static const int KERNEL_SIZE = 3;
 static const int PADDING = 0;
 static const int STRIDE = 1;
-static const int GROUP = 3
-static const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
-static const int inGroupNums = CHANNEL_IN / GROUP;
-static const int outGroupNums = CHANNEL_OUT / GROUP;
-static const int CHANNEL_OUT = 3;
-static const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-static const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-
-// BatchNorm parameters
-static const int EPS = 1e-5;
-static const int GAMMA = 0.5;
-static const int BETA = 0.2
-static const float RUNNING_MEAN[CHANNEL_IN] = {82, 227, 444};
-static const float RUNNING_VAR[CHANNEL_IN] = {945, 3780, 8505}; 
-
-static const int IN_SIZE = BATCH_SIZE * HEIGHT_IN * WIDTH_IN * CHANNEL_IN;
-static const int OUT_SIZE = BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT * CHANNEL_OUT;
-
+static const int GROUP = 3;
 static const bool isBias = true;
 static const bool isSkip = false;
 static const int NORM_LAYER = 0; // 0:batch_norm;
 static const int ACT_LAYER = 0; // 0: relu, 1: silu, 2:gelu
 static const int DROP_PATH = 0;
+static const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
+static const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
+static const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
+static const int inGroupNums = CHANNEL_IN / GROUP;
+static const int outGroupNums = CHANNEL_OUT / GROUP;
+
+// BatchNorm parameters
+static const float EPS = 1e-6;
+static const float GAMMA = 0.5;
+static const float BETA = 0.2;
+static const float RUNNING_MEAN[CHANNEL_IN] = {82, 227, 444};
+static const float RUNNING_VAR[CHANNEL_IN] = {945, 3780, 8505}; 
+
+// In and out size
+static const int IN_SIZE = BATCH_SIZE * HEIGHT_IN * WIDTH_IN * CHANNEL_IN;
+static const int OUT_SIZE = BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT * CHANNEL_OUT;
 
 // Compute the size of array in bytes
 size_t size_in_bytes = IN_SIZE * sizeof(float);
@@ -297,11 +297,11 @@ int main(int argc, char *argv[])
     // -------------------------------------------------------------
     // Step 3.3: Create a Kernels
     // -------------------------------------------------------------
-    cl::Kernel kernel_conv;
+    cl::Kernel kernel_conv_norm_act;
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Creating a Kernel: kernel_conv ..." << endl;
+    cout << "HOST-Info: Creating a Kernel: kernel_conv_norm_act ..." << endl;
 #endif
-    OCL_CHECK(err, kernel_conv = cl::Kernel(program, "kernel_conv", &err));
+    OCL_CHECK(err, kernel_conv_norm_act = cl::Kernel(program, "kernel_conv_norm_act", &err));
 
 // ================================================================
 // Step 4: Prepare Data to Run Kernel
@@ -403,10 +403,10 @@ int main(int argc, char *argv[])
 // 				----------------------------------------------------
 // 				 Kernel	  		Argument Nb		Description
 // 				----------------------------------------------------
-//  			 kernel_conv	    0				GlobMem_BUF_DataIn_1
-//  			 kernel_conv	    1				GlobMem_BUF_DataIn_2
-//  			 kernel_conv	    2				GlobMem_BUF_RES
-//  			 kernel_conv	    3				CONST_arg
+//  			 kernel_conv_norm_act	    0				GlobMem_BUF_DataIn_1
+//  			 kernel_conv_norm_act	    1				GlobMem_BUF_DataIn_2
+//  			 kernel_conv_norm_act	    2				GlobMem_BUF_RES
+//  			 kernel_conv_norm_act	    3	K-A4u3StpzbW			CONST_arg
 // 				----------------------------------------------------
 //
 //         o) Submit Kernels for Execution
@@ -425,24 +425,17 @@ int main(int argc, char *argv[])
 #endif
     // set the kernel Arguments
     int narg = 0;
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, buffer_DataIn_1));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, buffer_result));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, STRIDE));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, GROUP));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, isBias));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, isSkip));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, NORM_LAYER));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, ACT_LAYER));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, DROP_PATH));
-
+    OCL_CHECK(err, err = kernel_conv_norm_act.setArg(narg++, buffer_DataIn_1));
+    OCL_CHECK(err, err = kernel_conv_norm_act.setArg(narg++, buffer_result));
+    
 // ----------------------------------------
 // Step 5.2: Submit Kernels for Execution
 // ----------------------------------------
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Submitting Kernel kernel_conv ..." << endl;
+    cout << "HOST-Info: Submitting Kernel kernel_conv_norm_act ..." << endl;
 #endif
     // Launch the Kernel
-    OCL_CHECK(err, err = q.enqueueTask(kernel_conv));
+    OCL_CHECK(err, err = q.enqueueTask(kernel_conv_norm_act));
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
@@ -503,7 +496,7 @@ int main(int argc, char *argv[])
     // int Nb_Of_Memory_Tranfers = Nb_Of_Mem_Events;
 
     // string list_of_kernel_names[Nb_Of_Kernels];
-    // list_of_kernel_names[0]="kernel_conv";
+    // list_of_kernel_names[0]="kernel_conv_norm_act";
     // run_custom_profiling (Nb_Of_Kernels,Nb_Of_Memory_Tranfers,K_exe_event,Mem_op_event,list_of_kernel_names);
 
     // ============================================================================
@@ -511,7 +504,6 @@ int main(int argc, char *argv[])
     // ============================================================================
 
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, In));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_2, Kernel));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, Out));
     OCL_CHECK(err, err = q.finish());
 

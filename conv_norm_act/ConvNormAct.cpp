@@ -1,6 +1,6 @@
-#include <math.h>
 #include <cmath>
 #include <iostream>
+#include <math.h>
 
 // In and out parameters
 #define BATCH_SIZE 2
@@ -26,15 +26,23 @@ int main()
     const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
     const int inGroupNums = CHANNEL_IN / GROUP;
     const int outGroupNums = CHANNEL_OUT / GROUP;
-    std::cout << "Check output size: " << HEIGHT_OUT << " * " << WIDTH_OUT << std::endl << std::endl;;
+    std::cout << "Check output size: " << HEIGHT_OUT << " * " << WIDTH_OUT << std::endl
+              << std::endl;
+    ;
     // For BatchNorm
-    const float RUNNING_MEAN[CHANNEL_IN] = {82, 227, 444};
-    const float RUNNING_VAR[CHANNEL_IN] = {945, 3780, 8505}; 
+    const float RUNNING_MEAN[CHANNEL_OUT] = {82, 227, 444};
+    const float RUNNING_VAR[CHANNEL_OUT] = {945, 3780, 8505};
+
+    // For LayerNorm
+    float weight[BATCH_SIZE][HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+    float bias[BATCH_SIZE][HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+    float mean[BATCH_SIZE][HEIGHT_OUT];
+    float var[BATCH_SIZE][HEIGHT_OUT];
 
     // declare array
     float In[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
     float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
-    float afterBN[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
+    float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
     float Out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
     float Kernel[CHANNEL_OUT][KERNEL_CHANNEL][KERNEL_SIZE][KERNEL_SIZE];
     float Bias[CHANNEL_OUT];
@@ -106,13 +114,12 @@ Intialize_Out:
                 {
 
                     afterConv[n][c][h][w] = 0;
-                    afterBN[n][c][h][w] = 0;
+                    afterNorm[n][c][h][w] = 0;
                     Out[n][c][h][w] = 0;
                 }
             }
         }
     }
-
 
 Convolution:
 Batch:
@@ -154,8 +161,8 @@ Batch:
         }
     }
 
-std::cout << "afterConv array: " << std::endl;
-for (int n = 0; n < BATCH_SIZE; n++)
+    std::cout << "afterConv array: " << std::endl;
+    for (int n = 0; n < BATCH_SIZE; n++)
     {
         for (int c = 0; c < CHANNEL_OUT; c++)
         {
@@ -172,28 +179,52 @@ for (int n = 0; n < BATCH_SIZE; n++)
             }
         }
     }
-std::cout << std::endl;
+    std::cout << std::endl;
 
 Batch_Norm:
 BATCH:
-        for (int n = 0; n < BATCH_SIZE; n++)
-        {
-CHANNEL:
-    for (int c = 0; c < CHANNEL_IN; c++)
+    for (int n = 0; n < BATCH_SIZE; n++)
     {
+    CHANNEL:
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
         HEIGHT:
-            for (int h = 0; h < HEIGHT_IN; h++)
+            for (int h = 0; h < HEIGHT_OUT; h++)
             {
             WIDTH:
-                for (int w = 0; w < WIDTH_IN; w++)
+                for (int w = 0; w < WIDTH_OUT; w++)
                 {
-                    afterBN[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * GAMMA + BETA;
+                    afterNorm[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * GAMMA + BETA;
                 }
             }
         }
     }
 
-std::cout << "afterBN array: " << std::endl;
+Layer_Norm:
+BATCH:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+        float sum = 0;
+        float squareSum = 0;
+    CHANNEL:
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+        HEIGHT:
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+            WIDTH:
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+                    sum += afterConv[n][c][h][w];
+                    squareSum += afterConv[n][c][h][w] * afterConv[n][c][h][w];
+
+                }
+            }
+        }
+        
+    }
+
+    std::cout << "afterNorm array: " << std::endl;
     for (int n = 0; n < BATCH_SIZE; n++)
     {
         for (int c = 0; c < CHANNEL_OUT; c++)
@@ -203,69 +234,72 @@ std::cout << "afterBN array: " << std::endl;
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
                     if (w == WIDTH_OUT - 1)
-                        std::cout << afterBN[n][c][h][w] << std::endl;
+                        std::cout << afterNorm[n][c][h][w] << std::endl;
                     else
-                        std::cout << afterBN[n][c][h][w] << " ";
+                        std::cout << afterNorm[n][c][h][w] << " ";
                 }
             }
         }
     }
 
-std::cout << std::endl;
+    std::cout << std::endl;
 Relu:
-if(isRelu){
-for (int n = 0; n < BATCH_SIZE; n++)
-        {
-    for (int c = 0; c < CHANNEL_OUT; c++)
+    if (isRelu)
     {
-            for (int h = 0; h < HEIGHT_OUT; h++)
+        for (int n = 0; n < BATCH_SIZE; n++)
+        {
+            for (int c = 0; c < CHANNEL_OUT; c++)
             {
-                for (int w = 0; w < WIDTH_OUT; w++)
+                for (int h = 0; h < HEIGHT_OUT; h++)
                 {
-                    if(afterBN[n][c][h][w] < 0)
-                        Out[n][c][h][w] = 0;
-                    else
-                        Out[n][c][h][w] = afterBN[n][c][h][w];
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+                        if (afterNorm[n][c][h][w] < 0)
+                            Out[n][c][h][w] = 0;
+                        else
+                            Out[n][c][h][w] = afterNorm[n][c][h][w];
+                    }
                 }
             }
         }
     }
-}
 
 Silu:
-if(isSilu){
-    for (int n = 0; n < BATCH_SIZE; n++)
+    if (isSilu)
     {
-        for (int c = 0; c < CHANNEL_OUT; c++)
+        for (int n = 0; n < BATCH_SIZE; n++)
         {
-            for (int h = 0; h < HEIGHT_OUT; h++)
+            for (int c = 0; c < CHANNEL_OUT; c++)
             {
-                for (int w = 0; w < WIDTH_OUT; w++)
+                for (int h = 0; h < HEIGHT_OUT; h++)
                 {
-                    Out[n][c][h][w] = afterBN[n][c][h][w] * (1 / (1 + exp(-afterBN[n][c][h][w])));
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+                        Out[n][c][h][w] = afterNorm[n][c][h][w] * (1 / (1 + exp(-afterNorm[n][c][h][w])));
+                    }
                 }
             }
         }
     }
-}
 
 Gelu:
-if(isGelu){
-     for (int n = 0; n < BATCH_SIZE; n++)
+    if (isGelu)
     {
-        for (int c = 0; c < CHANNEL_OUT; c++)
+        for (int n = 0; n < BATCH_SIZE; n++)
         {
-            for (int h = 0; h < HEIGHT_OUT; h++)
+            for (int c = 0; c < CHANNEL_OUT; c++)
             {
-                for (int w = 0; w < WIDTH_OUT; w++)
+                for (int h = 0; h < HEIGHT_OUT; h++)
                 {
-                    float x = afterBN[n][c][h][w];
-                    Out[n][c][h][w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / M_PI) * (x + 0.044715 * pow(x, 3))));
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+                        float x = afterNorm[n][c][h][w];
+                        Out[n][c][h][w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / M_PI) * (x + 0.044715 * pow(x, 3))));
+                    }
                 }
             }
         }
     }
-}
 
     std::cout << "Output array: " << std::endl;
 
