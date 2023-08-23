@@ -77,35 +77,33 @@ int main() {
         }
     }
 
-    //BatchNorm
-    float channel_mean[CHANNEL_OUT];
-    float channel_var[CHANNEL_OUT];
-
-    float sum, sum2;
-    float val;
-    for (int c = 0; c < CHANNEL_OUT; c++) {
-        sum = 0;
-        sum2 = 0;
-        for (int b = 0; b < BATCH_SIZE; b++) {
-            for (int i = 0; i < HEIGHT_OUT; i++) {
-                for (int j = 0; j < WIDTH_OUT; j++) {
-                    val = Out[b][c][i][j];
-                    sum += val;
-                    sum2 += val * val;
-                }
-            }
+    //check conv
+    //print [0, 0, :, :]
+    std::cout << "after conv" << std::endl;
+    for (int i=0; i<HEIGHT_OUT; i++) {
+        for (int j=0; j<WIDTH_OUT; j++) {
+            std::cout << Out[0][0][i][j] << " ";
         }
-        float avg = sum / (BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT);
-        float avg2 = sum2 / (BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT);
-        channel_mean[c] = avg;
-        channel_var[c] = avg2 - avg * avg; //var(x) = E[x^2] - E[x]^2 
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+
+    //BatchNorm
+    float running_mean[CHANNEL_OUT];
+    float running_var[CHANNEL_OUT];
+    float gamma = 0.5;
+    float beta = 0.2;
+
+    for (int c=0; c<CHANNEL_OUT; c++) {
+        running_mean[c] = 8;
+        running_var[c] = 21.5;
     }
 
     for (int b = 0; b < BATCH_SIZE; b++) {
         for (int c = 0; c < CHANNEL_OUT; c++) {
             for (int i = 0; i < HEIGHT_OUT; i++) {
                 for (int j = 0; j < WIDTH_OUT; j++) {
-                    Out[b][c][i][j] = (Out[b][c][i][j] - channel_mean[c]) / sqrt(channel_var[c] + 1e-5);
+                    Out[b][c][i][j] = (Out[b][c][i][j] - running_mean[c]) / sqrt(running_var[c] + 1e-5) * gamma + beta;
                 }
             }
         }
