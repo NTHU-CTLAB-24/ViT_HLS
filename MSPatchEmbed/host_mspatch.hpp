@@ -93,6 +93,18 @@ void KernelPrepare(float* Array, int channel_out, int kernel_size){
     }
 }
 
+void NormParameter(float* Array, int channel_out) {
+    //running_mean * channel_out + running_var * channel_out + gamma + beta
+    for (int i=0; i<channel_out; i++) {
+        Array[i] = 8;
+    }
+    for (int i=channel_out; i<channel_out*2; i++) {
+        Array[i] = 21.5;
+    }
+    Array[channel_out*2] = 0.5;
+    Array[channel_out*2 + 1] = 0.2;
+}
+
 void run_custom_profiling(int Nb_Of_Kernels, int Nb_Of_Memory_Tranfers, cl_event* K_exe_event, cl_event* Mem_op_event, string* list_of_kernel_names) {
     typedef struct {
         string    action_type; // kernel, "memory (H->G)", "memory (G->H)"
