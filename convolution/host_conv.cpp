@@ -52,22 +52,29 @@ using namespace std;
 
 // 可以在這裡塞一點需要用到的常數
 static const int BATCH_SIZE = 2;
-static const int HEIGHT_IN = 16;
-static const int WIDTH_IN = 16;
-static const int CHANNEL_IN = 3;
+static const int CHANNEL_IN = 6;
+static const int CHANNEL_OUT = 3;
+static const int HEIGHT_IN = 8;
+static const int WIDTH_IN = 8;
+
+// Convolution parameters
 static const int KERNEL_SIZE = 3;
 static const int PADDING = 0;
 static const int STRIDE = 1;
+static const int GROUP = 3;
+static const bool isBias = true;
 static const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 static const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-static const int CHANNEL_OUT = 2;
+static const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
+static const int inGroupNums = CHANNEL_IN / GROUP;
+static const int outGroupNums = CHANNEL_OUT / GROUP;
+
 static const int IN_SIZE = BATCH_SIZE * HEIGHT_IN * WIDTH_IN * CHANNEL_IN;
 static const int OUT_SIZE = BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT * CHANNEL_OUT;
 
 // Compute the size of array in bytes
 size_t size_in_bytes = IN_SIZE * sizeof(float);
 size_t size_out_bytes = OUT_SIZE * sizeof(float);
-size_t size_kernel_bytes = KERNEL_SIZE * KERNEL_SIZE * CHANNEL_OUT * sizeof(float);
 
 static const string error_message =
     "Error: Result mismatch:\n"
@@ -199,6 +206,9 @@ int main(int argc, char *argv[])
     {
         device = devices[i];
         string deviceName = device.getInfo<CL_DEVICE_NAME>();
+#ifdef ALL_MESSAGES
+       cout << "HOST-Info: Selected Device[" << i << "] : " << deviceName << endl;
+#endif        
         if (deviceName == Target_Device_Name)
         {
             found_target_device = true;
@@ -277,6 +287,7 @@ int main(int argc, char *argv[])
     // -------------------------------------------------------------
     // Step 3.3: Create a Kernels
     // -------------------------------------------------------------
+    // TODO: use array to store same kernel
     cl::Kernel kernel_conv;
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Creating a Kernel: kernel_conv ..." << endl;
@@ -304,16 +315,17 @@ int main(int argc, char *argv[])
     //           Generate data for DataIn_2 array by using ptr_DataIn_2
     //           Allocate Memory to store the results: RES array
     // ------------------------------------------------------------------
+    /* TODO:
+     * use array to store pointer
+     * remember to call cl::buffer's constructor in following way
+     */
     /*定義Input和output型別*/
-    // int *ptr_DataIn_1;
-    // int *ptr_DataIn_2;
-    // int *ptr_result;
     float *ptr_DataIn_1;
-    float *ptr_DataIn_2;
     float *ptr_result;
 // These commands will allocate memory on the .Device
 // The cl::Buffer objects can be used to reference the memory locations on the device.
 /* 以下區域為input data傳入host的code，只需要複製並且更改參數和型別即可(size_in_bytes(考慮input大小(byte)), ptr_DataIn_1, DATA_SIZE(考慮input大小))*/
+// TODO:Init input data buffer
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Allocating Memory buffer_DataIn_1 for DataIn_1 ... " << endl;
 #endif
@@ -346,35 +358,7 @@ int main(int argc, char *argv[])
     cout << "           Generated " << IN_SIZE << " values" << endl;
 #endif
 
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_2 for DataIn_2 ... " << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY, size_kernel_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_2 to ptr_DataIn_2 ... " << endl;
-#endif
-    OCL_CHECK(err,
-              ptr_DataIn_2 = (float *)q.enqueueMapBuffer(buffer_DataIn_2, CL_TRUE, CL_MAP_WRITE, 0, size_kernel_bytes, NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_DataIn_2 ..." << endl;
-#endif
-    // Call dataPrepare to init data
-    // dataPrepare(ptr_DataIn_2, DATA_SIZE);
-    for (int k = 0; k < CHANNEL_OUT; k++)
-    {
-        for (int i = 0; i < KERNEL_SIZE; i++)
-        {
-            for (int j = 0; j < KERNEL_SIZE; j++)
-            {
-                ptr_DataIn_2[k * KERNEL_SIZE * KERNEL_SIZE + i * KERNEL_SIZE + j] = j + k;
-            }
-        }
-    }
-
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << KERNEL_SIZE * KERNEL_SIZE * CHANNEL_OUT << " values" << endl;
-#endif
-// Init output data buffer
+// TODO: Init output data buffer
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Allocating Memory buffer_result for RES Array ... " << endl;
 #endif
@@ -401,10 +385,11 @@ int main(int argc, char *argv[])
         }
     }
 
+    // TODO: enqueue migrate memory objects
     // Data will be migrated to kernel space
     cout << "HOST-Info: Migrating memory objects ..." << endl;
     // 考慮input量，若有多份則要改成{buffer_DataIn1, buffer_DataIn2...}
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_DataIn_1, buffer_DataIn_2}, 0 /* 0 means from host*/));
+    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_DataIn_1}, 0 /* 0 means from host*/));
 
 // ============================================================================
 // Step 5: Set Kernel Arguments and Run the Application
@@ -432,10 +417,10 @@ int main(int argc, char *argv[])
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Setting Kernel arguments ..." << endl;
 #endif
+    // TODO: set the array of pointer
     // set the kernel Arguments
     int narg = 0;
     OCL_CHECK(err, err = kernel_conv.setArg(narg++, buffer_DataIn_1));
-    OCL_CHECK(err, err = kernel_conv.setArg(narg++, buffer_DataIn_2));
     OCL_CHECK(err, err = kernel_conv.setArg(narg++, buffer_result));
     // OCL_CHECK(err, err = kernel_conv.setArg(narg++, DATA_SIZE));
 
@@ -445,12 +430,14 @@ int main(int argc, char *argv[])
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Submitting Kernel kernel_conv ..." << endl;
 #endif
+    // TODO: launch the kernel
     // Launch the Kernel
     OCL_CHECK(err, err = q.enqueueTask(kernel_conv));
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
     // source_results vector
+    // TODO: collect the array of buffer
     OCL_CHECK(err, q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
     OCL_CHECK(err, q.finish());
 
@@ -463,7 +450,7 @@ int main(int argc, char *argv[])
     cout << "HOST-Info: (Step 6) Check the Output Results                             " << endl;
     cout << "HOST-Info: ============================================================= " << endl;
 #endif
-
+    // TODO: remember your data shape
     // ------------------------------------------------------
     // Step 6.1: Check correctness of the output results
     // ------------------------------------------------------
@@ -513,9 +500,8 @@ int main(int argc, char *argv[])
     // ============================================================================
     // Step 8: Release Allocated Resources
     // ============================================================================
-
+    // TODO: free all the resources
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, ptr_DataIn_1));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_2, ptr_DataIn_2));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, ptr_result));
     OCL_CHECK(err, err = q.finish());
 
