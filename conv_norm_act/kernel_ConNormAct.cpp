@@ -182,8 +182,10 @@ init_output:
 #pragma HLS array_partition variable = RUNNING_MEAN complete dim = 1
         const float RUNNING_VAR[CHANNEL_OUT] = {945, 3780, 8505};
 #pragma HLS array_partition variable = RUNNING_VAR complete dim = 1
-        const float GAMMA = 0.5;
-        const float BETA = 0.2;
+        const float weight[CHANNEL_OUT] = {0.5, 0.5, 0.5};
+#pragma HLS array_partition variable = weight complete dim = 1
+        const float bias[CHANNEL_OUT] = {0.2, 0.2, 0.2};
+#pragma HLS array_partition variable = bias complete dim = 1
 
     Batch_norm:
         for (int n = 0; n < BATCH_SIZE; n++)
@@ -198,7 +200,7 @@ init_output:
                     for (int w = 0; w < WIDTH_OUT; w++)
                     {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-                        afterNorm[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * GAMMA + BETA;
+                        afterNorm[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * weight[c] + bias[c];
                     }
                 }
             }
@@ -208,10 +210,15 @@ init_output:
 
     case 1: {
         float ln_in[BATCH_SIZE][HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+#pragma HLS array_partition variable = ln_in complete dim = 1
         float weight[HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+#pragma HLS array_partition variable = weight complete dim = 1
         float bias[HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+#pragma HLS array_partition variable = bias complete dim = 1
         float mean[BATCH_SIZE];
+#pragma HLS array_partition variable = mean complete dim = 1
         float var[BATCH_SIZE];
+#pragma HLS array_partition variable = var complete dim = 1
 
     Reshape:
         for (int n = 0; n < BATCH_SIZE; n++)
