@@ -4,53 +4,68 @@
 
 // In and out parameters
 #define BATCH_SIZE 2
-#define CHANNEL_IN 6
+#define CHANNEL_IN 3
 #define CHANNEL_OUT 3
-#define HEIGHT_IN 8
-#define WIDTH_IN 8
+#define HEIGHT_IN 4
+#define WIDTH_IN 4
 // Convolution parameters
 #define KERNEL_SIZE 3
-#define PADDING 0
 #define STRIDE 1
-#define GROUP 3
-// BatchNorm parameters
+#define GROUP 1
+// Normalization parameters
 #define EPS 1e-5
-#define GAMMA 0.5
-#define BETA 0.2
 
 int main()
 {
-    // For convolution
+    // Padding and size
+    const int PADDING = ceil((float)(KERNEL_SIZE - STRIDE) / 2);
+    const int new_height_in = HEIGHT_IN + 2 * PADDING;
+    const int new_width_in = WIDTH_IN + 2 * PADDING;
     const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
     const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
+
+    // For convolution
     const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
     const int inGroupNums = CHANNEL_IN / GROUP;
     const int outGroupNums = CHANNEL_OUT / GROUP;
-    std::cout << "Check output size: " << HEIGHT_OUT << " * " << WIDTH_OUT << std::endl
-              << std::endl;
-    ;
+
     // For BatchNorm
     const float RUNNING_MEAN[CHANNEL_OUT] = {82, 227, 444};
     const float RUNNING_VAR[CHANNEL_OUT] = {945, 3780, 8505};
+    const float gamma[CHANNEL_OUT] = {0.5, 0.5, 0.5};
+    const float beta[CHANNEL_OUT] = {0.2, 0.2, 0.2};
 
     // For LayerNorm
-    float weight[BATCH_SIZE][HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
-    float bias[BATCH_SIZE][HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
-    float mean[BATCH_SIZE][HEIGHT_OUT];
-    float var[BATCH_SIZE][HEIGHT_OUT];
+    int total = HEIGHT_OUT * WIDTH_OUT * CHANNEL_OUT;
+    float ln_in[BATCH_SIZE][HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+    float weight[HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+    float bias[HEIGHT_OUT][WIDTH_OUT][CHANNEL_OUT];
+    float mean[HEIGHT_OUT];
+    float var[HEIGHT_OUT];
 
     // declare array
     float In[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
+    float in_pad[BATCH_SIZE][CHANNEL_IN][new_height_in][new_width_in];
     float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
     float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
+    float afterAct[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
     float Out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
     float Kernel[CHANNEL_OUT][KERNEL_CHANNEL][KERNEL_SIZE][KERNEL_SIZE];
     float Bias[CHANNEL_OUT];
 
     bool isBias = true;
-    bool isRelu = false;
+    bool isBN = true;
+    bool isLN = false;
+    bool isRelu = true;
     bool isSilu = false;
-    bool isGelu = true;
+    bool isGelu = false;
+    bool isSkip = true;
+
+    std::cout << "Check output shape: ("
+              << BATCH_SIZE << ", "
+              << CHANNEL_OUT << ", "
+              << HEIGHT_OUT << ", "
+              << WIDTH_OUT << ")" << std::endl;
 
 Initalize_In:
     for (int n = 0; n < BATCH_SIZE; n++)
@@ -115,7 +130,31 @@ Intialize_Out:
 
                     afterConv[n][c][h][w] = 0;
                     afterNorm[n][c][h][w] = 0;
+                    afterAct[n][c][h][w] = 0;
                     Out[n][c][h][w] = 0;
+                }
+            }
+        }
+    }
+
+Padding:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+        for (int c = 0; c < CHANNEL_IN; c++)
+        {
+            for (int h = 0; h < new_height_in; h++)
+            {
+                for (int w = 0; w < new_width_in; w++)
+                {
+
+                    if (h < PADDING || h >= HEIGHT_IN + PADDING || w < PADDING || w >= WIDTH_IN + PADDING)
+                        in_pad[n][c][h][w] = 0;
+                    else
+                        in_pad[n][c][h][w] = In[n][c][h - PADDING][w - PADDING];
+                    // if (w == new_width_in - 1)
+                    //     std::cout << in_pad[n][c][h][w] << std::endl;
+                    // else
+                    //     std::cout << in_pad[n][c][h][w] << " ";
                 }
             }
         }
@@ -145,7 +184,7 @@ Batch:
                         Kernel_Col:
                             for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
                             {
-                                afterConv[batch][ch_out][row][col] += In[batch][ch_in][row * STRIDE + kernel_row][col * STRIDE + kernel_col] * Kernel[ch_out][kernelChannelIdx][kernel_row][kernel_col];
+                                afterConv[batch][ch_out][row][col] += in_pad[batch][ch_in][row * STRIDE + kernel_row][col * STRIDE + kernel_col] * Kernel[ch_out][kernelChannelIdx][kernel_row][kernel_col];
                             }
                         }
                         kernelChannelIdx++;
@@ -162,6 +201,7 @@ Batch:
     }
 
     std::cout << "afterConv array: " << std::endl;
+afterConv:
     for (int n = 0; n < BATCH_SIZE; n++)
     {
         for (int c = 0; c < CHANNEL_OUT; c++)
@@ -170,61 +210,96 @@ Batch:
             {
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
-
                     if (w == WIDTH_OUT - 1)
                         std::cout << afterConv[n][c][h][w] << std::endl;
                     else
                         std::cout << afterConv[n][c][h][w] << " ";
                 }
             }
+            break;
         }
+        break;
     }
     std::cout << std::endl;
 
-Batch_Norm:
-BATCH:
-    for (int n = 0; n < BATCH_SIZE; n++)
+    if (isBN)
     {
-    CHANNEL:
-        for (int c = 0; c < CHANNEL_OUT; c++)
+    Batch_Norm:
+    BATCH:
+        for (int n = 0; n < BATCH_SIZE; n++)
         {
-        HEIGHT:
-            for (int h = 0; h < HEIGHT_OUT; h++)
+        CHANNEL:
+            for (int c = 0; c < CHANNEL_OUT; c++)
             {
-            WIDTH:
-                for (int w = 0; w < WIDTH_OUT; w++)
+            HEIGHT:
+                for (int h = 0; h < HEIGHT_OUT; h++)
                 {
-                    afterNorm[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * GAMMA + BETA;
+                WIDTH:
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+                        afterNorm[n][c][h][w] = ((afterConv[n][c][h][w] - RUNNING_MEAN[c]) / sqrt(RUNNING_VAR[c] + EPS)) * gamma[c] + beta[c];
+                    }
                 }
             }
         }
     }
 
-Layer_Norm:
-BATCH:
-    for (int n = 0; n < BATCH_SIZE; n++)
-    {
-        float sum = 0;
-        float squareSum = 0;
-    CHANNEL:
-        for (int c = 0; c < CHANNEL_OUT; c++)
+    if(isLN){
+Reshape:
+        for (int n = 0; n < BATCH_SIZE; n++)
         {
-        HEIGHT:
-            for (int h = 0; h < HEIGHT_OUT; h++)
+            for (int c = 0; c < CHANNEL_OUT; c++)
             {
-            WIDTH:
-                for (int w = 0; w < WIDTH_OUT; w++)
+                for (int h = 0; h < HEIGHT_OUT; h++)
                 {
-                    sum += afterConv[n][c][h][w];
-                    squareSum += afterConv[n][c][h][w] * afterConv[n][c][h][w];
-
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+                        ln_in[n][h][w][c] = afterConv[n][c][h][w];
+                    }
                 }
             }
         }
-        
+
+    Layer_Norm_Init:
+        for (int n = 0; n < BATCH_SIZE; n++)
+        {
+            float sum = 0;
+            float squareSum = 0;
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+                    for (int c = 0; c < CHANNEL_OUT; c++)
+                    {
+                        sum += afterConv[n][c][h][w];
+                        squareSum += afterConv[n][c][h][w] * afterConv[n][c][h][w];
+                        weight[h][w][c] = h;
+                        bias[h][w][c] = w;
+                    }
+                }
+            }
+            mean[n] = sum / total;
+            var[n] = (squareSum / total) - (mean[n] * mean[n]);
+        }
+
+    Layer_Norm:
+        for (int n = 0; n < BATCH_SIZE; n++)
+        {
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+                    for (int c = 0; c < CHANNEL_OUT; c++)
+                    {
+                        afterNorm[n][c][h][w] = (ln_in[n][h][w][c] - mean[n]) / sqrt(var[n] + EPS) * weight[h][w][c] + bias[h][w][c];
+                    }
+                }
+            }
+        }
     }
 
     std::cout << "afterNorm array: " << std::endl;
+afterNorm:
     for (int n = 0; n < BATCH_SIZE; n++)
     {
         for (int c = 0; c < CHANNEL_OUT; c++)
@@ -239,7 +314,9 @@ BATCH:
                         std::cout << afterNorm[n][c][h][w] << " ";
                 }
             }
+            break;
         }
+        break;
     }
 
     std::cout << std::endl;
@@ -255,9 +332,9 @@ Relu:
                     for (int w = 0; w < WIDTH_OUT; w++)
                     {
                         if (afterNorm[n][c][h][w] < 0)
-                            Out[n][c][h][w] = 0;
+                            afterAct[n][c][h][w] = 0;
                         else
-                            Out[n][c][h][w] = afterNorm[n][c][h][w];
+                            afterAct[n][c][h][w] = afterNorm[n][c][h][w];
                     }
                 }
             }
@@ -275,7 +352,7 @@ Silu:
                 {
                     for (int w = 0; w < WIDTH_OUT; w++)
                     {
-                        Out[n][c][h][w] = afterNorm[n][c][h][w] * (1 / (1 + exp(-afterNorm[n][c][h][w])));
+                        afterAct[n][c][h][w] = afterNorm[n][c][h][w] * (1 / (1 + exp(-afterNorm[n][c][h][w])));
                     }
                 }
             }
@@ -294,12 +371,54 @@ Gelu:
                     for (int w = 0; w < WIDTH_OUT; w++)
                     {
                         float x = afterNorm[n][c][h][w];
-                        Out[n][c][h][w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / M_PI) * (x + 0.044715 * pow(x, 3))));
+                        afterAct[n][c][h][w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / M_PI) * (x + 0.044715 * pow(x, 3))));
                     }
                 }
             }
         }
     }
+   std::cout << "afterAct array: " << std::endl;
+
+afterAct:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+
+                    if (w == WIDTH_OUT - 1)
+                        std::cout << afterAct[n][c][h][w] << std::endl;
+                    else
+                        std::cout << afterAct[n][c][h][w] << " ";
+                }
+            }
+            break;
+        }
+        break;
+    }
+
+    std::cout << std::endl;
+
+Skip:
+    for (int n = 0; n < BATCH_SIZE; n++)
+        {
+            for (int c = 0; c < CHANNEL_OUT; c++)
+            {
+                for (int h = 0; h < HEIGHT_OUT; h++)
+                {
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+                        if(isSkip && (CHANNEL_IN == CHANNEL_OUT) && (HEIGHT_IN == HEIGHT_OUT) && (WIDTH_IN == WIDTH_OUT))
+                            Out[n][c][h][w] = afterAct[n][c][h][w] + In[n][c][h][w]; 
+                        else 
+                            Out[n][c][h][w] = afterAct[n][c][h][w];
+                    }
+                }
+            }
+        }
 
     std::cout << "Output array: " << std::endl;
 
@@ -319,7 +438,9 @@ Output:
                         std::cout << Out[n][c][h][w] << " ";
                 }
             }
+            break;
         }
+        break;
     }
 
     return 0;
