@@ -3,31 +3,43 @@
 #include <hls_stream.h>
 #include <stdint.h>
 
-// TRIPCOUNT identifier
-const int BATCH_SIZE = 2;
-const int CHANNEL_IN = 6;
-const int CHANNEL_OUT = 3;
-const int HEIGHT_IN = 8;
-const int WIDTH_IN = 8;
+/* Remember to modify test file */
 
+// TODO: modify size
+// TRIPCOUNT identifie
+const int BATCH_SIZE = 2;
+const int CHANNEL_IN = 3;
+const int CHANNEL_OUT = 3;
+const int HEIGHT_IN = 4;
+const int WIDTH_IN = 4;
+
+// TODO: modify conv parameters
 // Convolution parameters
 const int KERNEL_SIZE = 3;
-const int PADDING = 0;
 const int STRIDE = 1;
-const int GROUP = 3;
-const bool isBias = true;
-const bool isSkip = false;
-const int NORM_LAYER = 1; // 0:batch_norm, 1: layer_norm
-const int ACT_LAYER = 1;  // 0: relu, 1: silu, 2:gelu
-const int DROP_PATH = 0;
+const int GROUP = 1;
+
+// Padding and size
+const int PADDING = (KERNEL_SIZE - STRIDE) % 2 == 0 ? (KERNEL_SIZE - STRIDE) / 2 : (KERNEL_SIZE - STRIDE) / 2 + 1;
+const int new_height_in = HEIGHT_IN + 2 * PADDING;
+const int new_width_in = WIDTH_IN + 2 * PADDING;
 const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
+
+// For Convolution
 const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
 const int inGroupNums = CHANNEL_IN / GROUP;
 const int outGroupNums = CHANNEL_OUT / GROUP;
+const bool isBias = true;
 
 // Normalization parameters
-const float EPS = 1e-6;
+const float EPS = 1e-5;
+
+// TODO: modify hyperparameters
+// Hyperparameters
+const int NORM_LAYER = 0; // 0:batch_norm, 1: layer_norm
+const int ACT_LAYER = 1;  // 0: relu, 1: silu, 2:gelu
+const bool isSkip = true;
 
 // Coding Style: function宣告要為static，遇到for迴圈前可以取error_type的名稱(ex: mem_rd)
 
@@ -53,8 +65,33 @@ init_in:
         }
     }
 }
+static void compute_padding(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
+                         float in_pad[BATCH_SIZE][CHANNEL_IN][new_height_in][new_width_in])
+{
+Padding:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+        for (int c = 0; c < CHANNEL_IN; c++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
+            for (int h = 0; h < new_height_in; h++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = new_height_in max = new_height_in
+                for (int w = 0; w < new_width_in; w++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = new_width_in max = new_width_in
+                    if (h < PADDING || h >= HEIGHT_IN + PADDING || w < PADDING || w >= WIDTH_IN + PADDING)
+                        in_pad[n][c][h][w] = 0;
+                    else
+                        in_pad[n][c][h][w] = in[n][c][h - PADDING][w - PADDING];
+                }
+            }
+        }
+    }
+}
 
-static void compute_conv(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
+static void compute_conv(float in_pad[BATCH_SIZE][CHANNEL_IN][new_height_in][new_width_in],
                          float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT])
 {
     float kernel[CHANNEL_OUT][KERNEL_CHANNEL][KERNEL_SIZE][KERNEL_SIZE];
@@ -122,7 +159,6 @@ Batch:
                 {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
                     int kernelChannelIdx = 0;
-                    // float sum = 0.0;
                 In_Channel:
                     for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
                     {
@@ -135,7 +171,7 @@ Batch:
                             for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
                             {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
-                                afterConv[batch][out_ch][row][col] += in[batch][in_ch][row * STRIDE + kernel_row][col * STRIDE + kernel_col] * kernel[out_ch][kernelChannelIdx][kernel_row][kernel_col];
+                                afterConv[batch][out_ch][row][col] += in_pad[batch][in_ch][row * STRIDE + kernel_row][col * STRIDE + kernel_col] * kernel[out_ch][kernelChannelIdx][kernel_row][kernel_col];
                             }
                         }
                         kernelChannelIdx++;
@@ -153,8 +189,7 @@ Batch:
 }
 
 static void compute_norm(float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
-                         float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
-                         float *buffer_result)
+                         float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT])
 {
 init_output:
     for (int n = 0; n < BATCH_SIZE; n++)
@@ -281,7 +316,7 @@ init_output:
 }
 
 static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
-                        float *buffer_result)
+                        float afterAct[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT])
 {
     switch (ACT_LAYER)
     {
@@ -299,9 +334,9 @@ static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WID
                     {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
                         if (afterNorm[n][c][h][w] < 0)
-                            buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;
+                            afterAct[n][c][h][w] = 0;
                         else
-                            buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterNorm[n][c][h][w];
+                            afterAct[n][c][h][w] = afterNorm[n][c][h][w];
                     }
                 }
             }
@@ -321,8 +356,7 @@ static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WID
                     for (int w = 0; w < WIDTH_OUT; w++)
                     {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-                        buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterNorm[n][c][h][w] * (1 / (1 + exp(-afterNorm[n][c][h][w])));
-                        ;
+                        afterAct[n][c][h][w] = afterNorm[n][c][h][w] * (1 / (1 + exp(-afterNorm[n][c][h][w])));
                     }
                 }
             }
@@ -343,7 +377,7 @@ static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WID
                     {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
                         float x = afterNorm[n][c][h][w];
-                        buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / 3.14159265358979323846) * (x + 0.044715 * pow(x, 3))));
+                        afterAct[n][c][h][w] = 0.5 * x * (1.0 + tanh(sqrt(2.0 / 3.14159265358979323846) * (x + 0.044715 * pow(x, 3))));
                     }
                 }
             }
@@ -353,6 +387,33 @@ static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WID
     default:
         break;
     }
+}
+
+static void compute_skip(float afterAct[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
+                        float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
+                        float *buffer_result)
+{
+Skip:
+    for (int n = 0; n < BATCH_SIZE; n++)
+        {
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
+            for (int c = 0; c < CHANNEL_OUT; c++)
+            {
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
+                for (int h = 0; h < HEIGHT_OUT; h++)
+                {
+#pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
+                    for (int w = 0; w < WIDTH_OUT; w++)
+                    {
+#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+                        if(isSkip && (CHANNEL_IN == CHANNEL_OUT) && (HEIGHT_IN == HEIGHT_OUT) && (WIDTH_IN == WIDTH_OUT))
+                            buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterAct[n][c][h][w] + in[n][c][h][w]; 
+                        else 
+                            buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterAct[n][c][h][w];
+                    }
+                }
+            }
+        }
 }
 
 extern "C"
@@ -371,20 +432,28 @@ extern "C"
     void kernel_conv_norm_act(float *buffer_DataIn_1,
                               float *buffer_result)
     {
-#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0
-#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0
+// TODO: modify depth
+#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 96
+#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 96
 
-#pragma HLS dataflow
+// #pragma HLS dataflow
+// dataflow僅可以接受single reader and single writer
         // dataflow pragma instruct compiler to run following three APIs in parallel
         float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
 #pragma HLS array_partition variable = in complete dim = 1
+        float in_pad[BATCH_SIZE][CHANNEL_IN][new_height_in][new_width_in];
+#pragma HLS array_partition variable = in_pad complete dim = 1
         float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
 #pragma HLS array_partition variable = afterConv complete dim = 1
         float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
 #pragma HLS array_partition variable = afterNorm complete dim = 1
+        float afterAct[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
+#pragma HLS array_partition variable = afterAct complete dim = 1
         load_input(buffer_DataIn_1, in);
-        compute_conv(in, afterConv);
-        compute_norm(afterConv, afterNorm, buffer_result);
-        compute_act(afterNorm, buffer_result);
+        compute_padding(in, in_pad);
+        compute_conv(in_pad, afterConv);
+        compute_norm(afterConv, afterNorm);
+        compute_act(afterNorm, afterAct);
+        compute_skip(afterAct, in, buffer_result);
     }
 }

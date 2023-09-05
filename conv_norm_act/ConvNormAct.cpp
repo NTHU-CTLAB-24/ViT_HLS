@@ -431,7 +431,6 @@ Output:
             {
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
-
                     if (w == WIDTH_OUT - 1)
                         std::cout << Out[n][c][h][w] << std::endl;
                     else
