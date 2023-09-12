@@ -1,0 +1,916 @@
+
+
+================================================================
+== Vitis HLS Report for 'kernel_mspatch'
+================================================================
+* Date:           Fri Sep  8 17:22:03 2023
+
+* Version:        2022.1 (Build 3526262 on Mon Apr 18 15:47:01 MDT 2022)
+* Project:        proj_msp_kernel
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+-----------+------------+
+    |  Clock |  Target | Estimated | Uncertainty|
+    +--------+---------+-----------+------------+
+    |ap_clk  |  0.10 us|  73.000 ns|    27.00 ns|
+    +--------+---------+-----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-------+-------+----------+
+    |  Latency (cycles) |  Latency (absolute) |    Interval   | Pipeline |
+    |   min   |   max   |    min   |    max   |  min  |  max  |   Type   |
+    +---------+---------+----------+----------+-------+-------+----------+
+    |    60121|    60121|  6.012 ms|  6.012 ms|  60019|  60019|  dataflow|
+    +---------+---------+----------+----------+-------+-------+----------+
+
+    + Detail: 
+        * Instance: 
+        +----------------------+-------------------+---------+---------+-----------+-----------+-------+-------+---------+
+        |                      |                   |  Latency (cycles) |   Latency (absolute)  |    Interval   | Pipeline|
+        |       Instance       |       Module      |   min   |   max   |    min    |    max    |  min  |  max  |   Type  |
+        +----------------------+-------------------+---------+---------+-----------+-----------+-------+-------+---------+
+        |entry_proc_U0         |entry_proc         |        0|        0|       0 ns|       0 ns|      0|      0|       no|
+        |load_input_U0         |load_input         |    30010|    30010|   3.001 ms|   3.001 ms|  30010|  30010|       no|
+        |load_norm_U0          |load_norm          |      102|      102|  10.200 us|  10.200 us|    102|    102|       no|
+        |padding_input_U0      |padding_input      |    10409|    10409|   1.041 ms|   1.041 ms|  10409|  10409|       no|
+        |compute_conv_U0       |compute_conv       |    15022|    15022|   1.502 ms|   1.502 ms|  15022|  15022|       no|
+        |compute_batchnorm_U0  |compute_batchnorm  |    60018|    60018|   6.002 ms|   6.002 ms|  60018|  60018|       no|
+        +----------------------+-------------------+---------+---------+-----------+-----------+-------+-------+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+-------+---------+---------+------+
+|         Name        | BRAM_18K|  DSP  |    FF   |   LUT   | URAM |
++---------------------+---------+-------+---------+---------+------+
+|DSP                  |        -|      -|        -|        -|     -|
+|Expression           |        -|      -|        0|      534|     -|
+|FIFO                 |        -|      -|      487|     2542|     -|
+|Instance             |        0|    369|    24816|    69070|     0|
+|Memory               |      144|      -|        0|        0|    48|
+|Multiplexer          |        -|      -|        -|     1161|     -|
+|Register             |        -|      -|      129|        -|     -|
++---------------------+---------+-------+---------+---------+------+
+|Total                |      144|    369|    25432|    73307|    48|
++---------------------+---------+-------+---------+---------+------+
+|Available SLR        |     1344|   3072|   864000|   432000|   320|
++---------------------+---------+-------+---------+---------+------+
+|Utilization SLR (%)  |       10|     12|        2|       16|    15|
++---------------------+---------+-------+---------+---------+------+
+|Available            |     5376|  12288|  3456000|  1728000|  1280|
++---------------------+---------+-------+---------+---------+------+
+|Utilization (%)      |        2|      3|       ~0|        4|     3|
++---------------------+---------+-------+---------+---------+------+
+
++ Detail: 
+    * Instance: 
+    +----------------------+-------------------+---------+-----+------+-------+-----+
+    |       Instance       |       Module      | BRAM_18K| DSP |  FF  |  LUT  | URAM|
+    +----------------------+-------------------+---------+-----+------+-------+-----+
+    |compute_batchnorm_U0  |compute_batchnorm  |        0|   86|  8914|  23676|    0|
+    |compute_conv_U0       |compute_conv       |        0|  280|  7137|  40152|    0|
+    |control_s_axi_U       |control_s_axi      |        0|    0|   240|    424|    0|
+    |entry_proc_U0         |entry_proc         |        0|    0|     2|     20|    0|
+    |gmem0_m_axi_U         |gmem0_m_axi        |        0|    0|   764|   1118|    0|
+    |gmem1_m_axi_U         |gmem1_m_axi        |        0|    0|   764|   1118|    0|
+    |load_input_U0         |load_input         |        0|    1|   426|    801|    0|
+    |load_norm_U0          |load_norm          |        0|    0|  6216|   1410|    0|
+    |padding_input_U0      |padding_input      |        0|    2|   353|    351|    0|
+    +----------------------+-------------------+---------+-----+------+-------+-----+
+    |Total                 |                   |        0|  369| 24816|  69070|    0|
+    +----------------------+-------------------+---------+-----+------+-------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +------------------+---------------------------+---------+---+----+-----+-------+-----+------+-------------+
+    |      Memory      |           Module          | BRAM_18K| FF| LUT| URAM| Words | Bits| Banks| W*Bits*Banks|
+    +------------------+---------------------------+---------+---+----+-----+-------+-----+------+-------------+
+    |conv_result_U     |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_1_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_2_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_3_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_4_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_5_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_6_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_7_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_8_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_9_U   |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_10_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_11_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_12_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_13_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_14_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_15_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_16_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_17_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_18_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_19_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_20_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_21_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_22_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |conv_result_23_U  |conv_result_RAM_AUTO_1R1W  |        0|  0|   0|    2|   2500|   32|     1|        80000|
+    |image_U           |image_RAM_AUTO_1R1W        |       16|  0|   0|    0|  10000|   32|     1|       320000|
+    |image_1_U         |image_RAM_AUTO_1R1W        |       16|  0|   0|    0|  10000|   32|     1|       320000|
+    |image_2_U         |image_RAM_AUTO_1R1W        |       16|  0|   0|    0|  10000|   32|     1|       320000|
+    |in_pad_2_U        |in_pad_2_RAM_AUTO_1R1W     |       32|  0|   0|    0|  10404|   32|     1|       332928|
+    |in_pad_U          |in_pad_RAM_AUTO_1R1W       |       32|  0|   0|    0|  10404|   32|     1|       332928|
+    |in_pad_1_U        |in_pad_RAM_AUTO_1R1W       |       32|  0|   0|    0|  10404|   32|     1|       332928|
+    +------------------+---------------------------+---------+---+----+-----+-------+-----+------+-------------+
+    |Total             |                           |      144|  0|   0|   48| 121212|  960|    30|      3878784|
+    +------------------+---------------------------+---------+---+----+-----+-------+-----+------+-------------+
+
+    * FIFO: 
+    +-------------------+---------+---+----+-----+------+-----+---------+
+    |        Name       | BRAM_18K| FF| LUT| URAM| Depth| Bits| Size:D*B|
+    +-------------------+---------+---+----+-----+------+-----+---------+
+    |beta_0_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_10_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_11_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_12_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_13_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_14_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_15_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_16_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_17_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_18_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_19_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_1_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_20_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_21_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_22_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_23_U          |        0|  5|   0|    -|     4|   32|      128|
+    |beta_2_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_3_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_4_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_5_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_6_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_7_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_8_U           |        0|  5|   0|    -|     4|   32|      128|
+    |beta_9_U           |        0|  5|   0|    -|     4|   32|      128|
+    |buffer_result_c_U  |        0|  7|   0|    -|     5|   64|      320|
+    |gamma_0_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_10_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_11_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_12_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_13_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_14_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_15_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_16_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_17_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_18_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_19_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_1_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_20_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_21_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_22_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_23_U         |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_2_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_3_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_4_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_5_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_6_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_7_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_8_U          |        0|  5|   0|    -|     4|   32|      128|
+    |gamma_9_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_0_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_10_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_11_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_12_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_13_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_14_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_15_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_16_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_17_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_18_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_19_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_1_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_20_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_21_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_22_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_23_U          |        0|  5|   0|    -|     4|   32|      128|
+    |mean_2_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_3_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_4_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_5_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_6_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_7_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_8_U           |        0|  5|   0|    -|     4|   32|      128|
+    |mean_9_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_0_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_10_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_11_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_12_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_13_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_14_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_15_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_16_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_17_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_18_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_19_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_1_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_20_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_21_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_22_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_23_U           |        0|  5|   0|    -|     4|   32|      128|
+    |var_2_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_3_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_4_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_5_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_6_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_7_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_8_U            |        0|  5|   0|    -|     4|   32|      128|
+    |var_9_U            |        0|  5|   0|    -|     4|   32|      128|
+    +-------------------+---------+---+----+-----+------+-----+---------+
+    |Total              |        0|487|   0|    0|   389| 3136|    12608|
+    +-------------------+---------+---+----+-----+------+-----+---------+
+
+    * Expression: 
+    +--------------------------------------+----------+----+---+----+------------+------------+
+    |             Variable Name            | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +--------------------------------------+----------+----+---+----+------------+------------+
+    |ap_channel_done_beta_0                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_1                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_10               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_11               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_12               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_13               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_14               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_15               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_16               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_17               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_18               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_19               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_2                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_20               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_21               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_22               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_23               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_3                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_4                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_5                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_6                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_7                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_8                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_beta_9                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result           |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_1         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_10        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_11        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_12        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_13        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_14        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_15        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_16        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_17        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_18        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_19        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_2         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_20        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_21        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_22        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_23        |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_3         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_4         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_5         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_6         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_7         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_8         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_conv_result_9         |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_0               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_1               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_10              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_11              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_12              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_13              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_14              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_15              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_16              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_17              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_18              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_19              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_2               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_20              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_21              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_22              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_23              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_3               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_4               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_5               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_6               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_7               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_8               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_gamma_9               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_image                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_image_1               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_image_2               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_in_pad                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_in_pad_1              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_in_pad_2              |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_0                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_1                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_10               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_11               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_12               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_13               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_14               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_15               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_16               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_17               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_18               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_19               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_2                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_20               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_21               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_22               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_23               |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_3                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_4                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_5                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_6                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_7                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_8                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_mean_9                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_0                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_1                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_10                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_11                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_12                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_13                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_14                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_15                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_16                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_17                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_18                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_19                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_2                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_20                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_21                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_22                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_23                |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_3                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_4                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_5                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_6                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_7                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_8                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_var_9                 |       and|   0|  0|   2|           1|           1|
+    |ap_idle                               |       and|   0|  0|   2|           1|           1|
+    |ap_sync_ready                         |       and|   0|  0|   2|           1|           1|
+    |compute_batchnorm_U0_ap_start         |       and|   0|  0|   2|           1|           1|
+    |compute_conv_U0_ap_continue           |       and|   0|  0|   2|           1|           1|
+    |compute_conv_U0_ap_start              |       and|   0|  0|   2|           1|           1|
+    |entry_proc_U0_ap_start                |       and|   0|  0|   2|           1|           1|
+    |load_input_U0_ap_continue             |       and|   0|  0|   2|           1|           1|
+    |load_input_U0_ap_start                |       and|   0|  0|   2|           1|           1|
+    |load_norm_U0_ap_continue              |       and|   0|  0|   2|           1|           1|
+    |load_norm_U0_ap_start                 |       and|   0|  0|   2|           1|           1|
+    |padding_input_U0_ap_continue          |       and|   0|  0|   2|           1|           1|
+    |padding_input_U0_ap_start             |       and|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_0          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_1          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_10         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_11         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_12         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_13         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_14         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_15         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_16         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_17         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_18         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_19         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_2          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_20         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_21         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_22         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_23         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_3          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_4          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_5          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_6          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_7          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_8          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_beta_9          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result     |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_1   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_10  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_11  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_12  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_13  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_14  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_15  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_16  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_17  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_18  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_19  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_2   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_20  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_21  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_22  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_23  |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_3   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_4   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_5   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_6   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_7   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_8   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_conv_result_9   |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_0         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_1         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_10        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_11        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_12        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_13        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_14        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_15        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_16        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_17        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_18        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_19        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_2         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_20        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_21        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_22        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_23        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_3         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_4         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_5         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_6         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_7         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_8         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_gamma_9         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_image           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_image_1         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_image_2         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_in_pad          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_in_pad_1        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_in_pad_2        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_0          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_1          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_10         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_11         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_12         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_13         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_14         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_15         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_16         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_17         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_18         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_19         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_2          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_20         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_21         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_22         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_23         |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_3          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_4          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_5          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_6          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_7          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_8          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_mean_9          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_0           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_1           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_10          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_11          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_12          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_13          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_14          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_15          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_16          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_17          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_18          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_19          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_2           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_20          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_21          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_22          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_23          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_3           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_4           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_5           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_6           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_7           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_8           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_var_9           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_entry_proc_U0_ap_ready        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_load_input_U0_ap_ready        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_load_norm_U0_ap_ready         |        or|   0|  0|   2|           1|           1|
+    +--------------------------------------+----------+----+---+----+------------+------------+
+    |Total                                 |          |   0|  0| 534|         267|         267|
+    +--------------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +------------------------------------------+----+-----------+-----+-----------+
+    |                   Name                   | LUT| Input Size| Bits| Total Bits|
+    +------------------------------------------+----+-----------+-----+-----------+
+    |ap_sync_reg_channel_write_beta_0          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_1          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_10         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_11         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_12         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_13         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_14         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_15         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_16         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_17         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_18         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_19         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_2          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_20         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_21         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_22         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_23         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_3          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_4          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_5          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_6          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_7          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_8          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_beta_9          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result     |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_1   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_10  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_11  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_12  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_13  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_14  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_15  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_16  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_17  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_18  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_19  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_2   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_20  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_21  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_22  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_23  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_3   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_4   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_5   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_6   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_7   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_8   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_conv_result_9   |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_0         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_1         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_10        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_11        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_12        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_13        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_14        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_15        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_16        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_17        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_18        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_19        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_2         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_20        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_21        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_22        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_23        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_3         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_4         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_5         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_6         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_7         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_8         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_gamma_9         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_image           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_image_1         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_image_2         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_in_pad          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_in_pad_1        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_in_pad_2        |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_0          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_1          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_10         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_11         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_12         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_13         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_14         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_15         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_16         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_17         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_18         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_19         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_2          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_20         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_21         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_22         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_23         |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_3          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_4          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_5          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_6          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_7          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_8          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_mean_9          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_0           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_1           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_10          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_11          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_12          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_13          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_14          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_15          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_16          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_17          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_18          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_19          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_2           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_20          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_21          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_22          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_23          |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_3           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_4           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_5           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_6           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_7           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_8           |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_var_9           |   9|          2|    1|          2|
+    |ap_sync_reg_entry_proc_U0_ap_ready        |   9|          2|    1|          2|
+    |ap_sync_reg_load_input_U0_ap_ready        |   9|          2|    1|          2|
+    |ap_sync_reg_load_norm_U0_ap_ready         |   9|          2|    1|          2|
+    +------------------------------------------+----+-----------+-----+-----------+
+    |Total                                     |1161|        258|  129|        258|
+    +------------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +------------------------------------------+---+----+-----+-----------+
+    |                   Name                   | FF| LUT| Bits| Const Bits|
+    +------------------------------------------+---+----+-----+-----------+
+    |ap_sync_reg_channel_write_beta_0          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_1          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_10         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_11         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_12         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_13         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_14         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_15         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_16         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_17         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_18         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_19         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_2          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_20         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_21         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_22         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_23         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_3          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_4          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_5          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_6          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_7          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_8          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_beta_9          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result     |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_1   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_10  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_11  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_12  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_13  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_14  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_15  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_16  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_17  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_18  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_19  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_2   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_20  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_21  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_22  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_23  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_3   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_4   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_5   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_6   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_7   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_8   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_conv_result_9   |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_0         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_1         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_10        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_11        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_12        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_13        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_14        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_15        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_16        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_17        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_18        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_19        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_2         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_20        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_21        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_22        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_23        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_3         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_4         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_5         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_6         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_7         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_8         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_gamma_9         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_image           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_image_1         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_image_2         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_in_pad          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_in_pad_1        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_in_pad_2        |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_0          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_1          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_10         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_11         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_12         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_13         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_14         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_15         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_16         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_17         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_18         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_19         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_2          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_20         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_21         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_22         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_23         |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_3          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_4          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_5          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_6          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_7          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_8          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_mean_9          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_0           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_1           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_10          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_11          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_12          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_13          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_14          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_15          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_16          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_17          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_18          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_19          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_2           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_20          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_21          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_22          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_23          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_3           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_4           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_5           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_6           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_7           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_8           |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_var_9           |  1|   0|    1|          0|
+    |ap_sync_reg_entry_proc_U0_ap_ready        |  1|   0|    1|          0|
+    |ap_sync_reg_load_input_U0_ap_ready        |  1|   0|    1|          0|
+    |ap_sync_reg_load_norm_U0_ap_ready         |  1|   0|    1|          0|
+    +------------------------------------------+---+----+-----+-----------+
+    |Total                                     |129|   0|  129|          0|
+    +------------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-----------------------+-----+-----+------------+----------------+--------------+
+|       RTL Ports       | Dir | Bits|  Protocol  |  Source Object |    C Type    |
++-----------------------+-----+-----+------------+----------------+--------------+
+|s_axi_control_AWVALID  |   in|    1|       s_axi|         control|        scalar|
+|s_axi_control_AWREADY  |  out|    1|       s_axi|         control|        scalar|
+|s_axi_control_AWADDR   |   in|    6|       s_axi|         control|        scalar|
+|s_axi_control_WVALID   |   in|    1|       s_axi|         control|        scalar|
+|s_axi_control_WREADY   |  out|    1|       s_axi|         control|        scalar|
+|s_axi_control_WDATA    |   in|   32|       s_axi|         control|        scalar|
+|s_axi_control_WSTRB    |   in|    4|       s_axi|         control|        scalar|
+|s_axi_control_ARVALID  |   in|    1|       s_axi|         control|        scalar|
+|s_axi_control_ARREADY  |  out|    1|       s_axi|         control|        scalar|
+|s_axi_control_ARADDR   |   in|    6|       s_axi|         control|        scalar|
+|s_axi_control_RVALID   |  out|    1|       s_axi|         control|        scalar|
+|s_axi_control_RREADY   |   in|    1|       s_axi|         control|        scalar|
+|s_axi_control_RDATA    |  out|   32|       s_axi|         control|        scalar|
+|s_axi_control_RRESP    |  out|    2|       s_axi|         control|        scalar|
+|s_axi_control_BVALID   |  out|    1|       s_axi|         control|        scalar|
+|s_axi_control_BREADY   |   in|    1|       s_axi|         control|        scalar|
+|s_axi_control_BRESP    |  out|    2|       s_axi|         control|        scalar|
+|ap_clk                 |   in|    1|  ap_ctrl_hs|  kernel_mspatch|  return value|
+|ap_rst_n               |   in|    1|  ap_ctrl_hs|  kernel_mspatch|  return value|
+|ap_start               |   in|    1|  ap_ctrl_hs|  kernel_mspatch|  return value|
+|ap_done                |  out|    1|  ap_ctrl_hs|  kernel_mspatch|  return value|
+|ap_ready               |  out|    1|  ap_ctrl_hs|  kernel_mspatch|  return value|
+|ap_idle                |  out|    1|  ap_ctrl_hs|  kernel_mspatch|  return value|
+|m_axi_gmem0_AWVALID    |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWREADY    |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWADDR     |  out|   64|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWID       |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWLEN      |  out|    8|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWSIZE     |  out|    3|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWBURST    |  out|    2|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWLOCK     |  out|    2|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWCACHE    |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWPROT     |  out|    3|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWQOS      |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWREGION   |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_AWUSER     |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WVALID     |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WREADY     |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WDATA      |  out|   32|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WSTRB      |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WLAST      |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WID        |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_WUSER      |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARVALID    |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARREADY    |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARADDR     |  out|   64|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARID       |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARLEN      |  out|    8|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARSIZE     |  out|    3|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARBURST    |  out|    2|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARLOCK     |  out|    2|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARCACHE    |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARPROT     |  out|    3|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARQOS      |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARREGION   |  out|    4|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_ARUSER     |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RVALID     |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RREADY     |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RDATA      |   in|   32|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RLAST      |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RID        |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RUSER      |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_RRESP      |   in|    2|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_BVALID     |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_BREADY     |  out|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_BRESP      |   in|    2|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_BID        |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem0_BUSER      |   in|    1|       m_axi|           gmem0|       pointer|
+|m_axi_gmem1_AWVALID    |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWREADY    |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWADDR     |  out|   64|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWID       |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWLEN      |  out|    8|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWSIZE     |  out|    3|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWBURST    |  out|    2|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWLOCK     |  out|    2|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWCACHE    |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWPROT     |  out|    3|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWQOS      |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWREGION   |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_AWUSER     |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WVALID     |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WREADY     |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WDATA      |  out|   32|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WSTRB      |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WLAST      |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WID        |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_WUSER      |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARVALID    |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARREADY    |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARADDR     |  out|   64|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARID       |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARLEN      |  out|    8|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARSIZE     |  out|    3|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARBURST    |  out|    2|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARLOCK     |  out|    2|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARCACHE    |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARPROT     |  out|    3|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARQOS      |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARREGION   |  out|    4|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_ARUSER     |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RVALID     |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RREADY     |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RDATA      |   in|   32|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RLAST      |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RID        |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RUSER      |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_RRESP      |   in|    2|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_BVALID     |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_BREADY     |  out|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_BRESP      |   in|    2|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_BID        |   in|    1|       m_axi|           gmem1|       pointer|
+|m_axi_gmem1_BUSER      |   in|    1|       m_axi|           gmem1|       pointer|
++-----------------------+-----+-----+------------+----------------+--------------+
+
