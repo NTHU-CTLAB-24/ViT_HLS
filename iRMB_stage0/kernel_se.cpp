@@ -3,9 +3,9 @@
 #include <hls_math.h>
 #include <stdint.h>
 // TRIPCOUNT identifier
-const int BATCH_SIZE = 1;
-const int IMAGE_H = 112;
-const int IMAGE_W = 112;
+const int BATCH_SIZE = 2;
+const int IMAGE_H = 4;
+const int IMAGE_W = 4;
 const float RATIO = 1;
 const int HEIGHT_IN = 1;
 const int WIDTH_IN = 1;
@@ -73,6 +73,7 @@ load_data:
         }
     }
 }
+
 
 
 static void compute_conv_reduce(float* in, float* reduce_conv, float* out)
@@ -158,7 +159,6 @@ Batch:
                     int out_index = batch *BATCH_SIZE + out_ch;
                     if (isConvBias)
                        reduce_conv[out_index] += bias[out_ch];
-                    // if (out[out_index] < 0) out[out_index] = 0; //relu
                 }
             }
         }
