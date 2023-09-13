@@ -1,0 +1,1541 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'jhchen22' on host 'ic71' (Linux_x86_64 version 3.10.0-1160.41.1.el7.x86_64) on Tue Sep 12 14:41:56 CST 2023
+INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
+INFO: [HLS 200-10] In directory '/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act'
+Sourcing Tcl script 'run_hls.tcl'
+INFO: [HLS 200-1510] Running: open_project -reset proj_conv_norm_act_kernel 
+INFO: [HLS 200-10] Opening and resetting project '/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel'.
+WARNING: [HLS 200-40] No /users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/solution1.aps file found.
+INFO: [HLS 200-1510] Running: add_files kernel_ConvNormAct.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_ConvNormAct.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb kernel_ConvNormAct_test.cpp 
+INFO: [HLS 200-10] Adding test bench file 'kernel_ConvNormAct_test.cpp' to the project
+INFO: [HLS 200-1510] Running: set_top kernel_conv_norm_act 
+INFO: [HLS 200-1510] Running: open_solution -reset solution1 
+INFO: [HLS 200-10] Creating and opening solution '/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+WARNING: [HLS 200-40] No /users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/solution1.aps file found.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu250-figd2104-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu250-figd2104-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 25 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 25ns.
+INFO: [HLS 200-1510] Running: csim_design 
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../kernel_ConvNormAct_test.cpp in debug mode
+   Compiling ../../../../kernel_ConvNormAct.cpp in debug mode
+   Generating csim.exe
+0.500276 0.500276 0.500276 0.328739
+1.1089 1.1089 1.1089 0.500276
+2.15271 2.15271 2.15271 0.789769
+1.79779 1.79779 1.79779 0.689468
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 4.79 seconds. CPU system time: 0.57 seconds. Elapsed time: 5.52 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Analyzing design file 'kernel_ConvNormAct.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 17 seconds. CPU system time: 1.05 seconds. Elapsed time: 18.21 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_427_3' (kernel_ConvNormAct.cpp:427:20) in function 'compute_skip' completely with a factor of 4 (kernel_ConvNormAct.cpp:416:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_377_8' (kernel_ConvNormAct.cpp:377:20) in function 'compute_act' completely with a factor of 4 (kernel_ConvNormAct.cpp:341:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_244_6' (kernel_ConvNormAct.cpp:244:20) in function 'compute_norm' completely with a factor of 4 (kernel_ConvNormAct.cpp:192:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_203_3' (kernel_ConvNormAct.cpp:203:20) in function 'compute_norm' completely with a factor of 4 (kernel_ConvNormAct.cpp:192:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_ConvNormAct.cpp:167:25) in function 'compute_conv' completely with a factor of 24 (kernel_ConvNormAct.cpp:96:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_132_6' (kernel_ConvNormAct.cpp:132:20) in function 'compute_conv' completely with a factor of 4 (kernel_ConvNormAct.cpp:96:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_81_3' (kernel_ConvNormAct.cpp:81:19) in function 'compute_padding' completely with a factor of 6 (kernel_ConvNormAct.cpp:70:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_59_3' (kernel_ConvNormAct.cpp:59:19) in function 'load_input' completely with a factor of 4 (kernel_ConvNormAct.cpp:48:0)
+INFO: [HLS 214-178] Inlining function 'load_input(float*, float (*) [24][4][4])' into 'kernel_conv_norm_act' (kernel_ConvNormAct.cpp:455:0)
+INFO: [HLS 214-178] Inlining function 'compute_padding(float (*) [24][4][4], float (*) [24][6][6])' into 'kernel_conv_norm_act' (kernel_ConvNormAct.cpp:455:0)
+INFO: [HLS 214-178] Inlining function 'compute_norm(float (*) [24][4][4], float (*) [24][4][4])' into 'kernel_conv_norm_act' (kernel_ConvNormAct.cpp:455:0)
+INFO: [HLS 214-178] Inlining function 'compute_act(float (*) [24][4][4], float (*) [24][4][4])' into 'kernel_conv_norm_act' (kernel_ConvNormAct.cpp:455:0)
+INFO: [HLS 214-178] Inlining function 'compute_skip(float (*) [24][4][4], float (*) [24][4][4], float*)' into 'kernel_conv_norm_act' (kernel_ConvNormAct.cpp:455:0)
+INFO: [HLS 214-248] Applying array_partition to 'bias': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'bias.1': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'weight': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_VAR': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_MEAN': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'in': Complete partitioning on dimension 1. (kernel_ConvNormAct.cpp:463:8)
+INFO: [HLS 214-248] Applying array_partition to 'in_pad': Complete partitioning on dimension 1. (kernel_ConvNormAct.cpp:465:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterConv': Complete partitioning on dimension 1. (kernel_ConvNormAct.cpp:467:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterNorm': Complete partitioning on dimension 1. (kernel_ConvNormAct.cpp:469:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterAct': Complete partitioning on dimension 1. (kernel_ConvNormAct.cpp:471:8)
+INFO: [HLS 214-248] Applying array_partition to 'kernel_23': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_22': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_21': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_20': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_19': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_18': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_17': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_16': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_15': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_14': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_13': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_12': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_11': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_10': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_9': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_8': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_7': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_6': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_5': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_4': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_3': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_2': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_1': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel_0': Complete partitioning on dimension 1.
+INFO: [HLS 214-115] Multiple burst reads of length 768 and bit width 32 in loop 'init_in'(kernel_ConvNormAct.cpp:50:5) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_ConvNormAct.cpp:50:5)
+INFO: [HLS 214-115] Multiple burst writes of length 768 and bit width 32 in loop 'Skip'(kernel_ConvNormAct.cpp:418:5) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_ConvNormAct.cpp:418:5)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 6.19 seconds. CPU system time: 0.5 seconds. Elapsed time: 7.86 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.24 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.38 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.41 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.47 seconds; current allocated memory: 840.172 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_126_4' (kernel_ConvNormAct.cpp:126) in function 'compute_conv' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_ConvNormAct.cpp:154) in function 'compute_conv' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_56_2' (kernel_ConvNormAct.cpp:56) in function 'kernel_conv_norm_act' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_78_2' (kernel_ConvNormAct.cpp:78) in function 'kernel_conv_norm_act' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_200_2' (kernel_ConvNormAct.cpp:200) in function 'kernel_conv_norm_act' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_238_4' (kernel_ConvNormAct.cpp:238) in function 'kernel_conv_norm_act' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_374_7' (kernel_ConvNormAct.cpp:374) in function 'kernel_conv_norm_act' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_424_2' (kernel_ConvNormAct.cpp:424) in function 'kernel_conv_norm_act' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_238_4' (kernel_ConvNormAct.cpp:238) in function 'kernel_conv_norm_act' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_126_4' (kernel_ConvNormAct.cpp:126) in function 'compute_conv' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Out_Column' (kernel_ConvNormAct.cpp:154) in function 'compute_conv' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_241_5' (kernel_ConvNormAct.cpp:241) in function 'kernel_conv_norm_act' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_129_5' (kernel_ConvNormAct.cpp:129) in function 'compute_conv' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Kernel_Row' (kernel_ConvNormAct.cpp:158) in function 'compute_conv' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'Kernel_Col' (kernel_ConvNormAct.cpp:165) in function 'compute_conv' completely with a factor of 3.
+INFO: [XFORM 203-102] Partitioning array 'in' (kernel_ConvNormAct.cpp:463) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'in.1' (kernel_ConvNormAct.cpp:463) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'afterNorm' (kernel_ConvNormAct.cpp:469) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'afterNorm.1' (kernel_ConvNormAct.cpp:469) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'afterAct' (kernel_ConvNormAct.cpp:471) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'afterAct.1' (kernel_ConvNormAct.cpp:471) in dimension 3 automatically.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 1.94 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.24 seconds; current allocated memory: 912.172 MB.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_53_1' (kernel_ConvNormAct.cpp:53:28) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'init_in' (kernel_ConvNormAct.cpp:50:14) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_75_1' (kernel_ConvNormAct.cpp:75:28) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Padding' (kernel_ConvNormAct.cpp:72:14) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_197_1' (kernel_ConvNormAct.cpp:197:29) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'init_output' (kernel_ConvNormAct.cpp:194:14) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Batch_norm' (kernel_ConvNormAct.cpp:235:18) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_371_6' (kernel_ConvNormAct.cpp:371:29) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_368_5' (kernel_ConvNormAct.cpp:368:36) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_421_1' (kernel_ConvNormAct.cpp:421:29) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Skip' (kernel_ConvNormAct.cpp:418:14) in function 'kernel_conv_norm_act'.
+INFO: [XFORM 203-541] Flattening a loop nest 'init_output' (kernel_ConvNormAct.cpp:123:14) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (kernel_ConvNormAct.cpp:150:18) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Batch' (kernel_ConvNormAct.cpp:146:14) in function 'compute_conv'.
+INFO: [HLS 200-472] Inferring partial write operation for 'in[0]' (kernel_ConvNormAct.cpp:62:17)
+INFO: [HLS 200-472] Inferring partial write operation for 'in_pad' (kernel_ConvNormAct.cpp:85:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'in_pad' (kernel_ConvNormAct.cpp:87:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'afterNorm[0]' (kernel_ConvNormAct.cpp:206:24)
+INFO: [HLS 200-472] Inferring partial write operation for 'afterNorm[3]' (kernel_ConvNormAct.cpp:247:24)
+INFO: [HLS 200-472] Inferring partial write operation for 'afterAct[0]' (kernel_ConvNormAct.cpp:380:23)
+INFO: [HLS 200-472] Inferring partial write operation for 'afterConv_0' (kernel_ConvNormAct.cpp:136:47)
+INFO: [HLS 200-472] Inferring partial write operation for 'afterConv_0' (kernel_ConvNormAct.cpp:175:37)
+INTERNAL-INFO: never seen llvm instruction 'dexp'(522)
+INTERNAL-INFO: never seen llvm instruction 'dexp'(522)
+INTERNAL-INFO: never seen llvm instruction 'dexp'(522)
+INTERNAL-INFO: never seen llvm instruction 'dexp'(522)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 1.2 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.38 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'kernel_conv_norm_act' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2'.
+WARNING: [HLS 200-880] The II Violation in module 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' (loop 'init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus read operation ('gmem0_addr_read_3', kernel_ConvNormAct.cpp:62) on port 'gmem0' (kernel_ConvNormAct.cpp:62) and bus read operation ('gmem0_addr_read', kernel_ConvNormAct.cpp:62) on port 'gmem0' (kernel_ConvNormAct.cpp:62).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' (loop 'init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus read operation ('gmem0_addr_read_3', kernel_ConvNormAct.cpp:62) on port 'gmem0' (kernel_ConvNormAct.cpp:62) and bus read operation ('gmem0_addr_read', kernel_ConvNormAct.cpp:62) on port 'gmem0' (kernel_ConvNormAct.cpp:62).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' (loop 'init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus read operation ('gmem0_addr_read_3', kernel_ConvNormAct.cpp:62) on port 'gmem0' (kernel_ConvNormAct.cpp:62) and bus read operation ('gmem0_addr_read', kernel_ConvNormAct.cpp:62) on port 'gmem0' (kernel_ConvNormAct.cpp:62).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 4, Depth = 6, loop 'init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.19 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.31 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2'.
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2' (loop 'Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2'): Unable to schedule 'store' operation ('in_pad_addr_5_write_ln85', kernel_ConvNormAct.cpp:85) of constant 0 on array 'in_pad' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2' (loop 'Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2'): Unable to schedule 'store' operation ('in_pad_addr_2_write_ln87', kernel_ConvNormAct.cpp:87) of variable 'tmp_6', kernel_ConvNormAct.cpp:87 on array 'in_pad' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 3, Depth = 3, loop 'Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.21 seconds. CPU system time: 0 seconds. Elapsed time: 0.33 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.13 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_output_VITIS_LOOP_126_4'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' (loop 'init_output_VITIS_LOOP_126_4'): Unable to schedule 'store' operation ('afterConv_0_addr_16_write_ln136', kernel_ConvNormAct.cpp:136) of variable 'tmp', kernel_ConvNormAct.cpp:123 on array 'afterConv_0' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' (loop 'init_output_VITIS_LOOP_126_4'): Unable to schedule 'store' operation ('afterConv_0_addr_18_write_ln136', kernel_ConvNormAct.cpp:136) of variable 'tmp', kernel_ConvNormAct.cpp:123 on array 'afterConv_0' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' (loop 'init_output_VITIS_LOOP_126_4'): Unable to schedule 'store' operation ('afterConv_0_addr_19_write_ln136', kernel_ConvNormAct.cpp:136) of variable 'tmp', kernel_ConvNormAct.cpp:123 on array 'afterConv_0' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' (loop 'init_output_VITIS_LOOP_126_4'): Unable to schedule 'store' operation ('afterConv_0_addr_21_write_ln136', kernel_ConvNormAct.cpp:136) of variable 'tmp', kernel_ConvNormAct.cpp:123 on array 'afterConv_0' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' (loop 'init_output_VITIS_LOOP_126_4'): Unable to schedule 'store' operation ('afterConv_0_addr_25_write_ln136', kernel_ConvNormAct.cpp:136) of variable 'tmp', kernel_ConvNormAct.cpp:123 on array 'afterConv_0' due to limited memory ports (II = 7). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 8, Depth = 8, loop 'init_output_VITIS_LOOP_126_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.31 seconds. CPU system time: 0 seconds. Elapsed time: 0.5 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.1 seconds. CPU system time: 0 seconds. Elapsed time: 0.14 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Batch_Out_Row_Out_Column'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_2', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_4', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_6', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_8', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_133', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 67). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_195', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 98). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_211', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 106). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' (loop 'Batch_Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_213', kernel_ConvNormAct.cpp:175) on array 'in_pad_0' due to limited memory ports (II = 107). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 108, Depth = 123, loop 'Batch_Out_Row_Out_Column'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 35.15 seconds. CPU system time: 0.09 seconds. Elapsed time: 35.31 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 3.36 seconds. CPU system time: 0.01 seconds. Elapsed time: 3.48 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 3.03 seconds. CPU system time: 0.01 seconds. Elapsed time: 3.15 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.27 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.31 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act_Pipeline_init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.81 seconds. CPU system time: 0 seconds. Elapsed time: 0.82 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Batch_norm_VITIS_LOOP_238_4'.
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' (loop 'Batch_norm_VITIS_LOOP_238_4'): Unable to schedule 'load' operation ('afterConv_0_load_1', kernel_ConvNormAct.cpp:247) on array 'afterConv_0' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' (loop 'Batch_norm_VITIS_LOOP_238_4'): Unable to schedule 'load' operation ('afterConv_0_load_3', kernel_ConvNormAct.cpp:247) on array 'afterConv_0' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' (loop 'Batch_norm_VITIS_LOOP_238_4'): Unable to schedule 'load' operation ('afterConv_0_load_5', kernel_ConvNormAct.cpp:247) on array 'afterConv_0' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' (loop 'Batch_norm_VITIS_LOOP_238_4'): Unable to schedule 'load' operation ('afterConv_0_load_7', kernel_ConvNormAct.cpp:247) on array 'afterConv_0' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' (loop 'Batch_norm_VITIS_LOOP_238_4'): Unable to schedule 'load' operation ('afterConv_0_load_13', kernel_ConvNormAct.cpp:247) on array 'afterConv_0' due to limited memory ports (II = 7). Please consider using a memory core with more ports or partitioning the array 'afterConv_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 8, Depth = 24, loop 'Batch_norm_VITIS_LOOP_238_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.7 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.96 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.44 seconds. CPU system time: 0 seconds. Elapsed time: 0.6 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 16, loop 'VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.55 seconds. CPU system time: 0 seconds. Elapsed time: 0.78 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.19 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.28 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2'.
+WARNING: [HLS 200-880] The II Violation in module 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' (loop 'Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus write operation ('gmem0_addr_write_ln427', kernel_ConvNormAct.cpp:427) on port 'gmem0' (kernel_ConvNormAct.cpp:427) and bus write operation ('gmem0_addr_write_ln427', kernel_ConvNormAct.cpp:427) on port 'gmem0' (kernel_ConvNormAct.cpp:427).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' (loop 'Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus write operation ('gmem0_addr_write_ln427', kernel_ConvNormAct.cpp:427) on port 'gmem0' (kernel_ConvNormAct.cpp:427) and bus write operation ('gmem0_addr_write_ln427', kernel_ConvNormAct.cpp:427) on port 'gmem0' (kernel_ConvNormAct.cpp:427).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' (loop 'Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus write operation ('gmem0_addr_write_ln427', kernel_ConvNormAct.cpp:427) on port 'gmem0' (kernel_ConvNormAct.cpp:427) and bus write operation ('gmem0_addr_write_ln427', kernel_ConvNormAct.cpp:427) on port 'gmem0' (kernel_ConvNormAct.cpp:427).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 4, Depth = 6, loop 'Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.26 seconds. CPU system time: 0 seconds. Elapsed time: 0.5 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.08 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_conv_norm_act' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.11 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.16 seconds; current allocated memory: 1.016 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.59 seconds. CPU system time: 0 seconds. Elapsed time: 0.65 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' pipeline 'init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2' pipeline type 'loop pipeline'
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2/m_axi_gmem0_ARUSER' to 0.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.18 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.33 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'mux_22_32_1_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.17 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'mux_245_32_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_conv_Pipeline_init_output_VITIS_LOOP_126_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.27 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.32 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'compute_conv_Pipeline_Batch_Out_Row_Out_Column' pipeline 'Batch_Out_Row_Out_Column' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'faddfsub_32ns_32ns_32_2_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mux_22_32_1_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_conv_Pipeline_Batch_Out_Row_Out_Column'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.82 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.94 seconds; current allocated memory: 1.078 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_conv' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'faddfsub_32ns_32ns_32_2_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_conv'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 5 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.34 seconds; current allocated memory: 1.078 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act_Pipeline_init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act_Pipeline_init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.79 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.85 seconds; current allocated memory: 1.078 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4' pipeline 'Batch_norm_VITIS_LOOP_238_4' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_2_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_6_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_2_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dsqrt_64ns_64ns_64_6_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'faddfsub_32ns_32ns_32_2_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_1_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fsub_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mux_22_32_1_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mux_245_32_1_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.2 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.33 seconds; current allocated memory: 1.078 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7' pipeline 'VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_2_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_6_no_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dexp_64ns_64ns_64_4_full_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_2_max_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 8 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_1_no_dsp_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mux_22_32_1_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.6 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.75 seconds; current allocated memory: 1.078 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' pipeline 'Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2' pipeline type 'loop pipeline'
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_AWUSER' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2/m_axi_gmem0_BREADY' to 0.
+INFO: [RTGEN 206-100] Generating core module 'mux_22_32_1_1': 4 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.47 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.6 seconds; current allocated memory: 1.078 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_conv_norm_act' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_conv_norm_act/gmem0' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_conv_norm_act/buffer_DataIn_1' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_conv_norm_act/buffer_result' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'kernel_conv_norm_act' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Bundling port 'buffer_DataIn_1' and 'buffer_result' to AXI-Lite port control.
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_2_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_6_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_2_max_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'faddfsub_32ns_32ns_32_2_full_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_conv_norm_act'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.26 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.46 seconds; current allocated memory: 1.078 GB.
+INFO: [RTMG 210-278] Implementing memory 'kernel_conv_norm_act_in_0_RAM_AUTO_1R1W_ram (RAM)' using auto RAMs.
+INFO: [RTMG 210-278] Implementing memory 'kernel_conv_norm_act_in_pad_RAM_AUTO_1R1W_ram (RAM)' using auto RAMs.
+INFO: [RTMG 210-278] Implementing memory 'kernel_conv_norm_act_afterConv_0_RAM_AUTO_1R1W_ram (RAM)' using auto RAMs.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 3.22 seconds. CPU system time: 0.08 seconds. Elapsed time: 3.85 seconds; current allocated memory: 1.079 GB.
+INFO: [HLS 200-1603] Design has inferred MAXI bursts and missed bursts, see Vitis HLS GUI synthesis summary report for detailed information.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.9 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.04 seconds; current allocated memory: 1.142 GB.
+INFO: [VHDL 208-304] Generating VHDL RTL for kernel_conv_norm_act.
+INFO: [VLOG 209-307] Generating Verilog RTL for kernel_conv_norm_act.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 54.79 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 87.5 seconds. CPU system time: 2.17 seconds. Elapsed time: 95.62 seconds; current allocated memory: 393.055 MB.
+INFO: [HLS 200-1510] Running: cosim_design 
+INFO: [COSIM 212-47] Using XSIM for RTL simulation.
+INFO: [COSIM 212-14] Instrumenting C test bench ...
+   Build using "/users/cad/xilinx/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/bin/g++"
+   Compiling kernel_ConvNormAct.cpp_pre.cpp.tb.cpp
+   Compiling apatb_kernel_conv_norm_act.cpp
+   Compiling kernel_ConvNormAct_test.cpp_pre.cpp.tb.cpp
+   Compiling apatb_kernel_conv_norm_act_ir.ll
+   Generating cosim.tv.exe
+INFO: [COSIM 212-302] Starting C TB testing ... 
+0.500276 0.500276 0.500276 0.328739
+1.1089 1.1089 1.1089 0.500276
+2.15271 2.15271 2.15271 0.789769
+1.79779 1.79779 1.79779 0.689468
+INFO: [COSIM 212-333] Generating C post check test bench ...
+INFO: [COSIM 212-12] Generating RTL test bench ...
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source run_vivado_gen_ip.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/users/cad/xilinx/Vivado/2022.1/data/ip'.
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip'...
+INFO: [Common 17-206] Exiting Vivado at Tue Sep 12 14:44:18 2023...
+INFO: [COSIM 212-1] *** C/RTL co-simulation file generation completed. ***
+INFO: [COSIM 212-323] Starting verilog simulation. 
+INFO: [COSIM 212-15] Starting XSIM ...
+Vivado Simulator v2022.1
+Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
+Running: /users/cad/xilinx/Vivado/2022.1/bin/unwrapped/lnx64.o/xelab xil_defaultlib.apatb_kernel_conv_norm_act_top glbl -Oenable_linking_all_libraries -prj kernel_conv_norm_act.prj -L smartconnect_v1_0 -L axi_protocol_checker_v1_1_12 -L axi_protocol_checker_v1_1_13 -L axis_protocol_checker_v1_1_11 -L axis_protocol_checker_v1_1_12 -L xil_defaultlib -L unisims_ver -L xpm -L floating_point_v7_0_20 -L floating_point_v7_1_14 --lib ieee_proposed=./ieee_proposed -s kernel_conv_norm_act 
+Multi-threading is on. Using 126 slave threads.
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/ip/xil_defaultlib/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/glbl.v" into library work
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/AESL_axi_master_gmem0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_master_gmem0
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_afterConv_0_RAM_AUTO_1R1W.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_afterConv_0_RAM_AUTO_1R1W
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_in_pad_RAM_AUTO_1R1W.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_in_pad_RAM_AUTO_1R1W
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_compute_conv_Pipeline_init_output_VITIS_LOOP_126_4.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_compute_conv_Pipeline_init_output_VITIS_LOOP_126_4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_mux_245_32_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_mux_245_32_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_gmem0_m_axi.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_load
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_store
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_flushManager
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_read
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_write
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_throttle
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_reg_slice
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_fifo
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_srl
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_gmem0_m_axi_mem
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_flow_control_loop_pipe_sequential_init.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_flow_control_loop_pipe_sequential_init
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_compute_conv.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_compute_conv
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_init_in_VITIS_LOOP_53_1_VITIS_LOOP_56_2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act.autotb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module apatb_kernel_conv_norm_act_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_in_0_RAM_AUTO_1R1W.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_in_0_RAM_AUTO_1R1W
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_Batch_norm_VITIS_LOOP_238_4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_mux_22_32_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_mux_22_32_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_Padding_VITIS_LOOP_75_1_VITIS_LOOP_78_2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_control_s_axi.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_control_s_axi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_Skip_VITIS_LOOP_421_1_VITIS_LOOP_424_2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/AESL_axi_slave_control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_slave_control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_kernel_conv_norm_act_Pipeline_init_output_VITIS_LOOP_197_1_VITIS_LOOP_200_2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_compute_conv_Pipeline_Batch_Out_Row_Out_Column.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_conv_norm_act_compute_conv_Pipeline_Batch_Out_Row_Out_Column
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/dataflow_monitor.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dataflow_monitor
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 33 differs from formal bit length 32 for port 'm_axis_result_tdata' [/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1.v:29]
+WARNING: [VRFC 10-3091] actual bit length 65 differs from formal bit length 64 for port 'm_axis_result_tdata' [/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1.v:29]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package floating_point_v7_1_14.floating_point_v7_1_14_viv_comp
+Compiling package ieee.numeric_std
+Compiling package xbip_utils_v3_0_10.xbip_utils_v3_0_10_pkg
+Compiling package axi_utils_v2_0_6.axi_utils_v2_0_6_pkg
+Compiling package floating_point_v7_1_14.floating_point_v7_1_14_consts
+Compiling package ieee.math_real
+Compiling package floating_point_v7_1_14.floating_point_v7_1_14_exp_table...
+Compiling package mult_gen_v12_0_18.mult_gen_v12_0_18_pkg
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_signed
+Compiling package floating_point_v7_1_14.floating_point_v7_1_14_pkg
+Compiling package floating_point_v7_1_14.flt_utils
+Compiling package unisim.vcomponents
+Compiling package xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv_comp
+Compiling package ieee.vital_timing
+Compiling package ieee.vital_primitives
+Compiling package unisim.vpkg
+Compiling package mult_gen_v12_0_18.dsp_pkg
+Compiling package xil_defaultlib.$unit_dataflow_monitor_sv
+Compiling module xil_defaultlib.kernel_conv_norm_act_in_0_RAM_AU...
+Compiling module xil_defaultlib.kernel_conv_norm_act_in_pad_RAM_...
+Compiling module xil_defaultlib.kernel_conv_norm_act_afterConv_0...
+Compiling module xil_defaultlib.kernel_conv_norm_act_flow_contro...
+Compiling module xil_defaultlib.kernel_conv_norm_act_kernel_conv...
+Compiling module xil_defaultlib.kernel_conv_norm_act_kernel_conv...
+Compiling module xil_defaultlib.kernel_conv_norm_act_mux_22_32_1...
+Compiling module xil_defaultlib.kernel_conv_norm_act_kernel_conv...
+Compiling module xil_defaultlib.kernel_conv_norm_act_mux_245_32_...
+Compiling module xil_defaultlib.kernel_conv_norm_act_compute_con...
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(acascreg=0,adreg=0,alum...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=7,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=4,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=16,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=24,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=17,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=25,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(a_width=24,b_wi...]
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(acascreg=0,adreg=0,alum...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=48,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(a_width=24,b_wi...]
+Compiling architecture struct of entity floating_point_v7_1_14.fix_mult_dsp48e1_sgl [\fix_mult_dsp48e1_sgl(registers=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.fix_mult [\fix_mult(c_xdevicefamily="virte...]
+Compiling architecture muxcy_v of entity unisim.MUXCY [muxcy_default]
+Compiling architecture xorcy_v of entity unisim.XORCY [xorcy_default]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=8,length=0,fast_inp...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=32,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(length=0,fast_input=true)...]
+Compiling architecture rtl of entity floating_point_v7_1_14.special_detect [\special_detect(c_xdevicefamily=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=2,length=0,fast_inp...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=4,length=0,fast_inp...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=8,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=3,length=0,fast_inp...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=14,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_mult_exp [\flt_mult_exp(c_xdevicefamily="v...]
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(acascreg=0,adreg=0,alum...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=30,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=18,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(a_width=30,b_wi...]
+Compiling architecture struct of entity floating_point_v7_1_14.flt_round_dsp_opt_full [\flt_round_dsp_opt_full(c_xdevic...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_mult_round [\flt_mult_round(c_xdevicefamily=...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op_lat [\flt_dec_op_lat(c_xdevicefamily=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_mult [\flt_mult(c_xdevicefamily="virte...]
+Compiling module unisims_ver.x_lut1_mux2
+Compiling module unisims_ver.LUT1
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_fmul_32ns_3...
+Compiling module xil_defaultlib.kernel_conv_norm_act_fmul_32ns_3...
+Compiling module xil_defaultlib.kernel_conv_norm_act_compute_con...
+Compiling module xil_defaultlib.kernel_conv_norm_act_compute_con...
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=24,length=0,fast_in...]
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(c_part="xcu250-...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=13,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=27,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.align_add_dsp48e1_sgl [\align_add_dsp48e1_sgl(c_xdevice...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="00000000000000001111...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="00000000000000000000...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=5,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.lead_zero_encode_shift [\lead_zero_encode_shift(ab_fw=24...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=3,length=0)\]
+Compiling architecture lut6_v of entity unisim.LUT6 [\LUT6(init="11111110010101001011...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="00010001010111110000...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="11101110101000001111...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=2,length=0)\]
+Compiling architecture dsp48e1_v of entity unisim.DSP48E1 [\DSP48E1(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(a_width=24,c_wi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.norm_and_round_dsp48e1_sgl [\norm_and_round_dsp48e1_sgl(c_mu...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="10011001100110011001...]
+Compiling architecture lut5_v of entity unisim.LUT5 [\LUT5(init="11111111000000001111...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=9,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=10,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_gt [\compare_gt(c_xdevicefamily="vir...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare [\compare(c_xdevicefamily="virtex...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=12,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add_exp_sp [\flt_add_exp_sp(c_xdevicefamily=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=23,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op [\flt_dec_op(c_xdevicefamily="vir...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add_dsp [\flt_add_dsp(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add [\flt_add(c_xdevicefamily="virtex...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_fsub_32ns_3...
+Compiling module xil_defaultlib.kernel_conv_norm_act_fsub_32ns_3...
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_ne_im [\compare_ne_im(c_xdevicefamily="...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=12,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=25,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_round_bit [\flt_round_bit(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.renorm_and_round_logic [\renorm_and_round_logic(c_xdevic...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="ki...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.special_detect [\special_detect(a_w=64,a_fw=53,o...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_to_flt_conv_exp [\flt_to_flt_conv_exp(a_w=64,a_ew...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op [\flt_dec_op(c_xdevicefamily="vir...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_to_flt_conv [\flt_to_flt_conv(c_xdevicefamily...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_fptrunc_64n...
+Compiling module xil_defaultlib.kernel_conv_norm_act_fptrunc_64n...
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="ki...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.special_detect [\special_detect(a_fw=24,op_delay...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_to_flt_conv_exp [\flt_to_flt_conv_exp(r_w=64,r_ew...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op [\flt_dec_op(c_xdevicefamily="vir...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_to_flt_conv [\flt_to_flt_conv(c_xdevicefamily...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=64,length=0)\]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_fpext_32ns_...
+Compiling module xil_defaultlib.kernel_conv_norm_act_fpext_32ns_...
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=54,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=55,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=5,length=0,fast_inp...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=53,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=6,length=0,fast_inp...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=51,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=7,length=0,fast_inp...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=49,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=47,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=9,length=0,fast_inp...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=6,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=45,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=10,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=43,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=11,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=41,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=39,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=13,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=37,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=14,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=11,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=35,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=15,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=33,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=16,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=31,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=17,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=29,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=18,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=15,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=19,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=20,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=21,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=21)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=21,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=22,fast_input=true)...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=19)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [delay_default]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=19,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=23,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=20,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=22,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=26,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=27,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=28,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=29,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=26,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=30,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=31,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=28,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=32,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=33,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=34,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=35,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=36,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=37,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=34,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=38,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=39,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=36,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=40,fast_input=true)...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=37)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=41,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=38,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=42,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=43,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=40,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=44,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=45,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=42,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=46,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=47,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=44,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=48,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=49,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=46,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=50,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=51,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=52,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=53,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=50,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=54,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=55,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=52,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=56,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=57,length=0,fast_in...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=57,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=58,fast_input=true)...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant_addsub [\flt_sqrt_mant_addsub(c_xdevicef...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=55)\]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_sqrt_mant [\flt_sqrt_mant(c_xdevicefamily="...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=11,length=3,fast_in...]
+Compiling architecture rtl of entity floating_point_v7_1_14.special_detect [\special_detect(c_xdevicefamily=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=2,length=3,fast_inp...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(length=3,fast_input=true)...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_sqrt_exp [\flt_sqrt_exp(c_xdevicefamily="n...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.renorm_and_round_logic [\renorm_and_round_logic(c_xdevic...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op [\flt_dec_op(c_xdevicefamily="vir...]
+Compiling architecture virtex of entity floating_point_v7_1_14.flt_sqrt [\flt_sqrt(c_xdevicefamily="virte...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_dsqrt_64ns_...
+Compiling module xil_defaultlib.kernel_conv_norm_act_dsqrt_64ns_...
+Compiling module xil_defaultlib.kernel_conv_norm_act_kernel_conv...
+Compiling architecture muxf7_v of entity unisim.MUXF7 [muxf7_default]
+Compiling architecture muxf8_v of entity unisim.MUXF8 [muxf8_default]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.zero_det_sel [\zero_det_sel(c_xdevicefamily="v...]
+Compiling architecture rtl of entity floating_point_v7_1_14.shift_msb_first [\shift_msb_first(a_width=54,regi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.alignment [\alignment(c_xdevicefamily="virt...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(a_width=30,b_wi...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=56,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.addsub_dsp [\addsub_dsp(c_xdevicefamily="vir...]
+Compiling architecture rtl of entity floating_point_v7_1_14.addsub [\addsub(c_xdevicefamily="virtexu...]
+Compiling architecture rtl of entity floating_point_v7_1_14.align_add [\align_add(c_xdevicefamily="virt...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.mux4 [\mux4(c_xdevicefamily="virtexupl...]
+Compiling architecture rtl of entity floating_point_v7_1_14.mux4 [\mux4(c_xdevicefamily="virtexupl...]
+Compiling architecture rtl of entity floating_point_v7_1_14.mux4 [\mux4(c_xdevicefamily="virtexupl...]
+Compiling architecture rtl of entity floating_point_v7_1_14.mux4 [\mux4(c_xdevicefamily="virtexupl...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.lead_zero_encode [\lead_zero_encode(c_xdevicefamil...]
+Compiling architecture rtl of entity floating_point_v7_1_14.shift_msb_first [\shift_msb_first(a_width=56,resu...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(b_width=18,c_wi...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.renorm_and_round_logic [\renorm_and_round_logic(c_xdevic...]
+Compiling architecture rtl of entity floating_point_v7_1_14.norm_and_round_logic [\norm_and_round_logic(c_xdevicef...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.special_detect [\special_detect(c_xdevicefamily=...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq [\compare_eq(c_xdevicefamily="vir...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare [\compare(c_xdevicefamily="virtex...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add_exp [\flt_add_exp(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op [\flt_dec_op(c_xdevicefamily="vir...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add_logic [\flt_add_logic(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add [\flt_add(c_xdevicefamily="virtex...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_dadd_64ns_6...
+Compiling module xil_defaultlib.kernel_conv_norm_act_dadd_64ns_6...
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=30,b_wi...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=26,b_wi...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=26,b_wi...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=26,b_wi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=26,b_wi...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,adreg=0,alum...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=26,b_wi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e2_wrapper [\dsp48e2_wrapper(a_width=26,b_wi...]
+Compiling architecture struct of entity floating_point_v7_1_14.fix_mult_dsp48e2_dbl [\fix_mult_dsp48e2_dbl(mult_usage...]
+Compiling architecture rtl of entity floating_point_v7_1_14.fix_mult [\fix_mult(c_xdevicefamily="virte...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_mult_exp [\flt_mult_exp(c_xdevicefamily="v...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_round_bit [\flt_round_bit(c_xdevicefamily="...]
+Compiling architecture rtl of entity floating_point_v7_1_14.renorm_and_round_logic [\renorm_and_round_logic(c_xdevic...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_mult_round [\flt_mult_round(c_xdevicefamily=...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op_lat [\flt_dec_op_lat(c_xdevicefamily=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_mult [\flt_mult(c_xdevicefamily="virte...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_dmul_64ns_6...
+Compiling module xil_defaultlib.kernel_conv_norm_act_dmul_64ns_6...
+Compiling architecture synth of entity floating_point_v7_1_14.flt_div_mant_addsub [\flt_div_mant_addsub(c_xdevicefa...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=52)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=54,fast_input=true)...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_div_mant_addsub [\flt_div_mant_addsub(c_xdevicefa...]
+Compiling architecture virtex of entity floating_point_v7_1_14.flt_div_mant [\flt_div_mant(c_xdevicefamily="v...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=11,length=3)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=3,length=3,fast_inp...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=4,length=3,fast_inp...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_div_exp [\flt_div_exp(c_xdevicefamily="no...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.renorm_and_round_logic [\renorm_and_round_logic(c_xdevic...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_dec_op_lat [\flt_dec_op_lat(c_xdevicefamily=...]
+Compiling architecture virtex of entity floating_point_v7_1_14.flt_div [\flt_div(c_xdevicefamily="virtex...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_ddiv_64ns_6...
+Compiling module xil_defaultlib.kernel_conv_norm_act_ddiv_64ns_6...
+Compiling architecture synth of entity floating_point_v7_1_14.flt_log_addsub [\flt_log_addsub(c_xdevicefamily=...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=104,length=0)\]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,alumodereg=0...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.op_resize [\op_resize(ai_width=49,bi_width=...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.dsp [\dsp(c_xdevicefamily="virtexuplu...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=59,length=0)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=105,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.multadd [\multadd(c_xdevicefamily="virtex...]
+Compiling architecture rtl of entity floating_point_v7_1_14.special_detect [\special_detect(c_xdevicefamily=...]
+Compiling architecture fdre_v of entity unisim.FDRE [fdre_default]
+Compiling architecture fde_v of entity unisim.FDE [fde_default]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_gt [\compare_gt(c_xdevicefamily="vir...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=2,fast_input=true)\]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_exp_specialcase [\flt_exp_specialcase(c_xdevicefa...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay_s [\delay_s(width=13,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay_s [\delay_s(width=12,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.zero_det_sel [\zero_det_sel(c_xdevicefamily="v...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=67,length=0)\]
+Compiling architecture rtl of entity floating_point_v7_1_14.shift_msb_first [\shift_msb_first(result_width=67...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=69,length=0)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_to_fix_conv [\flt_to_fix_conv(c_xdevicefamily...]
+Compiling architecture rtl of entity floating_point_v7_1_14.dsp48e1_wrapper [\dsp48e1_wrapper(a_width=30,b_wi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_log_addsub [\flt_log_addsub(c_xdevicefamily=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_exp_ccm [\flt_exp_ccm(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_log_addsub [\flt_log_addsub(c_xdevicefamily=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_exp_ccm [\flt_exp_ccm(c_xdevicefamily="vi...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=66,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_log_addsub [\flt_log_addsub(c_xdevicefamily=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_exp_e2A [\flt_exp_e2A(c_xdevicefamily="vi...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,alumodereg=0...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,alumodereg=0...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.op_resize [\op_resize(ai_width=26,bi_width=...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.dsp [\dsp(c_xdevicefamily="virtexuplu...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=11,fast_input=true)...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=58,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.multadd [\multadd(c_xdevicefamily="virtex...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.delay_line [\delay_line(c_xdevicefamily="vir...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,alumodereg=0...]
+Compiling architecture dsp48e2_v of entity unisim.DSP48E2 [\DSP48E2(acascreg=0,alumodereg=0...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.op_resize [\op_resize(ai_width=33,bi_width=...]
+Compiling architecture xilinx of entity mult_gen_v12_0_18.dsp [\dsp(c_xdevicefamily="virtexuplu...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_has_ce=1...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=71,length=0)\]
+Compiling architecture synth of entity floating_point_v7_1_14.multadd [\multadd(c_xdevicefamily="virtex...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=9)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=30)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=2)\]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_exp_dp_poly [\flt_exp_dp_poly(c_xdevicefamily...]
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_exp_e2zmzm1 [\flt_exp_e2zmzm1(c_xdevicefamily...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=47)\]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=11)\]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture rtl of entity floating_point_v7_1_14.renorm_and_round_logic [\renorm_and_round_logic(c_xdevic...]
+Compiling architecture lut4_v of entity unisim.LUT4 [\LUT4(init="1100110010010110")(0...]
+Compiling architecture lut4_v of entity unisim.LUT4 [\LUT4(init="1100110000111100")(0...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_log_addsub [\flt_log_addsub(c_xdevicefamily=...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_ne_im [\compare_ne_im(c_xdevicefamily="...]
+Compiling architecture struct of entity floating_point_v7_1_14.carry_chain [\carry_chain(c_xdevicefamily="vi...]
+Compiling architecture synth of entity floating_point_v7_1_14.compare_gt [\compare_gt(c_xdevicefamily="vir...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture rtl of entity floating_point_v7_1_14.delay [\delay(width=64)\]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_exp_recomb [\flt_exp_recomb(c_xdevicefamily=...]
+Compiling architecture synth of entity floating_point_v7_1_14.flt_exp [\flt_exp(c_xdevicefamily="virtex...]
+Compiling architecture synth of entity xbip_pipe_v3_0_6.xbip_pipe_v3_0_6_viv [\xbip_pipe_v3_0_6_viv(c_latency=...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_dexp_64ns_6...
+Compiling module xil_defaultlib.kernel_conv_norm_act_dexp_64ns_6...
+Compiling module xil_defaultlib.kernel_conv_norm_act_kernel_conv...
+Compiling module xil_defaultlib.kernel_conv_norm_act_kernel_conv...
+Compiling module xil_defaultlib.kernel_conv_norm_act_control_s_a...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling module xil_defaultlib.kernel_conv_norm_act_gmem0_m_axi...
+Compiling architecture rtl of entity floating_point_v7_1_14.flt_add [\flt_add(c_xdevicefamily="virtex...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
+Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
+Compiling module xil_defaultlib.kernel_conv_norm_act_faddfsub_32...
+Compiling module xil_defaultlib.kernel_conv_norm_act_faddfsub_32...
+Compiling module xil_defaultlib.kernel_conv_norm_act
+Compiling module xil_defaultlib.AESL_axi_master_gmem0
+Compiling module xil_defaultlib.AESL_axi_slave_control
+Compiling module xil_defaultlib.nodf_module_intf
+Compiling module xil_defaultlib.upc_loop_intf(FSM_WIDTH=4)
+Compiling module xil_defaultlib.upc_loop_intf(FSM_WIDTH=108)
+Compiling module xil_defaultlib.upc_loop_intf(FSM_WIDTH=8)
+Compiling module xil_defaultlib.upc_loop_intf(FSM_WIDTH=1)
+Compiling module xil_defaultlib.dataflow_monitor_1
+Compiling module xil_defaultlib.apatb_kernel_conv_norm_act_top
+Compiling module work.glbl
+Built simulation snapshot kernel_conv_norm_act
+
+****** xsim v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source xsim.dir/kernel_conv_norm_act/xsim_script.tcl
+# xsim {kernel_conv_norm_act} -autoloadwcfg -tclbatch {kernel_conv_norm_act.tcl}
+Time resolution is 1 ps
+source kernel_conv_norm_act.tcl
+## run all
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_calculate_Xf/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(1)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : CARRYCASCIN can only be used in the current DSP48E1 instance if the previous DSP48E1  is performing a two input ADD or SUBTRACT operation, or the current DSP48E1 is configured in the MAC extend opmode(6:0) equals 1001000. 
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: DRC warning : DSP48E1 CARRYINSEL is set to 010 with OPMODEREG set to 0. This causes unknown values after reset occurs. It is suggested to use OPMODEREG = 1 when cascading large adders.
+Time: 0 ps  Iteration: 2  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_ccm_ln2/\g_tables(0)\/i_addsub/dsp/two/dsp48e1_add_hi/i_no_versal_es1_workaround/DSP/prcs_carryinsel_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+////////////////////////////////////////////////////////////////////////////////////
+// Inter-Transaction Progress: Completed Transaction / Total Transaction
+// Intra-Transaction Progress: Measured Latency / Latency Estimation * 100%
+//
+// RTL Simulation : "Inter-Transaction Progress" ["Intra-Transaction Progress"] @ "Simulation Time"
+////////////////////////////////////////////////////////////////////////////////////
+// RTL Simulation : 0 / 1 [0.00%] @ "163000"
+Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 138412500 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/faddfsub_32ns_32ns_32_2_full_dsp_1_U155/kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 138412500 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/faddfsub_32ns_32ns_32_2_full_dsp_1_U156/kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 143712601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 143712601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 143737601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 143737601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 144012501 ps  Iteration: 13  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dmul_64ns_64ns_64_2_max_dsp_1_U110/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip_u/inst/i_synth/mult/OP/i_non_prim/R_AND_R/logic/R_AND_R/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 144012501 ps  Iteration: 13  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dmul_64ns_64ns_64_2_max_dsp_1_U111/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip_u/inst/i_synth/mult/OP/i_non_prim/R_AND_R/logic/R_AND_R/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 144212601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 144237601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 144312601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 144337601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 145162601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 145662601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U116/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 146762601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 146787601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 146837601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U119/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 147662601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 147687601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148212601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U117/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148237500 ps  Iteration: 179  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/faddfsub_32ns_32ns_32_2_full_dsp_1_U155/kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148237500 ps  Iteration: 179  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/faddfsub_32ns_32ns_32_2_full_dsp_1_U156/kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148237601 ps  Iteration: 18  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/grp_kernel_conv_norm_act_Pipeline_VITIS_LOOP_368_5_VITIS_LOOP_371_6_VITIS_LOOP_374_7_fu_274/dexp_64ns_64ns_64_4_full_dsp_1_U118/kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip_u/inst/i_synth/exp_op/i_sp_or_dp/OP/i_renorm_and_round/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148387501 ps  Iteration: 13  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dmul_64ns_64ns_64_2_max_dsp_1_U159/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip_u/inst/i_synth/mult/OP/i_non_prim/R_AND_R/logic/R_AND_R/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148387501 ps  Iteration: 13  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dmul_64ns_64ns_64_2_max_dsp_1_U160/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip_u/inst/i_synth/mult/OP/i_non_prim/R_AND_R/logic/R_AND_R/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 001XXXX with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148412500 ps  Iteration: 47  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dadd_64ns_64ns_64_2_full_dsp_1_U157/kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/logic_speed/OP/ALIGN_BLK/FRAC_ADDSUB/dsp_add/FRAC_ADDSUB/i_no_versal_es1_workaround/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 001XXXX with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 148412500 ps  Iteration: 47  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dadd_64ns_64ns_64_2_full_dsp_1_U158/kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/logic_speed/OP/ALIGN_BLK/FRAC_ADDSUB/dsp_add/FRAC_ADDSUB/i_no_versal_es1_workaround/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 001XXXX with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 153637500 ps  Iteration: 19  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dadd_64ns_64ns_64_2_full_dsp_1_U157/kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/logic_speed/OP/ALIGN_BLK/FRAC_ADDSUB/dsp_add/FRAC_ADDSUB/i_no_versal_es1_workaround/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 001XXXX with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 153637500 ps  Iteration: 19  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dadd_64ns_64ns_64_2_full_dsp_1_U158/kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/logic_speed/OP/ALIGN_BLK/FRAC_ADDSUB/dsp_add/FRAC_ADDSUB/i_no_versal_es1_workaround/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 153637501 ps  Iteration: 13  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dmul_64ns_64ns_64_2_max_dsp_1_U159/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip_u/inst/i_synth/mult/OP/i_non_prim/R_AND_R/logic/R_AND_R/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Warning: OPMODE Input Warning : The OPMODE 011XX11 with CARRYINSEL  000 to DSP48E1 instance is invalid.
+Time: 153637501 ps  Iteration: 13  Process: /apatb_kernel_conv_norm_act_top/AESL_inst_kernel_conv_norm_act/dmul_64ns_64ns_64_2_max_dsp_1_U160/kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip_u/inst/i_synth/mult/OP/i_non_prim/R_AND_R/logic/R_AND_R/dsp48_e1/dsp48e1_add/DSP48E1_ADD/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+// RTL Simulation : 1 / 1 [100.00%] @ "175938000"
+////////////////////////////////////////////////////////////////////////////////////
+$finish called at time : 176087500 ps : File "/users/student/mr111/jhchen22/ViT_HLS/conv_norm_act/proj_conv_norm_act_kernel/solution1/sim/verilog/kernel_conv_norm_act.autotb.v" Line 486
+run: Time (s): cpu = 00:00:01 ; elapsed = 00:00:36 . Memory (MB): peak = 2834.383 ; gain = 0.000 ; free physical = 139321 ; free virtual = 243912
+## quit
+INFO: xsimkernel Simulation Memory Usage: 205940 KB (Peak: 249968 KB), Simulation CPU Usage: 36250 ms
+INFO: [Common 17-206] Exiting xsim at Tue Sep 12 14:46:00 2023...
+INFO: [COSIM 212-316] Starting C post checking ...
+0.500276 0.500276 0.500276 0.328739
+1.1089 1.1089 1.1089 0.500276
+2.15271 2.15271 2.15271 0.789769
+1.79779 1.79779 1.79779 0.689468
+INFO: [COSIM 212-1000] *** C/RTL co-simulation finished: PASS ***
+INFO: [COSIM 212-211] II is measurable only when transaction number is greater than 1 in RTL simulation. Otherwise, they will be marked as all NA. If user wants to calculate them, please make sure there are at least 2 transactions in RTL simulation.
+INFO: [HLS 200-111] Finished Command cosim_design CPU user time: 189.45 seconds. CPU system time: 10.9 seconds. Elapsed time: 138.57 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-1510] Running: export_design 
+INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source run_ippack.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/users/cad/xilinx/Vivado/2022.1/data/ip'.
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dadd_64ns_64ns_64_2_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_ddiv_64ns_64ns_64_6_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dexp_64ns_64ns_64_4_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dmul_64ns_64ns_64_2_max_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_dsqrt_64ns_64ns_64_6_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_faddfsub_32ns_32ns_32_2_full_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fmul_32ns_32ns_32_2_max_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fpext_32ns_64_1_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fptrunc_64ns_32_1_no_dsp_1_ip'...
+WARNING: [IP_Flow 19-4832] The IP name 'kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_conv_norm_act_fsub_32ns_32ns_32_2_full_dsp_1_ip'...
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/users/cad/xilinx/Vivado/2022.1/data/ip'.
+INFO: [Common 17-206] Exiting Vivado at Tue Sep 12 14:46:21 2023...
+INFO: [HLS 200-802] Generated output file proj_conv_norm_act_kernel/solution1/impl/export.zip
+INFO: [HLS 200-111] Finished Command export_design CPU user time: 14.98 seconds. CPU system time: 1.96 seconds. Elapsed time: 20.92 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-112] Total CPU user time: 300.25 seconds. Total CPU system time: 16.33 seconds. Total elapsed time: 265.33 seconds; peak allocated memory: 1.142 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Tue Sep 12 14:46:21 2023...

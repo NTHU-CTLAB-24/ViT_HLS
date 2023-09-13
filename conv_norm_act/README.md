@@ -18,4 +18,15 @@
 * ```ConvNormAct.cpp``` is a draft of c++ of hls
 * ```host_ConvNormAct.cpp``` and ```host_ConvNormAct.hpp``` are for vitis excution
 * ```kernel_ConvNormAct.cpp``` is both for vitis and vitis_hls excetuion
-* ```vitis_hls_test``` contains the files that needed in vitis_hls execution. Remember to include ```kernel_ConvNormAct.cpp```, you can refer to run_hls.tcl to check what files are needed.
+* ```kernel_ConvNormAct.hpp``` and ```kernel_ConvNormAct_test.cpp``` are for vitis_hls excution
+
+### Vitis
+* ```host_ConvNormAct.cpp```
+* ```host_ConvNormAct.hpp```
+* ```kernel_ConvNormAct.cpp```
+
+### Vitis_hls
+* ```kernel_ConvNormAct.cpp```
+* ```kernel_ConvNormAct.hpp```
+* ```kernel_ConvNormAct_test.cpp```
+* ```run_hls.tcl```

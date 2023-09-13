@@ -35,7 +35,7 @@ init_output:
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
-#pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
+#pragma HLS UNROLL
                     msp_out[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;
                     dw_conv_out[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;
                     se_out[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;

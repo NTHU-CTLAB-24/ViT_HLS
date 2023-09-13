@@ -4,14 +4,14 @@
 
 // TODO: modify parameters
 const int BATCH_SIZE = 2;
-const int CHANNEL_IN = 3;
-const int CHANNEL_OUT = 3;
+const int CHANNEL_IN = 24;
+const int CHANNEL_OUT = 24;
 const int HEIGHT_IN = 4;
 const int WIDTH_IN = 4;
 
 const int KERNEL_SIZE = 3;
 const int STRIDE = 1;
-const int GROUP = 1;
+const int GROUP = 24;
 
 const int PADDING = ceil((float)(KERNEL_SIZE - STRIDE) / 2);
 const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;

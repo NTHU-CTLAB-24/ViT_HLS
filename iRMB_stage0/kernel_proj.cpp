@@ -47,7 +47,7 @@ init_in:
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_IN max = HEIGHT_IN
                 for (int w = 0; w < WIDTH_IN; w++)
                 {
-#pragma HLS LOOP_TRIPCOUNT min = WIDTH_IN max = WIDTH_IN
+#pragma HLS UNROLL
                     in[n][c][h][w] = buffer_DataIn_1[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w];
                 }
             }
@@ -73,12 +73,11 @@ init_kernel_bias:
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
             for (int i = 0; i < KERNEL_SIZE; i++)
             {
-#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+#pragma HLS UNROLL
                 for (int j = 0; j < KERNEL_SIZE; j++)
                 {
-#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
-
-                    kernel[k][l][i][j] = j + k;
+#pragma HLS UNROLL
+                    kernel[k][l][i][j] = 2;
                 }
             }
         }
@@ -96,37 +95,36 @@ Batch:
         Out_Column:
             for (int col = 0; col < WIDTH_OUT; col++)
             {
-// #pragma HLS PIPELINE
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-                int groupIndex = 0;
-            Output_Channel:
-                for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
+            Kernel_Row:
+                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
                 {
-#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
-                    int kernelChannelIdx = 0;
-                In_Channel:
-                    for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+                Kernel_Col:
+                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
                     {
-#pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
-                    Kernel_Row:
-                        for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
+#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+                        int groupIndex = 0;
+                    Output_Channel:
+                        for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
                         {
-#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
-                        Kernel_Col:
-                            for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
+#pragma HLS UNROLL
+                            int kernelChannelIdx = 0;
+                        In_Channel:
+                            for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
                             {
-#pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
+#pragma HLS UNROLL
                                 buffer_result[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += in[batch][in_ch][row * STRIDE + kernel_row][col * STRIDE + kernel_col] * kernel[out_ch][kernelChannelIdx][kernel_row][kernel_col];
+                                kernelChannelIdx++;
+                                if ((in_ch + 1) % inGroupNums == 0)
+                                    break;
                             }
+                            if ((out_ch + 1) % outGroupNums == 0)
+                                groupIndex++;
+                            if (isBias)
+                                buffer_result[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += bias[out_ch];
                         }
-                        kernelChannelIdx++;
-                        if ((in_ch + 1) % inGroupNums == 0)
-                            break;
                     }
-                    if ((out_ch + 1) % outGroupNums == 0)
-                        groupIndex++;
-                    if (isBias)
-                        buffer_result[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += bias[out_ch];
                 }
             }
         }
@@ -154,7 +152,7 @@ extern "C"
 #pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 96
 #pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 96
 
-// #pragma HLS dataflow
+#pragma HLS dataflow
 // dataflow僅可以接受single reader and single writer
         // dataflow pragma instruct compiler to run following three APIs in parallel
         float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
