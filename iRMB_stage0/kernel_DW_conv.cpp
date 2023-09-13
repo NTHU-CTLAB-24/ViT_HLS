@@ -211,14 +211,24 @@ init_output:
     switch (NORM_LAYER)
     {
     case 0: {
-        const float RUNNING_MEAN[CHANNEL_OUT] = {82, 227, 444};
+        float RUNNING_MEAN[CHANNEL_OUT];
 #pragma HLS array_partition variable = RUNNING_MEAN complete dim = 1
-        const float RUNNING_VAR[CHANNEL_OUT] = {945, 3780, 8505};
+        float RUNNING_VAR[CHANNEL_OUT];
 #pragma HLS array_partition variable = RUNNING_VAR complete dim = 1
-        const float weight[CHANNEL_OUT] = {0.5, 0.5, 0.5};
+        float weight[CHANNEL_OUT];
 #pragma HLS array_partition variable = weight complete dim = 1
-        const float bias[CHANNEL_OUT] = {0.2, 0.2, 0.2};
+        float bias[CHANNEL_OUT];
 #pragma HLS array_partition variable = bias complete dim = 1
+
+    init_parameters:
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+#pragma HLS UNROLL
+            RUNNING_MEAN[c] = 8;
+            RUNNING_VAR[c] = 21.5;
+            weight[c] = 0.5;
+            bias[c] = 0.2;
+        }
 
     Batch_norm:
         for (int n = 0; n < BATCH_SIZE; n++)

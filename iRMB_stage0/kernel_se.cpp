@@ -14,7 +14,7 @@ const int CHANNEL_OUT = int(CHANNEL_IN * RATIO); // REDUCE_CHS
 const int KERNEL_SIZE = 1;
 const int PADDING = 0;
 const int STRIDE = 1;
-const bool isConvBias = false;
+const bool isConvBias = true;
 const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 
