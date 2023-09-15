@@ -56,10 +56,7 @@ using namespace std;
 
 // 需要用到的常數
 static const int BATCH_SIZE = 1;
-static const int HEIGHT_IN = 14;
-static const int WIDTH_IN = 14;
-static const int CHANNEL_IN = 3;
-static const int CHANNEL_OUT = 16;
+static const int CHANNEL_OUT = 24;
 static const int KERNEL_SIZE = 3;
 static const int PADDING = 1;
 static const int STRIDE = 2;
@@ -69,16 +66,12 @@ static const int WIDTH_OUT =
 (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 
 
-static const int INPUT_SIZE = BATCH_SIZE * CHANNEL_IN * HEIGHT_IN * WIDTH_IN;
-static const int RESULT_SIZE = BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT;
-static const int FILTER_SIZE = CHANNEL_OUT * KERNEL_SIZE * KERNEL_SIZE;
-static const int NORM_SIZE = CHANNEL_OUT*2 + 2;
+static const int INPUT_SIZE = BATCH_SIZE * CHANNEL_IN * IMAGE_H * IMAGE_W;
+static const int RESULT_SIZE = BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT * 4;
 
 // Compute the size of array in bytes
 size_t size_input_bytes = INPUT_SIZE * sizeof(float);
 size_t size_output_bytes = RESULT_SIZE * sizeof(float);
-size_t size_kernel_bytes = FILTER_SIZE * sizeof(float);
-size_t size_norm_bytes = NORM_SIZE * sizeof(float);
 
 static const string error_message =
 "Error: Result mismatch:\n"
@@ -320,12 +313,12 @@ int main(int argc, char* argv[]) {
     // -------------------------------------------------------------
     // Step 3.3: Create a Kernels
     // -------------------------------------------------------------
-    cl::Kernel kernel_mspatch;
+    cl::Kernel k_msp;
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Creating a Kernel: kernel_mspatch ..." << endl;
+    cout << "HOST-Info: Creating a Kernel: k_msp ..." << endl;
 #endif
     OCL_CHECK(err,
-        kernel_mspatch = cl::Kernel(program, "kernel_mspatch", &err));
+        k_msp = cl::Kernel(program, "k_msp", &err));
 
     // ================================================================
     // Step 4: Prepare Data to Run Kernel
@@ -355,9 +348,7 @@ int main(int argc, char* argv[]) {
     //           Allocate Memory to store the results: RES array
     // ------------------------------------------------------------------
     /*定義Input和output型別*/
-    float* ptr_DataIn_1;  // image data
-    float* ptr_DataIn_2;  // kernel
-    float* ptr_DataIn_3;  // norm parameter
+    float* ptr_DataIn_1;  // image data 
     float* ptr_result;
     // These commands will allocate memory on the .Device
     // The cl::Buffer objects can be used to reference the memory locations on the
@@ -378,52 +369,8 @@ int main(int argc, char* argv[]) {
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Generating buffer_DataIn_1 ..." << endl;
 #endif
-    // Call dataPrepare to init data
-    dataPrepare(ptr_DataIn_1, BATCH_SIZE, CHANNEL_IN, HEIGHT_IN, WIDTH_IN);
-
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << INPUT_SIZE << " values" << endl;
-#endif
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_2 for DataIn_2 ... " << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY, size_kernel_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_2 to ptr_DataIn_2 ... " << endl;
-#endif
-    OCL_CHECK(err,
-        ptr_DataIn_2 = (float*)q.enqueueMapBuffer(buffer_DataIn_2, CL_TRUE, CL_MAP_WRITE, 0, size_kernel_bytes, NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_DataIn_2 ..." << endl;
-#endif
-    KernelPrepare(ptr_DataIn_2, CHANNEL_OUT, KERNEL_SIZE);
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << FILTER_SIZE << " values" << endl;
-#endif
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_3 for DataIn_3 ... "
-        << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_3(context, CL_MEM_READ_ONLY,
-        size_norm_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_3 to ptr_DataIn_3 ... " << endl;
-#endif
-    OCL_CHECK(err, ptr_DataIn_3 = (float*)q.enqueueMapBuffer(
-        buffer_DataIn_3, CL_TRUE, CL_MAP_WRITE, 0, size_norm_bytes,
-        NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_DataIn_3 ..." << endl;
-#endif
-    NormParameter(ptr_DataIn_3, CHANNEL_OUT);
-
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << NORM_SIZE << " values" << endl;
-#endif
-
-
+    dataPrepare(ptr_DataIn_1);
+    
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Allocating Memory buffer_result for RES Array ... "
         << endl;
@@ -431,19 +378,18 @@ int main(int argc, char* argv[]) {
     OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_WRITE_ONLY,
         size_output_bytes, NULL, &err));
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_result to ptr_result ... " << endl;
+    cout << "HOST-Info: Mapping buffer_result_1 to ptr_result ... " << endl;
 #endif
     OCL_CHECK(err, ptr_result = (float*)q.enqueueMapBuffer(
         buffer_result, CL_TRUE, CL_MAP_READ, 0, size_output_bytes,
         NULL, NULL, &err));
 
-    cout << "HOST-Info: Generating buffer_result ..." << endl;
 
     // Data will be migrated to kernel space
     cout << "HOST-Info: Migrating memory objects ..." << endl;
     // 考慮input量，若有多份則要改成{buffer_DataIn1, buffer_DataIn2...}
     OCL_CHECK(err,
-        err = q.enqueueMigrateMemObjects({ buffer_DataIn_1, buffer_DataIn_2, buffer_DataIn_3},
+        err = q.enqueueMigrateMemObjects({ buffer_DataIn_1},
             0 /* 0 means from host*/));
 
     // ============================================================================
@@ -452,10 +398,9 @@ int main(int argc, char* argv[]) {
     // 				----------------------------------------------------
     // 				 Kernel	  		Argument Nb		Description
     // 				----------------------------------------------------
-    //  			 kernel_msp      0				GlobMem_BUF_DataIn_1
-    //  			 kernel_msp      1				GlobMem_BUF_DataIn_2
-    //               kernel_msp      2              GlobMem_BUF_DataIn_3
-    //               kernel_msp      3              GlobMem_BUF_se_result
+    //  			 kernel_se      0				GlobMem_BUF_DataIn_1
+    //  			 kernel_se     	1				GlobMem_BUF_DataIn_2
+    //               kernel_se      3               GlobMem_BUF_se_result
     // 				----------------------------------------------------
     //         
     //         o) Submit Kernels for Execution
@@ -479,18 +424,16 @@ int main(int argc, char* argv[]) {
 #endif
     // set the kernel Arguments
     int narg = 0;
-    OCL_CHECK(err, err = kernel_mspatch.setArg(narg++, buffer_DataIn_1));
-    OCL_CHECK(err, err = kernel_mspatch.setArg(narg++, buffer_DataIn_2));
-    OCL_CHECK(err, err = kernel_mspatch.setArg(narg++, buffer_DataIn_3));
-    OCL_CHECK(err, err = kernel_mspatch.setArg(narg++, buffer_result));  
+    OCL_CHECK(err, err = k_msp.setArg(narg++, buffer_DataIn_1));
+    OCL_CHECK(err, err = k_msp.setArg(narg++, buffer_result));  
     // ----------------------------------------
     // Step 5.2: Submit Kernels for Execution
     // ----------------------------------------
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Submitting Kernel kernel_mspatch ..." << endl;
+    cout << "HOST-Info: Submitting Kernel k_msp ..." << endl;
 #endif
     // Launch the Kernel
-    OCL_CHECK(err, err = q.enqueueTask(kernel_mspatch));
+    OCL_CHECK(err, err = q.enqueueTask(k_msp));
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
@@ -518,9 +461,9 @@ int main(int argc, char* argv[]) {
     cout << "result:" << endl;
     //check result[0, 0, :, :]
     bool error_detected = false;
-    for (int i = 0; i < HEIGHT_OUT; i++) {
-        for (int j = 0; j < WIDTH_OUT; j++) {
-            cout << ptr_result[i * WIDTH_OUT + j] << " ";
+    for (int i = 0; i < HEIGHT_OUT*2; i++) {
+        for (int j = 0; j < WIDTH_OUT*2; j++) {
+            cout << ptr_result[i * WIDTH_OUT*2 + j] << " ";
         }
         cout << endl;
     }
@@ -547,8 +490,6 @@ int main(int argc, char* argv[]) {
     // ============================================================================
 
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, ptr_DataIn_1));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_2, ptr_DataIn_2));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_3, ptr_DataIn_3));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, ptr_result));
     OCL_CHECK(err, err = q.finish());
 
@@ -557,3 +498,4 @@ int main(int argc, char* argv[]) {
 
     return (error_detected ? EXIT_FAILURE : EXIT_SUCCESS);
 }
+

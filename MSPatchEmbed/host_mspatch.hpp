@@ -52,6 +52,11 @@ ALL TIMES.
 
 #include <CL/cl2.hpp>
 using namespace std;
+static const int IMAGE_H = 64;
+static const int IMAGE_W = 64;
+static const int HEIGHT_IN = IMAGE_H/2;
+static const int WIDTH_IN = IMAGE_W/2;
+static const int CHANNEL_IN = 3;
 
 //Customized buffer allocation for 4K boundary alignment
 template <typename T>
@@ -71,38 +76,14 @@ struct aligned_allocator
     }
 };
 
-void dataPrepare(float* Array, int batch, int channel, int height, int width) {
-   for (int b=0 ; b<batch; b++) {
-    for (int c=0; c<channel; c++) {
-        for (int i=0; i<height; i++) {
-            for (int j=0; j<width; j++) {
-                Array[b*channel*height*width + c*height*width + i*width + j] = float((b+c+i+j) % 256);
+void dataPrepare(float* image) {
+     for (int c=0; c<CHANNEL_IN; c++) {
+        for (int i=0; i<IMAGE_H; i++)  {
+            for (int j=0; j<IMAGE_W; j++) {
+                image[c*IMAGE_H*IMAGE_W + i*IMAGE_W + j] = (c+i+j)%256;
             }
         }
     }
-   }
-}
-
-void KernelPrepare(float* Array, int channel_out, int kernel_size){
-     for (int c = 0; c < channel_out; c++) {
-        for (int ki = 0; ki < kernel_size; ki++) {
-            for (int kj = 0; kj < kernel_size; kj++) {
-                Array[c*kernel_size*kernel_size + ki*kernel_size + kj] = 0.1;
-            }
-        }
-    }
-}
-
-void NormParameter(float* Array, int channel_out) {
-    //running_mean * channel_out + running_var * channel_out + gamma + beta
-    for (int i=0; i<channel_out; i++) {
-        Array[i] = 8;
-    }
-    for (int i=channel_out; i<channel_out*2; i++) {
-        Array[i] = 21.5;
-    }
-    Array[channel_out*2] = 0.5;
-    Array[channel_out*2 + 1] = 0.2;
 }
 
 void run_custom_profiling(int Nb_Of_Kernels, int Nb_Of_Memory_Tranfers, cl_event* K_exe_event, cl_event* Mem_op_event, string* list_of_kernel_names) {
