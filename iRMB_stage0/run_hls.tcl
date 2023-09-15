@@ -36,16 +36,16 @@ set_top kernel_irmb_stage0
 open_solution -reset solution1
 # Define technology and clock rate
 set_part  {xcu250-figd2104-2L-e}
-create_clock -period 25
+create_clock -period 50
 
 
 csim_design
 # Run Synthesis
-# csynth_design
-# # RTL Simulation
-# cosim_design 
-# # RTL implementation
-# export_design 
+csynth_design
+# RTL Simulation
+cosim_design 
+# RTL implementation
+export_design 
 
 
 exit

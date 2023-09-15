@@ -22,9 +22,6 @@ int main()
 
     float in[BATCH_SIZE * CHANNEL_IN * HEIGHT_IN * WIDTH_IN];
     float msp_norm[CHANNEL_OUT * 4];
-    float msp_out[BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
-    float dw_conv_out[BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
-    float se_out[BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
     float out[BATCH_SIZE * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
 
     std::cout << BATCH_SIZE * CHANNEL_IN * HEIGHT_IN * WIDTH_IN << std::endl;

@@ -146,13 +146,13 @@ extern "C"
     */
 
     void kernel_proj(float *buffer_DataIn_1,
-                              float *buffer_result)
+                     float *buffer_result)
     {
 // TODO: modify depth
-#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 96
-#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 96
+#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 768
+#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 768
 
-#pragma HLS dataflow
+// #pragma HLS dataflow
 // dataflow僅可以接受single reader and single writer
         // dataflow pragma instruct compiler to run following three APIs in parallel
         float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
