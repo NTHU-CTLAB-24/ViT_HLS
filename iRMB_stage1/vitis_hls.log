@@ -1,0 +1,334 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'jhchen22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Sat Sep 16 23:08:46 CST 2023
+INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
+INFO: [HLS 200-10] In directory '/users/student/mr111/jhchen22/ViT_HLS/iRMB_stage1'
+Sourcing Tcl script 'run_hls.tcl'
+INFO: [HLS 200-1510] Running: open_project -reset proj_irmb_stage1_kernel 
+INFO: [HLS 200-10] Opening and resetting project '/users/student/mr111/jhchen22/ViT_HLS/iRMB_stage1/proj_irmb_stage1_kernel'.
+WARNING: [HLS 200-40] No /users/student/mr111/jhchen22/ViT_HLS/iRMB_stage1/proj_irmb_stage1_kernel/solution1/solution1.aps file found.
+INFO: [HLS 200-1510] Running: add_files kernel_iRMB_stage1.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_iRMB_stage1.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_norm_in_0.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_norm_in_0.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_v_conv_0.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_v_conv_0.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_DW_conv_0.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_DW_conv_0.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_proj_0.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_proj_0.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_norm_in_1.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_norm_in_1.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_v_conv_1.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_v_conv_1.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_DW_conv_1.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_DW_conv_1.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_proj_1.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_proj_1.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb kernel_iRMB_stage1_test.cpp 
+INFO: [HLS 200-10] Adding test bench file 'kernel_iRMB_stage1_test.cpp' to the project
+INFO: [HLS 200-1510] Running: set_top kernel_irmb_stage1 
+INFO: [HLS 200-1510] Running: open_solution -reset solution1 
+INFO: [HLS 200-10] Creating and opening solution '/users/student/mr111/jhchen22/ViT_HLS/iRMB_stage1/proj_irmb_stage1_kernel/solution1'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+WARNING: [HLS 200-40] No /users/student/mr111/jhchen22/ViT_HLS/iRMB_stage1/proj_irmb_stage1_kernel/solution1/solution1.aps file found.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu250-figd2104-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu250-figd2104-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 50 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 50ns.
+INFO: [HLS 200-1510] Running: csim_design 
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../kernel_iRMB_stage1_test.cpp in debug mode
+   Compiling ../../../../kernel_proj_1.cpp in debug mode
+   Compiling ../../../../kernel_DW_conv_1.cpp in debug mode
+   Compiling ../../../../kernel_v_conv_1.cpp in debug mode
+   Compiling ../../../../kernel_norm_in_1.cpp in debug mode
+   Compiling ../../../../kernel_proj_0.cpp in debug mode
+   Compiling ../../../../kernel_DW_conv_0.cpp in debug mode
+   Compiling ../../../../kernel_v_conv_0.cpp in debug mode
+   Compiling ../../../../kernel_norm_in_0.cpp in debug mode
+   Compiling ../../../../kernel_iRMB_stage1.cpp in debug mode
+   Generating csim.exe
+1536
+512
+185783 302318 314707 280847
+371069 581112 603423 541206
+483295 752975 782748 697679
+520300 804475 826302 763636
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 51.51 seconds. CPU system time: 3.69 seconds. Elapsed time: 55.6 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Analyzing design file 'kernel_proj_1.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_DW_conv_1.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_v_conv_1.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_norm_in_1.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_proj_0.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_DW_conv_0.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_v_conv_0.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_norm_in_0.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_iRMB_stage1.cpp' ... 
+WARNING: [HLS 207-1017] unknown pragma ignored (kernel_iRMB_stage1.cpp:33:9)
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 223.8 seconds. CPU system time: 14.47 seconds. Elapsed time: 241.55 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_134_3' (kernel_iRMB_stage1.cpp:134:20) in function 'compute_iRMB_skip' completely with a factor of 4 (kernel_iRMB_stage1.cpp:123:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_proj_1.cpp:109:25) in function 'compute_conv' completely with a factor of 32 (kernel_proj_1.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'In_Channel' (kernel_proj_1.cpp:114:29) in function 'compute_conv' completely with a factor of 64 (kernel_proj_1.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_48_3' (kernel_proj_1.cpp:48:19) in function 'load_input' completely with a factor of 4 (kernel_proj_1.cpp:37:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_112_3' (kernel_iRMB_stage1.cpp:112:20) in function 'compute_dw_skip' completely with a factor of 4 (kernel_iRMB_stage1.cpp:101:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_376_8' (kernel_DW_conv_1.cpp:376:20) in function 'compute_act' completely with a factor of 4 (kernel_DW_conv_1.cpp:340:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_243_6' (kernel_DW_conv_1.cpp:243:20) in function 'compute_norm' completely with a factor of 4 (kernel_DW_conv_1.cpp:191:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_202_3' (kernel_DW_conv_1.cpp:202:20) in function 'compute_norm' completely with a factor of 4 (kernel_DW_conv_1.cpp:191:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_DW_conv_1.cpp:166:25) in function 'compute_conv' completely with a factor of 64 (kernel_DW_conv_1.cpp:95:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_131_6' (kernel_DW_conv_1.cpp:131:20) in function 'compute_conv' completely with a factor of 4 (kernel_DW_conv_1.cpp:95:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_80_3' (kernel_DW_conv_1.cpp:80:19) in function 'compute_padding' completely with a factor of 6 (kernel_DW_conv_1.cpp:69:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_58_3' (kernel_DW_conv_1.cpp:58:19) in function 'load_input' completely with a factor of 4 (kernel_DW_conv_1.cpp:47:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_v_conv_1.cpp:109:25) in function 'compute_conv' completely with a factor of 64 (kernel_v_conv_1.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'In_Channel' (kernel_v_conv_1.cpp:114:29) in function 'compute_conv' completely with a factor of 32 (kernel_v_conv_1.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_48_3' (kernel_v_conv_1.cpp:48:19) in function 'load_input' completely with a factor of 4 (kernel_v_conv_1.cpp:37:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_79_3' (kernel_norm_in_1.cpp:79:19) in function 'compute_norm' completely with a factor of 4 (kernel_norm_in_1.cpp:49:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_37_3' (kernel_norm_in_1.cpp:37:19) in function 'load_input' completely with a factor of 4 (kernel_norm_in_1.cpp:26:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_proj_0.cpp:109:25) in function 'compute_conv' completely with a factor of 32 (kernel_proj_0.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'In_Channel' (kernel_proj_0.cpp:114:29) in function 'compute_conv' completely with a factor of 96 (kernel_proj_0.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_48_3' (kernel_proj_0.cpp:48:19) in function 'load_input' completely with a factor of 4 (kernel_proj_0.cpp:37:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_376_8' (kernel_DW_conv_0.cpp:376:20) in function 'compute_act' completely with a factor of 4 (kernel_DW_conv_0.cpp:340:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_243_6' (kernel_DW_conv_0.cpp:243:20) in function 'compute_norm' completely with a factor of 4 (kernel_DW_conv_0.cpp:191:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_202_3' (kernel_DW_conv_0.cpp:202:20) in function 'compute_norm' completely with a factor of 4 (kernel_DW_conv_0.cpp:191:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_DW_conv_0.cpp:166:25) in function 'compute_conv' completely with a factor of 96 (kernel_DW_conv_0.cpp:95:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_131_6' (kernel_DW_conv_0.cpp:131:20) in function 'compute_conv' completely with a factor of 4 (kernel_DW_conv_0.cpp:95:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_80_3' (kernel_DW_conv_0.cpp:80:19) in function 'compute_padding' completely with a factor of 10 (kernel_DW_conv_0.cpp:69:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_58_3' (kernel_DW_conv_0.cpp:58:19) in function 'load_input' completely with a factor of 8 (kernel_DW_conv_0.cpp:47:0)
+INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_v_conv_0.cpp:109:25) in function 'compute_conv' completely with a factor of 96 (kernel_v_conv_0.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'In_Channel' (kernel_v_conv_0.cpp:114:29) in function 'compute_conv' completely with a factor of 24 (kernel_v_conv_0.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_48_3' (kernel_v_conv_0.cpp:48:19) in function 'load_input' completely with a factor of 8 (kernel_v_conv_0.cpp:37:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_79_3' (kernel_norm_in_0.cpp:79:19) in function 'compute_norm' completely with a factor of 8 (kernel_norm_in_0.cpp:49:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_37_3' (kernel_norm_in_0.cpp:37:19) in function 'load_input' completely with a factor of 8 (kernel_norm_in_0.cpp:26:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_88_11' (kernel_iRMB_stage1.cpp:88:20) in function 'init_out' completely with a factor of 4 (kernel_iRMB_stage1.cpp:32:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_65_7' (kernel_iRMB_stage1.cpp:65:19) in function 'init_out' completely with a factor of 4 (kernel_iRMB_stage1.cpp:32:0)
+INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_45_3' (kernel_iRMB_stage1.cpp:45:19) in function 'init_out' completely with a factor of 8 (kernel_iRMB_stage1.cpp:32:0)
+INFO: [HLS 214-178] Inlining function 'load_input(float*, float (*) [24][8][8])' into 'kernel_v_conv_0' (kernel_v_conv_0.cpp:150:0)
+INFO: [HLS 214-178] Inlining function 'load_input(float*, float (*) [96][4][4])' into 'kernel_proj_0' (kernel_proj_0.cpp:150:0)
+INFO: [HLS 214-178] Inlining function 'load_input(float*, float (*) [32][4][4])' into 'kernel_v_conv_1' (kernel_v_conv_1.cpp:150:0)
+INFO: [HLS 214-178] Inlining function 'load_input(float*, float (*) [64][4][4])' into 'kernel_proj_1' (kernel_proj_1.cpp:150:0)
+INFO: [HLS 214-178] Inlining function 'kernel_v_conv_0' into 'kernel_irmb_stage1' (kernel_iRMB_stage1.cpp:147:0)
+INFO: [HLS 214-178] Inlining function 'kernel_proj_0' into 'kernel_irmb_stage1' (kernel_iRMB_stage1.cpp:147:0)
+INFO: [HLS 214-178] Inlining function 'kernel_v_conv_1' into 'kernel_irmb_stage1' (kernel_iRMB_stage1.cpp:147:0)
+INFO: [HLS 214-178] Inlining function 'compute_dw_skip(float*, float*, float*)' into 'kernel_irmb_stage1' (kernel_iRMB_stage1.cpp:147:0)
+INFO: [HLS 214-178] Inlining function 'kernel_proj_1' into 'kernel_irmb_stage1' (kernel_iRMB_stage1.cpp:147:0)
+INFO: [HLS 214-178] Inlining function 'compute_iRMB_skip(float*, float*, float*)' into 'kernel_irmb_stage1' (kernel_iRMB_stage1.cpp:147:0)
+INFO: [HLS 214-248] Applying array_partition to 'bias.23': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'weight.22': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_VAR.21': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_MEAN.20': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'bias.17': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'weight.16': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_VAR.15': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_MEAN.14': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'bias.9': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'weight.8': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_VAR.7': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_MEAN.6': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'bias.3': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'weight': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_VAR': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'RUNNING_MEAN': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'in': Complete partitioning on dimension 1. (kernel_norm_in_0.cpp:112:8)
+INFO: [HLS 214-248] Applying array_partition to 'in': Complete partitioning on dimension 1. (kernel_DW_conv_0.cpp:435:8)
+INFO: [HLS 214-248] Applying array_partition to 'in_pad': Complete partitioning on dimension 1. (kernel_DW_conv_0.cpp:437:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterConv': Complete partitioning on dimension 1. (kernel_DW_conv_0.cpp:439:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterNorm': Complete partitioning on dimension 1. (kernel_DW_conv_0.cpp:441:8)
+INFO: [HLS 214-248] Applying array_partition to 'in': Complete partitioning on dimension 1. (kernel_norm_in_1.cpp:112:8)
+INFO: [HLS 214-248] Applying array_partition to 'in': Complete partitioning on dimension 1. (kernel_DW_conv_1.cpp:435:8)
+INFO: [HLS 214-248] Applying array_partition to 'in_pad': Complete partitioning on dimension 1. (kernel_DW_conv_1.cpp:437:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterConv': Complete partitioning on dimension 1. (kernel_DW_conv_1.cpp:439:8)
+INFO: [HLS 214-248] Applying array_partition to 'afterNorm': Complete partitioning on dimension 1. (kernel_DW_conv_1.cpp:441:8)
+INFO: [HLS 214-248] Applying array_partition to 'in.i63': Complete partitioning on dimension 1. (kernel_proj_1.cpp:158:8)
+INFO: [HLS 214-248] Applying array_partition to 'in.i32': Complete partitioning on dimension 1. (kernel_v_conv_1.cpp:158:8)
+INFO: [HLS 214-248] Applying array_partition to 'in.i1': Complete partitioning on dimension 1. (kernel_proj_0.cpp:158:8)
+INFO: [HLS 214-248] Applying array_partition to 'in.i': Complete partitioning on dimension 1. (kernel_v_conv_0.cpp:158:8)
+INFO: [HLS 214-248] Applying array_partition to 'norm_out_0': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:152:8)
+INFO: [HLS 214-248] Applying array_partition to 'v_out_0': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:154:8)
+INFO: [HLS 214-248] Applying array_partition to 'dw_conv_out_0': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:156:8)
+INFO: [HLS 214-248] Applying array_partition to 'proj_out_0': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:158:8)
+INFO: [HLS 214-248] Applying array_partition to 'norm_out_1': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:161:8)
+INFO: [HLS 214-248] Applying array_partition to 'v_out_1': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:163:8)
+INFO: [HLS 214-248] Applying array_partition to 'dw_conv_out_1': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:165:8)
+INFO: [HLS 214-248] Applying array_partition to 'proj_out_1': Complete partitioning on dimension 1. (kernel_iRMB_stage1.cpp:169:8)
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_63': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_62': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_61': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_60': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_59': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_58': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_57': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_56': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_55': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_54': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_53': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_52': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_51': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_50': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_49': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_48': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_47': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_46': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_45': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_44': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_43': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_42': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_41': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_40': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_39': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_38': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_37': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_36': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_35': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_34': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_33': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_32': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_31': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_30': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_29': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_28': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_27': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_26': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_25': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_24': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_23': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_22': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_21': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_20': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_19': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_18': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_17': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_16': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_15': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_14': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_13': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_12': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_11': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_10': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_9': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_8': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_7': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_6': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_5': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_4': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_3': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_2': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_1': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.2_0': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_95': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_94': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_93': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_92': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_91': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_90': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_89': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_88': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_87': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_86': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_85': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_84': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_83': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_82': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_81': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_80': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_79': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_78': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_77': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_76': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_75': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_74': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_73': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_72': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_71': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_70': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_69': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_68': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_67': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_66': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_65': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_64': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_63': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_62': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_61': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_60': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_59': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_58': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_57': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_56': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_55': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_54': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_53': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_52': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_51': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_50': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_49': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_48': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_47': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_46': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_45': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_44': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_43': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_42': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_41': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_40': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_39': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_38': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_37': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_36': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_35': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_34': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_33': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_32': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_31': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_30': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_29': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_28': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_27': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_26': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_25': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_24': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_23': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_22': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_21': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_20': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_19': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_18': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_17': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_16': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_15': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_14': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_13': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_12': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_11': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_10': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_9': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_8': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_7': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_6': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_5': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_4': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_3': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_2': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_1': Complete partitioning on dimension 1.
+INFO: [HLS 214-248] Applying array_partition to 'kernel.13_0': Complete partitioning on dimension 1.
+INFO: [HLS 214-115] Multiple burst reads of length 1536 and bit width 32 in loop 'VITIS_LOOP_31_1'(kernel_norm_in_0.cpp:31:19) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_norm_in_0.cpp:31:19)
+INFO: [HLS 214-115] Multiple burst writes of length 512 and bit width 32 in loop 'VITIS_LOOP_128_1'(kernel_iRMB_stage1.cpp:128:20) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_iRMB_stage1.cpp:128:20)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2243.99 seconds. CPU system time: 10.03 seconds. Elapsed time: 2258.7 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Starting code transformations ...

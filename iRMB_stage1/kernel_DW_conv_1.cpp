@@ -7,9 +7,9 @@
 
 // TODO: modify size
 // TRIPCOUNT identifie
-const int BATCH_SIZE = 2;
-const int CHANNEL_IN = 24;
-const int CHANNEL_OUT = 24;
+const int BATCH_SIZE = 1;
+const int CHANNEL_IN = 64;
+const int CHANNEL_OUT = 64;
 const int HEIGHT_IN = 4;
 const int WIDTH_IN = 4;
 
@@ -17,7 +17,7 @@ const int WIDTH_IN = 4;
 // Convolution parameters
 const int KERNEL_SIZE = 3;
 const int STRIDE = 1;
-const int GROUP = 24;
+const int GROUP = 64;
 
 // Padding and size
 const int PADDING = (KERNEL_SIZE - STRIDE) % 2 == 0 ? (KERNEL_SIZE - STRIDE) / 2 : (KERNEL_SIZE - STRIDE) / 2 + 1;
@@ -102,7 +102,7 @@ init_kernel_bias:
     for (int k = 0; k < CHANNEL_OUT; k++)
     {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
-        bias[k] = k + 10;
+        bias[k] = 2;
         for (int l = 0; l < KERNEL_CHANNEL; l++)
         {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
@@ -112,7 +112,7 @@ init_kernel_bias:
                 for (int j = 0; j < KERNEL_SIZE; j++)
                 {
 #pragma HLS UNROLL
-                    kernel[k][l][i][j] = j + k;
+                    kernel[k][l][i][j] = 0.5;
                 }
             }
         }
@@ -422,12 +422,12 @@ extern "C"
             size (input)  --> Number of elements in vector
     */
 
-    void kernel_DW_conv(float *buffer_DataIn_1,
+    void kernel_DW_conv_1(float *buffer_DataIn_1,
                         float *buffer_result)
     {
 // TODO: modify depth
-#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 768
-#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 768
+#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 1024
+#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 1024
 
         #pragma HLS dataflow
         // dataflow僅可以接受single reader and single writer

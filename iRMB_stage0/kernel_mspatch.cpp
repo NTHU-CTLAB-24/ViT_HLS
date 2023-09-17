@@ -185,7 +185,7 @@ static void compute_batchnorm(float in[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDT
                 for (int c = 0; c < CHANNEL_OUT; c++)
                 {
 #pragma HLS UNROLL
-                    out[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + i * WIDTH_OUT + j] = (in[n][c][i][j] - mean[c]) / sqrt(var[c] + 1e-5) * gamma[c] + beta[c];
+                    out[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + i * WIDTH_OUT + j] = (in[n][c][i][j] - mean[c]) / sqrt(var[c] + 1e-6) * gamma[c] + beta[c];
                 }
             }
         }
