@@ -52,8 +52,8 @@ ALL TIMES.
 
 #include <CL/cl2.hpp>
 using namespace std;
-static const int IMAGE_H = 64;
-static const int IMAGE_W = 64;
+static const int IMAGE_H = 224;
+static const int IMAGE_W = 224;
 static const int HEIGHT_IN = IMAGE_H/2;
 static const int WIDTH_IN = IMAGE_W/2;
 static const int CHANNEL_IN = 3;

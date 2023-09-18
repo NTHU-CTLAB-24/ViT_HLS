@@ -1,0 +1,258 @@
+
+
+================================================================
+== Vitis HLS Report for 'k_msp'
+================================================================
+* Date:           Mon Sep 18 01:00:17 2023
+
+* Version:        2021.2 (Build 3367213 on Tue Oct 19 02:47:39 MDT 2021)
+* Project:        k_msp
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu50-fsvh2104-2-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.00 ns|  3.148 ns|     1.08 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+--------+--------+----------+
+    |  Latency (cycles) |  Latency (absolute) |     Interval    | Pipeline |
+    |   min   |   max   |    min   |    max   |   min  |   max  |   Type   |
+    +---------+---------+----------+----------+--------+--------+----------+
+    |  1378231|  1378231|  5.513 ms|  5.513 ms|  849861|  849861|  dataflow|
+    +---------+---------+----------+----------+--------+--------+----------+
+
+    + Detail: 
+        * Instance: 
+        +---------------------+------------------+---------+---------+----------+----------+--------+--------+----------+
+        |                     |                  |  Latency (cycles) |  Latency (absolute) |     Interval    | Pipeline |
+        |       Instance      |      Module      |   min   |   max   |    min   |    max   |   min  |   max  |   Type   |
+        +---------------------+------------------+---------+---------+----------+----------+--------+--------+----------+
+        |entry_proc_U0        |entry_proc        |        0|        0|      0 ns|      0 ns|       0|       0|        no|
+        |tiling_image_U0      |tiling_image      |   150602|   150602|  0.602 ms|  0.602 ms|  150602|  150602|        no|
+        |kernel_mspatch_1_U0  |kernel_mspatch_1  |   926496|   926496|  3.706 ms|  3.706 ms|  849861|  849861|  dataflow|
+        |kernel_mspatch_2_U0  |kernel_mspatch_2  |   926496|   926496|  3.706 ms|  3.706 ms|  849861|  849861|  dataflow|
+        |kernel_mspatch_3_U0  |kernel_mspatch_3  |   926496|   926496|  3.706 ms|  3.706 ms|  849861|  849861|  dataflow|
+        |kernel_mspatch_U0    |kernel_mspatch    |   926496|   926496|  3.706 ms|  3.706 ms|  849861|  849861|  dataflow|
+        |combine_U0           |combine           |   301131|   301131|  1.205 ms|  1.205 ms|  301131|  301131|        no|
+        +---------------------+------------------+---------+---------+----------+----------+--------+--------+----------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+--------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT  | URAM|
++---------------------+---------+------+---------+--------+-----+
+|DSP                  |        -|     -|        -|       -|    -|
+|Expression           |        -|     -|        0|      32|    -|
+|FIFO                 |        -|     -|        5|      42|    -|
+|Instance             |       30|   136|   267767|  380592|  204|
+|Memory               |        -|     -|       32|    2400|   96|
+|Multiplexer          |        -|     -|        -|      54|    -|
+|Register             |        -|     -|        9|       -|    -|
++---------------------+---------+------+---------+--------+-----+
+|Total                |       30|   136|   267813|  383120|  300|
++---------------------+---------+------+---------+--------+-----+
+|Available SLR        |     1344|  2976|   871680|  435840|  320|
++---------------------+---------+------+---------+--------+-----+
+|Utilization SLR (%)  |        2|     4|       30|      87|   93|
++---------------------+---------+------+---------+--------+-----+
+|Available            |     2688|  5952|  1743360|  871680|  640|
++---------------------+---------+------+---------+--------+-----+
+|Utilization (%)      |        1|     2|       15|      43|   46|
++---------------------+---------+------+---------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    +---------------------+------------------+---------+----+-------+--------+-----+
+    |       Instance      |      Module      | BRAM_18K| DSP|   FF  |   LUT  | URAM|
+    +---------------------+------------------+---------+----+-------+--------+-----+
+    |combine_U0           |combine           |        0|   0|  90926|  288757|    0|
+    |control_s_axi_U      |control_s_axi     |        0|   0|    183|     298|    0|
+    |entry_proc_U0        |entry_proc        |        0|   0|      2|      20|    0|
+    |gmem0_m_axi_U        |gmem0_m_axi       |       30|   0|   1415|    1585|    0|
+    |kernel_mspatch_U0    |kernel_mspatch    |        0|  34|  28295|   20352|   51|
+    |kernel_mspatch_1_U0  |kernel_mspatch_1  |        0|  34|  28295|   20352|   51|
+    |kernel_mspatch_2_U0  |kernel_mspatch_2  |        0|  34|  28295|   20352|   51|
+    |kernel_mspatch_3_U0  |kernel_mspatch_3  |        0|  34|  28295|   20352|   51|
+    |tiling_image_U0      |tiling_image      |        0|   0|  62061|    8524|    0|
+    +---------------------+------------------+---------+----+-------+--------+-----+
+    |Total                |                  |       30| 136| 267767|  380592|  204|
+    +---------------------+------------------+---------+----+-------+--------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +---------+-----------------------------------------------+---------+---+-----+-----+-------+-----+------+-------------+
+    |  Memory |                     Module                    | BRAM_18K| FF| LUT | URAM| Words | Bits| Banks| W*Bits*Banks|
+    +---------+-----------------------------------------------+---------+---+-----+-----+-------+-----+------+-------------+
+    |out1_U   |kernel_mspatch_1_conv_result_RAM_1P_URAM_1R1W  |        0|  4|  300|   12|  75264|   32|     1|      2408448|
+    |out2_U   |kernel_mspatch_1_conv_result_RAM_1P_URAM_1R1W  |        0|  4|  300|   12|  75264|   32|     1|      2408448|
+    |out3_U   |kernel_mspatch_1_conv_result_RAM_1P_URAM_1R1W  |        0|  4|  300|   12|  75264|   32|     1|      2408448|
+    |out4_U   |kernel_mspatch_1_conv_result_RAM_1P_URAM_1R1W  |        0|  4|  300|   12|  75264|   32|     1|      2408448|
+    |tile1_U  |kernel_mspatch_1_image_RAM_1P_URAM_1R1W        |        0|  4|  300|   12|  37632|   32|     1|      1204224|
+    |tile2_U  |kernel_mspatch_1_image_RAM_1P_URAM_1R1W        |        0|  4|  300|   12|  37632|   32|     1|      1204224|
+    |tile3_U  |kernel_mspatch_1_image_RAM_1P_URAM_1R1W        |        0|  4|  300|   12|  37632|   32|     1|      1204224|
+    |tile4_U  |kernel_mspatch_1_image_RAM_1P_URAM_1R1W        |        0|  4|  300|   12|  37632|   32|     1|      1204224|
+    +---------+-----------------------------------------------+---------+---+-----+-----+-------+-----+------+-------------+
+    |Total    |                                               |        0| 32| 2400|   96| 451584|  256|     8|     14450688|
+    +---------+-----------------------------------------------+---------+---+-----+-----+-------+-----+------+-------------+
+
+    * FIFO: 
+    +------------+---------+---+----+-----+------+-----+---------+
+    |    Name    | BRAM_18K| FF| LUT| URAM| Depth| Bits| Size:D*B|
+    +------------+---------+---+----+-----+------+-----+---------+
+    |result_c_U  |        0|  5|   0|    -|     4|   64|      256|
+    +------------+---------+---+----+-----+------+-----+---------+
+    |Total       |        0|  5|   0|    0|     4|   64|      256|
+    +------------+---------+---+----+-----+------+-----+---------+
+
+    * Expression: 
+    +----------------------------------+----------+----+---+----+------------+------------+
+    |           Variable Name          | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +----------------------------------+----------+----+---+----+------------+------------+
+    |ap_channel_done_tile1             |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_tile2             |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_tile3             |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_tile4             |       and|   0|  0|   2|           1|           1|
+    |ap_idle                           |       and|   0|  0|   2|           1|           1|
+    |ap_sync_ready                     |       and|   0|  0|   2|           1|           1|
+    |combine_U0_ap_start               |       and|   0|  0|   2|           1|           1|
+    |entry_proc_U0_ap_start            |       and|   0|  0|   2|           1|           1|
+    |tiling_image_U0_ap_continue       |       and|   0|  0|   2|           1|           1|
+    |tiling_image_U0_ap_start          |       and|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_tile1       |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_tile2       |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_tile3       |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_tile4       |        or|   0|  0|   2|           1|           1|
+    |ap_sync_entry_proc_U0_ap_ready    |        or|   0|  0|   2|           1|           1|
+    |ap_sync_tiling_image_U0_ap_ready  |        or|   0|  0|   2|           1|           1|
+    +----------------------------------+----------+----+---+----+------------+------------+
+    |Total                             |          |   0|  0|  32|          16|          16|
+    +----------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +--------------------------------------+----+-----------+-----+-----------+
+    |                 Name                 | LUT| Input Size| Bits| Total Bits|
+    +--------------------------------------+----+-----------+-----+-----------+
+    |ap_sync_reg_channel_write_tile1       |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_tile2       |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_tile3       |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_tile4       |   9|          2|    1|          2|
+    |ap_sync_reg_entry_proc_U0_ap_ready    |   9|          2|    1|          2|
+    |ap_sync_reg_tiling_image_U0_ap_ready  |   9|          2|    1|          2|
+    +--------------------------------------+----+-----------+-----+-----------+
+    |Total                                 |  54|         12|    6|         12|
+    +--------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +--------------------------------------+---+----+-----+-----------+
+    |                 Name                 | FF| LUT| Bits| Const Bits|
+    +--------------------------------------+---+----+-----+-----------+
+    |ap_rst_n_inv                          |  1|   0|    1|          0|
+    |ap_rst_reg_1                          |  1|   0|    1|          0|
+    |ap_rst_reg_2                          |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_tile1       |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_tile2       |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_tile3       |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_tile4       |  1|   0|    1|          0|
+    |ap_sync_reg_entry_proc_U0_ap_ready    |  1|   0|    1|          0|
+    |ap_sync_reg_tiling_image_U0_ap_ready  |  1|   0|    1|          0|
+    +--------------------------------------+---+----+-----+-----------+
+    |Total                                 |  9|   0|    9|          0|
+    +--------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-----------------------+-----+-----+---------------+--------------+--------------+
+|       RTL Ports       | Dir | Bits|    Protocol   | Source Object|    C Type    |
++-----------------------+-----+-----+---------------+--------------+--------------+
+|s_axi_control_AWVALID  |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_AWREADY  |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_AWADDR   |   in|    6|          s_axi|       control|        scalar|
+|s_axi_control_WVALID   |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_WREADY   |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_WDATA    |   in|   32|          s_axi|       control|        scalar|
+|s_axi_control_WSTRB    |   in|    4|          s_axi|       control|        scalar|
+|s_axi_control_ARVALID  |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_ARREADY  |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_ARADDR   |   in|    6|          s_axi|       control|        scalar|
+|s_axi_control_RVALID   |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_RREADY   |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_RDATA    |  out|   32|          s_axi|       control|        scalar|
+|s_axi_control_RRESP    |  out|    2|          s_axi|       control|        scalar|
+|s_axi_control_BVALID   |  out|    1|          s_axi|       control|        scalar|
+|s_axi_control_BREADY   |   in|    1|          s_axi|       control|        scalar|
+|s_axi_control_BRESP    |  out|    2|          s_axi|       control|        scalar|
+|ap_local_block         |  out|    1|  ap_ctrl_chain|         k_msp|  return value|
+|ap_clk                 |   in|    1|  ap_ctrl_chain|         k_msp|  return value|
+|ap_rst_n               |   in|    1|  ap_ctrl_chain|         k_msp|  return value|
+|interrupt              |  out|    1|  ap_ctrl_chain|         k_msp|  return value|
+|m_axi_gmem0_AWVALID    |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWREADY    |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWADDR     |  out|   64|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWID       |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWLEN      |  out|    8|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWSIZE     |  out|    3|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWBURST    |  out|    2|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWLOCK     |  out|    2|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWCACHE    |  out|    4|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWPROT     |  out|    3|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWQOS      |  out|    4|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWREGION   |  out|    4|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_AWUSER     |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WVALID     |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WREADY     |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WDATA      |  out|  512|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WSTRB      |  out|   64|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WLAST      |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WID        |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_WUSER      |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARVALID    |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARREADY    |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARADDR     |  out|   64|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARID       |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARLEN      |  out|    8|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARSIZE     |  out|    3|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARBURST    |  out|    2|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARLOCK     |  out|    2|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARCACHE    |  out|    4|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARPROT     |  out|    3|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARQOS      |  out|    4|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARREGION   |  out|    4|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_ARUSER     |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RVALID     |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RREADY     |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RDATA      |   in|  512|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RLAST      |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RID        |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RUSER      |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_RRESP      |   in|    2|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_BVALID     |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_BREADY     |  out|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_BRESP      |   in|    2|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_BID        |   in|    1|          m_axi|         gmem0|       pointer|
+|m_axi_gmem0_BUSER      |   in|    1|          m_axi|         gmem0|       pointer|
++-----------------------+-----+-----+---------------+--------------+--------------+
+
