@@ -7,11 +7,11 @@
 
 // TODO: modify size
 // TRIPCOUNT identifie
-const int BATCH_SIZE = 2;
+const int BATCH_SIZE = 1;
 const int CHANNEL_IN = 24;
 const int CHANNEL_OUT = 24;
-const int HEIGHT_IN = 4;
-const int WIDTH_IN = 4;
+const int HEIGHT_IN = 28;
+const int WIDTH_IN = 28;
 
 // TODO: modify conv parameters
 // Convolution parameters
@@ -43,7 +43,7 @@ init_in:
             for (int n = 0; n < BATCH_SIZE; n++) {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
                 for (int c = 0; c < CHANNEL_IN; c++) {
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
                     in[n][c][h][w] = buffer_DataIn_1[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w];
                 }
             }
@@ -55,9 +55,9 @@ static void compute_conv(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
                          float out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT])
 {
     float kernel[CHANNEL_OUT][KERNEL_CHANNEL];
-#pragma HLS array_partition variable = kernel complete dim = 1
+#pragma HLS bind_storage variable=kernel type=RAM_1P impl=uram
     float bias[CHANNEL_OUT];
-#pragma HLS array_partition variable = bias complete dim = 1
+#pragma HLS bind_storage variable=bias type=RAM_1P impl=uram
 
 init_out:
     for (int i = 0; i < HEIGHT_OUT; i++) {
@@ -65,9 +65,9 @@ init_out:
         for (int j = 0; j < WIDTH_OUT; j++) {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
             for (int b = 0; b < BATCH_SIZE; b++) {
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
                 for (int c = 0; c < CHANNEL_OUT; c++) {
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
                     out[b][c][i][j] = 0;
                 }
             }
@@ -76,14 +76,14 @@ init_out:
 
 init_bias:
   for (int k = 0; k < CHANNEL_OUT; k++) {
-#pragma HLS UNROLL  
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT 
         bias[k] = k + 10;
     }
 init_kernel:
     for (int k = 0; k < CHANNEL_OUT; k++){
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
         for (int l = 0; l < CHANNEL_IN; l++){
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
             kernel[k][l] = 2;
         }
     }
@@ -103,7 +103,7 @@ Batch:
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
                     In_Channel:
                     for (int in_ch = 0; in_ch < CHANNEL_IN; in_ch++){
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN max = CHANNEL_IN
                         out[batch][out_ch][row][col] += in[batch][in_ch][row][col] * kernel[out_ch][in_ch];
                     }
                     if (isConvBias)
@@ -120,9 +120,9 @@ static void store_result(float out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OU
         for (int j = 0; j < WIDTH_OUT; j++) {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
             for (int c = 0; c < CHANNEL_OUT; c++) {
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
                 for (int b = 0; b < BATCH_SIZE; b++) {
-#pragma HLS UNROLL
+#pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
                     buffer_result[b*CHANNEL_OUT*HEIGHT_OUT*WIDTH_OUT + c*HEIGHT_OUT*WIDTH_OUT + i*WIDTH_OUT + j] = out[b][c][i][j];
                 }
             }
@@ -135,16 +135,16 @@ extern "C"
                      float *buffer_result)
     {
 // TODO: modify depth
-#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 768
-#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 768
+#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 75264
+#pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 75264
 
 #pragma HLS dataflow
 // dataflow僅可以接受single reader and single writer
         // dataflow pragma instruct compiler to run following three APIs in parallel
         float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
-#pragma HLS array_partition variable = in complete dim = 1
+#pragma HLS bind_storage variable=in type=RAM_1P impl=uram
         float out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
-#pragma HLS array_partition variable = out complete dim = 1
+#pragma HLS bind_storage variable=out type=RAM_1P impl=uram
         load_input(buffer_DataIn_1, in);
         compute_conv(in, out);
         store_result(out, buffer_result);
