@@ -54,11 +54,11 @@ using namespace std;
 
 // TODO: modify parameters value
 // 可以在這裡塞一點需要用到的常數
-static const int BATCH_SIZE = 2;
+static const int BATCH_SIZE = 1;
 static const int CHANNEL_IN = 3;
 static const int CHANNEL_OUT = 24;
-static const int HEIGHT_IN = 8;
-static const int WIDTH_IN = 8;
+static const int HEIGHT_IN = 112;
+static const int WIDTH_IN = 112;
 
 // Convolution parameters
 static const int KERNEL_SIZE = 3;

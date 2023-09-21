@@ -2,8 +2,8 @@
 #include <hls_math.h>
 #include <stdint.h>
 
-const int IMAGE_H = 64;
-const int IMAGE_W = 64;
+const int IMAGE_H = 224;
+const int IMAGE_W = 224;
 const int CHANNEL_IN = 3;
 const int CHANNEL_OUT = 24;
 const int KERNEL_SIZE = 3;
@@ -37,8 +37,7 @@ static void tiling_image(float* image, float* tile1, float* tile2, float* tile3,
     }
 }
 static void load_input(float* buffer_DataIn_1,
-    float in[CHANNEL_IN][HEIGHT_IN][WIDTH_IN]
-)
+    float in[CHANNEL_IN][HEIGHT_IN][WIDTH_IN])
 {
     for (int h = 0; h < HEIGHT_IN; h++) {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_IN max = HEIGHT_IN
@@ -159,6 +158,7 @@ static void compute_batchnorm(float in[CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
 }
 static void kernel_mspatch(float* in1, float* buffer_result) {
     float image[CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
+#pragma HLS bind_storage variable=image type=RAM_1P impl=uram
     float kernel[CHANNEL_OUT][KERNEL_CHANNEL][KERNEL_SIZE][KERNEL_SIZE];
     float bias[CHANNEL_OUT];
 
@@ -168,7 +168,10 @@ static void kernel_mspatch(float* in1, float* buffer_result) {
     float beta[CHANNEL_OUT];
 
     float image_pad[CHANNEL_IN][HEIGHT_PAD][WIDTH_PAD];
+#pragma HLS bind_storage variable=image_pad type=RAM_1P impl=uram
     float conv_result[CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT];
+#pragma HLS bind_storage variable=conv_result type=RAM_1P impl=uram
+
 #pragma HLS dataflow
     load_input(in1, image);
     init_norm(mean, var, gamma, beta);
@@ -195,19 +198,26 @@ static void combine(float* out1, float* out2, float* out3, float* out4, float* r
 
 extern "C" {
     void k_msp(float* in1, float* result) {
-#pragma HLS INTERFACE m_axi port = in1 bundle = gmem0 depth = 12288
-#pragma HLS INTERFACE m_axi port = result bundle = gmem0 depth = 24576
+#pragma HLS INTERFACE m_axi port = in1 bundle = gmem0 depth = 150528
+#pragma HLS INTERFACE m_axi port = result bundle = gmem0 depth = 301056
 
-        
         float tile1[CHANNEL_IN * HEIGHT_IN * WIDTH_IN];
+#pragma HLS bind_storage variable=tile1 type=RAM_1P impl=uram
         float tile2[CHANNEL_IN * HEIGHT_IN * WIDTH_IN];
+#pragma HLS bind_storage variable=tile2 type=RAM_1P impl=uram
         float tile3[CHANNEL_IN * HEIGHT_IN * WIDTH_IN];
+#pragma HLS bind_storage variable=tile3 type=RAM_1P impl=uram
         float tile4[CHANNEL_IN * HEIGHT_IN * WIDTH_IN];
+#pragma HLS bind_storage variable=tile4 type=RAM_1P impl=uram
 
         float out1[CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
+#pragma HLS bind_storage variable=out1 type=RAM_1P impl=uram
         float out2[CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
+#pragma HLS bind_storage variable=out2 type=RAM_1P impl=uram
         float out3[CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
+#pragma HLS bind_storage variable=out3 type=RAM_1P impl=uram
         float out4[CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
+#pragma HLS bind_storage variable=out4 type=RAM_1P impl=uram
         
 
 #pragma HLS dataflow

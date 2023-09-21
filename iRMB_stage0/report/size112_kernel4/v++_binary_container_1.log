@@ -1,0 +1,301 @@
+INFO: [v++ 60-1306] Additional information associated with this v++ link can be found at:
+	Reports: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/reports/link
+	Log files: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/logs/link
+INFO: [v++ 60-1548] Creating build summary session with primary output /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.xclbin.link_summary, at Wed Sep 20 01:21:06 2023
+INFO: [v++ 60-1316] Initiating connection to rulecheck server, at Wed Sep 20 01:21:06 2023
+INFO: [v++ 60-895]   Target platform: /opt/xilinx/platforms/xilinx_u50_gen3x16_xdma_201920_3/xilinx_u50_gen3x16_xdma_201920_3.xpfm
+INFO: [v++ 60-1578]   This platform contains Xilinx Shell Archive '/opt/xilinx/platforms/xilinx_u50_gen3x16_xdma_201920_3/hw/hw.xsa'
+INFO: [v++ 74-78] Compiler Version string: 2021.2
+INFO: [v++ 60-1302] Platform 'xilinx_u50_gen3x16_xdma_201920_3.xpfm' has been explicitly enabled for this release.
+INFO: [v++ 60-629] Linking for hardware target
+INFO: [v++ 60-423]   Target device: xilinx_u50_gen3x16_xdma_201920_3
+INFO: [v++ 60-1332] Run 'run_link' status: Not started
+INFO: [v++ 60-1443] [01:21:12] Run run_link: Step system_link: Started
+INFO: [v++ 60-1453] Command Line: system_link --xo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_DW_conv.xo --xo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_mspatch.xo --xo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_proj.xo --xo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_se.xo -keep --config /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/syslinkConfig.ini --xpfm /opt/xilinx/platforms/xilinx_u50_gen3x16_xdma_201920_3/xilinx_u50_gen3x16_xdma_201920_3.xpfm --target hw --output_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int --temp_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+INFO: [SYSTEM_LINK 60-1316] Initiating connection to rulecheck server, at Wed Sep 20 01:21:13 2023
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_DW_conv.xo
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_mspatch.xo
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_proj.xo
+INFO: [SYSTEM_LINK 82-70] Extracting xo v3 file /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_kernels/Hardware/build/kernel_se.xo
+INFO: [SYSTEM_LINK 82-53] Creating IP database /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-38] [01:21:17] build_xd_ip_db started: /opt/Xilinx/Vitis/2021.2/bin/build_xd_ip_db -ip_search 0  -sds-pf /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/hw.hpfm -clkid 0 -ip /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/iprepo/xilinx_com_hls_kernel_DW_conv_1_0,kernel_DW_conv -ip /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/iprepo/xilinx_com_hls_kernel_se_1_0,kernel_se -ip /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/iprepo/xilinx_com_hls_kernel_proj_1_0,kernel_proj -ip /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/iprepo/xilinx_com_hls_kernel_mspatch_1_0,kernel_mspatch -o /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.cdb/xd_ip_db.xml
+INFO: [SYSTEM_LINK 82-37] [01:21:21] build_xd_ip_db finished successfully
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2148.113 ; gain = 0.000 ; free physical = 177047 ; free virtual = 185318
+INFO: [SYSTEM_LINK 82-51] Create system connectivity graph
+INFO: [SYSTEM_LINK 82-102] Applying explicit connections to the system connectivity graph: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [SYSTEM_LINK 82-38] [01:21:21] cfgen started: /opt/Xilinx/Vitis/2021.2/bin/cfgen  -nk kernel_DW_conv:1:kernel_DW_conv_1 -nk kernel_mspatch:1:kernel_mspatch_1 -nk kernel_proj:1:kernel_proj_1 -nk kernel_se:1:kernel_se_1 -dmclkid 0 -r /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/cfgraph/cfgen_cfgraph.xml
+INFO: [CFGEN 83-0] Kernel Specs: 
+INFO: [CFGEN 83-0]   kernel: kernel_DW_conv, num: 1  {kernel_DW_conv_1}
+INFO: [CFGEN 83-0]   kernel: kernel_mspatch, num: 1  {kernel_mspatch_1}
+INFO: [CFGEN 83-0]   kernel: kernel_proj, num: 1  {kernel_proj_1}
+INFO: [CFGEN 83-0]   kernel: kernel_se, num: 1  {kernel_se_1}
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_DW_conv_1.buffer_DataIn_1 to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_DW_conv_1.buffer_result to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_mspatch_1.in1 to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_mspatch_1.buffer_result to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_mspatch_1.in2 to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_proj_1.buffer_DataIn_1 to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_proj_1.buffer_result to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_se_1.image to HBM[0]
+INFO: [CFGEN 83-2226] Inferring mapping for argument kernel_se_1.buffer_result to HBM[0]
+INFO: [SYSTEM_LINK 82-37] [01:21:25] cfgen finished successfully
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2148.113 ; gain = 0.000 ; free physical = 177044 ; free virtual = 185315
+INFO: [SYSTEM_LINK 82-52] Create top-level block diagram
+INFO: [SYSTEM_LINK 82-38] [01:21:25] cf2bd started: /opt/Xilinx/Vitis/2021.2/bin/cf2bd  --linux --trace_buffer 1024 --input_file /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/cfgraph/cfgen_cfgraph.xml --ip_db /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.cdb/xd_ip_db.xml --cf_name dr --working_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.xsd --temp_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link --output_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int --target_bd ulp.bd
+INFO: [CF2BD 82-31] Launching cf2xd: cf2xd -linux -trace-buffer 1024 -i /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/cfgraph/cfgen_cfgraph.xml -r /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.cdb/xd_ip_db.xml -o dr.xml
+INFO: [CF2BD 82-28] cf2xd finished successfully
+INFO: [CF2BD 82-31] Launching cf_xsd: cf_xsd -disable-address-gen -bd ulp.bd -dn dr -dp /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/sys_link/_sysl/.xsd
+INFO: [CF2BD 82-28] cf_xsd finished successfully
+INFO: [SYSTEM_LINK 82-37] [01:21:28] cf2bd finished successfully
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2148.113 ; gain = 0.000 ; free physical = 177040 ; free virtual = 185315
+INFO: [v++ 60-1441] [01:21:28] Run run_link: Step system_link: Completed
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:17 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 177079 ; free virtual = 185354
+INFO: [v++ 60-1443] [01:21:28] Run run_link: Step cf2sw: Started
+INFO: [v++ 60-1453] Command Line: cf2sw -sdsl /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/sdsl.dat -rtd /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/cf2sw.rtd -nofilter /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/cf2sw_full.rtd -xclbin /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xclbin_orig.xml -o /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xclbin_orig.1.xml
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+INFO: [v++ 60-1441] [01:21:31] Run run_link: Step cf2sw: Completed
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 177076 ; free virtual = 185352
+INFO: [v++ 60-1443] [01:21:31] Run run_link: Step rtd2_system_diagram: Started
+INFO: [v++ 60-1453] Command Line: rtd2SystemDiagram
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+INFO: [v++ 60-1441] [01:21:32] Run run_link: Step rtd2_system_diagram: Completed
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.27 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 177068 ; free virtual = 185343
+INFO: [v++ 60-1443] [01:21:32] Run run_link: Step vpl: Started
+INFO: [v++ 60-1453] Command Line: vpl -t hw -f xilinx_u50_gen3x16_xdma_201920_3 --remote_ip_cache /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/.ipcache -s --output_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int --log_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/logs/link --report_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/reports/link --config /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/vplConfig.ini -k /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/kernel_info.dat --webtalk_flag Vitis --temp_dir /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link --no-info --iprepo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xo/ip_repo/xilinx_com_hls_kernel_se_1_0 --iprepo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xo/ip_repo/xilinx_com_hls_kernel_proj_1_0 --iprepo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xo/ip_repo/xilinx_com_hls_kernel_DW_conv_1_0 --iprepo /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xo/ip_repo/xilinx_com_hls_kernel_mspatch_1_0 --messageDb /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link/vpl.pb /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/dr.bd.tcl
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+
+****** vpl v2021.2 (64-bit)
+  **** SW Build 3363252 on 2021-10-14-04:41:01
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+INFO: [VPL 60-839] Read in kernel information from file '/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/kernel_info.dat'.
+INFO: [VPL 74-78] Compiler Version string: 2021.2
+INFO: [VPL 60-423]   Target device: xilinx_u50_gen3x16_xdma_201920_3
+INFO: [VPL 60-1032] Extracting hardware platform to /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/vivado/vpl/.local/hw_platform
+[01:22:00] Run vpl: Step create_project: Started
+Creating Vivado project.
+[01:22:06] Run vpl: Step create_project: Completed
+[01:22:06] Run vpl: Step create_bd: Started
+[01:23:11] Run vpl: Step create_bd: Completed
+[01:23:11] Run vpl: Step update_bd: Started
+[01:23:12] Run vpl: Step update_bd: Completed
+[01:23:12] Run vpl: Step generate_target: Started
+[01:24:30] Run vpl: Step generate_target: RUNNING...
+[01:24:37] Run vpl: Step generate_target: Completed
+[01:24:37] Run vpl: Step config_hw_runs: Started
+[01:24:40] Run vpl: Step config_hw_runs: Completed
+[01:24:40] Run vpl: Step synth: Started
+[01:25:12] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:25:43] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:26:14] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:26:45] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:27:16] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:27:47] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:28:18] Block-level synthesis in progress, 0 of 4 jobs complete, 3 jobs running.
+[01:28:49] Block-level synthesis in progress, 1 of 4 jobs complete, 2 jobs running.
+[01:29:20] Block-level synthesis in progress, 1 of 4 jobs complete, 2 jobs running.
+[01:29:51] Block-level synthesis in progress, 1 of 4 jobs complete, 2 jobs running.
+[01:30:22] Block-level synthesis in progress, 2 of 4 jobs complete, 1 job running.
+[01:30:53] Block-level synthesis in progress, 3 of 4 jobs complete, 0 jobs running.
+[01:31:24] Block-level synthesis in progress, 3 of 4 jobs complete, 1 job running.
+[01:31:55] Block-level synthesis in progress, 3 of 4 jobs complete, 1 job running.
+[01:32:14] Run vpl: Step synth: Completed
+[01:32:14] Run vpl: Step impl: Started
+[01:38:56] Finished 2nd of 6 tasks (FPGA linking synthesized kernels to platform). Elapsed time: 00h 17m 22s 
+
+[01:38:56] Starting logic optimization..
+[01:39:58] Phase 1 Retarget
+[01:40:29] Phase 2 Constant propagation
+[01:40:29] Phase 3 Sweep
+[01:41:30] Phase 4 BUFG optimization
+[01:41:30] Phase 5 Shift Register Optimization
+[01:41:30] Phase 6 Post Processing Netlist
+[01:43:34] Finished 3rd of 6 tasks (FPGA logic optimization). Elapsed time: 00h 04m 37s 
+
+[01:43:34] Starting logic placement..
+[01:44:36] Phase 1 Placer Initialization
+[01:44:36] Phase 1.1 Placer Initialization Netlist Sorting
+[01:47:10] Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+[01:47:41] Phase 1.3 Build Placer Netlist Model
+[01:49:14] Phase 1.4 Constrain Clocks/Macros
+[01:49:45] Phase 2 Global Placement
+[01:49:45] Phase 2.1 Floorplanning
+[01:50:16] Phase 2.1.1 Partition Driven Placement
+[01:50:16] Phase 2.1.1.1 PBP: Partition Driven Placement
+[01:50:47] Phase 2.1.1.2 PBP: Clock Region Placement
+[01:51:18] Phase 2.1.1.3 PBP: Discrete Incremental
+[01:51:49] Phase 2.1.1.4 PBP: Compute Congestion
+[01:51:49] Phase 2.1.1.5 PBP: Macro Placement
+[01:51:49] Phase 2.1.1.6 PBP: UpdateTiming
+[01:52:20] Phase 2.1.1.7 PBP: Add part constraints
+[01:52:20] Phase 2.2 Physical Synthesis After Floorplan
+[01:52:51] Phase 2.3 Update Timing before SLR Path Opt
+[01:52:51] Phase 2.4 Post-Processing in Floorplanning
+[01:52:51] Phase 2.5 Global Placement Core
+[01:59:03] Phase 2.5.1 Physical Synthesis In Placer
+[02:03:11] Phase 3 Detail Placement
+[02:03:11] Phase 3.1 Commit Multi Column Macros
+[02:03:11] Phase 3.2 Commit Most Macros & LUTRAMs
+[02:04:13] Phase 3.3 Small Shape DP
+[02:04:13] Phase 3.3.1 Small Shape Clustering
+[02:04:13] Phase 3.3.2 Flow Legalize Slice Clusters
+[02:04:13] Phase 3.3.3 Slice Area Swap
+[02:05:15] Phase 3.4 Place Remaining
+[02:05:15] Phase 3.5 Re-assign LUT pins
+[02:05:15] Phase 3.6 Pipeline Register Optimization
+[02:05:46] Phase 3.7 Fast Optimization
+[02:06:48] Phase 4 Post Placement Optimization and Clean-Up
+[02:06:48] Phase 4.1 Post Commit Optimization
+[02:08:21] Phase 4.1.1 Post Placement Optimization
+[02:08:21] Phase 4.1.1.1 BUFG Insertion
+[02:08:21] Phase 1 Physical Synthesis Initialization
+[02:08:52] Phase 4.1.1.2 BUFG Replication
+[02:08:52] Phase 4.1.1.3 Post Placement Timing Optimization
+[02:13:31] Phase 4.1.1.4 Replication
+[02:14:33] Phase 4.2 Post Placement Cleanup
+[02:15:04] Phase 4.3 Placer Reporting
+[02:15:04] Phase 4.3.1 Print Estimated Congestion
+[02:15:04] Phase 4.4 Final Placement Cleanup
+[02:23:51] Finished 4th of 6 tasks (FPGA logic placement). Elapsed time: 00h 40m 16s 
+
+[02:23:51] Starting logic routing..
+[02:24:22] Phase 1 Build RT Design
+[02:25:55] Phase 2 Router Initialization
+[02:25:55] Phase 2.1 Fix Topology Constraints
+[02:26:57] Phase 2.2 Pre Route Cleanup
+[02:26:57] Phase 2.3 Global Clock Net Routing
+[02:27:29] Phase 2.4 Update Timing
+[02:29:34] Phase 2.5 Update Timing for Bus Skew
+[02:29:34] Phase 2.5.1 Update Timing
+[02:30:37] Phase 3 Initial Routing
+[02:30:37] Phase 3.1 Global Routing
+[02:31:08] Phase 4 Rip-up And Reroute
+[02:31:08] Phase 4.1 Global Iteration 0
+[02:37:56] Phase 4.2 Global Iteration 1
+[02:40:02] Phase 4.3 Global Iteration 2
+[02:40:33] Phase 5 Delay and Skew Optimization
+[02:40:33] Phase 5.1 Delay CleanUp
+[02:40:33] Phase 5.1.1 Update Timing
+[02:41:36] Phase 5.1.2 Update Timing
+[02:42:07] Phase 5.2 Clock Skew Optimization
+[02:42:07] Phase 6 Post Hold Fix
+[02:42:07] Phase 6.1 Hold Fix Iter
+[02:42:07] Phase 6.1.1 Update Timing
+[02:43:10] Phase 7 Leaf Clock Prog Delay Opt
+[02:44:44] Phase 7.1 Delay CleanUp
+[02:44:44] Phase 7.1.1 Update Timing
+[02:45:16] Phase 7.1.2 Update Timing
+[02:46:18] Phase 7.2 Hold Fix Iter
+[02:46:18] Phase 7.2.1 Update Timing
+[02:46:50] Phase 7.3 Additional Hold Fix
+[02:47:53] Phase 7.4 Global Iteration for Hold
+[02:47:53] Phase 7.4.1 Update Timing
+[02:49:58] Phase 8 Route finalize
+[02:49:58] Phase 9 Verifying routed nets
+[02:49:58] Phase 10 Depositing Routes
+[02:50:29] Phase 11 Resolve XTalk
+[02:50:29] Phase 12 Post Router Timing
+[02:51:32] Phase 13 Physical Synthesis in Router
+[02:51:32] Phase 13.1 Physical Synthesis Initialization
+[02:52:35] Phase 13.2 Critical Path Optimization
+[02:53:06] Finished 5th of 6 tasks (FPGA routing). Elapsed time: 00h 29m 15s 
+
+[02:53:06] Starting bitstream generation..
+[03:02:33] Creating bitmap...
+[03:07:47] Writing bitstream ./level0_i_ulp_my_rm_partial.bit...
+[03:07:47] Finished 6th of 6 tasks (FPGA bitstream generation). Elapsed time: 00h 14m 40s 
+[03:08:32] Run vpl: Step impl: Completed
+[03:08:34] Run vpl: FINISHED. Run Status: impl Complete!
+INFO: [v++ 60-1441] [03:08:35] Run run_link: Step vpl: Completed
+Time (s): cpu = 00:01:20 ; elapsed = 01:47:04 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 174660 ; free virtual = 184734
+INFO: [v++ 60-1443] [03:08:35] Run run_link: Step rtdgen: Started
+INFO: [v++ 60-1453] Command Line: rtdgen
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+INFO: [v++ 60-991] clock name 'clk_kernel2_in' (clock ID '1') is being mapped to clock name 'KERNEL_CLK' in the xclbin
+INFO: [v++ 60-991] clock name 'clk_kernel_in' (clock ID '0') is being mapped to clock name 'DATA_CLK' in the xclbin
+INFO: [v++ 60-991] clock name 'hbm_aclk' (clock ID '') is being mapped to clock name 'hbm_aclk' in the xclbin
+INFO: [v++ 60-1230] The compiler selected the following frequencies for the runtime controllable kernel clock(s) and scalable system clock(s): System (SYSTEM) clock: hbm_aclk = 369, Kernel (KERNEL) clock: clk_kernel2_in = 500, Kernel (DATA) clock: clk_kernel_in = 210
+INFO: [v++ 60-1453] Command Line: cf2sw -a /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/address_map.xml -sdsl /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/sdsl.dat -xclbin /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/xclbin_orig.xml -rtd /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1.rtd -o /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1.xml
+INFO: [v++ 60-1652] Cf2sw returned exit code: 0
+INFO: [v++ 60-1441] [03:08:38] Run run_link: Step rtdgen: Completed
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 174652 ; free virtual = 184726
+INFO: [v++ 60-1443] [03:08:38] Run run_link: Step xclbinutil: Started
+INFO: [v++ 60-1453] Command Line: xclbinutil --add-section BITSTREAM:RAW:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/partial.bit --force --target hw --key-value SYS:dfx_enable:true --add-section :JSON:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1.rtd --append-section :JSON:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/appendSection.rtd --add-section CLOCK_FREQ_TOPOLOGY:JSON:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1_xml.rtd --add-section BUILD_METADATA:JSON:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1_build.rtd --add-section EMBEDDED_METADATA:RAW:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1.xml --add-section SYSTEM_METADATA:RAW:/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/systemDiagramModelSlrBaseAddress.json --key-value SYS:PlatformVBNV:xilinx_u50_gen3x16_xdma_201920_3 --output /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.xclbin
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+XRT Build Version: 2.12.427 (2021.2)
+       Build Date: 2021-10-09 05:06:49
+          Hash ID: 2719b6027e185000fc49783171631db03fc0ef79
+Creating a default 'in-memory' xclbin image.
+
+Section: 'BITSTREAM'(0) was successfully added.
+Size   : 44118664 bytes
+Format : RAW
+File   : '/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/partial.bit'
+
+Section: 'MEM_TOPOLOGY'(6) was successfully added.
+Format : JSON
+File   : 'mem_topology'
+
+Section: 'IP_LAYOUT'(8) was successfully added.
+Format : JSON
+File   : 'ip_layout'
+
+Section: 'CONNECTIVITY'(7) was successfully added.
+Format : JSON
+File   : 'connectivity'
+
+Section: 'CLOCK_FREQ_TOPOLOGY'(11) was successfully added.
+Size   : 410 bytes
+Format : JSON
+File   : '/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1_xml.rtd'
+
+Section: 'BUILD_METADATA'(14) was successfully added.
+Size   : 5091 bytes
+Format : JSON
+File   : '/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1_build.rtd'
+
+Section: 'EMBEDDED_METADATA'(2) was successfully added.
+Size   : 32352 bytes
+Format : RAW
+File   : '/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/binary_container_1.xml'
+
+Section: 'SYSTEM_METADATA'(22) was successfully added.
+Size   : 23698 bytes
+Format : RAW
+File   : '/users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/int/systemDiagramModelSlrBaseAddress.json'
+
+Section: 'PARTITION_METADATA'(20) was successfully appended to.
+Format : JSON
+File   : 'partition_metadata'
+
+Section: 'IP_LAYOUT'(8) was successfully appended to.
+Format : JSON
+File   : 'ip_layout'
+Successfully wrote (44211524 bytes) to the output file: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.xclbin
+Leaving xclbinutil.
+INFO: [v++ 60-1441] [03:08:39] Run run_link: Step xclbinutil: Completed
+Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.91 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 174641 ; free virtual = 184724
+INFO: [v++ 60-1443] [03:08:39] Run run_link: Step xclbinutilinfo: Started
+INFO: [v++ 60-1453] Command Line: xclbinutil --quiet --force --info /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.xclbin.info --input /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.xclbin
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+INFO: [v++ 60-1441] [03:08:40] Run run_link: Step xclbinutilinfo: Completed
+Time (s): cpu = 00:00:00.34 ; elapsed = 00:00:00.45 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 174640 ; free virtual = 184723
+INFO: [v++ 60-1443] [03:08:40] Run run_link: Step generate_sc_driver: Started
+INFO: [v++ 60-1453] Command Line: 
+INFO: [v++ 60-1454] Run Directory: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/link/run_link
+INFO: [v++ 60-1441] [03:08:40] Run run_link: Step generate_sc_driver: Completed
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2136.137 ; gain = 0.000 ; free physical = 174640 ; free virtual = 184723
+INFO: [v++ 60-244] Generating system estimate report...
+INFO: [v++ 60-1092] Generated system estimate report: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/reports/link/system_estimate_binary_container_1.xtxt
+INFO: [v++ 60-586] Created /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.ltx
+INFO: [v++ 60-586] Created binary_container_1.xclbin
+INFO: [v++ 60-1307] Run completed. Additional information can be found in:
+	Timing Report: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/reports/link/imp/impl_1_hw_bb_locked_timing_summary_routed.rpt
+	Vivado Log: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/logs/link/vivado.log
+	Steps Log File: /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.build/logs/link/link.steps.log
+
+INFO: [v++ 60-2343] Use the vitis_analyzer tool to visualize and navigate the relevant reports. Run the following command. 
+    vitis_analyzer /users/student/mr111/lthuang22/Vitis/stage0_v1/stage0_system_hw_link/Hardware/binary_container_1.xclbin.link_summary 
+INFO: [v++ 60-791] Total elapsed time: 1h 47m 50s
+INFO: [v++ 60-1653] Closing dispatch client.
