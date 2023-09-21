@@ -6,7 +6,7 @@
 
 source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'jhchen22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Sat Sep 16 23:08:46 CST 2023
+INFO: [HLS 200-10] For user 'jhchen22' on host 'ic21' (Linux_x86_64 version 3.10.0-1160.62.1.el7.x86_64) on Mon Sep 18 13:27:48 CST 2023
 INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
 INFO: [HLS 200-10] In directory '/users/student/mr111/jhchen22/ViT_HLS/iRMB_stage1'
 Sourcing Tcl script 'run_hls.tcl'
@@ -67,9 +67,9 @@ INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
 520300 804475 826302 763636
 INFO: [SIM 211-1] CSim done with 0 errors.
 INFO: [SIM 211-3] *************** CSIM finish ***************
-INFO: [HLS 200-111] Finished Command csim_design CPU user time: 51.51 seconds. CPU system time: 3.69 seconds. Elapsed time: 55.6 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 49.48 seconds. CPU system time: 2.36 seconds. Elapsed time: 55.94 seconds; current allocated memory: 0.000 MB.
 INFO: [HLS 200-1510] Running: csynth_design 
-INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 840.172 MB.
 INFO: [HLS 200-10] Analyzing design file 'kernel_proj_1.cpp' ... 
 INFO: [HLS 200-10] Analyzing design file 'kernel_DW_conv_1.cpp' ... 
 INFO: [HLS 200-10] Analyzing design file 'kernel_v_conv_1.cpp' ... 
@@ -80,7 +80,7 @@ INFO: [HLS 200-10] Analyzing design file 'kernel_v_conv_0.cpp' ...
 INFO: [HLS 200-10] Analyzing design file 'kernel_norm_in_0.cpp' ... 
 INFO: [HLS 200-10] Analyzing design file 'kernel_iRMB_stage1.cpp' ... 
 WARNING: [HLS 207-1017] unknown pragma ignored (kernel_iRMB_stage1.cpp:33:9)
-INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 223.8 seconds. CPU system time: 14.47 seconds. Elapsed time: 241.55 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 216.01 seconds. CPU system time: 8.44 seconds. Elapsed time: 227.96 seconds; current allocated memory: 840.172 MB.
 INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
 INFO: [HLS 214-186] Unrolling loop 'VITIS_LOOP_134_3' (kernel_iRMB_stage1.cpp:134:20) in function 'compute_iRMB_skip' completely with a factor of 4 (kernel_iRMB_stage1.cpp:123:0)
 INFO: [HLS 214-186] Unrolling loop 'Output_Channel' (kernel_proj_1.cpp:109:25) in function 'compute_conv' completely with a factor of 32 (kernel_proj_1.cpp:60:0)
@@ -329,6 +329,1261 @@ INFO: [HLS 214-248] Applying array_partition to 'kernel.13_1': Complete partitio
 INFO: [HLS 214-248] Applying array_partition to 'kernel.13_0': Complete partitioning on dimension 1.
 INFO: [HLS 214-115] Multiple burst reads of length 1536 and bit width 32 in loop 'VITIS_LOOP_31_1'(kernel_norm_in_0.cpp:31:19) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_norm_in_0.cpp:31:19)
 INFO: [HLS 214-115] Multiple burst writes of length 512 and bit width 32 in loop 'VITIS_LOOP_128_1'(kernel_iRMB_stage1.cpp:128:20) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_iRMB_stage1.cpp:128:20)
-INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2243.99 seconds. CPU system time: 10.03 seconds. Elapsed time: 2258.7 seconds; current allocated memory: 776.172 MB.
-INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2148.23 seconds. CPU system time: 5.94 seconds. Elapsed time: 2158.33 seconds; current allocated memory: 840.172 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 840.172 MB.
 INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 17519.2 seconds. CPU system time: 3.44 seconds. Elapsed time: 17524.2 seconds; current allocated memory: 1.633 GB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 690.96 seconds. CPU system time: 1.69 seconds. Elapsed time: 695.06 seconds; current allocated memory: 4.008 GB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_34_2' (kernel_norm_in_1.cpp:34) in function 'load_input.7' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_34_2' (kernel_norm_in_0.cpp:34) in function 'load_input.13' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_55_2' (kernel_DW_conv_1.cpp:55) in function 'load_input.10' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_55_2' (kernel_DW_conv_0.cpp:55) in function 'load_input' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_77_2' (kernel_DW_conv_1.cpp:77) in function 'compute_padding.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_77_2' (kernel_DW_conv_0.cpp:77) in function 'compute_padding' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_73_1' (kernel_norm_in_1.cpp:73) in function 'compute_norm.8' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_73_1' (kernel_norm_in_0.cpp:73) in function 'compute_norm.4' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_199_2' (kernel_DW_conv_1.cpp:199) in function 'compute_norm.3' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_237_4' (kernel_DW_conv_1.cpp:237) in function 'compute_norm.3' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_199_2' (kernel_DW_conv_0.cpp:199) in function 'compute_norm' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_237_4' (kernel_DW_conv_0.cpp:237) in function 'compute_norm' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_128_5' (kernel_DW_conv_1.cpp:128) in function 'compute_conv.2' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_DW_conv_1.cpp:153) in function 'compute_conv.2' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_128_5' (kernel_DW_conv_0.cpp:128) in function 'compute_conv' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_DW_conv_0.cpp:153) in function 'compute_conv' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_373_7' (kernel_DW_conv_1.cpp:373) in function 'compute_act.11' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_373_7' (kernel_DW_conv_0.cpp:373) in function 'compute_act' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_42_2' (kernel_iRMB_stage1.cpp:42) in function 'init_out' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_62_6' (kernel_iRMB_stage1.cpp:62) in function 'init_out' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_85_10' (kernel_iRMB_stage1.cpp:85) in function 'init_out' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_v_conv_1.cpp:96) in function 'compute_conv.9' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_proj_0.cpp:96) in function 'compute_conv.6' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_v_conv_0.cpp:96) in function 'compute_conv.5' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (kernel_proj_1.cpp:96) in function 'compute_conv.12' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_45_2' (kernel_v_conv_0.cpp:45) in function 'kernel_irmb_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_45_2' (kernel_proj_0.cpp:45) in function 'kernel_irmb_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_45_2' (kernel_v_conv_1.cpp:45) in function 'kernel_irmb_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_109_2' (kernel_iRMB_stage1.cpp:109) in function 'kernel_irmb_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_45_2' (kernel_proj_1.cpp:45) in function 'kernel_irmb_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_131_2' (kernel_iRMB_stage1.cpp:131) in function 'kernel_irmb_stage1' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_73_1' (kernel_norm_in_1.cpp:73) in function 'compute_norm.8' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_73_1' (kernel_norm_in_0.cpp:73) in function 'compute_norm.4' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_237_4' (kernel_DW_conv_1.cpp:237) in function 'compute_norm.3' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_237_4' (kernel_DW_conv_0.cpp:237) in function 'compute_norm' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Out_Column' (kernel_DW_conv_1.cpp:153) in function 'compute_conv.2' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Out_Column' (kernel_DW_conv_0.cpp:153) in function 'compute_conv' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_76_2' (kernel_norm_in_1.cpp:76) in function 'compute_norm.8' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_76_2' (kernel_norm_in_0.cpp:76) in function 'compute_norm.4' completely with a factor of 8.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_240_5' (kernel_DW_conv_1.cpp:240) in function 'compute_norm.3' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_240_5' (kernel_DW_conv_0.cpp:240) in function 'compute_norm' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Kernel_Row' (kernel_DW_conv_1.cpp:157) in function 'compute_conv.2' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'Kernel_Col' (kernel_DW_conv_1.cpp:164) in function 'compute_conv.2' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'Kernel_Row' (kernel_DW_conv_0.cpp:157) in function 'compute_conv' completely with a factor of 3.
+INFO: [HLS 200-489] Unrolling loop 'Kernel_Col' (kernel_DW_conv_0.cpp:164) in function 'compute_conv' completely with a factor of 3.
+INFO: [XFORM 203-102] Partitioning array 'in' (kernel_norm_in_0.cpp:112) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'in' (kernel_DW_conv_0.cpp:435) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'afterNorm' (kernel_DW_conv_0.cpp:441) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'in' (kernel_norm_in_1.cpp:112) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'in' (kernel_DW_conv_1.cpp:435) in dimension 3 automatically.
+INFO: [XFORM 203-102] Partitioning array 'afterNorm' (kernel_DW_conv_1.cpp:441) in dimension 3 automatically.
+INFO: [XFORM 203-712] Applying dataflow to function 'kernel_norm_in_0.1' (kernel_norm_in_0.cpp:109:5), detected/extracted 2 process function(s): 
+	 'load_input.13'
+	 'compute_norm.4'.
+INFO: [XFORM 203-712] Applying dataflow to function 'kernel_DW_conv_0' (kernel_DW_conv_0.cpp:432:5), detected/extracted 5 process function(s): 
+	 'load_input'
+	 'compute_padding'
+	 'compute_conv'
+	 'compute_norm'
+	 'compute_act'.
+INFO: [XFORM 203-712] Applying dataflow to function 'kernel_norm_in_1' (kernel_norm_in_1.cpp:109:5), detected/extracted 2 process function(s): 
+	 'load_input.7'
+	 'compute_norm.8'.
+INFO: [XFORM 203-712] Applying dataflow to function 'kernel_DW_conv_1' (kernel_DW_conv_1.cpp:432:5), detected/extracted 5 process function(s): 
+	 'load_input.10'
+	 'compute_padding.1'
+	 'compute_conv.2'
+	 'compute_norm.3'
+	 'compute_act.11'.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 7180.54 seconds. CPU system time: 5.35 seconds. Elapsed time: 7190.07 seconds; current allocated memory: 6.633 GB.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Row_Out_Column' to 'compute_conv_9_Pipeline_Out_Row_Out_Column'.
+WARNING: [SYN 201-103] Legalizing function name 'compute_conv.9' to 'compute_conv_9'.
+WARNING: [SYN 201-103] Legalizing function name 'store_result.21' to 'store_result_21'.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'init_out_Pipeline_VITIS_LOOP_39_1_VITIS_LOOP_42_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_39_1_VITIS_LOOP_42_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'VITIS_LOOP_39_1_VITIS_LOOP_42_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 12600.5 seconds. CPU system time: 163.65 seconds. Elapsed time: 12764.8 seconds; current allocated memory: 50.336 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 99.64 seconds. CPU system time: 2.07 seconds. Elapsed time: 103.19 seconds; current allocated memory: 50.399 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'init_out_Pipeline_VITIS_LOOP_59_5_VITIS_LOOP_62_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_59_5_VITIS_LOOP_62_6'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'VITIS_LOOP_59_5_VITIS_LOOP_62_6'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 580.77 seconds. CPU system time: 8.87 seconds. Elapsed time: 592.02 seconds; current allocated memory: 50.649 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 11.62 seconds. CPU system time: 0.24 seconds. Elapsed time: 12.47 seconds; current allocated memory: 50.649 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'init_out_Pipeline_VITIS_LOOP_82_9_VITIS_LOOP_85_10' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_82_9_VITIS_LOOP_85_10'.
+WARNING: [HLS 200-885] The II Violation in module 'init_out_Pipeline_VITIS_LOOP_82_9_VITIS_LOOP_85_10' (loop 'VITIS_LOOP_82_9_VITIS_LOOP_85_10'): Unable to schedule 'store' operation ('dw_skip_out_addr_769_write_ln93', kernel_iRMB_stage1.cpp:93) of constant 0 on array 'dw_skip_out' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'dw_skip_out'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 2, Depth = 2, loop 'VITIS_LOOP_82_9_VITIS_LOOP_85_10'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 624.1 seconds. CPU system time: 14.51 seconds. Elapsed time: 639.56 seconds; current allocated memory: 51.288 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 6.16 seconds. CPU system time: 0.16 seconds. Elapsed time: 6.63 seconds; current allocated memory: 51.288 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'init_out' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1318.77 seconds. CPU system time: 33.2 seconds. Elapsed time: 1352.41 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 545.21 seconds. CPU system time: 10.47 seconds. Elapsed time: 557.39 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_22' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_31_1'.
+WARNING: [HLS 200-885] The II Violation in module 'load_input_22' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule bus request operation ('gmem0_load_1_req', kernel_norm_in_0.cpp:40) on port 'gmem0' (kernel_norm_in_0.cpp:40) due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_22' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule bus request operation ('gmem0_load_2_req', kernel_norm_in_0.cpp:40) on port 'gmem0' (kernel_norm_in_0.cpp:40) due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_22' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule bus request operation ('gmem0_load_3_req', kernel_norm_in_0.cpp:40) on port 'gmem0' (kernel_norm_in_0.cpp:40) due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_22' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule bus request operation ('gmem0_load_4_req', kernel_norm_in_0.cpp:40) on port 'gmem0' (kernel_norm_in_0.cpp:40) due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_22' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule bus request operation ('gmem0_load_19_req', kernel_norm_in_0.cpp:40) on port 'gmem0' (kernel_norm_in_0.cpp:40) due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_22' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule bus request operation ('gmem0_load_23_req', kernel_norm_in_0.cpp:40) on port 'gmem0' (kernel_norm_in_0.cpp:40) due to limited memory ports (II = 23). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 24, Depth = 33, loop 'init_in_VITIS_LOOP_31_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 50.06 seconds. CPU system time: 4.62 seconds. Elapsed time: 56.75 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.41 seconds. CPU system time: 0 seconds. Elapsed time: 0.46 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_Pipeline_init_out_VITIS_LOOP_73_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_out_VITIS_LOOP_73_1'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_150_write_ln82', kernel_norm_in_0.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_152_write_ln82', kernel_norm_in_0.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_154_write_ln82', kernel_norm_in_0.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_156_write_ln82', kernel_norm_in_0.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_170_write_ln82', kernel_norm_in_0.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 12, Depth = 12, loop 'init_out_VITIS_LOOP_73_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.73 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.86 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.21 seconds. CPU system time: 0 seconds. Elapsed time: 0.26 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_Pipeline_VITIS_LOOP_92_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_92_4'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_159', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_161', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_163', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_165', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_191', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_205', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_212', kernel_norm_in_0.cpp:101) on array 'in_r' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 45, loop 'VITIS_LOOP_92_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 3.4 seconds. CPU system time: 0.01 seconds. Elapsed time: 3.46 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.56 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.61 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.32 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.38 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.09 seconds. CPU system time: 0 seconds. Elapsed time: 0.13 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'store_result' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'.
+WARNING: [HLS 200-885] The II Violation in module 'store_result' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_127', kernel_norm_in_0.cpp:123) on array 'out_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_129', kernel_norm_in_0.cpp:123) on array 'out_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_131', kernel_norm_in_0.cpp:123) on array 'out_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_133', kernel_norm_in_0.cpp:123) on array 'out_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_147', kernel_norm_in_0.cpp:123) on array 'out_r' due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 12, Depth = 13, loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 866.55 seconds. CPU system time: 22.69 seconds. Elapsed time: 889.28 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 14.75 seconds. CPU system time: 0.39 seconds. Elapsed time: 15.3 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_norm_in_0_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 16.67 seconds. CPU system time: 0.34 seconds. Elapsed time: 17.18 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.41 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_10' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_42_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'init_in_VITIS_LOOP_42_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 17.48 seconds. CPU system time: 0.28 seconds. Elapsed time: 17.85 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.58 seconds. CPU system time: 0.1 seconds. Elapsed time: 2.79 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_out_VITIS_LOOP_70_1'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_236_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_238_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_240_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_242_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_304_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_320_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_Pipeline_init_out_VITIS_LOOP_70_1' (loop 'init_out_VITIS_LOOP_70_1'): Unable to schedule 'store' operation ('out_addr_328_write_ln79', kernel_v_conv_0.cpp:79) of constant 0 on array 'out_r' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 48, loop 'init_out_VITIS_LOOP_70_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.49 seconds. CPU system time: 0.06 seconds. Elapsed time: 2.77 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.76 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.82 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_Pipeline_Out_Row_Out_Column_Output_Channel' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column_Output_Channel'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 28, loop 'Out_Row_Out_Column_Output_Channel'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.32 seconds. CPU system time: 0.04 seconds. Elapsed time: 1.43 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.46 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.51 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.56 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.62 seconds; current allocated memory: 61.038 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 61.038 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'store_result_11' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'.
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_32', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_34', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_36', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_38', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_100', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_116', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_11' (loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'): Unable to schedule 'load' operation ('out_load_124', kernel_v_conv_0.cpp:147) on array 'out_r' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 49, loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 39391.2 seconds. CPU system time: 830.68 seconds. Elapsed time: 40221.1 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 169.94 seconds. CPU system time: 2.92 seconds. Elapsed time: 173.29 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_v_conv_0' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 179.37 seconds. CPU system time: 3.19 seconds. Elapsed time: 183.2 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.71 seconds. CPU system time: 0.06 seconds. Elapsed time: 1.97 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_12' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_51_1'.
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_213_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_s', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_215_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_218', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_217_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_220', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_219_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_222', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_281_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_284', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_297_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_300', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_12' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_305_write_ln60', kernel_DW_conv_0.cpp:60) of variable 'tmp_308', kernel_DW_conv_0.cpp:60 on array 'in_r' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 48, loop 'init_in_VITIS_LOOP_51_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 255.69 seconds. CPU system time: 5.63 seconds. Elapsed time: 261.62 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2885.16 seconds. CPU system time: 64.66 seconds. Elapsed time: 2950.56 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_padding' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'.
+WARNING: [HLS 200-880] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('in_pad_addr_95_write_ln86', kernel_DW_conv_0.cpp:86) of variable 'storemerge', kernel_DW_conv_0.cpp:86 on array 'in_pad' and 'store' operation ('in_pad_addr_write_ln86', kernel_DW_conv_0.cpp:86) of variable 'in_load', kernel_DW_conv_0.cpp:86 on array 'in_pad'.
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_66', kernel_DW_conv_0.cpp:86) on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_68', kernel_DW_conv_0.cpp:86) on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_70', kernel_DW_conv_0.cpp:86) on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_132', kernel_DW_conv_0.cpp:86) on array 'in_r' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_147', kernel_DW_conv_0.cpp:86) on array 'in_r' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_156', kernel_DW_conv_0.cpp:86) on array 'in_r' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 49, loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 8.2 seconds. CPU system time: 0.26 seconds. Elapsed time: 10.22 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.23 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.3 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_96_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_98_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_100_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_102_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_164_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_180_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' (loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'): Unable to schedule 'store' operation ('afterConv_addr_188_write_ln139', kernel_DW_conv_0.cpp:139) of constant 0 on array 'afterConv' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 48, loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 4.48 seconds. CPU system time: 0.1 seconds. Elapsed time: 4.81 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.78 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.83 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_1_Pipeline_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_1', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_3', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_5', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_7', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_259', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 130). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_385', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 193). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_449', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 225). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_481', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 241). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_497', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 249). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_505', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 253). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_509', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 255). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_1_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_load_511', kernel_DW_conv_0.cpp:178) on array 'in_pad' due to limited memory ports (II = 256). Please consider using a memory core with more ports or partitioning the array 'in_pad'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [SCHED 204-61] Unable to satisfy pipeline directive for loop 'Out_Row_Out_Column': unable to pipeline.
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 236.47 seconds. CPU system time: 3.71 seconds. Elapsed time: 240.27 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 19.2 seconds. CPU system time: 0.45 seconds. Elapsed time: 19.83 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 12.97 seconds. CPU system time: 0.18 seconds. Elapsed time: 13.39 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.58 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.62 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_1_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_3_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_5_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_7_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_69_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_85_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' (loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'): Unable to schedule 'store' operation ('afterNorm_addr_93_write_ln228', kernel_DW_conv_0.cpp:228) of constant 0 on array 'afterNorm' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 48, loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 6.67 seconds. CPU system time: 0.09 seconds. Elapsed time: 6.82 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.79 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.89 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_1', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_3', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_5', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_7', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_69', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_85', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_2_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' (loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'): Unable to schedule 'load' operation ('afterConv_load_93', kernel_DW_conv_0.cpp:246) on array 'afterConv' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'afterConv'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 57, loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 6.5 seconds. CPU system time: 0.1 seconds. Elapsed time: 6.68 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.68 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.78 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.51 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.65 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.34 seconds. CPU system time: 0 seconds. Elapsed time: 0.38 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_act' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_1', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_3', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_5', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_7', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_69', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_85', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_act' (loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'): Unable to schedule 'load' operation ('afterNorm_load_93', kernel_DW_conv_0.cpp:270) on array 'afterNorm' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'afterNorm'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 49, loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 7384.98 seconds. CPU system time: 177.85 seconds. Elapsed time: 7562.57 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 37.57 seconds. CPU system time: 0.69 seconds. Elapsed time: 38.5 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_DW_conv_0' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 193.6 seconds. CPU system time: 3.73 seconds. Elapsed time: 197.61 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 11.59 seconds. CPU system time: 0.33 seconds. Elapsed time: 12.26 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_13' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_42_1'.
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_118_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_s', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_120_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_124', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_122_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_126', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_124_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_128', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_186_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_190', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_202_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_206', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_13' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'store' operation ('in_addr_210_write_ln51', kernel_proj_0.cpp:51) of variable 'tmp_214', kernel_proj_0.cpp:51 on array 'in_r' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 48, loop 'init_in_VITIS_LOOP_42_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 32.12 seconds. CPU system time: 0.71 seconds. Elapsed time: 33.22 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 111.8 seconds. CPU system time: 1.65 seconds. Elapsed time: 113.71 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_3_Pipeline_init_out_VITIS_LOOP_70_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_out_VITIS_LOOP_70_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'init_out_VITIS_LOOP_70_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.96 seconds. CPU system time: 0.1 seconds. Elapsed time: 2.54 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_3_Pipeline_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_215', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_217', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_219', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_221', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_283', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 35). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_299', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 43). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_3_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_load_307', kernel_proj_0.cpp:123) on array 'in_r' due to limited memory ports (II = 47). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 48, Depth = 98, loop 'Out_Row_Out_Column'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 53.16 seconds. CPU system time: 0.77 seconds. Elapsed time: 53.98 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 7.91 seconds. CPU system time: 0.09 seconds. Elapsed time: 8.12 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 5.33 seconds. CPU system time: 0.11 seconds. Elapsed time: 5.59 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.43 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.46 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'store_result_14' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 57.11 seconds. CPU system time: 0.97 seconds. Elapsed time: 58.1 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 3.06 seconds. CPU system time: 0.07 seconds. Elapsed time: 3.22 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_proj_0' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 6.56 seconds. CPU system time: 0.07 seconds. Elapsed time: 6.75 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.59 seconds. CPU system time: 0.07 seconds. Elapsed time: 1.75 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_15' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_31_1'.
+WARNING: [HLS 200-885] The II Violation in module 'load_input_15' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule 'store' operation ('in_addr_87_write_ln40', kernel_norm_in_1.cpp:40) of variable 'tmp_s', kernel_norm_in_1.cpp:40 on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_15' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule 'store' operation ('in_addr_89_write_ln40', kernel_norm_in_1.cpp:40) of variable 'tmp_94', kernel_norm_in_1.cpp:40 on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_15' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule 'store' operation ('in_addr_91_write_ln40', kernel_norm_in_1.cpp:40) of variable 'tmp_96', kernel_norm_in_1.cpp:40 on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_15' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule 'store' operation ('in_addr_93_write_ln40', kernel_norm_in_1.cpp:40) of variable 'tmp_98', kernel_norm_in_1.cpp:40 on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_15' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule 'store' operation ('in_addr_107_write_ln40', kernel_norm_in_1.cpp:40) of variable 'tmp_112', kernel_norm_in_1.cpp:40 on array 'in_r' due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_15' (loop 'init_in_VITIS_LOOP_31_1'): Unable to schedule 'store' operation ('in_addr_115_write_ln40', kernel_norm_in_1.cpp:40) of variable 'tmp_120', kernel_norm_in_1.cpp:40 on array 'in_r' due to limited memory ports (II = 15). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 16, Depth = 16, loop 'init_in_VITIS_LOOP_31_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 5.1 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.36 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.84 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.93 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_out_VITIS_LOOP_73_1'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_166_write_ln82', kernel_norm_in_1.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_168_write_ln82', kernel_norm_in_1.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_170_write_ln82', kernel_norm_in_1.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_172_write_ln82', kernel_norm_in_1.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_186_write_ln82', kernel_norm_in_1.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_init_out_VITIS_LOOP_73_1' (loop 'init_out_VITIS_LOOP_73_1'): Unable to schedule 'store' operation ('out_addr_194_write_ln82', kernel_norm_in_1.cpp:82) of constant 0 on array 'out_r' due to limited memory ports (II = 15). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 16, Depth = 16, loop 'init_out_VITIS_LOOP_73_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.97 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.15 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.29 seconds. CPU system time: 0 seconds. Elapsed time: 0.35 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_4_Pipeline_VITIS_LOOP_92_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_92_4'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_159', kernel_norm_in_1.cpp:101) on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_161', kernel_norm_in_1.cpp:101) on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_162', kernel_norm_in_1.cpp:101) on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_164', kernel_norm_in_1.cpp:101) on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_4_Pipeline_VITIS_LOOP_92_4' (loop 'VITIS_LOOP_92_4'): Unable to schedule 'load' operation ('in_load_168', kernel_norm_in_1.cpp:101) on array 'in_r' due to limited memory ports (II = 7). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 8, Depth = 21, loop 'VITIS_LOOP_92_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.09 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.22 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.51 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.55 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.45 seconds. CPU system time: 0 seconds. Elapsed time: 0.5 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.14 seconds. CPU system time: 0 seconds. Elapsed time: 0.16 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'store_result_16' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'.
+WARNING: [HLS 200-885] The II Violation in module 'store_result_16' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_1', kernel_norm_in_1.cpp:123) on array 'out_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_16' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_3', kernel_norm_in_1.cpp:123) on array 'out_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_16' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_5', kernel_norm_in_1.cpp:123) on array 'out_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_16' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_7', kernel_norm_in_1.cpp:123) on array 'out_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_16' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_21', kernel_norm_in_1.cpp:123) on array 'out_r' due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'store_result_16' (loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'): Unable to schedule 'load' operation ('out_load_29', kernel_norm_in_1.cpp:123) on array 'out_r' due to limited memory ports (II = 15). Please consider using a memory core with more ports or partitioning the array 'out_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 16, Depth = 17, loop 'VITIS_LOOP_111_1_VITIS_LOOP_114_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 76.56 seconds. CPU system time: 1.23 seconds. Elapsed time: 77.85 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 5.42 seconds. CPU system time: 0.08 seconds. Elapsed time: 5.58 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_norm_in_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 5.8 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.97 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.45 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.52 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_17' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_42_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'init_in_VITIS_LOOP_42_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 3.34 seconds. CPU system time: 0.04 seconds. Elapsed time: 3.48 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.76 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.85 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_5_Pipeline_init_out_VITIS_LOOP_70_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_out_VITIS_LOOP_70_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'init_out_VITIS_LOOP_70_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.63 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.76 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.25 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.29 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_5_Pipeline_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 35, loop 'Out_Row_Out_Column'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 8.55 seconds. CPU system time: 0.12 seconds. Elapsed time: 8.75 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 10.13 seconds. CPU system time: 0.1 seconds. Elapsed time: 10.33 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 15 seconds. CPU system time: 0.24 seconds. Elapsed time: 15.35 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 4.28 seconds. CPU system time: 0.06 seconds. Elapsed time: 4.38 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'store_result_18' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_134_1_VITIS_LOOP_137_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'VITIS_LOOP_134_1_VITIS_LOOP_137_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 433.96 seconds. CPU system time: 7.86 seconds. Elapsed time: 441.86 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 8.34 seconds. CPU system time: 0.14 seconds. Elapsed time: 8.6 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_v_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 8.77 seconds. CPU system time: 0.12 seconds. Elapsed time: 9.07 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 5.14 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.28 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input_19' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_51_1'.
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_24_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_1', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_26_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_3', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_28_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_5', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_30_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_7', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_60_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_36', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_76_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_52', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input_19' (loop 'init_in_VITIS_LOOP_51_1'): Unable to schedule 'store' operation ('in_addr_84_write_ln60', kernel_DW_conv_1.cpp:60) of variable 'tmp_60', kernel_DW_conv_1.cpp:60 on array 'in_r' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 32, loop 'init_in_VITIS_LOOP_51_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 21.89 seconds. CPU system time: 0.26 seconds. Elapsed time: 22.28 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 10.09 seconds. CPU system time: 0.2 seconds. Elapsed time: 10.44 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_padding_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_1', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_3', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_5', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_7', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_37', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_53', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_padding_6' (loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'): Unable to schedule 'load' operation ('in_load_61', kernel_DW_conv_1.cpp:86) on array 'in_r' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'in_r'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 33, loop 'VITIS_LOOP_74_1_VITIS_LOOP_77_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.98 seconds. CPU system time: 0.06 seconds. Elapsed time: 3.31 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.12 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.19 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_7_Pipeline_VITIS_LOOP_130_4_VITIS_LOOP_133_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'VITIS_LOOP_130_4_VITIS_LOOP_133_5'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.4 seconds. CPU system time: 0.04 seconds. Elapsed time: 1.52 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.27 seconds. CPU system time: 0 seconds. Elapsed time: 0.33 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_7_Pipeline_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_7_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_1', kernel_DW_conv_1.cpp:178) on array 'in_pad_0' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_7_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_3', kernel_DW_conv_1.cpp:178) on array 'in_pad_0' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_7_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_5', kernel_DW_conv_1.cpp:178) on array 'in_pad_0' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_conv_7_Pipeline_Out_Row_Out_Column' (loop 'Out_Row_Out_Column'): Unable to schedule 'load' operation ('in_pad_0_load_7', kernel_DW_conv_1.cpp:178) on array 'in_pad_0' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'in_pad_0'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 5, Depth = 12, loop 'Out_Row_Out_Column'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 40.93 seconds. CPU system time: 0.5 seconds. Elapsed time: 41.51 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 6.15 seconds. CPU system time: 0.11 seconds. Elapsed time: 6.35 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_7' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 5.85 seconds. CPU system time: 0.08 seconds. Elapsed time: 6.07 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.89 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.94 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_8_Pipeline_VITIS_LOOP_219_1_VITIS_LOOP_222_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'VITIS_LOOP_219_1_VITIS_LOOP_222_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.95 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.05 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.27 seconds. CPU system time: 0 seconds. Elapsed time: 0.3 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_8_Pipeline_VITIS_LOOP_237_4_VITIS_LOOP_240_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 10, loop 'VITIS_LOOP_237_4_VITIS_LOOP_240_5'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.55 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.65 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 1.89 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.99 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_8' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.48 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.6 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.83 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.88 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_act_20' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'VITIS_LOOP_261_1_VITIS_LOOP_264_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1690.7 seconds. CPU system time: 33.07 seconds. Elapsed time: 1723.75 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 17.64 seconds. CPU system time: 0.31 seconds. Elapsed time: 18.12 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_DW_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 19.47 seconds. CPU system time: 0.26 seconds. Elapsed time: 19.99 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 3.68 seconds. CPU system time: 0.08 seconds. Elapsed time: 3.86 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_irmb_stage1_Pipeline_VITIS_LOOP_106_1_VITIS_LOOP_109_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_106_1_VITIS_LOOP_109_2'.
+WARNING: [HLS 200-885] The II Violation in module 'kernel_irmb_stage1_Pipeline_VITIS_LOOP_106_1_VITIS_LOOP_109_2' (loop 'VITIS_LOOP_106_1_VITIS_LOOP_109_2'): Unable to schedule 'store' operation ('dw_skip_out_addr_1_write_ln115', kernel_iRMB_stage1.cpp:115) of variable 'add31_1_i', kernel_iRMB_stage1.cpp:115 on array 'dw_skip_out' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'dw_skip_out'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 2, Depth = 2, loop 'VITIS_LOOP_106_1_VITIS_LOOP_109_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 34.45 seconds. CPU system time: 0.41 seconds. Elapsed time: 35.02 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.73 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.86 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'load_input' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_in_VITIS_LOOP_42_1'.
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_1', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_3', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_5', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_7', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_37', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_53', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 27). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'load_input' (loop 'init_in_VITIS_LOOP_42_1'): Unable to schedule 'load' operation ('buffer_DataIn_1_load_61', kernel_proj_1.cpp:51) on array 'buffer_DataIn_1' due to limited memory ports (II = 31). Please consider using a memory core with more ports or partitioning the array 'buffer_DataIn_1'.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 32, Depth = 33, loop 'init_in_VITIS_LOOP_42_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.8 seconds. CPU system time: 0.07 seconds. Elapsed time: 2.08 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.9 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.95 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_9_Pipeline_init_out_VITIS_LOOP_70_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'init_out_VITIS_LOOP_70_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'init_out_VITIS_LOOP_70_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.85 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.98 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.17 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.21 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_9_Pipeline_Out_Row_Out_Column' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 66, loop 'Out_Row_Out_Column'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 8.88 seconds. CPU system time: 0.11 seconds. Elapsed time: 9.02 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 9.98 seconds. CPU system time: 0.12 seconds. Elapsed time: 10.19 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_conv_9' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 14.75 seconds. CPU system time: 0.19 seconds. Elapsed time: 15.08 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 4.3 seconds. CPU system time: 0.06 seconds. Elapsed time: 4.39 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'store_result_21' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'VITIS_LOOP_135_1_VITIS_LOOP_138_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 67.57 seconds. CPU system time: 0.96 seconds. Elapsed time: 68.59 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 3.3 seconds. CPU system time: 0.04 seconds. Elapsed time: 3.42 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_proj_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 3.16 seconds. CPU system time: 0.04 seconds. Elapsed time: 3.3 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 4.92 seconds. CPU system time: 0.07 seconds. Elapsed time: 5.04 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_irmb_stage1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_131_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_128_1_VITIS_LOOP_131_2'.
+WARNING: [HLS 200-880] The II Violation in module 'kernel_irmb_stage1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_131_2' (loop 'VITIS_LOOP_128_1_VITIS_LOOP_131_2'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus write operation ('gmem0_addr_write_ln134', kernel_iRMB_stage1.cpp:134) on port 'gmem0' (kernel_iRMB_stage1.cpp:134) and bus write operation ('gmem0_addr_write_ln134', kernel_iRMB_stage1.cpp:134) on port 'gmem0' (kernel_iRMB_stage1.cpp:134).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_irmb_stage1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_131_2' (loop 'VITIS_LOOP_128_1_VITIS_LOOP_131_2'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus write operation ('gmem0_addr_write_ln134', kernel_iRMB_stage1.cpp:134) on port 'gmem0' (kernel_iRMB_stage1.cpp:134) and bus write operation ('gmem0_addr_write_ln134', kernel_iRMB_stage1.cpp:134) on port 'gmem0' (kernel_iRMB_stage1.cpp:134).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_irmb_stage1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_131_2' (loop 'VITIS_LOOP_128_1_VITIS_LOOP_131_2'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus write operation ('gmem0_addr_write_ln134', kernel_iRMB_stage1.cpp:134) on port 'gmem0' (kernel_iRMB_stage1.cpp:134) and bus write operation ('gmem0_addr_write_ln134', kernel_iRMB_stage1.cpp:134) on port 'gmem0' (kernel_iRMB_stage1.cpp:134).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 4, Depth = 5, loop 'VITIS_LOOP_128_1_VITIS_LOOP_131_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 20.14 seconds. CPU system time: 0.25 seconds. Elapsed time: 20.48 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.33 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.41 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_irmb_stage1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 52.61 seconds. CPU system time: 0.88 seconds. Elapsed time: 53.57 seconds; current allocated memory: 92.350 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 640.02 seconds. CPU system time: 12.61 seconds. Elapsed time: 654.29 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'init_out_Pipeline_VITIS_LOOP_39_1_VITIS_LOOP_42_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-104] Estimated max fanout for 'init_out_Pipeline_VITIS_LOOP_39_1_VITIS_LOOP_42_2' is 192769 from HDL expression: ((ap_start_int == 1'b1) & (icmp_ln39_fu_210124_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state1))
+INFO: [RTGEN 206-100] Finished creating RTL model for 'init_out_Pipeline_VITIS_LOOP_39_1_VITIS_LOOP_42_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 173.65 seconds. CPU system time: 4.2 seconds. Elapsed time: 179.98 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'init_out_Pipeline_VITIS_LOOP_59_5_VITIS_LOOP_62_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-104] Estimated max fanout for 'init_out_Pipeline_VITIS_LOOP_59_5_VITIS_LOOP_62_6' is 44161 from HDL expression: ((ap_start_int == 1'b1) & (icmp_ln59_fu_71370_p2 == 1'd1) & (1'b1 == ap_CS_fsm_state1))
+INFO: [RTGEN 206-100] Finished creating RTL model for 'init_out_Pipeline_VITIS_LOOP_59_5_VITIS_LOOP_62_6'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 94.71 seconds. CPU system time: 2.78 seconds. Elapsed time: 102.53 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'init_out_Pipeline_VITIS_LOOP_82_9_VITIS_LOOP_85_10' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'init_out_Pipeline_VITIS_LOOP_82_9_VITIS_LOOP_85_10'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 18.76 seconds. CPU system time: 0.79 seconds. Elapsed time: 21.4 seconds; current allocated memory: 92.350 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'init_out' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+/users/cad/xilinx/Vitis_HLS/2022.1/bin/loader: line 312: 51649 Killed                  "$RDI_PROG" "$@"

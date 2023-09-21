@@ -95,19 +95,24 @@ static void compute_conv(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_PAD][WIDTH_PAD]
     float bias[CHANNEL_OUT];
 #pragma HLS array_partition variable = bias complete dim = 1
 init_bias:
-  for (int k = 0; k < CHANNEL_OUT; k++) {
-#pragma HLS UNROLL  
+    for (int k = 0; k < CHANNEL_OUT; k++)
+    {
+#pragma HLS UNROLL
         bias[k] = k + 0.01;
     }
 
 init_kernel:
-    for (int k = 0; k < CHANNEL_OUT; k++) {
+    for (int k = 0; k < CHANNEL_OUT; k++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
-        for (int l = 0; l < KERNEL_CHANNEL; l++){
+        for (int l = 0; l < KERNEL_CHANNEL; l++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
-            for (int i = 0; i < KERNEL_SIZE; i++){
+            for (int i = 0; i < KERNEL_SIZE; i++)
+            {
 #pragma HLS UNROLL
-                for (int j = 0; j < KERNEL_SIZE; j++){
+                for (int j = 0; j < KERNEL_SIZE; j++)
+                {
 #pragma HLS UNROLL
                     kernel[k][l][i][j] = 0.1;
                 }
@@ -115,13 +120,17 @@ init_kernel:
         }
     }
 init_out:
-    for (int n = 0; n < BATCH_SIZE; n++){
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-        for (int i = 0; i < HEIGHT_OUT; i++){
+        for (int i = 0; i < HEIGHT_OUT; i++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-            for (int j = 0; j < WIDTH_OUT; j++){
+            for (int j = 0; j < WIDTH_OUT; j++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-                for (int c = 0; c < CHANNEL_OUT; c++){
+                for (int c = 0; c < CHANNEL_OUT; c++)
+                {
 #pragma HLS UNROLL
                     out[n][c][i][j] = 0;
                     if (isConvBias)
@@ -133,22 +142,28 @@ init_out:
 
 conv:
 batch:
-    for (int batch = 0; batch < BATCH_SIZE; batch++){
+    for (int batch = 0; batch < BATCH_SIZE; batch++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
     row:
-        for (int h = 0; h < HEIGHT_OUT; h++){
+        for (int h = 0; h < HEIGHT_OUT; h++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
         column:
-            for (int w = 0; w < WIDTH_OUT; w++){
+            for (int w = 0; w < WIDTH_OUT; w++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
             kernel_row:
-                for (int kr = 0; kr < KERNEL_SIZE; kr++){
+                for (int kr = 0; kr < KERNEL_SIZE; kr++)
+                {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
                 kernel_column:
-                    for (int kc = 0; kc < KERNEL_SIZE; kc++){
+                    for (int kc = 0; kc < KERNEL_SIZE; kc++)
+                    {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
                     output_channel:
-                        for (int cho = 0; cho < CHANNEL_OUT; cho++){
+                        for (int cho = 0; cho < CHANNEL_OUT; cho++)
+                        {
 #pragma HLS UNROLL
                         input_channel:
                             for (int chi = 0; chi < CHANNEL_IN; chi++)

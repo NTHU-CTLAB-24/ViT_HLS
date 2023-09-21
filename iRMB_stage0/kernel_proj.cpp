@@ -36,13 +36,17 @@ static void load_input(float *buffer_DataIn_1,
                        float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN])
 {
 init_in:
-    for (int h = 0; h < HEIGHT_IN; h++){
+    for (int h = 0; h < HEIGHT_IN; h++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_IN max = HEIGHT_IN
-        for (int w = 0; w < WIDTH_IN; w++){
+        for (int w = 0; w < WIDTH_IN; w++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_IN max = WIDTH_IN
-            for (int n = 0; n < BATCH_SIZE; n++) {
+            for (int n = 0; n < BATCH_SIZE; n++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-                for (int c = 0; c < CHANNEL_IN; c++) {
+                for (int c = 0; c < CHANNEL_IN; c++)
+                {
 #pragma HLS UNROLL
                     in[n][c][h][w] = buffer_DataIn_1[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w];
                 }
@@ -60,13 +64,17 @@ static void compute_conv(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN],
 #pragma HLS array_partition variable = bias complete dim = 1
 
 init_out:
-    for (int i = 0; i < HEIGHT_OUT; i++) {
+    for (int i = 0; i < HEIGHT_OUT; i++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-        for (int j = 0; j < WIDTH_OUT; j++) {
+        for (int j = 0; j < WIDTH_OUT; j++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-            for (int b = 0; b < BATCH_SIZE; b++) {
+            for (int b = 0; b < BATCH_SIZE; b++)
+            {
 #pragma HLS UNROLL
-                for (int c = 0; c < CHANNEL_OUT; c++) {
+                for (int c = 0; c < CHANNEL_OUT; c++)
+                {
 #pragma HLS UNROLL
                     out[b][c][i][j] = 0;
                 }
@@ -75,14 +83,17 @@ init_out:
     }
 
 init_bias:
-  for (int k = 0; k < CHANNEL_OUT; k++) {
-#pragma HLS UNROLL  
+    for (int k = 0; k < CHANNEL_OUT; k++)
+    {
+#pragma HLS UNROLL
         bias[k] = k + 10;
     }
 init_kernel:
-    for (int k = 0; k < CHANNEL_OUT; k++){
+    for (int k = 0; k < CHANNEL_OUT; k++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
-        for (int l = 0; l < CHANNEL_IN; l++){
+        for (int l = 0; l < CHANNEL_IN; l++)
+        {
 #pragma HLS UNROLL
             kernel[k][l] = 2;
         }
@@ -90,19 +101,24 @@ init_kernel:
 
 execute:
 Batch:
-    for (int batch = 0; batch < BATCH_SIZE; batch++){
+    for (int batch = 0; batch < BATCH_SIZE; batch++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
     Out_Row:
-        for (int row = 0; row < HEIGHT_OUT; row++){
+        for (int row = 0; row < HEIGHT_OUT; row++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
         Out_Column:
-            for (int col = 0; col < WIDTH_OUT; col++){
+            for (int col = 0; col < WIDTH_OUT; col++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-                Output_Channel:
-                for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++){
+            Output_Channel:
+                for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
+                {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
-                    In_Channel:
-                    for (int in_ch = 0; in_ch < CHANNEL_IN; in_ch++){
+                In_Channel:
+                    for (int in_ch = 0; in_ch < CHANNEL_IN; in_ch++)
+                    {
 #pragma HLS UNROLL
                         out[batch][out_ch][row][col] += in[batch][in_ch][row][col] * kernel[out_ch][in_ch];
                     }
@@ -113,22 +129,28 @@ Batch:
         }
     }
 }
-static void store_result(float out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT], float* buffer_result)
+
+static void store_result(float out[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT], float *buffer_result)
 {
-    for (int i = 0; i < HEIGHT_OUT; i++) {
+    for (int i = 0; i < HEIGHT_OUT; i++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-        for (int j = 0; j < WIDTH_OUT; j++) {
+        for (int j = 0; j < WIDTH_OUT; j++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
-            for (int c = 0; c < CHANNEL_OUT; c++) {
+            for (int c = 0; c < CHANNEL_OUT; c++)
+            {
 #pragma HLS UNROLL
-                for (int b = 0; b < BATCH_SIZE; b++) {
+                for (int b = 0; b < BATCH_SIZE; b++)
+                {
 #pragma HLS UNROLL
-                    buffer_result[b*CHANNEL_OUT*HEIGHT_OUT*WIDTH_OUT + c*HEIGHT_OUT*WIDTH_OUT + i*WIDTH_OUT + j] = out[b][c][i][j];
+                    buffer_result[b * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + i * WIDTH_OUT + j] = out[b][c][i][j];
                 }
             }
         }
     }
 }
+
 extern "C"
 {
     void kernel_proj(float *buffer_DataIn_1,
@@ -139,7 +161,7 @@ extern "C"
 #pragma HLS INTERFACE m_axi port = buffer_result bundle = gmem0 depth = 768
 
 #pragma HLS dataflow
-// dataflow僅可以接受single reader and single writer
+        // dataflow僅可以接受single reader and single writer
         // dataflow pragma instruct compiler to run following three APIs in parallel
         float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
 #pragma HLS array_partition variable = in complete dim = 1
