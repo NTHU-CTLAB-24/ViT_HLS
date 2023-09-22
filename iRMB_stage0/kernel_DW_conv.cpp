@@ -33,7 +33,7 @@ const int outGroupNums = CHANNEL_OUT / GROUP;
 const bool isConvBias = false;
 
 // Normalization parameters
-const float EPS = 1e-5;
+const float EPS = 1e-6;
 
 // TODO: modify hyperparameters
 // Hyperparameters
@@ -45,11 +45,14 @@ static void load_input(float *buffer_DataIn_1,
                        float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN])
 {
 init_in:
-    for (int h = 0; h < HEIGHT_IN; h++){
+    for (int h = 0; h < HEIGHT_IN; h++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_IN max = HEIGHT_IN
-        for (int w = 0; w < WIDTH_IN; w++){
+        for (int w = 0; w < WIDTH_IN; w++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_IN max = WIDTH_IN
-            for (int n = 0; n < BATCH_SIZE; n++) {
+            for (int n = 0; n < BATCH_SIZE; n++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
                 for (int c = 0; c < CHANNEL_IN; c++) {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN  max = CHANNEL_IN
@@ -64,11 +67,14 @@ static void compute_padding(float in[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN
                             float in_pad[BATCH_SIZE][CHANNEL_IN][HEIGHT_PAD][WIDTH_PAD])
 {
 Padding:
-for (int n = 0; n < BATCH_SIZE; n++){
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-        for (int i = 0; i < HEIGHT_PAD; i++){
+        for (int i = 0; i < HEIGHT_PAD; i++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_PAD max = HEIGHT_PAD
-            for (int j = 0; j < WIDTH_PAD; j++){
+            for (int j = 0; j < WIDTH_PAD; j++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_PAD max = WIDTH_PAD
                 for (int c = 0; c < CHANNEL_IN; c++){
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_IN  max = CHANNEL_IN
@@ -96,9 +102,11 @@ init_bias:
         bias[k] = k + 10;
     }
 init_kernel:
-    for (int k = 0; k < CHANNEL_OUT; k++) {
+    for (int k = 0; k < CHANNEL_OUT; k++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
-        for (int l = 0; l < KERNEL_CHANNEL; l++) {
+        for (int l = 0; l < KERNEL_CHANNEL; l++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_CHANNEL max = KERNEL_CHANNEL
             for (int i = 0; i < KERNEL_SIZE; i++) {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE  max = KERNEL_SIZE
@@ -111,11 +119,14 @@ init_kernel:
     }
 
 init_output:
-    for (int n = 0; n < BATCH_SIZE; n++){
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-        for (int i = 0; i < HEIGHT_OUT; i++){
+        for (int i = 0; i < HEIGHT_OUT; i++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-            for (int j = 0; j < WIDTH_OUT; j++){
+            for (int j = 0; j < WIDTH_OUT; j++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
                 for (int c = 0; c < CHANNEL_OUT; c++){
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
@@ -126,21 +137,27 @@ init_output:
             }
         }
     }
+
 execute:
 Batch:
-    for (int batch = 0; batch < BATCH_SIZE; batch++) {
+    for (int batch = 0; batch < BATCH_SIZE; batch++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
     Out_Row:
-        for (int row = 0; row < HEIGHT_OUT; row++) {
+        for (int row = 0; row < HEIGHT_OUT; row++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
         Out_Column:
-            for (int col = 0; col < WIDTH_OUT; col++) {
+            for (int col = 0; col < WIDTH_OUT; col++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
             Kernel_Row:
-                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++) {
+                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
+                {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
                 Kernel_Col:
-                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++) {
+                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
+                    {
 #pragma HLS LOOP_TRIPCOUNT min = KERNEL_SIZE max = KERNEL_SIZE
                         int groupIndex = 0;
                     Output_Channel:
@@ -187,11 +204,14 @@ static void compute_norm(float afterConv[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WI
         }
 
 init_output:
-    for (int n = 0; n < BATCH_SIZE; n++){
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-        for (int i = 0; i < HEIGHT_OUT; i++){
+        for (int i = 0; i < HEIGHT_OUT; i++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-            for (int j = 0; j < WIDTH_OUT; j++){
+            for (int j = 0; j < WIDTH_OUT; j++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
                 for (int c = 0; c < CHANNEL_OUT; c++){
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
@@ -200,12 +220,15 @@ init_output:
             }
         }
     }
-    Batch_norm:
-         for (int n = 0; n < BATCH_SIZE; n++) {
+Batch_norm:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-        for (int i = 0; i < HEIGHT_OUT; i++) {
+        for (int i = 0; i < HEIGHT_OUT; i++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-            for (int j = 0; j < WIDTH_OUT; j++) {
+            for (int j = 0; j < WIDTH_OUT; j++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
                 for (int c = 0; c < CHANNEL_OUT; c++) {
 #pragma HLS LOOP_TRIPCOUNT min = CHANNEL_OUT max = CHANNEL_OUT
@@ -217,24 +240,27 @@ init_output:
 }
 
 static void compute_act(float afterNorm[BATCH_SIZE][CHANNEL_OUT][HEIGHT_OUT][WIDTH_OUT],
-                        float* buffer_result)
+                        float *buffer_result)
 {
-    //to avoid use "exp", we replace "silu" with "relu" function
-    relu:
-    for (int n = 0; n < BATCH_SIZE; n++) {
+// to avoid use "exp", we replace "silu" with "relu" function
+relu:
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
 #pragma HLS LOOP_TRIPCOUNT min = BATCH_SIZE max = BATCH_SIZE
-        for (int h = 0; h < HEIGHT_OUT; h++) {
+        for (int h = 0; h < HEIGHT_OUT; h++)
+        {
 #pragma HLS LOOP_TRIPCOUNT min = HEIGHT_OUT max = HEIGHT_OUT
-            for (int w = 0; w < WIDTH_OUT; w++) {
+            for (int w = 0; w < WIDTH_OUT; w++)
+            {
 #pragma HLS LOOP_TRIPCOUNT min = WIDTH_OUT max = WIDTH_OUT
                 for (int c = 0; c < CHANNEL_OUT; c++) {
 #pragma HLS LOOP_TRIPCOUNT  min = CHANNEL_OUT max = CHANNEL_OUT
                     if (afterNorm[n][c][h][w] < 0)                      
                         buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;
-                    else 
+                    else
                         buffer_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = afterNorm[n][c][h][w];
                 }
-            }        
+            }
         }
     }
 }
