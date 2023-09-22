@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-#ifndef _KRNL_DW_CONV_H_
-#define _KRNL_DW_CONV_H_
-
 // Includes
 #include <iostream>
 #include <ap_int.h>
@@ -26,4 +23,3 @@ extern "C" {
     void kernel_proj(float* buffer_input, float* buffer_output, float* kernel, float* bias);
 }
 
-#endif
