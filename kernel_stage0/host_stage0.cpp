@@ -55,7 +55,7 @@ using namespace std;
 // TODO: modify parameters value
 // 可以在這裡塞一點需要用到的常數
 // 參考count_depth.py的計算
-static const int X_data_size = 37632; //1x3x112x112
+static const int X_data_size = 768; //1x3x112x112
 static const int msp_filter_size = 648;
 static const int msp_bias_size = 24;
 static const int reduce_filter_size = 576;
@@ -68,16 +68,16 @@ static const int var_size = 24;
 static const int gamma_size = 24;
 static const int beta_size = 24;
 
-static const int X_pad_size = 38988;
-static const int X_conv_size = 75264;
+static const int X_pad_size = 972;
+static const int X_conv_size = 1536;
 static const int X_mean_size = 24;
 static const int X_reduce_size = 24;
 static const int X_relu_size = 24;
 static const int X_expand_size = 24;
 static const int X_sigmoid_size = 24;
-static const int Y_msp_size = 75264;
+static const int Y_msp_size = 1536;
 
-static const int Y_se_size = 75264; //final output
+static const int Y_se_size = 1536; //final output
 
 // Compute the size of array in bytes
 size_t X_data_bytes = X_data_size * sizeof(float);
@@ -351,10 +351,12 @@ int main(int argc, char *argv[])
     float* X_data; //input image
     float* msp_filter;
     float* msp_bias;
+    /*
     float* reduce_filter;
     float* reduce_bias;
     float* expand_filter;
     float* expand_bias;
+    */
     float* mean;
     float* var;
     float* gamma;
@@ -363,15 +365,17 @@ int main(int argc, char *argv[])
     //temporary storage
     float* X_pad;
     float* X_conv;
+    /*
     float* X_mean;
     float* X_reduce;
     float* X_relu;
     float* X_expand;
     float* X_sigmoid;
+    */
     float* Y_msp; //result of MSP module
 
     //output
-    float* Y_se; //result of SE module
+    //float* Y_se; //result of SE module
     
 // These commands will allocate memory on the .Device
 // The cl::Buffer objects can be used to reference the memory locations on the device.
@@ -380,7 +384,7 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, cl::Buffer buffer_DataIn_1(context, CL_MEM_READ_ONLY, X_data_bytes, NULL, &err));
     OCL_CHECK(err,
               X_data = (float *)q.enqueueMapBuffer(buffer_DataIn_1, CL_TRUE, CL_MAP_WRITE, 0, X_data_bytes, NULL, NULL, &err));
-    dataPrepare(X_data, 1, 3, 112, 112);
+    dataPrepare(X_data, 1, 3, 16, 16);
 
     OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY, msp_filter_bytes, NULL, &err));
     OCL_CHECK(err,
@@ -392,6 +396,7 @@ int main(int argc, char *argv[])
             msp_bias = (float *)q.enqueueMapBuffer(buffer_DataIn_3, CL_TRUE, CL_MAP_WRITE, 0, msp_bias_bytes, NULL, NULL, &err));
     mspbiasPrepare(msp_bias, 24);
 
+    /*
     OCL_CHECK(err, cl::Buffer buffer_DataIn_4(context, CL_MEM_READ_ONLY, reduce_filter_bytes, NULL, &err));
     OCL_CHECK(err,
             reduce_filter = (float *)q.enqueueMapBuffer(buffer_DataIn_4, CL_TRUE, CL_MAP_WRITE, 0, reduce_filter_bytes, NULL, NULL, &err));
@@ -411,7 +416,7 @@ int main(int argc, char *argv[])
     OCL_CHECK(err,
             expand_bias = (float *)q.enqueueMapBuffer(buffer_DataIn_7, CL_TRUE, CL_MAP_WRITE, 0, expand_bias_bytes, NULL, NULL, &err));
     expandbiasPrepare(expand_bias, 24);
-
+    */
     OCL_CHECK(err, cl::Buffer buffer_DataIn_8(context, CL_MEM_READ_ONLY, mean_bytes, NULL, &err));
     OCL_CHECK(err,
             mean = (float *)q.enqueueMapBuffer(buffer_DataIn_8, CL_TRUE, CL_MAP_WRITE, 0, mean_bytes, NULL, NULL, &err));
@@ -439,11 +444,12 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, cl::Buffer buffer_tmp1(context, CL_MEM_READ_ONLY, X_pad_bytes, NULL, &err));
     OCL_CHECK(err,
             X_pad = (float *)q.enqueueMapBuffer(buffer_tmp1, CL_TRUE, CL_MAP_WRITE, 0, X_pad_bytes, NULL, NULL, &err));
-
+    
     OCL_CHECK(err, cl::Buffer buffer_tmp2(context, CL_MEM_READ_ONLY, X_conv_bytes, NULL, &err));
     OCL_CHECK(err,
             X_conv = (float *)q.enqueueMapBuffer(buffer_tmp2, CL_TRUE, CL_MAP_WRITE, 0, X_conv_bytes, NULL, NULL, &err));
-    
+
+    /*
     OCL_CHECK(err, cl::Buffer buffer_tmp3(context, CL_MEM_READ_ONLY, X_mean_bytes, NULL, &err));
     OCL_CHECK(err,
             X_mean = (float *)q.enqueueMapBuffer(buffer_tmp3, CL_TRUE, CL_MAP_WRITE, 0, X_mean_bytes, NULL, NULL, &err));
@@ -463,23 +469,31 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, cl::Buffer buffer_tmp7(context, CL_MEM_READ_ONLY, X_sigmoid_bytes, NULL, &err));
     OCL_CHECK(err,
             X_sigmoid = (float *)q.enqueueMapBuffer(buffer_tmp7, CL_TRUE, CL_MAP_WRITE, 0, X_sigmoid_bytes, NULL, NULL, &err));
-
+    */
     OCL_CHECK(err, cl::Buffer buffer_tmp8(context, CL_MEM_READ_ONLY, Y_msp_bytes, NULL, &err));
     OCL_CHECK(err,
             Y_msp = (float *)q.enqueueMapBuffer(buffer_tmp8, CL_TRUE, CL_MAP_WRITE, 0, Y_msp_bytes, NULL, NULL, &err));
-
+    for (int b = 0; b < 1; b++) {
+        for (int c = 0; c < 24; c++) {
+            for (int h = 0; h < 8; h++) {
+                for (int w = 0; w < 8; w++) {
+                    Y_msp[b*24*64 + c*64 + h*8 + w] = 0;
+                }
+            }
+        }
+    }
+    /*
     OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_READ_ONLY, Y_se_bytes, NULL, &err));
     OCL_CHECK(err,
             Y_se = (float *)q.enqueueMapBuffer(buffer_result, CL_TRUE, CL_MAP_WRITE, 0, Y_se_bytes, NULL, NULL, &err));
+    */
     // TODO: enqueue migrate memory objects
     // Data will be migrated to kernel space
     cout << "HOST-Info: Migrating memory objects ..." << endl;
     // 考慮input量，若有多份則要改成{buffer_DataIn1, buffer_DataIn2...}
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_DataIn_1, buffer_DataIn_2, buffer_DataIn_3, buffer_DataIn_4,
-                                                    buffer_DataIn_5, buffer_DataIn_6, buffer_DataIn_7, buffer_DataIn_8,
-                                                    buffer_DataIn_9, buffer_DataIn_10, buffer_DataIn_11, 
-                                                    buffer_tmp1, buffer_tmp2, buffer_tmp3, buffer_tmp4, 
-                                                    buffer_tmp5, buffer_tmp6, buffer_tmp7, buffer_tmp8}, 0 /* 0 means from host*/));
+    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_DataIn_1, buffer_DataIn_2, buffer_DataIn_3, 
+                                                     buffer_DataIn_8, buffer_DataIn_9, buffer_DataIn_10, buffer_DataIn_11, 
+                                                    buffer_tmp1, buffer_tmp2}, 0 /* 0 means from host*/));
 
 // ============================================================================
 // Step 5: Set Kernel Arguments and Run the Application
@@ -504,10 +518,10 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_1));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_2));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_3));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_4));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_5));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_6));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_7));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_4));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_5));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_6));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_7));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_8));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_9));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_10));
@@ -515,14 +529,14 @@ int main(int argc, char *argv[])
 
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp1));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp2));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp3));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp4));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp5));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp6));
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp7));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp3));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp4));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp5));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp6));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp7));
     OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp8));
 
-    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_result));
+    //OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_result));
 // ----------------------------------------
 // Step 5.2: Submit Kernels for Execution
 // ----------------------------------------
@@ -537,7 +551,7 @@ int main(int argc, char *argv[])
     // order to view the results. This call will transfer the data from FPGA to
     // source_results vector
     // TODO: launch the kernel
-    OCL_CHECK(err, q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
+    OCL_CHECK(err, q.enqueueMigrateMemObjects({buffer_tmp8}, CL_MIGRATE_MEM_OBJECT_HOST));
     OCL_CHECK(err, q.finish());
 
 // ============================================================================
@@ -566,14 +580,16 @@ int main(int argc, char *argv[])
     //     }
     // }
     cout << "Check output result: " << endl;
+    int outsize = 8;
+    // print Y_se[0, 0, :, :]
     for (int n = 0; n < 1; n++){
-        for (int c = 0; c < 24; c++){
-            for (int h = 0; h < 56; h++){
-                for (int w = 0; w < 56; w++){
-                    if (w == 56 - 1)
-                        cout << Y_se[n*24*56*56 + c*56*56 + h*56 + w] << endl;
+        for (int c = 0; c < 1; c++){
+            for (int h = 0; h < outsize; h++){
+                for (int w = 0; w < outsize; w++){
+                    if (w == outsize - 1)
+                        cout << Y_msp[n*24*outsize*outsize + c*outsize*outsize + h*outsize + w] << endl;
                     else
-                        cout <<  Y_se[n*24*56*56 + c*56*56 + h*56 + w] << " ";
+                        cout <<  Y_msp[n*24*outsize*outsize + c*outsize*outsize + h*outsize + w] << " ";
                 }
             }
             break;
@@ -602,10 +618,12 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, X_data));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_2, msp_filter));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_3, msp_bias));
+    /*
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_4, reduce_filter));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_5, reduce_bias));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_6, expand_filter));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_7, expand_bias));
+    */
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_8, mean));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_9, var));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_10, gamma));
@@ -613,14 +631,16 @@ int main(int argc, char *argv[])
 
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp1, X_pad));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp2, X_conv));
+    /*
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp3, X_mean));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp4, X_reduce));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp5, X_relu));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp6, X_expand));
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp7, X_sigmoid));
+    */
     OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp8, Y_msp));
 
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, Y_se));
+    //OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, Y_se));
     OCL_CHECK(err, err = q.finish());
 
     cout << "HOST-Info: TEST " << (error_detected ? "FAILED" : "PASSED") << endl;
