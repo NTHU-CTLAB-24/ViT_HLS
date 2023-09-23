@@ -41,9 +41,9 @@ extern "C"
     int msp_num[4] = {1, 24, 56, 56};
     int msp_filter_num[7] = {24, 3, 3, 3, 1, 2, 0};
 
-    Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, float* Y_msp, int* msp_num, float* msp_filter, int* msp_filter_num, float* msp_bias, float* mean, float* var, float* gamma, float* beta);
+    Mspatch(X_data, X_num, X_pad, X_conv, Y_msp, msp_num, msp_filter,  msp_filter_num,  msp_bias,  mean,  var,  gamma,  beta);
         //DW_conv();
-    SE(float* Y_msp, float* Y_se, int* msp_num, float* X_mean, float* X_reduce, float* X_relu, float* X_expand, float* X_sigmoid, float* reduce_filter, float* reduce_bias, float* expand_filter, float* expand_bias);
+    SE( Y_msp,  Y_se,  msp_num,  X_mean,  X_reduce,  X_relu,  X_expand,  X_sigmoid,  reduce_filter,  reduce_bias,  expand_filter,  expand_bias);
         //Projection();
     }
 }

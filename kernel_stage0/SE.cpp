@@ -11,7 +11,7 @@ void Compute_mean(float* X_data, int* X_num, float* Y_data) {
 
     int total_num = XH * XW;
     for (int n = 0; n < XN; n++) {
-        for (int n = 0; c < XC; c++) {
+        for (int c = 0; c < XC; c++) {
             float temp = 0;
             for (int h = 0; h < XH; h++) {
                 for (int w = 0; w < XW; w++) {
@@ -67,7 +67,7 @@ void SE(float* X_data, float* Y_data, int* X_num, float* X_mean, float* X_reduce
 
     //reduce convolution
     Convolution(X_mean, X_mean_num, X_reduce, X_reduce_num, reduce_filter, reduce_filter_num, reduce_bias);
-    ReLu(X_reduce, X_relu, X_reduce_num, 0);
+    ReLU(X_reduce, X_relu, X_reduce_num, 0);
     //expand convolution
     Convolution(X_relu, X_reduce_num, X_expand, X_expand_num, expand_filter, expand_filter_num, expand_bias);
     Sigmoid(X_expand, X_sigmoid, X_expand_num);

@@ -7,7 +7,7 @@
 #include <iostream>
 
 void BatchNorm(float* X_data, float* Y_data, int* X_num, float* mean, float* var, float* gamma, float* beta);
-void ReLu(float* X_data, float* Y_data, int* X_num, int zp);
+void ReLU(float* X_data, float* Y_data, int* X_num, int zp);
 void Sigmoid(float* X_data, float* Y_data, int* X_num);
 void Padding(float* X_data, float* Y_data, int* X_num, int padding);
 void Compute_mean(float* X_data, int* X_num, float* Y_data);

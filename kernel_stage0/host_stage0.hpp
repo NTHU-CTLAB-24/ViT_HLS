@@ -88,7 +88,7 @@ void mspbiasPrepare(float* Array, int channel) {
         Array[c] = c + 0.01;
     }
 }
-void mspfilterPrepare(float* Array, int channel_out, int channel_in, int kernel_size, int kernel_size) {
+void mspfilterPrepare(float* Array, int channel_out, int channel_in, int kernel_size) {
     for (int i = 0; i < channel_out; i++) {
         for (int j = 0; j < channel_in; j++) {
             for (int kh = 0; kh < kernel_size; kh++) {

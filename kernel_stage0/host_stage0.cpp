@@ -385,7 +385,7 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY, msp_filter_bytes, NULL, &err));
     OCL_CHECK(err,
               msp_filter = (float *)q.enqueueMapBuffer(buffer_DataIn_2, CL_TRUE, CL_MAP_WRITE, 0, msp_filter_bytes, NULL, NULL, &err));
-    mspfilterPrepare(msp_filter, 24, 3, 3, 3);
+    mspfilterPrepare(msp_filter, 24, 3, 3);
 
     OCL_CHECK(err, cl::Buffer buffer_DataIn_3(context, CL_MEM_READ_ONLY, msp_bias_bytes, NULL, &err));
     OCL_CHECK(err,

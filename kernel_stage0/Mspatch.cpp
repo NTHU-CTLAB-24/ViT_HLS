@@ -19,12 +19,6 @@ void Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, float* Y_da
     x_pad_num[2] = X_num[2] + 2*padding;
     x_pad_num[3] = X_num[3] + 2*padding;
 
-    int Y_num[4];
-    Y_num[0] = x_pad_num[0];
-    Y_num[1] = filter_num[0];
-    Y_num[2] = (x_pad_num[2] + 2*padding - filter_num[2]) / stride + 1; //(H+2*padding[1]-KH)/stride[1] + 1
-    Y_num[3] = (x_pad_num[3] + 2*padding - filter_num[3]) / stride + 1; // (W+2*padding[2]-KW)/stride[2] + 1
-
     Convolution(X_pad, x_pad_num, X_conv, Y_num, filter, filter_num, bias);
     BatchNorm(X_conv, Y_data, Y_num, mean, var, gamma, beta);
 }

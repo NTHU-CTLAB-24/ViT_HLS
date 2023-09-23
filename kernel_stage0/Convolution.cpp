@@ -28,7 +28,7 @@ void Convolution(float* X_data, int* X_num, float* Y_data, int* Y_num,  float* f
 
     for (int yn = 0; yn < YN; yn++) {
         for (int yh = 0; yh < YH; yh++) {
-            for (int yw = 0; yw < YW++) {
+            for (int yw = 0; yw < YW; yw++) {
                 for (int kh = 0; kh < KH; kh++) {
                     for (int kw = 0; kw < KW; kw++) {
                         for (int yc = 0; yc < YC; yc++) {
@@ -37,7 +37,7 @@ void Convolution(float* X_data, int* X_num, float* Y_data, int* Y_num,  float* f
                                 x_pos = yn*XC*XH*XW + xc*XH*XW + (yh*stride+kh)*XW + (yw*stride+kw);
                                 k_pos = yc*KD*KH*KW + xc*KW*KW + kh*KW + kw;
                                 y_pos = yn*YC*YH*YW + yc*YH*YW + yh*YW + yw;
-                                Y_data[y_pos] += in_pad[x_pos] * filter[k_pos];
+                                Y_data[y_pos] += X_data[x_pos] * filter[k_pos];
                             }
                             if (isBias) Y_data[y_pos] += bias[yc];
                         }
