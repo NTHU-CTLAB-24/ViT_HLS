@@ -90,7 +90,7 @@ static const int BIAS_SIZE = CHANNEL_OUT;
 // Compute the size of array in bytes
 size_t size_in_bytes = IN_SIZE * sizeof(float);
 size_t size_out_bytes = OUT_SIZE * sizeof(float);
-size_t size_kernel_bytes = KERNEL_SIZE * sizeof(float);
+size_t size_kernel_bytes = KERNEL_2D_SIZE * sizeof(float);
 size_t size_bias_bytes = BIAS_SIZE * sizeof(float);
 
 static const string error_message =
@@ -415,7 +415,7 @@ int main(int argc, char *argv[])
             {
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
-                    ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = -1;
+                    ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = 0;
                 }
             }
         }
@@ -557,28 +557,28 @@ int main(int argc, char *argv[])
     //     }
     // }
     cout << "Check output result: " << endl;
-//    for (int n = 0; n < BATCH_SIZE; n++)
-//    {
-//        for (int c = 0; c < CHANNEL_OUT; c++)
-//        {
-//            for (int h = 0; h < HEIGHT_OUT; h++)
-//            {
-//                for (int w = 0; w < WIDTH_OUT; w++)
-//                {
-//                    if (w == WIDTH_OUT - 1)
-//                        cout << ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] << endl;
-//                    else
-//                        cout << ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] << " ";
-//                }
-//            }
-//        }
-//    }
-    for(int k = 0; k < CHANNEL_OUT; k++){
-    	for(int l = 0; l < CHANNEL_IN; l++){
-    		if(l == CHANNEL_IN -1) cout << ptr_result[k*CHANNEL_IN+l] << endl;
-    		else cout << ptr_result[k*CHANNEL_IN+l] << " ";
-    	}
+    for (int n = 0; n < BATCH_SIZE; n++)
+    {
+        for (int c = 0; c < CHANNEL_OUT; c++)
+        {
+            for (int h = 0; h < HEIGHT_OUT; h++)
+            {
+                for (int w = 0; w < WIDTH_OUT; w++)
+                {
+                    if (w == WIDTH_OUT - 1)
+                        cout << ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] << endl;
+                    else
+                        cout << ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] << " ";
+                }
+            }
+        }
     }
+//    for(int k = 0; k < CHANNEL_OUT; k++){
+//    	for(int l = 0; l < CHANNEL_IN; l++){
+//    		if(l == CHANNEL_IN -1) cout << ptr_result[k*CHANNEL_IN+l] << endl;
+//    		else cout << ptr_result[k*CHANNEL_IN+l] << " ";
+//    	}
+//    }
 
     // ============================================================================
     // Step 7: Custom Profiling

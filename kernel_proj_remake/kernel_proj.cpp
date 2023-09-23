@@ -38,30 +38,30 @@ static void compute_conv(float *buffer_DataIn_1, float *out, float *buffer_kerne
 
 execute:
 Batch:
-	for(int k = 0; k < CHANNEL_OUT; k++){
-		for(int l = 0; l < CHANNEL_IN; l++){
-			out[k*CHANNEL_IN+l] = buffer_kernel[k*CHANNEL_IN + l];
-		}
-	}
-//    for (int batch = 0; batch < BATCH_SIZE; batch++){
-//    Out_Row:
-//        for (int row = 0; row < HEIGHT_OUT; row++){
-//        Out_Column:
-//            for (int col = 0; col < WIDTH_OUT; col++){
-//                Output_Channel:
-//                for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++){
+//	for(int k = 0; k < CHANNEL_OUT; k++){
+//		for(int l = 0; l < CHANNEL_IN; l++){
+//			out[k*CHANNEL_IN+l] = buffer_kernel[k*CHANNEL_IN + l];
+//		}
+//	}
+    for (int batch = 0; batch < BATCH_SIZE; batch++){
+    Out_Row:
+        for (int row = 0; row < HEIGHT_OUT; row++){
+        Out_Column:
+            for (int col = 0; col < WIDTH_OUT; col++){
+                Output_Channel:
+                for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++){
 //                	out[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] = 0;
-//                    In_Channel:
-//                    for (int in_ch = 0; in_ch < CHANNEL_IN; in_ch++){
-//                    	// TODO: kernel returns 0
-//                        out[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += buffer_DataIn_1[batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + row * WIDTH_IN + col] * buffer_kernel[out_ch * CHANNEL_IN + in_ch];
-//                    }
-//                    if (isConvBias)
-//                        out[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += buffer_bias[out_ch];
-//                }
-//            }
-//        }
-//    }
+                    In_Channel:
+                    for (int in_ch = 0; in_ch < CHANNEL_IN; in_ch++){
+                    	// TODO: kernel returns 0
+                        out[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += buffer_DataIn_1[batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + row * WIDTH_IN + col] * buffer_kernel[out_ch * CHANNEL_IN + in_ch];
+                    }
+                    if (isConvBias)
+                        out[batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col] += buffer_bias[out_ch];
+                }
+            }
+        }
+    }
 }
 
 extern "C"
