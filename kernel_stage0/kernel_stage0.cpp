@@ -90,21 +90,24 @@ void BatchNorm(float* X_data, float* Y_data, int* X_num, float* mean, float* var
         }
    }
 }
-void Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, float* Y_data, int* Y_num, float* filter, int* filter_num, float* bias, float* mean, float* var, float* gamma, float* beta) {
+
+void Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, int* msp_num, float* filter, int* filter_num, 
+                float* bias, float* running_mean, float* running_var, float* gamma, float* beta, float* Y_data) {
 
     int padding = filter_num[4];
     int stride = filter_num[5];
 
     Padding(X_data, X_pad, X_num, padding);
 
+    
     int x_pad_num[4];
     x_pad_num[0] = X_num[0];
     x_pad_num[1] = X_num[1];
     x_pad_num[2] = X_num[2] + 2*padding;
     x_pad_num[3] = X_num[3] + 2*padding;
 
-    Convolution(X_pad, x_pad_num, Y_data, Y_num, filter, filter_num, bias);
-    BatchNorm(X_conv, Y_data, Y_num, mean, var, gamma, beta);
+    Convolution(X_pad, x_pad_num, X_conv, msp_num, filter, filter_num, bias);
+    BatchNorm(X_conv, Y_data, msp_num, running_mean, running_var, gamma, beta);
 }
 void Compute_mean(float* X_data, int* X_num, float* Y_data) {
     int XN = X_num[0];
@@ -203,7 +206,7 @@ extern "C"
     void kernel_stage0(float* X_data, float* msp_filter, float* msp_bias, float* mean, float* var, float* gamma, float* beta,
                         float* X_pad, float* X_conv, float* Y_msp)
     {
-    #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 37632
+    #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 768
     #pragma HLS INTERFACE m_axi port = msp_filter depth = 648
     #pragma HLS INTERFACE m_axi port = msp_bias depth = 24
     //#pragma HLS INTERFACE m_axi port = reduce_filter depth = 576
@@ -215,24 +218,24 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = gamma depth = 24
     #pragma HLS INTERFACE m_axi port = beta depth = 24
 
-#pragma HLS INTERFACE m_axi port = X_pad bundle = gmem1 depth = 38988
-#pragma HLS INTERFACE m_axi port = X_conv bundle = gmem0 depth = 75264
+#pragma HLS INTERFACE m_axi port = X_pad bundle = gmem1 depth = 972
+#pragma HLS INTERFACE m_axi port = X_conv bundle = gmem0 depth = 1536
 //#pragma HLS INTERFACE m_axi port = X_mean bundle = gmem1 depth = 24
 //#pragma HLS INTERFACE m_axi port = X_reduce bundle = gmem0 depth = 24
 //#pragma HLS INTERFACE m_axi port = X_relu bundle = gmem1 depth = 24
 //#pragma HLS INTERFACE m_axi port = X_expand bundle = gmem0 depth = 24
 //#pragma HLS INTERFACE m_axi port = X_sigmoid bundle = gmem1 depth = 24
 
-#pragma HLS INTERFACE m_axi port = Y_msp bundle = gmem2 depth = 75264
+#pragma HLS INTERFACE m_axi port = Y_msp bundle = gmem2 depth = 1536
 //#pragma HLS INTERFACE m_axi port = Y_se bundle = gmem0 depth = 75264
 
 
 
-    int X_num[4] = {1, 3, 112, 112};
-    int msp_num[4] = {1, 24, 56, 56};
+    int X_num[4] = {1, 3, 16, 16};
+    int msp_num[4] = {1, 24, 8, 8};
     int msp_filter_num[7] = {24, 3, 3, 3, 1, 2, 0};
 
-    Mspatch(X_data, X_num, X_pad, X_conv, Y_msp, msp_num, msp_filter,  msp_filter_num,  msp_bias,  mean,  var,  gamma,  beta);
+    Mspatch(X_data, X_num, X_pad, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias, mean, var, gamma, beta, Y_msp);
         //DW_conv();
     //SE( Y_msp,  Y_se,  msp_num,  X_mean,  X_reduce,  X_relu,  X_expand,  X_sigmoid,  reduce_filter,  reduce_bias,  expand_filter,  expand_bias);
         //Projection();
