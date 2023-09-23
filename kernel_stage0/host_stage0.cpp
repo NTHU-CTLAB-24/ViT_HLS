@@ -26,7 +26,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ** HOST Code
 *******************************************************************************/
 
-#include "host_kernel_proj.hpp"
+#include "host_stage0.hpp"
 #include <cstring>
 #include <fcntl.h>
 #include <fstream>
@@ -39,6 +39,8 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/types.h>
 #include <unistd.h>
 #include <vector>
+#include <cmath>
+#include <math.h>
 
 #define OCL_CHECK(error, call)                                                                   \
     call;                                                                                        \
@@ -50,49 +52,57 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using namespace std;
 
+// TODO: modify parameters value
 // 可以在這裡塞一點需要用到的常數
-// Includes
-#include <hls_math.h>
-#include <hls_stream.h>
-#include <stdint.h>
+// 參考count_depth.py的計算
+static const int X_data_size = 37632; //1x3x112x112
+static const int msp_filter_size = 648;
+static const int msp_bias_size = 24;
+static const int reduce_filter_size = 576;
+static const int reduce_bias_size = 24;
+static const int expand_filter_size = 576;
+static const int expand_bias_size = 24;
 
-/* Remember to modify test file */
+static const int mean_size = 24;
+static const int var_size = 24;
+static const int gamma_size = 24;
+static const int beta_size = 24;
 
-// TODO: modify size
-// TRIPCOUNT identifie
-const int BATCH_SIZE = 1;
-const int CHANNEL_IN = 24;
-const int CHANNEL_OUT = 24;
-const int HEIGHT_IN = 28;
-const int WIDTH_IN = 28;
+static const int X_pad_size = 38988;
+static const int X_conv_size = 75264;
+static const int X_mean_size = 24;
+static const int X_reduce_size = 24;
+static const int X_relu_size = 24;
+static const int X_expand_size = 24;
+static const int X_sigmoid_size = 24;
+static const int Y_msp_size = 75264;
 
-// TODO: modify conv parameters
-// Convolution parameters
-const int KERNEL_SIZE = 1;
-const int STRIDE = 1;
-const int GROUP = 1;
-
-// Padding and size
-const int PADDING = 0;
-const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-
-// For Convolution
-const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
-const int inGroupNums = CHANNEL_IN / GROUP;
-const int outGroupNums = CHANNEL_OUT / GROUP;
-
-static const int IN_SIZE = BATCH_SIZE * HEIGHT_IN * WIDTH_IN * CHANNEL_IN;
-static const int OUT_SIZE = BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT * CHANNEL_OUT;
-static const int KERNEL_2D_SIZE = CHANNEL_OUT*KERNEL_CHANNEL;
-static const int BIAS_SIZE = CHANNEL_OUT;
+static const int Y_se_size = 75264; //final output
 
 // Compute the size of array in bytes
-size_t size_in_bytes = IN_SIZE * sizeof(float);
-size_t size_out_bytes = OUT_SIZE * sizeof(float);
-size_t size_kernel_bytes = KERNEL_SIZE * sizeof(float);
-size_t size_bias_bytes = BIAS_SIZE * sizeof(float);
+size_t X_data_bytes = X_data_size * sizeof(float);
+size_t msp_filter_bytes = msp_filter_size * sizeof(float);
+size_t msp_bias_bytes = msp_bias_size * sizeof(float);
+size_t reduce_filter_bytes = reduce_filter_size * sizeof(float);
+size_t reduce_bias_bytes = reduce_bias_size * sizeof(float);
+size_t expand_filter_bytes = expand_filter_size * sizeof(float);
+size_t expand_bias_bytes = expand_bias_size * sizeof(float);
 
+size_t mean_bytes = mean_size * sizeof(float);
+size_t var_bytes = var_size * sizeof(float);
+size_t gamma_bytes = gamma_size * sizeof(float);
+size_t beta_bytes = beta_size * sizeof(float);
+
+size_t X_pad_bytes = X_pad_size * sizeof(float);
+size_t X_conv_bytes = X_conv_size * sizeof(float);
+size_t X_mean_bytes = X_mean_size * sizeof(float);
+size_t X_reduce_bytes = X_reduce_size * sizeof(float);
+size_t X_relu_bytes = X_reduce_size * sizeof(float);
+size_t X_expand_bytes = X_expand_size * sizeof(float);
+size_t X_sigmoid_bytes = X_sigmoid_size * sizeof(float);
+size_t Y_msp_bytes = Y_msp_size * sizeof(float);
+
+size_t Y_se_bytes = Y_se_size * sizeof(float);
 static const string error_message =
     "Error: Result mismatch:\n"
     "i = %d CPU result = %d Device result = %d\n";
@@ -223,9 +233,6 @@ int main(int argc, char *argv[])
     {
         device = devices[i];
         string deviceName = device.getInfo<CL_DEVICE_NAME>();
-#ifdef ALL_MESSAGES
-       cout << "HOST-Info: Selected Device[" << i << "] : " << deviceName << endl;
-#endif        
         if (deviceName == Target_Device_Name)
         {
             found_target_device = true;
@@ -305,11 +312,14 @@ int main(int argc, char *argv[])
     // Step 3.3: Create a Kernels
     // -------------------------------------------------------------
     // TODO: use array to store same kernel
-    cl::Kernel kernel_proj;
-#ifdef ALL_MESSAGES
+    cl::Kernel kernel_stage0;
+#ifdef ALL_MESSAGESF
+    cout << "HOST-Info: Creating a Kernel: kernel_mspatch ..." << endl;
+    cout << "HOST-Info: Creating a Kernel: kernel_DW_conv ..." << endl;
+    cout << "HOST-Info: Creating a Kernel: kernel_se ..." << endl;
     cout << "HOST-Info: Creating a Kernel: kernel_proj ..." << endl;
 #endif
-    OCL_CHECK(err, kernel_proj = cl::Kernel(program, "kernel_proj", &err));
+    OCL_CHECK(err, kernel_stage0 = cl::Kernel(program, "kernel_stage0", &err));
 
 // ================================================================
 // Step 4: Prepare Data to Run Kernel
@@ -326,10 +336,10 @@ int main(int argc, char *argv[])
     cout << "HOST-Info: ============================================================= " << endl;
 #endif
     // ------------------------------------------------------------------
-    // Step 4.1: Create Buffers buffer_DataIn_1 in Memory & map to ptr_DataIn_1
-    //           Generate data for DataIn_1 array by using ptr_DataIn_1
-    //           Create Buffers buffer_DataIn_2 in Memory & map to ptr_DataIn_2
-    //           Generate data for DataIn_2 array by using ptr_DataIn_2
+    // Step 4.1: Create Buffers buffer_DataIn_1 in Memory & map to In
+    //           Generate data for DataIn_1 array by using In
+    //           Create Buffers buffer_DataIn_2 in Memory & map to Kernel
+    //           Generate data for DataIn_2 array by using Kernel
     //           Allocate Memory to store the results: RES array
     // ------------------------------------------------------------------
     /* TODO:
@@ -337,161 +347,143 @@ int main(int argc, char *argv[])
      * remember to call cl::buffer's constructor in following way
      */
     /*定義Input和output型別*/
-    float *ptr_DataIn_1;
-    float *ptr_result;
-    float *ptr_kernel;
-    float *ptr_bias;
+    //input data and parameters
+    float* X_data; //input image
+    float* msp_filter;
+    float* msp_bias;
+    float* reduce_filter;
+    float* reduce_bias;
+    float* expand_filter;
+    float* expand_bias;
+    float* mean;
+    float* var;
+    float* gamma;
+    float* beta;
+
+    //temporary storage
+    float* X_pad;
+    float* X_conv;
+    float* X_mean;
+    float* X_reduce;
+    float* X_relu;
+    float* X_expand;
+    float* X_sigmoid;
+    float* Y_msp; //result of MSP module
+
+    //output
+    float* Y_se; //result of SE module
+    
 // These commands will allocate memory on the .Device
 // The cl::Buffer objects can be used to reference the memory locations on the device.
-/* 以下區域為input data傳入host的code，只需要複製並且更改參數和型別即可(size_in_bytes(考慮input大小(byte)), ptr_DataIn_1, DATA_SIZE(考慮input大小))*/
+/* 以下區域為input data傳入host的code，只需要複製並且更改參數和型別即可(size_in_bytes(考慮input大小(byte)), In, DATA_SIZE(考慮input大小))*/
 // TODO:Init input data buffer
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_DataIn_1 for DataIn_1 ... " << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_DataIn_1(context, CL_MEM_READ_ONLY, size_in_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_DataIn_1 to ptr_DataIn_1 ... " << endl;
-#endif
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_1(context, CL_MEM_READ_ONLY, X_data_bytes, NULL, &err));
     OCL_CHECK(err,
-              ptr_DataIn_1 = (float *)q.enqueueMapBuffer(buffer_DataIn_1, CL_TRUE, CL_MAP_WRITE, 0, size_in_bytes, NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_DataIn_1 ..." << endl;
-#endif
-    // Call dataPrepare to init data
-    // dataPrepare(ptr_DataIn_1, DATA_SIZE);
-    for (int n = 0; n < BATCH_SIZE; n++)
-    {
-        for (int c = 0; c < CHANNEL_IN; c++)
-        {
-            for (int h = 0; h < HEIGHT_IN; h++)
-            {
-                for (int w = 0; w < WIDTH_IN; w++)
-                {
-                    ptr_DataIn_1[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w] = h + c;
-                }
-            }
-        }
-    }
+              X_data = (float *)q.enqueueMapBuffer(buffer_DataIn_1, CL_TRUE, CL_MAP_WRITE, 0, X_data_bytes, NULL, NULL, &err));
+    dataPrepare(X_data, 1, 3, 112, 112);
 
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << IN_SIZE << " values" << endl;
-    cout << "Check generated results: " << endl;
-	for (int n = 0; n < BATCH_SIZE; n++)
-	{
-		for (int c = 0; c < CHANNEL_IN; c++)
-		{
-			for (int h = 0; h < HEIGHT_IN; h++)
-			{
-				for (int w = 0; w < WIDTH_IN; w++)
-				{
-					if (w == WIDTH_IN - 1)
-						cout << ptr_DataIn_1[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w] << endl;
-					else
-						cout << ptr_DataIn_1[n * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + c * HEIGHT_IN * WIDTH_IN + h * WIDTH_IN + w] << " ";
-				}
-			}
-		}
-	}
-#endif
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_2(context, CL_MEM_READ_ONLY, msp_filter_bytes, NULL, &err));
+    OCL_CHECK(err,
+              msp_filter = (float *)q.enqueueMapBuffer(buffer_DataIn_2, CL_TRUE, CL_MAP_WRITE, 0, msp_filter_bytes, NULL, NULL, &err));
+    mspfilterPrepare(msp_filter, 24, 3, 3);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_3(context, CL_MEM_READ_ONLY, msp_bias_bytes, NULL, &err));
+    OCL_CHECK(err,
+            msp_bias = (float *)q.enqueueMapBuffer(buffer_DataIn_3, CL_TRUE, CL_MAP_WRITE, 0, msp_bias_bytes, NULL, NULL, &err));
+    mspbiasPrepare(msp_bias, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_4(context, CL_MEM_READ_ONLY, reduce_filter_bytes, NULL, &err));
+    OCL_CHECK(err,
+            reduce_filter = (float *)q.enqueueMapBuffer(buffer_DataIn_4, CL_TRUE, CL_MAP_WRITE, 0, reduce_filter_bytes, NULL, NULL, &err));
+    reducefilterPrepare(reduce_filter, 24, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_5(context, CL_MEM_READ_ONLY, reduce_bias_bytes, NULL, &err));
+    OCL_CHECK(err,
+            reduce_bias = (float *)q.enqueueMapBuffer(buffer_DataIn_5, CL_TRUE, CL_MAP_WRITE, 0, reduce_bias_bytes, NULL, NULL, &err));
+    reducebiasPrepare(reduce_bias, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_6(context, CL_MEM_READ_ONLY, expand_filter_bytes, NULL, &err));
+    OCL_CHECK(err,
+            expand_filter = (float *)q.enqueueMapBuffer(buffer_DataIn_6, CL_TRUE, CL_MAP_WRITE, 0, expand_filter_bytes, NULL, NULL, &err));
+    expandfilterPrepare(expand_filter, 24, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_7(context, CL_MEM_READ_ONLY, expand_bias_bytes, NULL, &err));
+    OCL_CHECK(err,
+            expand_bias = (float *)q.enqueueMapBuffer(buffer_DataIn_7, CL_TRUE, CL_MAP_WRITE, 0, expand_bias_bytes, NULL, NULL, &err));
+    expandbiasPrepare(expand_bias, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_8(context, CL_MEM_READ_ONLY, mean_bytes, NULL, &err));
+    OCL_CHECK(err,
+            mean = (float *)q.enqueueMapBuffer(buffer_DataIn_8, CL_TRUE, CL_MAP_WRITE, 0, mean_bytes, NULL, NULL, &err));
+    meanPrepare(mean, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_9(context, CL_MEM_READ_ONLY, var_bytes, NULL, &err));
+    OCL_CHECK(err,
+            var = (float *)q.enqueueMapBuffer(buffer_DataIn_9, CL_TRUE, CL_MAP_WRITE, 0, var_bytes, NULL, NULL, &err));
+    varPrepare(var, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_10(context, CL_MEM_READ_ONLY, gamma_bytes, NULL, &err));
+    OCL_CHECK(err,
+            gamma = (float *)q.enqueueMapBuffer(buffer_DataIn_10, CL_TRUE, CL_MAP_WRITE, 0, gamma_bytes, NULL, NULL, &err));
+    gammaPrepare(gamma, 24);
+
+    OCL_CHECK(err, cl::Buffer buffer_DataIn_11(context, CL_MEM_READ_ONLY, beta_bytes, NULL, &err));
+    OCL_CHECK(err,
+            beta = (float *)q.enqueueMapBuffer(buffer_DataIn_11, CL_TRUE, CL_MAP_WRITE, 0, beta_bytes, NULL, NULL, &err));
+    betaPrepare(beta, 24);
 
 // TODO: Init output data buffer
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_result for RES Array ... " << endl;
+    cout << "HOST-Info: Allocating Memory for RES Array ... " << endl;
 #endif
-    OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_WRITE_ONLY, size_out_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_result to ptr_result ... " << endl;
-#endif
+    OCL_CHECK(err, cl::Buffer buffer_tmp1(context, CL_MEM_READ_ONLY, X_pad_bytes, NULL, &err));
     OCL_CHECK(err,
-              ptr_result = (float *)q.enqueueMapBuffer(buffer_result, CL_TRUE, CL_MAP_READ, 0, size_out_bytes, NULL, NULL, &err));
+            X_pad = (float *)q.enqueueMapBuffer(buffer_tmp1, CL_TRUE, CL_MAP_WRITE, 0, X_pad_bytes, NULL, NULL, &err));
 
-    cout << "HOST-Info: Generating buffer_result ..." << endl;
-
-    for (int n = 0; n < BATCH_SIZE; n++)
-    {
-        for (int c = 0; c < CHANNEL_OUT; c++)
-        {
-            for (int h = 0; h < HEIGHT_OUT; h++)
-            {
-                for (int w = 0; w < WIDTH_OUT; w++)
-                {
-                    ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] = -1;
-                }
-            }
-        }
-    }
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_kernel for kernel ... " << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_kernel(context, CL_MEM_READ_ONLY, size_kernel_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_kernel to ptr_kernel ... " << endl;
-#endif
+    OCL_CHECK(err, cl::Buffer buffer_tmp2(context, CL_MEM_READ_ONLY, X_conv_bytes, NULL, &err));
     OCL_CHECK(err,
-              ptr_kernel = (float *)q.enqueueMapBuffer(buffer_kernel, CL_TRUE, CL_MAP_WRITE, 0, size_kernel_bytes, NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_kernel ..." << endl;
-#endif
+            X_conv = (float *)q.enqueueMapBuffer(buffer_tmp2, CL_TRUE, CL_MAP_WRITE, 0, X_conv_bytes, NULL, NULL, &err));
     
-    for (int k = 0; k < CHANNEL_OUT; k++){
-        for (int l = 0; l < CHANNEL_IN; l++){
-            ptr_kernel[k*CHANNEL_IN + l] = 2;
-        }
-    }
-
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << KERNEL_2D_SIZE << " values" << endl;
-    cout << "Check generated result: " << endl;
-        for (int k = 0; k < CHANNEL_OUT; k++){
-        	for(int l = 0; l < CHANNEL_IN; l++){
-				if (l == CHANNEL_IN - 1)
-					cout << ptr_kernel[k*CHANNEL_IN + l] << endl;
-				else
-					cout << ptr_kernel[k*CHANNEL_IN + l] << " ";
-            }
-        }
-#endif
-
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Allocating Memory buffer_bias for bias ... " << endl;
-#endif
-    OCL_CHECK(err, cl::Buffer buffer_bias(context, CL_MEM_READ_ONLY, size_bias_bytes, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Mapping buffer_bias to ptr_bias ... " << endl;
-#endif
+    OCL_CHECK(err, cl::Buffer buffer_tmp3(context, CL_MEM_READ_ONLY, X_mean_bytes, NULL, &err));
     OCL_CHECK(err,
-              ptr_bias = (float *)q.enqueueMapBuffer(buffer_bias, CL_TRUE, CL_MAP_WRITE, 0, size_bias_bytes, NULL, NULL, &err));
-#ifdef ALL_MESSAGES
-    cout << "HOST-Info: Generating buffer_bias ..." << endl;
-#endif
-    
-    for (int k = 0; k < CHANNEL_OUT; k++) {
-        ptr_bias[k] = k + 10;
-    }
+            X_mean = (float *)q.enqueueMapBuffer(buffer_tmp3, CL_TRUE, CL_MAP_WRITE, 0, X_mean_bytes, NULL, NULL, &err));
 
-#ifdef ALL_MESSAGES
-    cout << "           Generated " << BIAS_SIZE << " values" << endl;
-#endif
+    OCL_CHECK(err, cl::Buffer buffer_tmp4(context, CL_MEM_READ_ONLY, X_reduce_bytes, NULL, &err));
+    OCL_CHECK(err,
+            X_reduce = (float *)q.enqueueMapBuffer(buffer_tmp4, CL_TRUE, CL_MAP_WRITE, 0, X_reduce_bytes, NULL, NULL, &err));
 
+    OCL_CHECK(err, cl::Buffer buffer_tmp5(context, CL_MEM_READ_ONLY, X_relu_bytes, NULL, &err));
+    OCL_CHECK(err,
+            X_relu = (float *)q.enqueueMapBuffer(buffer_tmp5, CL_TRUE, CL_MAP_WRITE, 0, X_relu_bytes, NULL, NULL, &err));
+
+    OCL_CHECK(err, cl::Buffer buffer_tmp6(context, CL_MEM_READ_ONLY, X_expand_bytes, NULL, &err));
+    OCL_CHECK(err,
+            X_expand = (float *)q.enqueueMapBuffer(buffer_tmp6, CL_TRUE, CL_MAP_WRITE, 0, X_expand_bytes, NULL, NULL, &err));
+
+    OCL_CHECK(err, cl::Buffer buffer_tmp7(context, CL_MEM_READ_ONLY, X_sigmoid_bytes, NULL, &err));
+    OCL_CHECK(err,
+            X_sigmoid = (float *)q.enqueueMapBuffer(buffer_tmp7, CL_TRUE, CL_MAP_WRITE, 0, X_sigmoid_bytes, NULL, NULL, &err));
+
+    OCL_CHECK(err, cl::Buffer buffer_tmp8(context, CL_MEM_READ_ONLY, Y_msp_bytes, NULL, &err));
+    OCL_CHECK(err,
+            Y_msp = (float *)q.enqueueMapBuffer(buffer_tmp8, CL_TRUE, CL_MAP_WRITE, 0, Y_msp_bytes, NULL, NULL, &err));
+
+    OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_READ_ONLY, Y_se_bytes, NULL, &err));
+    OCL_CHECK(err,
+            Y_se = (float *)q.enqueueMapBuffer(buffer_result, CL_TRUE, CL_MAP_WRITE, 0, Y_se_bytes, NULL, NULL, &err));
     // TODO: enqueue migrate memory objects
     // Data will be migrated to kernel space
     cout << "HOST-Info: Migrating memory objects ..." << endl;
     // 考慮input量，若有多份則要改成{buffer_DataIn1, buffer_DataIn2...}
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_DataIn_1, buffer_kernel, buffer_bias}, 0 /* 0 means from host*/));
+    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_DataIn_1, buffer_DataIn_2, buffer_DataIn_3, buffer_DataIn_4,
+                                                    buffer_DataIn_5, buffer_DataIn_6, buffer_DataIn_7, buffer_DataIn_8,
+                                                    buffer_DataIn_9, buffer_DataIn_10, buffer_DataIn_11, 
+                                                    buffer_tmp1, buffer_tmp2, buffer_tmp3, buffer_tmp4, 
+                                                    buffer_tmp5, buffer_tmp6, buffer_tmp7, buffer_tmp8}, 0 /* 0 means from host*/));
 
 // ============================================================================
 // Step 5: Set Kernel Arguments and Run the Application
 //         o) Set Kernel Arguments
-// 				----------------------------------------------------
-// 				 Kernel	  		Argument Nb		Description
-// 				----------------------------------------------------
-//  			 kernel_proj	    0				GlobMem_BUF_DataIn_1
-//  			 kernel_proj	    1				GlobMem_BUF_DataIn_2
-//  			 kernel_proj	    2				GlobMem_BUF_RES
-//  			 kernel_proj	    3				CONST_arg
-// 				----------------------------------------------------
-//
 //         o) Submit Kernels for Execution
 //         o) Copy Results from Global Memory to Host
 // ============================================================================
@@ -509,26 +501,42 @@ int main(int argc, char *argv[])
     // TODO: set the array of pointer
     // set the kernel Arguments
     int narg = 0;
-    OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_DataIn_1));
-    OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_result));
-    OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_kernel));
-    OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_bias));
-    // OCL_CHECK(err, err = kernel_proj.setArg(narg++, DATA_SIZE));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_1));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_2));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_3));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_4));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_5));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_6));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_7));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_8));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_9));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_10));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_DataIn_11));
 
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp1));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp2));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp3));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp4));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp5));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp6));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp7));
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_tmp8));
+
+    OCL_CHECK(err, err = kernel_stage0.setArg(narg++, buffer_result));
 // ----------------------------------------
 // Step 5.2: Submit Kernels for Execution
 // ----------------------------------------
 #ifdef ALL_MESSAGES
-    cout << "HOST-Info: Submitting Kernel kernel_proj ..." << endl;
+    cout << "HOST-Info: Submitting Kernel kernel_stage0 ..." << endl;
 #endif
     // TODO: launch the kernel
     // Launch the Kernel
-    OCL_CHECK(err, err = q.enqueueTask(kernel_proj));
+    OCL_CHECK(err, err = q.enqueueTask(kernel_stage0));
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
     // source_results vector
-    // TODO: collect the array of buffer
+    // TODO: launch the kernel
     OCL_CHECK(err, q.enqueueMigrateMemObjects({buffer_result}, CL_MIGRATE_MEM_OBJECT_HOST));
     OCL_CHECK(err, q.finish());
 
@@ -541,6 +549,7 @@ int main(int argc, char *argv[])
     cout << "HOST-Info: (Step 6) Check the Output Results                             " << endl;
     cout << "HOST-Info: ============================================================= " << endl;
 #endif
+
     // TODO: remember your data shape
     // ------------------------------------------------------
     // Step 6.1: Check correctness of the output results
@@ -548,36 +557,28 @@ int main(int argc, char *argv[])
     bool error_detected = false;
     // for (int i = 0; i < DATA_SIZE; i++)
     // {
-    //     int host_result = ptr_DataIn_1[i] + ptr_DataIn_2[i];
-    //     if (ptr_result[i] != host_result)
+    //     int host_result = In[i] + Kernel[i];
+    //     if (Out[i] != host_result)
     //     {
-    //         printf(error_message.c_str(), i, host_result, ptr_result[i]);
+    //         printf(error_message.c_str(), i, host_result, Out[i]);
     //         error_detected = true;
     //         break;
     //     }
     // }
     cout << "Check output result: " << endl;
-//    for (int n = 0; n < BATCH_SIZE; n++)
-//    {
-//        for (int c = 0; c < CHANNEL_OUT; c++)
-//        {
-//            for (int h = 0; h < HEIGHT_OUT; h++)
-//            {
-//                for (int w = 0; w < WIDTH_OUT; w++)
-//                {
-//                    if (w == WIDTH_OUT - 1)
-//                        cout << ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] << endl;
-//                    else
-//                        cout << ptr_result[n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w] << " ";
-//                }
-//            }
-//        }
-//    }
-    for(int k = 0; k < CHANNEL_OUT; k++){
-    	for(int l = 0; l < CHANNEL_IN; l++){
-    		if(l == CHANNEL_IN -1) cout << ptr_result[k*CHANNEL_IN+l] << endl;
-    		else cout << ptr_result[k*CHANNEL_IN+l] << " ";
-    	}
+    for (int n = 0; n < 1; n++){
+        for (int c = 0; c < 24; c++){
+            for (int h = 0; h < 56; h++){
+                for (int w = 0; w < 56; w++){
+                    if (w == 56 - 1)
+                        cout << Y_se[n*24*56*56 + c*56*56 + h*56 + w] << endl;
+                    else
+                        cout <<  Y_se[n*24*56*56 + c*56*56 + h*56 + w] << " ";
+                }
+            }
+            break;
+        }
+        break;
     }
 
     // ============================================================================
@@ -591,15 +592,35 @@ int main(int argc, char *argv[])
     // int Nb_Of_Memory_Tranfers = Nb_Of_Mem_Events;
 
     // string list_of_kernel_names[Nb_Of_Kernels];
-    // list_of_kernel_names[0]="kernel_proj";
+    // list_of_kernel_names[0]="kernel_conv_norm_act";
     // run_custom_profiling (Nb_Of_Kernels,Nb_Of_Memory_Tranfers,K_exe_event,Mem_op_event,list_of_kernel_names);
 
     // ============================================================================
     // Step 8: Release Allocated Resources
     // ============================================================================
     // TODO: free all the resources
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, ptr_DataIn_1));
-    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, ptr_result));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_1, X_data));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_2, msp_filter));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_3, msp_bias));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_4, reduce_filter));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_5, reduce_bias));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_6, expand_filter));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_7, expand_bias));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_8, mean));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_9, var));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_10, gamma));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_11, beta));
+
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp1, X_pad));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp2, X_conv));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp3, X_mean));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp4, X_reduce));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp5, X_relu));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp6, X_expand));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp7, X_sigmoid));
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_tmp8, Y_msp));
+
+    OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_result, Y_se));
     OCL_CHECK(err, err = q.finish());
 
     cout << "HOST-Info: TEST " << (error_detected ? "FAILED" : "PASSED") << endl;
