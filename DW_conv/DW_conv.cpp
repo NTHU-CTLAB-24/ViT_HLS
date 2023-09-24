@@ -56,7 +56,7 @@ Batch:
                         int groupIndex = 0;
                         in_row = row * STRIDE + kernel_row - PADDING;
                         in_col = col * STRIDE + kernel_col - PADDING;
-                        if (in_row < 0 || in_row > (HEIGHT_IN + PADDING) || in_col < 0 || in_col > (WIDTH_IN + PADDING))
+                        if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN )
                             continue;
                     Output_Channel:
                         for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)

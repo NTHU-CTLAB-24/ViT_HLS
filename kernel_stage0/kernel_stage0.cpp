@@ -50,22 +50,23 @@ void Convolution(float* X_data, int* X_num, float* Y_data, int* Y_num,  float* f
     int YH = Y_num[2];
     int YW = Y_num[3];
 
+    int x_pos, k_pos, y_pos;
     for (int yn = 0; yn < YN; yn++) {
         for (int yh = 0; yh < YH; yh++) {
             for (int yw = 0; yw < YW; yw++) {
-                for (int kh = 0; kh < KH; kh++) {
-                    for (int kw = 0; kw < KW; kw++) {
-                        for (int yc = 0; yc < YC; yc++) {
-                            int x_pos, k_pos, y_pos;
-                            for (int xc = 0; xc < XC; xc++) {
+                for (int yc = 0; yc < YC; yc++) {
+                    for (int xc = 0; xc < XC; xc++) {
+                        for (int kh = 0; kh < KH; kh++) {
+                            for (int kw = 0; kw < KW; kw++) {
                                 x_pos = yn*XC*XH*XW + xc*XH*XW + (yh*stride+kh)*XW + (yw*stride+kw);
                                 k_pos = yc*KD*KH*KW + xc*KW*KW + kh*KW + kw;
                                 y_pos = yn*YC*YH*YW + yc*YH*YW + yh*YW + yw;
                                 Y_data[y_pos] += X_data[x_pos] * filter[k_pos];
                             }
-                            if (isBias) Y_data[y_pos] += bias[yc];
+
                         }
                     }
+                    if (isBias) Y_data[y_pos] += bias[yc];
                 }
             }
         }
@@ -84,7 +85,7 @@ void BatchNorm(float* X_data, float* Y_data, int* X_num, float* mean, float* var
         for (int c = 0; c < C; c++) {
             for (int h = 0; h < H; h++) {
                 for (int w = 0; w < W; w++) {
-                    Y_data[n*C*H*W + c*H*W + h*W + w] = (X_data[n*C*H*W + c*H*W + h*W + w] - mean[c]) / sqrt(var[c] + 1e-5) * gamma[c] + beta[c];
+                    Y_data[n*C*H*W + c*H*W + h*W + w] = (X_data[n*C*H*W + c*H*W + h*W + w] - mean[c]) / sqrt(var[c] + 1e-6) * gamma[c] + beta[c];
                 }
             }
         }
@@ -219,7 +220,7 @@ Batch:
                         int groupIndex = 0;
                         in_row = row * STRIDE + kernel_row - PADDING;
                         in_col = col * STRIDE + kernel_col - PADDING;
-                        if (in_row < 0 || in_row > (HEIGHT_IN + PADDING) || in_col < 0 || in_col > (WIDTH_IN + PADDING))
+                        if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN)
                             continue;
                     Output_Channel:
                         for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
@@ -318,7 +319,7 @@ extern "C"
 
     int X_num[4] = {1, 3, 16, 16};
     int msp_num[4] = {1, 24, 8, 8};
-    int msp_filter_num[7] = {24, 3, 3, 3, 1, 2, 0};
+    int msp_filter_num[7] = {24, 3, 3, 3, 1, 2, 1};
     int dw_shape_num[7] = {1, 24, 8, 8, 24, 8, 8};
     int dw_conv_num[6] = {3, 0, 1, 1, 24, 1};
     int dw_norm_num[4] = {1, 24, 8, 8};

@@ -392,14 +392,14 @@ int main(int argc, char *argv[])
     // dataPrepare(In, DATA_SIZE);
     for (int k = 0; k < CHANNEL_OUT; k++)
     {
-        Bias[k] = 2;
+        Bias[k] = k + 0.01;
         for (int l = 0; l < KERNEL_CHANNEL; l++)
         {
             for (int i = 0; i < KERNEL_SIZE; i++)
             {
                 for (int j = 0; j < KERNEL_SIZE; j++)
                 {
-                    Filter[k * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + l * KERNEL_SIZE * KERNEL_SIZE + i * KERNEL_SIZE + j] = 2;
+                    Filter[k * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + l * KERNEL_SIZE * KERNEL_SIZE + i * KERNEL_SIZE + j] = 0.002;
                 }
             }
         }
