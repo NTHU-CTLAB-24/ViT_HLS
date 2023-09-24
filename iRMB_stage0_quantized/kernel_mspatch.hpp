@@ -4,7 +4,6 @@
 #include <hls_stream.h>
 
 extern "C" {
-void kernel_proj(float* in1, float* out);
-
+void kernel_mspatch(float* in1, float* in2, float* out);
 }
 
