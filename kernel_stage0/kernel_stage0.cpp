@@ -91,24 +91,6 @@ void BatchNorm(float* X_data, float* Y_data, int* X_num, float* mean, float* var
    }
 }
 
-void Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, int* msp_num, float* filter, int* filter_num, 
-                float* bias, float* running_mean, float* running_var, float* gamma, float* beta, float* Y_data) {
-
-    int padding = filter_num[4];
-    int stride = filter_num[5];
-
-    Padding(X_data, X_pad, X_num, padding);
-
-    
-    int x_pad_num[4];
-    x_pad_num[0] = X_num[0];
-    x_pad_num[1] = X_num[1];
-    x_pad_num[2] = X_num[2] + 2*padding;
-    x_pad_num[3] = X_num[3] + 2*padding;
-
-    Convolution(X_pad, x_pad_num, X_conv, msp_num, filter, filter_num, bias);
-    BatchNorm(X_conv, Y_data, msp_num, running_mean, running_var, gamma, beta);
-}
 void Compute_mean(float* X_data, int* X_num, float* Y_data) {
     int XN = X_num[0];
     int XC = X_num[1];
@@ -171,6 +153,104 @@ void Compute_mul(float* X_data, float* feature, float* Y_data, int* X_num) {
         }
     }
 }
+void Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, int* msp_num, float* filter, int* filter_num, 
+                float* bias, float* running_mean, float* running_var, float* gamma, float* beta, float* Y_data) {
+
+    int padding = filter_num[4];
+    int stride = filter_num[5];
+
+    Padding(X_data, X_pad, X_num, padding);
+
+    
+    int x_pad_num[4];
+    x_pad_num[0] = X_num[0];
+    x_pad_num[1] = X_num[1];
+    x_pad_num[2] = X_num[2] + 2*padding;
+    x_pad_num[3] = X_num[3] + 2*padding;
+
+    Convolution(X_pad, x_pad_num, X_conv, msp_num, filter, filter_num, bias);
+    BatchNorm(X_conv, Y_data, msp_num, running_mean, running_var, gamma, beta);
+}
+
+void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out)
+{
+
+    int BATCH_SIZE = shape_para[0];
+    int CHANNEL_IN = shape_para[1];
+    int HEIGHT_IN = shape_para[2];
+    int WIDTH_IN = shape_para[3];
+    int CHANNEL_OUT = shape_para[4];
+    int HEIGHT_OUT = shape_para[5];
+    int WIDTH_OUT = shape_para[6];
+
+    int KERNEL_SIZE = conv_para[0];
+    int isConvBias = conv_para[1];
+    int STRIDE = conv_para[2];
+    int PADDING = conv_para[3];
+    int GROUP = conv_para[4];
+    int KERNEL_CHANNEL = conv_para[5];
+
+    int inGroupNums = CHANNEL_IN / GROUP;
+    int outGroupNums = CHANNEL_OUT / GROUP;
+
+    int kernelChannelIdx;
+    int out_pos;
+    int in_row;
+    int in_col;
+    int in_pos;
+    int kernel_pos;
+
+execute:
+Batch:
+    for (int batch = 0; batch < BATCH_SIZE; batch++){
+    Out_Row:
+        for (int row = 0; row < HEIGHT_OUT; row++)
+        {
+        Out_Column:
+            for (int col = 0; col < WIDTH_OUT; col++)
+            {
+                int biasFlag = 1; // 這種迴圈架構的bias會被重複計算，需要此flag限制只加一次
+            Kernel_Row:
+                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
+                {
+                Kernel_Col:
+                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
+                    {
+                        int groupIndex = 0;
+                        in_row = row * STRIDE + kernel_row - PADDING;
+                        in_col = col * STRIDE + kernel_col - PADDING;
+                        if (in_row < 0 || in_row > (HEIGHT_IN + PADDING) || in_col < 0 || in_col > (WIDTH_IN + PADDING))
+                            continue;
+                    Output_Channel:
+                        for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
+                        {
+                            out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
+                        In_Channel:
+                            for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
+                            {
+                                kernelChannelIdx = 0;
+                                in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
+                                kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
+                                out[out_pos] += in[in_pos] * kernel[kernel_pos];
+                                kernelChannelIdx++;
+                                if ((in_ch + 1) % inGroupNums == 0)
+                                    break;
+                            }
+                            if (isConvBias && biasFlag){
+                                out[out_pos] += bias[out_ch];
+                                biasFlag = 0;
+                            }
+                            if ((out_ch + 1) % outGroupNums == 0)
+                                groupIndex++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return;
+}
 void SE(float* X_data, float* Y_data, int* X_num, float* X_mean, float* X_reduce, float* X_relu, float* X_expand, float* X_sigmoid, float* reduce_filter, float* reduce_bias, float* expand_filter, float* expand_bias) {
     float se_ratio = 1;
     Compute_mean(X_data, X_num, X_mean);
@@ -203,12 +283,16 @@ void SE(float* X_data, float* Y_data, int* X_num, float* X_mean, float* X_reduce
 
 extern "C"
 {
-    void kernel_stage0(float* X_data, float* msp_filter, float* msp_bias, float* mean, float* var, float* gamma, float* beta,
-                        float* X_pad, float* X_conv, float* Y_msp)
+    void kernel_stage0(float* X_data, float* msp_filter, float* msp_bias, float* dw_filter, float* dw_bias,
+                        float* mean, float* var, float* gamma, float* beta,
+                        float* X_pad, float* X_conv, float* X_dwconv, float* X_dwnorm,
+                        float* Y_msp, float* Y_dwact)
     {
     #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 768
     #pragma HLS INTERFACE m_axi port = msp_filter depth = 648
     #pragma HLS INTERFACE m_axi port = msp_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = dw_filter depth = 216
+    #pragma HLS INTERFACE m_axi port = dw_bias depth = 24
     //#pragma HLS INTERFACE m_axi port = reduce_filter depth = 576
     //#pragma HLS INTERFACE m_axi port = reduce_bias depth = 24
     //#pragma HLS INTERFACE m_axi port = expand_filter depth = 576
@@ -220,6 +304,8 @@ extern "C"
 
 #pragma HLS INTERFACE m_axi port = X_pad bundle = gmem1 depth = 972
 #pragma HLS INTERFACE m_axi port = X_conv bundle = gmem0 depth = 1536
+#pragma HLS INTERFACE m_axi port = X_dwconv bundle = gmem1 depth = 1536
+#pragma HLS INTERFACE m_axi port = X_dwnorm bundle = gmem0 depth = 1536
 //#pragma HLS INTERFACE m_axi port = X_mean bundle = gmem1 depth = 24
 //#pragma HLS INTERFACE m_axi port = X_reduce bundle = gmem0 depth = 24
 //#pragma HLS INTERFACE m_axi port = X_relu bundle = gmem1 depth = 24
@@ -227,17 +313,21 @@ extern "C"
 //#pragma HLS INTERFACE m_axi port = X_sigmoid bundle = gmem1 depth = 24
 
 #pragma HLS INTERFACE m_axi port = Y_msp bundle = gmem2 depth = 1536
+#pragma HLS INTERFACE m_axi port = Y_dwact bundle = gmem3 depth = 1536
 //#pragma HLS INTERFACE m_axi port = Y_se bundle = gmem0 depth = 75264
-
-
 
     int X_num[4] = {1, 3, 16, 16};
     int msp_num[4] = {1, 24, 8, 8};
     int msp_filter_num[7] = {24, 3, 3, 3, 1, 2, 0};
+    int dw_shape_num[7] = {1, 24, 8, 8, 24, 8, 8};
+    int dw_conv_num[6] = {3, 0, 1, 1, 24, 1};
+    int dw_norm_num[4] = {1, 24, 8, 8};
 
     Mspatch(X_data, X_num, X_pad, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias, mean, var, gamma, beta, Y_msp);
-        //DW_conv();
+    DW_conv(Y_msp, dw_filter, dw_bias, dw_shape_num, dw_conv_num, X_dwconv);
+    BatchNorm(X_dwconv, Y_dwact, dw_norm_num, mean, var, gamma, beta);
+    //ReLU(X_dwnorm, Y_dwact, dw_norm_num, 0);
     //SE( Y_msp,  Y_se,  msp_num,  X_mean,  X_reduce,  X_relu,  X_expand,  X_sigmoid,  reduce_filter,  reduce_bias,  expand_filter,  expand_bias);
-        //Projection();
+    //Projection();
     }
 }
