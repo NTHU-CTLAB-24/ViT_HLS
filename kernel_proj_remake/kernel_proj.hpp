@@ -20,6 +20,8 @@
 #include <hls_stream.h>
 
 extern "C" {
-    void kernel_proj(float* buffer_input, float* buffer_output, float* kernel, float* bias);
+    void kernel_proj(float* buffer_input, float* buffer_output, float* kernel, float* bias,
+                    int batch_size, int channel_in, int channel_out, int height_in, int width_in,
+                    int kernel_size, int stride, int group, int padding, bool is_conv_bias);
 }
 
