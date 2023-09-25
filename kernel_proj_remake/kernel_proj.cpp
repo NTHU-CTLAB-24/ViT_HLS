@@ -7,20 +7,20 @@
 
 // TODO: modify size
 // TRIPCOUNT identifie
-const int BATCH_SIZE = 1;
-const int CHANNEL_IN = 24;
-const int CHANNEL_OUT = 24;
-const int HEIGHT_IN = 28;
-const int WIDTH_IN = 28;
+// const int BATCH_SIZE = 1;
+// const int CHANNEL_IN = 24;
+// const int CHANNEL_OUT = 24;
+// const int HEIGHT_IN = 28;
+// const int WIDTH_IN = 28;
 
-// TODO: modify conv parameters
-// Convolution parameters
-const int KERNEL_SIZE = 1;
-const int STRIDE = 1;
-const int GROUP = 1;
+// // TODO: modify conv parameters
+// // Convolution parameters
+// const int KERNEL_SIZE = 1;
+// const int STRIDE = 1;
+// const int GROUP = 1;
 
-// Padding and size
-const int PADDING = 0;
+// // Padding and size
+// const int PADDING = 0;
 const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 
