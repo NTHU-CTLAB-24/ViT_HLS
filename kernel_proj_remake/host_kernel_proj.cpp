@@ -81,6 +81,7 @@ const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 const int KERNEL_CHANNEL = CHANNEL_IN / GROUP;
 const int inGroupNums = CHANNEL_IN / GROUP;
 const int outGroupNums = CHANNEL_OUT / GROUP;
+const bool isConvBias = false;
 
 static const int IN_SIZE = BATCH_SIZE * HEIGHT_IN * WIDTH_IN * CHANNEL_IN;
 static const int OUT_SIZE = BATCH_SIZE * HEIGHT_OUT * WIDTH_OUT * CHANNEL_OUT;
@@ -513,6 +514,16 @@ int main(int argc, char *argv[])
     OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_result));
     OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_kernel));
     OCL_CHECK(err, err = kernel_proj.setArg(narg++, buffer_bias));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, BATCH_SIZE));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, CHANNEL_IN));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, CHANNEL_OUT));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, HEIGHT_IN));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, WIDTH_IN));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, KERNEL_SIZE));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, STRIDE));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, GROUP));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, PADDING));
+    OCL_CHECK(err, err = kernel_proj.setArg(narg++, isConvBias));
     // OCL_CHECK(err, err = kernel_proj.setArg(narg++, DATA_SIZE));
 
 // ----------------------------------------
