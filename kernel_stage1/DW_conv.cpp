@@ -1,16 +1,9 @@
 #include <stdint.h>
-#include "DW_conv.hpp"
+#include "kernel_stage1.hpp"
 using namespace std;
 
 void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out)
 {
-#pragma HLS INTERFACE m_axi port = in bundle = gmem0 depth = 3072   
-#pragma HLS INTERFACE m_axi port = out bundle = gmem0 depth = 768
-#pragma HLS INTERFACE m_axi port = kernel bundle = gmem0 depth = 216
-#pragma HLS INTERFACE m_axi port = bias bundle = gmem0 depth = 24
-#pragma HLS INTERFACE m_axi port = shape_para bundle = gmem0 depth = 7
-#pragma HLS INTERFACE m_axi port = conv_para bundle = gmem0 depth = 6
-
     int BATCH_SIZE = shape_para[0];
     int CHANNEL_IN = shape_para[1];
     int HEIGHT_IN = shape_para[2];
