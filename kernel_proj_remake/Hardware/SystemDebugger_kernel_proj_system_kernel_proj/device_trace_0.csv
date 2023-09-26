@@ -1,0 +1,30 @@
+HEADER
+VTF File Version,1.1
+VTF File Type,1
+PID,32498
+Generated on,2023-09-25 23:20:45
+Resolution,ms
+Min Resolution,ns
+Trace Version,1.1
+TraceID,32498
+XRT  Version,2.12.427
+Tool Version,2021.1
+Platform,xilinx_u50_gen3x16_xdma_201920_3
+Target,System Run
+
+STRUCTURE
+Group_Start,xilinx_u50_gen3x16_xdma_201920_3
+Group_Start,binary_container_1.xclbin
+Group_Start,Compute Unit kernel_proj_1 - No Trace,Activity in accelerator kernel_proj:kernel_proj_1
+Group_End,kernel_proj_1
+Group_End,binary_container_1.xclbin
+Group_End,xilinx_u50_gen3x16_xdma_201920_3
+
+MAPPING
+1,kernel_proj
+2,kernel_proj_1
+
+EVENTS
+
+DEPENDENCIES
+
