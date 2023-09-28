@@ -256,23 +256,14 @@ void SE(float* X_data, float* Y_data, int* X_num, float* X_mean, float* X_reduce
 
     float se_ratio = 1;
     Compute_mean(X_data, X_num, X_mean);
-    int X_mean_num[4] = {X_num[0], X_num[1], 1, 1};
     int XC = X_num[1];
+    int X_mean_num[4] = {X_num[0], X_num[1], 1, 1};
     int SEC = int(XC * se_ratio);
     int reduce_filter_num[7] = {XC, SEC, 1, 1, 0, 1, 1};
     int expand_filter_num[7] = {SEC, XC, 1, 1, 0, 1, 1};
 
-    int X_reduce_num[4];
-    X_reduce_num[0] = X_num[0];
-    X_reduce_num[1] = reduce_filter_num[0];
-    X_reduce_num[2] = (X_mean_num[2] - reduce_filter_num[2]) + 1;
-    X_reduce_num[3] = (X_mean_num[3] - reduce_filter_num[3]) + 1;
-
-    int X_expand_num[4];
-    X_expand_num[0] = X_num[0];
-    X_expand_num[1] = expand_filter_num[0];
-    X_expand_num[2] = (X_reduce_num[2] - expand_filter_num[2]) + 1;
-    X_expand_num[3] = (X_reduce_num[3] - expand_filter_num[3]) + 1;
+    int X_reduce_num[4] = {1, SEC, 1, 1};
+    int X_expand_num[4] = {1, XC, 1, 1};
 
     //reduce convolution
     Convolution(X_mean, X_mean_num, X_reduce, X_reduce_num, reduce_filter, reduce_filter_num, reduce_bias);
@@ -286,12 +277,12 @@ void SE(float* X_data, float* Y_data, int* X_num, float* X_mean, float* X_reduce
 extern "C"
 {
     void kernel_stage0(float* X_data, float* msp_filter, float* msp_bias, float* dw_filter, float* dw_bias,
-                        float* reduce_filter, float* reduce_bias, float* expand_filter, float* expand_bias,
+                        float* reduce_filter, float* reduce_bias, float* expand_filter, float* expand_bias, float* proj_filter,
                         float* mean1, float* var1, float* gamma1, float* beta1,
                         float* mean2, float* var2, float* gamma2, float* beta2,
                         float* X_pad, float* X_conv, float* X_dwconv, float* X_dwnorm,
                         float* X_mean, float* X_reduce, float* X_relu, float* X_expand, float* X_sigmoid,
-                        float* Y_msp, float* Y_dwact, float* Y_se)
+                        float* Y_msp, float* Y_dwact, float* Y_se, float* Y_proj)
     {
     #pragma HLS INTERFACE m_axi port = X_data bundle = gmem depth = 768
     #pragma HLS INTERFACE m_axi port = msp_filter bundle = gmem0 depth = 648
@@ -302,6 +293,7 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = reduce_bias depth = 24
     #pragma HLS INTERFACE m_axi port = expand_filter depth = 576
     #pragma HLS INTERFACE m_axi port = expand_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = proj_filter depth = 576
     #pragma HLS INTERFACE m_axi port = mean1 bundle = gmem1 depth = 24
     #pragma HLS INTERFACE m_axi port = var1 bundle = gmem1 depth = 24
     #pragma HLS INTERFACE m_axi port = gamma1 bundle = gmem1 depth = 24
@@ -316,7 +308,7 @@ extern "C"
 #pragma HLS INTERFACE m_axi port = X_dwconv bundle = gmem1 depth = 1536
 #pragma HLS INTERFACE m_axi port = X_dwnorm bundle = gmem1 depth = 1536
 #pragma HLS INTERFACE m_axi port = X_mean bundle = gmem1 depth = 24
-#pragma HLS INTERFACE m_axi port = X_reduce bundle = gmem0 depth = 24
+#pragma HLS INTERFACE m_axi port = X_reduce bundle = gmem3 depth = 24
 #pragma HLS INTERFACE m_axi port = X_relu bundle = gmem1 depth = 24
 #pragma HLS INTERFACE m_axi port = X_expand bundle = gmem0 depth = 24
 #pragma HLS INTERFACE m_axi port = X_sigmoid bundle = gmem1 depth = 24
@@ -324,6 +316,7 @@ extern "C"
 #pragma HLS INTERFACE m_axi port = Y_msp bundle = gmem2 depth = 1536
 #pragma HLS INTERFACE m_axi port = Y_dwact bundle = gmem2 depth = 1536
 #pragma HLS INTERFACE m_axi port = Y_se bundle = gmem0 depth = 1536
+#pragma HLS INTERFACE m_axi port = Y_proj bundle = gmem1 depth = 1536
 
     int X_num[4] = {1, 3, 16, 16};
     int msp_num[4] = {1, 24, 8, 8};
@@ -331,12 +324,16 @@ extern "C"
     int dw_shape_num[7] = {1, 24, 8, 8, 24, 8, 8};
     int dw_conv_num[6] = {3, 0, 1, 1, 24, 1};
     int dw_norm_num[4] = {1, 24, 8, 8};
+    int se_num[4] = {1, 24, 8, 8};
+    int proj_num[4] = {1, 24, 8, 8};
+    int proj_filter_num[7] = {24, 24, 1, 1, 0, 1, 0};
 
     Mspatch(X_data, X_num, X_pad, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias, mean1, var1, gamma1, beta1, Y_msp);
     DW_conv(Y_msp, dw_filter, dw_bias, dw_shape_num, dw_conv_num, X_dwconv);
     BatchNorm(X_dwconv, Y_dwact, dw_norm_num, mean2, var2, gamma2, beta2);
     //ReLU(X_dwnorm, Y_dwact, dw_norm_num, 0);
-    SE( Y_dwact,  Y_se,  msp_num,  X_mean,  X_reduce,  X_relu,  X_expand,  X_sigmoid,  reduce_filter,  reduce_bias,  expand_filter,  expand_bias);
-    //Projection();
+    SE( Y_dwact, Y_se,  msp_num,  X_mean,  X_reduce,  X_relu,  X_expand,  X_sigmoid,  reduce_filter,  reduce_bias,  expand_filter,  expand_bias);
+    //Projection. equal to convolution actually
+    Convolution(Y_se, se_num, Y_proj, proj_num, proj_filter, proj_filter_num, expand_bias);
     }
 }

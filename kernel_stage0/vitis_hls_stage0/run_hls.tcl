@@ -25,9 +25,9 @@ csim_design
 # Run Synthesis
 csynth_design
 # RTL Simulation
-# cosim_design 
+cosim_design 
 # RTL implementation
-# export_design 
+export_design 
 
 
 exit
