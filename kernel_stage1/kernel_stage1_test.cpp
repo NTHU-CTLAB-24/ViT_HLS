@@ -5,11 +5,17 @@
 // TODO: modify parameters
 const int BATCH_SIZE = 1;
 const int CHANNEL_IN = 6;
-const int HEIGHT_IN = 112;
-const int WIDTH_IN = 112;
+const int HEIGHT_IN = 56;
+const int WIDTH_IN = 56;
 const int CHANNEL_OUT = 8;
-const int HEIGHT_OUT = 56;
-const int WIDTH_OUT = 56;
+const int HEIGHT_OUT = 28;
+const int WIDTH_OUT = 28;
+
+// below size please check count_depth output to modify corresponding
+const int X_DATA_SIZE = 18816;
+const int Y_V_CONV_1_SIZE = 75264;
+const int Y_PROJ_1_SIZE = 6272;
+const int Y_V_CONV_2_SIZE = 12544;
 
 int main()
 {
@@ -25,17 +31,17 @@ int main()
     float dw_conv_2_filter[144], dw_norm_2_gamma[16], dw_norm_2_beta[16], dw_norm_2_mean[16], dw_norm_2_var[16];
     float proj_2_weight[128];
 
-    float X_data[75264];
-    float Y_norm_1[75264];
-    float Y_v_conv_1[301056];
-    float Y_dw_conv_1[75264], Y_dw_norm_1[75264], Y_dw_act_1[75264];
-    float Y_proj_1[25088];
+    float X_data[X_DATA_SIZE];
+    float Y_norm_1[X_DATA_SIZE];
+    float Y_v_conv_1[Y_V_CONV_1_SIZE];
+    float Y_dw_conv_1[X_DATA_SIZE], Y_dw_norm_1[X_DATA_SIZE], Y_dw_act_1[X_DATA_SIZE];
+    float Y_proj_1[Y_PROJ_1_SIZE];
 
-    float Y_norm_2[25088];
-    float Y_v_conv_2[50176];
-    float Y_dw_conv_2[50176], Y_dw_norm_2[50176], Y_dw_act_2[50176], Y_dw_skip_2[50176];
-    float Y_proj_2[25088];
-    float Y_skip_2[25088];
+    float Y_norm_2[Y_PROJ_1_SIZE];
+    float Y_v_conv_2[Y_V_CONV_2_SIZE];
+    float Y_dw_conv_2[Y_V_CONV_2_SIZE], Y_dw_norm_2[Y_V_CONV_2_SIZE], Y_dw_act_2[Y_V_CONV_2_SIZE], Y_dw_skip_2[Y_V_CONV_2_SIZE];
+    float Y_proj_2[Y_PROJ_1_SIZE];
+    float Y_skip_2[Y_PROJ_1_SIZE];
 
     // init in
     for (int n = 0; n < BATCH_SIZE; n++)
@@ -53,7 +59,7 @@ int main()
     }
 
     // init out
-    for (int i = 0; i < 75264; i++)
+    for (int i = 0; i < X_DATA_SIZE; i++)
     {
         Y_norm_1[i] = 0;
         Y_dw_conv_1[i] = 0;
@@ -61,10 +67,10 @@ int main()
         Y_dw_act_1[i] = 0;
     }
 
-    for (int i = 0; i < 301056; i++)
+    for (int i = 0; i < Y_V_CONV_1_SIZE; i++)
         Y_v_conv_1[i] = 0;
 
-    for (int i = 0; i < 25088; i++)
+    for (int i = 0; i < Y_PROJ_1_SIZE; i++)
     {
         Y_proj_1[i] = 0;
         Y_norm_2[i] = 0;
@@ -72,7 +78,7 @@ int main()
         Y_skip_2[i] = 0;
     }
 
-    for (int i = 0; i < 50176; i++)
+    for (int i = 0; i < Y_V_CONV_2_SIZE; i++)
     {
         Y_v_conv_2[i] = 0;
         Y_dw_conv_2[i] = 0;
@@ -148,7 +154,8 @@ int main()
                   proj_2_weight,
                   Y_norm_1, Y_v_conv_1, Y_dw_conv_1, Y_dw_norm_1, Y_dw_act_1, Y_proj_1,
                   Y_norm_2, Y_v_conv_2, Y_dw_conv_2, Y_dw_norm_2, Y_dw_act_2, Y_proj_2,
-                  Y_dw_skip_2, Y_skip_2);
+                  Y_dw_skip_2, Y_skip_2
+                  );
 
     // print output
     for (int n = 0; n < BATCH_SIZE; n++)

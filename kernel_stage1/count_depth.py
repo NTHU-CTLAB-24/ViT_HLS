@@ -1,6 +1,6 @@
 # 创建一个字典来记录参数
 parameters = {
-    'X_data': [1, 6, 112, 112],
+    'X_data': [1, 6, 56, 56],
     # depth 1
     'norm_1_weight': [6],
     'norm_1_bias': [6],
@@ -29,21 +29,21 @@ parameters = {
     'proj_2_weight': [8, 16, 1, 1],
 
     # depth 1
-    'Y_norm_1': [1, 6, 112, 112],
-    'Y_v_conv_1': [1, 24, 112, 112],
-    'Y_dw_conv_1': [1, 24, 56, 56],
-    'Y_dw_norm_1': [1, 24, 56, 56],
-    'Y_dw_act_1': [1, 24, 56, 56],
-    'Y_proj_1': [1, 8, 56, 56],
+    'Y_norm_1': [1, 6, 56, 56],
+    'Y_v_conv_1': [1, 24, 56, 56],
+    'Y_dw_conv_1': [1, 24, 28, 28],
+    'Y_dw_norm_1': [1, 24, 28, 28],
+    'Y_dw_act_1': [1, 24, 28, 28],
+    'Y_proj_1': [1, 8, 28, 28],
     # depth 2
-    'Y_norm_2': [1, 8, 56, 56],
-    'Y_v_conv_2': [1, 16, 56, 56],
-    'Y_dw_conv_2': [1, 16, 56, 56],
-    'Y_dw_norm_2': [1, 16, 56, 56],
-    'Y_dw_act_2': [1, 16, 56, 56],
-    'Y_proj_2': [1, 8, 56, 56],
-    'Y_dw_skip_2': [1, 16, 56, 56],
-    'Y_skip_2': [1, 8, 56, 56]
+    'Y_norm_2': [1, 8, 28, 28],
+    'Y_v_conv_2': [1, 16, 28, 28],
+    'Y_dw_conv_2': [1, 16, 28, 28],
+    'Y_dw_norm_2': [1, 16, 28, 28],
+    'Y_dw_act_2': [1, 16, 28, 28],
+    'Y_proj_2': [1, 8, 28, 28],
+    'Y_dw_skip_2': [1, 16, 28, 28],
+    'Y_skip_2': [1, 8, 28, 28]
 }
 
 
@@ -53,7 +53,7 @@ for param_name, param_value in parameters.items():
     count = 1
     for i in param_value:
         count = count * i
-    # print(f"{param_name}: {param_value}, {count}")
+    print(f"{param_name}: {param_value}, {count}")
     
     # below code is used to generate host.cpp code #
     
@@ -69,5 +69,5 @@ for param_name, param_value in parameters.items():
     # print(f"OCL_CHECK(err, err = kernel_stage1.setArg(narg++, buffer_DataIn_{idx}));")
     # idx += 1
     
-    print(f"OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_{idx}, {param_name}));")
-    idx += 1
+    # print(f"OCL_CHECK(err, err = q.enqueueUnmapMemObject(buffer_DataIn_{idx}, {param_name}));")
+    # idx += 1
