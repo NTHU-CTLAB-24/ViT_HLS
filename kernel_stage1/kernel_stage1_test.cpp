@@ -5,17 +5,17 @@
 // TODO: modify parameters
 const int BATCH_SIZE = 1;
 const int CHANNEL_IN = 6;
-const int HEIGHT_IN = 56;
-const int WIDTH_IN = 56;
+const int HEIGHT_IN = 28;
+const int WIDTH_IN = 28;
 const int CHANNEL_OUT = 8;
-const int HEIGHT_OUT = 28;
-const int WIDTH_OUT = 28;
+const int HEIGHT_OUT = 14;
+const int WIDTH_OUT = 14;
 
 // below size please check count_depth output to modify corresponding
-const int X_DATA_SIZE = 18816;
-const int Y_V_CONV_1_SIZE = 75264;
-const int Y_PROJ_1_SIZE = 6272;
-const int Y_V_CONV_2_SIZE = 12544;
+const int X_DATA_SIZE = 4704;
+const int Y_V_CONV_1_SIZE = 18816;
+const int Y_PROJ_1_SIZE = 1568;
+const int Y_V_CONV_2_SIZE = 3136;
 
 int main()
 {

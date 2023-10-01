@@ -6,7 +6,7 @@
 
 source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'jhchen22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Sun Oct 01 21:04:41 CST 2023
+INFO: [HLS 200-10] For user 'jhchen22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Fri Sep 29 18:31:10 CST 2023
 INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
 INFO: [HLS 200-10] In directory '/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1'
 Sourcing Tcl script 'run_hls.tcl'
@@ -60,7 +60,7 @@ INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
 67.2148 93.8105 94.94 94.94 94.94 94.94 94.94 94.94
 INFO: [SIM 211-1] CSim done with 0 errors.
 INFO: [SIM 211-3] *************** CSIM finish ***************
-INFO: [HLS 200-111] Finished Command csim_design CPU user time: 38.47 seconds. CPU system time: 2.54 seconds. Elapsed time: 41.3 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 38 seconds. CPU system time: 2.4 seconds. Elapsed time: 40.63 seconds; current allocated memory: 0.000 MB.
 INFO: [HLS 200-1510] Running: csynth_design 
 INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 776.172 MB.
 INFO: [HLS 200-10] Analyzing design file 'ReLU.cpp' ... 
@@ -69,7 +69,7 @@ INFO: [HLS 200-10] Analyzing design file 'DW_conv.cpp' ...
 INFO: [HLS 200-10] Analyzing design file 'ComputeSkip.cpp' ... 
 INFO: [HLS 200-10] Analyzing design file 'BatchNorm.cpp' ... 
 INFO: [HLS 200-10] Analyzing design file 'kernel_stage1.cpp' ... 
-INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 154.1 seconds. CPU system time: 10.24 seconds. Elapsed time: 165.48 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 153.31 seconds. CPU system time: 7.83 seconds. Elapsed time: 162.1 seconds; current allocated memory: 776.172 MB.
 INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
 INFO: [HLS 214-178] Inlining function 'BatchNorm.1.2.3.4.5.19' into 'ConvNormAct(float*, float*, float*, int*, int*, float*, float*, float*, float*, float*, float*, float*, int, int*) (.8.10.12.14.16.20.23.25.28)' (kernel_stage1.cpp:10:0)
 INFO: [HLS 214-178] Inlining function 'ReLU.26.29' into 'ConvNormAct(float*, float*, float*, int*, int*, float*, float*, float*, float*, float*, float*, float*, int, int*) (.8.10.12.14.16.20.23.25.28)' (kernel_stage1.cpp:10:0)
@@ -79,12 +79,12 @@ INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in 
 INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in loop 'VITIS_LOOP_20_3'(ComputeSkip.cpp:20:34) has been inferred on bundle 'gmem1'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (ComputeSkip.cpp:20:34)
 INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in loop 'VITIS_LOOP_20_3'(ComputeSkip.cpp:20:34) has been inferred on bundle 'gmem2'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (ComputeSkip.cpp:20:34)
 INFO: [HLS 214-115] Multiple burst writes of variable length and bit width 32 in loop 'VITIS_LOOP_20_3'(ComputeSkip.cpp:20:34) has been inferred on bundle 'gmem3'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (ComputeSkip.cpp:20:34)
-INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 4.26 seconds. CPU system time: 0.71 seconds. Elapsed time: 5.26 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 4.3 seconds. CPU system time: 0.63 seconds. Elapsed time: 5.18 seconds; current allocated memory: 776.172 MB.
 INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
 INFO: [HLS 200-10] Starting code transformations ...
-INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 776.172 MB.
 INFO: [HLS 200-10] Checking synthesizability ...
-INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 776.172 MB.
 INFO: [XFORM 203-510] Pipelining loop 'In_Channel' (DW_conv.cpp:59) in function 'DW_conv.9.21.24.1' automatically.
 INFO: [XFORM 203-510] Pipelining loop 'In_Channel' (Pointwise_conv.cpp:28) in function 'Pointwise_conv.6.7.18.22.1' automatically.
 INFO: [XFORM 203-510] Pipelining loop 'In_Channel' (Pointwise_conv.cpp:28) in function 'Pointwise_conv.6.27.31.1' automatically.
@@ -100,20 +100,20 @@ INFO: [XFORM 203-102] Partitioning array 'dw_conv_1_shape_para' automatically.
 INFO: [XFORM 203-102] Partitioning array 'dw_conv_1_conv_para' automatically.
 INFO: [XFORM 203-102] Partitioning array 'dw_2_X_num' automatically.
 INFO: [XFORM 203-102] Partitioning array 'dw_1_X_num' automatically.
-WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 14 for loop 'VITIS_LOOP_16_4' in function 'ConvNormAct'.
-WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 14 for loop 'VITIS_LOOP_16_4' in function 'ConvNormAct'.
-WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 14 for loop 'VITIS_LOOP_20_3' in function 'Compute_skip.30.32.34.1'.
-WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 14 for loop 'VITIS_LOOP_20_3' in function 'Compute_skip.30.32.34.1'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 28 for loop 'VITIS_LOOP_16_4' in function 'ConvNormAct'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 28 for loop 'VITIS_LOOP_16_4' in function 'ConvNormAct'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 28 for loop 'VITIS_LOOP_20_3' in function 'Compute_skip.30.32.34.1'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 28 for loop 'VITIS_LOOP_20_3' in function 'Compute_skip.30.32.34.1'.
 WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 8 for loop 'In_Channel' in function 'Pointwise_conv.6.7.18.22.1'.
 WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 6 for loop 'In_Channel' in function 'Pointwise_conv.6.7.18.22.1'.
 WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 24 for loop 'In_Channel' in function 'Pointwise_conv.6.27.31.1'.
 WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 16 for loop 'In_Channel' in function 'Pointwise_conv.6.27.31.1'.
 WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 24 for loop 'Output_Channel' in function 'DW_conv.9.21.24.1'.
 WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 16 for loop 'Output_Channel' in function 'DW_conv.9.21.24.1'.
-WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 28 for loop 'VITIS_LOOP_16_4' in function 'BatchNorm.1.2.3.4.5.19.1'.
-WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 14 for loop 'VITIS_LOOP_16_4' in function 'BatchNorm.1.2.3.4.5.19.1'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 56 for loop 'VITIS_LOOP_16_4' in function 'BatchNorm.1.2.3.4.5.19.1'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 28 for loop 'VITIS_LOOP_16_4' in function 'BatchNorm.1.2.3.4.5.19.1'.
 INFO: [XFORM 203-11] Balancing expressions in function 'DW_conv.9.21.24.1' (DW_conv.cpp:22:29)...6 expression(s) balanced.
-INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.33 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.46 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.32 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.43 seconds; current allocated memory: 776.172 MB.
 WARNING: [HLS 200-960] Cannot flatten loop 'Output_Channel' (Pointwise_conv.cpp:25:26) in function 'Pointwise_conv.6.7.18.22.1' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
 Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
 INFO: [XFORM 203-541] Flattening a loop nest 'Out_Column' (Pointwise_conv.cpp:22:22) in function 'Pointwise_conv.6.7.18.22.1'.
@@ -142,7 +142,7 @@ Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.
 INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_14_2' (BatchNorm.cpp:14:35) in function 'BatchNorm.1.2.3.4.5.19.1'.
 INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_13_1' (BatchNorm.cpp:13:30) in function 'BatchNorm.1.2.3.4.5.19.1'.
 INFO: [HLS 200-444] Inferring multiple bus burst read of variable length on port 'gmem' (Pointwise_conv.cpp:30:251). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
-INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.34 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.45 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.34 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.6 seconds; current allocated memory: 912.172 MB.
 INFO: [HLS 200-10] Starting hardware synthesis ...
 INFO: [HLS 200-10] Synthesizing 'kernel_stage1' ...
 WARNING: [SYN 201-103] Legalizing function name 'BatchNorm.1.2.3.4.5.19.1_Pipeline_VITIS_LOOP_16_4' to 'BatchNorm_1_2_3_4_5_19_1_Pipeline_VITIS_LOOP_16_4'.
@@ -162,25 +162,25 @@ INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_16_4'.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 24, loop 'VITIS_LOOP_16_4'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.15 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.29 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.14 seconds. CPU system time: 0.06 seconds. Elapsed time: 0.25 seconds; current allocated memory: 912.172 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.13 seconds. CPU system time: 0 seconds. Elapsed time: 0.16 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.13 seconds. CPU system time: 0 seconds. Elapsed time: 0.18 seconds; current allocated memory: 912.172 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'BatchNorm_1_2_3_4_5_19_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.21 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.24 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.21 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.23 seconds; current allocated memory: 912.172 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.19 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.22 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.19 seconds. CPU system time: 0 seconds. Elapsed time: 0.22 seconds; current allocated memory: 912.172 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -190,19 +190,19 @@ INFO: [SCHED 204-61] Pipelining loop 'In_Channel'.
 INFO: [SCHED 204-61] Discarding stage scheduling solution.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 18, loop 'In_Channel'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.31 seconds. CPU system time: 0 seconds. Elapsed time: 0.36 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.31 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 912.172 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.1 seconds. CPU system time: 0 seconds. Elapsed time: 0.13 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.1 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 912.172 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_6_7_18_22_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [HLS 200-486] Changing DSP latency (root=bound4) to 3 in order to utilize available DSP registers.
-INFO: [HLS 200-486] Changing DSP latency (root=empty_142) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP latency (root=empty_136) to 3 in order to utilize available DSP registers.
 INFO: [SCHED 204-11] Finished scheduling.
 INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.21 seconds; current allocated memory: 912.172 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
@@ -210,7 +210,7 @@ INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.22 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.19 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 912.172 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'DW_conv_9_21_24_1_Pipeline_In_Channel' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -228,29 +228,29 @@ WARNING: [HLS 200-878] Unable to schedule the loop exit test ('trunc' operation 
 Resolution: For help on HLS 200-878 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-878.html
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 36, Depth = 36, loop 'In_Channel'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.27 seconds. CPU system time: 0 seconds. Elapsed time: 0.32 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.26 seconds. CPU system time: 0 seconds. Elapsed time: 0.31 seconds; current allocated memory: 912.172 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.28 seconds; current allocated memory: 912.172 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.21 seconds. CPU system time: 0 seconds. Elapsed time: 0.22 seconds; current allocated memory: 912.172 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'DW_conv_9_21_24_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
-INFO: [HLS 200-486] Changing DSP latency (root=empty_161) to 3 in order to utilize available DSP registers.
-INFO: [HLS 200-486] Changing DSP latency (root=empty_159) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP latency (root=empty_155) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP latency (root=empty_153) to 3 in order to utilize available DSP registers.
 INFO: [HLS 200-486] Changing DSP latency (root=p_mid116) to 3 in order to utilize available DSP registers.
 INFO: [HLS 200-486] Changing DSP latency (root=p_mid152) to 3 in order to utilize available DSP registers.
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.36 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.38 seconds; current allocated memory: 913.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.35 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.42 seconds; current allocated memory: 912.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.4 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.44 seconds; current allocated memory: 913.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.4 seconds. CPU system time: 0 seconds. Elapsed time: 0.42 seconds; current allocated memory: 912.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'ConvNormAct_Pipeline_VITIS_LOOP_16_4' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -258,13 +258,13 @@ INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_16_4'.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 24, loop 'VITIS_LOOP_16_4'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.52 seconds. CPU system time: 0 seconds. Elapsed time: 0.57 seconds; current allocated memory: 913.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.53 seconds. CPU system time: 0 seconds. Elapsed time: 0.56 seconds; current allocated memory: 912.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.13 seconds. CPU system time: 0 seconds. Elapsed time: 0.16 seconds; current allocated memory: 913.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.14 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.16 seconds; current allocated memory: 912.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'ConvNormAct_Pipeline_VITIS_LOOP_7_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -272,25 +272,25 @@ INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_7_1'.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 17, loop 'VITIS_LOOP_7_1'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.15 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.12 seconds. CPU system time: 0 seconds. Elapsed time: 0.14 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.11 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.09 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'ConvNormAct' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.21 seconds. CPU system time: 0 seconds. Elapsed time: 0.27 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.21 seconds. CPU system time: 0 seconds. Elapsed time: 0.23 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.33 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_6_27_31_1_Pipeline_In_Channel' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -298,26 +298,26 @@ INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'In_Channel'.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 11, loop 'In_Channel'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.65 seconds. CPU system time: 0 seconds. Elapsed time: 0.73 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.65 seconds. CPU system time: 0 seconds. Elapsed time: 0.72 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.07 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.09 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.08 seconds. CPU system time: 0 seconds. Elapsed time: 0.09 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_6_27_31_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
-INFO: [HLS 200-486] Changing DSP latency (root=empty_151) to 3 in order to utilize available DSP registers.
+INFO: [HLS 200-486] Changing DSP latency (root=empty_145) to 3 in order to utilize available DSP registers.
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.14 seconds. CPU system time: 0 seconds. Elapsed time: 0.3 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.17 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.17 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.16 seconds. CPU system time: 0 seconds. Elapsed time: 0.2 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -325,37 +325,38 @@ INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'Skip_VITIS_LOOP_18_2_VITIS_LOOP_20_3'.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 17, loop 'Skip_VITIS_LOOP_18_2_VITIS_LOOP_20_3'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.29 seconds. CPU system time: 0 seconds. Elapsed time: 0.33 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.3 seconds. CPU system time: 0 seconds. Elapsed time: 0.32 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.21 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.2 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'Compute_skip_30_32_34_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP latency (root=bound26) to 3 in order to utilize available DSP registers.
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.26 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.23 seconds. CPU system time: 0 seconds. Elapsed time: 0.27 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.08 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.09 seconds. CPU system time: 0 seconds. Elapsed time: 0.18 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'kernel_stage1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.24 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.33 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.25 seconds. CPU system time: 0 seconds. Elapsed time: 0.25 seconds; current allocated memory: 976.598 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.45 seconds. CPU system time: 0 seconds. Elapsed time: 0.47 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.45 seconds. CPU system time: 0 seconds. Elapsed time: 0.58 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'BatchNorm_1_2_3_4_5_19_1_Pipeline_VITIS_LOOP_16_4' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -367,58 +368,59 @@ INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 1 insta
 INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_1_no_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fsub_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'BatchNorm_1_2_3_4_5_19_1_Pipeline_VITIS_LOOP_16_4'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.29 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.12 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.22 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'BatchNorm_1_2_3_4_5_19_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'dsqrt_64ns_64ns_64_5_no_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 2 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_3ns_5ns_8_1_1': 2 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_4ns_5ns_9_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_8ns_5ns_13_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_3ns_6ns_9_1_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_4ns_6ns_10_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_9ns_6ns_15_1_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'BatchNorm_1_2_3_4_5_19_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.27 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.46 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.27 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.35 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel' pipeline 'In_Channel' pipeline type 'loop pipeline'
-INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_8ns_5ns_5ns_5ns_13_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_9ns_6ns_6ns_6ns_15_4_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_1_max_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'urem_4ns_4ns_4_8_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.56 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.66 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.56 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.68 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_6_7_18_22_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_10ns_5ns_5ns_5ns_15_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ama_addmuladd_11ns_6ns_6ns_6ns_17_4_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'mul_5ns_4ns_8_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_5ns_5ns_10_1_1': 2 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_mul_5ns_10ns_15_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_5ns_6ns_11_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_6ns_5ns_11_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_mul_6ns_11ns_17_4_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_6_7_18_22_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.22 seconds. CPU system time: 0 seconds. Elapsed time: 0.3 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'DW_conv_9_21_24_1_Pipeline_In_Channel' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_1_max_dsp_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_10ns_62s_62_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_12ns_62s_62_1_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'srem_32ns_2ns_1_36_seq_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'DW_conv_9_21_24_1_Pipeline_In_Channel'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.34 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.41 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.34 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.42 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'DW_conv_9_21_24_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-100] Generating core module 'mac_muladd_4ns_2ns_1s_6_4_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_5ns_2ns_1s_7_4_1': 4 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'mul_32s_5ns_32_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_5ns_5ns_10_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mul_6s_5ns_11_1_1': 4 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_6ns_6ns_12_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_7s_6ns_13_1_1': 4 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'udiv_5ns_5ns_5_9_seq_1': 2 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'urem_5ns_5ns_1_9_seq_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'DW_conv_9_21_24_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.26 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.33 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.25 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.32 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'ConvNormAct_Pipeline_VITIS_LOOP_16_4' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -430,14 +432,14 @@ INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 1 insta
 INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_1_no_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fsub_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'ConvNormAct_Pipeline_VITIS_LOOP_16_4'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.09 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.2 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.11 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.31 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'ConvNormAct_Pipeline_VITIS_LOOP_7_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'ConvNormAct_Pipeline_VITIS_LOOP_7_1' pipeline 'VITIS_LOOP_7_1' pipeline type 'loop pipeline'
 INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_1_no_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'ConvNormAct_Pipeline_VITIS_LOOP_7_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.23 seconds. CPU system time: 0 seconds. Elapsed time: 0.29 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.25 seconds. CPU system time: 0 seconds. Elapsed time: 0.32 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'ConvNormAct' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -445,7 +447,7 @@ INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_1_full_dsp_1': 1
 INFO: [RTGEN 206-100] Generating core module 'dsqrt_64ns_64ns_64_5_no_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 2 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'ConvNormAct'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.21 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.27 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.21 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.26 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_6_27_31_1_Pipeline_In_Channel' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -465,27 +467,27 @@ WARNING: [RTGEN 206-101] Setting dangling out port 'Pointwise_conv_6_27_31_1_Pip
 INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_1_max_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_6_27_31_1_Pipeline_In_Channel'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.97 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.11 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.98 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.1 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_6_27_31_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-100] Generating core module 'mac_muladd_4ns_8ns_9s_12_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_4ns_10ns_11s_14_4_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'mul_3ns_5ns_8_1_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_6_27_31_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.2 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.24 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.19 seconds. CPU system time: 0 seconds. Elapsed time: 0.24 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3' pipeline 'Skip_VITIS_LOOP_18_2_VITIS_LOOP_20_3' pipeline type 'loop pipeline'
 INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_1_full_dsp_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.37 seconds. CPU system time: 0 seconds. Elapsed time: 0.45 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.38 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.43 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'Compute_skip_30_32_34_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-100] Generating core module 'mul_5ns_9ns_13_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_mul_5ns_10ns_15_4_1': 1 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'Compute_skip_30_32_34_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.61 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.67 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.62 seconds. CPU system time: 0 seconds. Elapsed time: 0.66 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'kernel_stage1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -537,15 +539,15 @@ INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage1/Y_skip_2' to
 INFO: [RTGEN 206-500] Setting interface mode on function 'kernel_stage1' to 'ap_ctrl_hs'.
 INFO: [RTGEN 206-100] Bundling port 'X_data', 'norm_1_weight', 'norm_1_bias', 'norm_1_running_mean', 'norm_1_running_var', 'v_conv_1_weight', 'v_conv_1_bias', 'dw_conv_1_filter', 'dw_norm_1_gamma', 'dw_norm_1_beta', 'dw_norm_1_mean', 'dw_norm_1_var', 'proj_1_weight', 'norm_2_weight', 'norm_2_bias', 'norm_2_running_mean', 'norm_2_running_var', 'v_conv_2_weight', 'v_conv_2_bias', 'dw_conv_2_filter', 'dw_norm_2_gamma', 'dw_norm_2_beta', 'dw_norm_2_mean', 'dw_norm_2_var', 'proj_2_weight', 'Y_norm_1', 'Y_v_conv_1', 'Y_dw_conv_1', 'Y_dw_norm_1', 'Y_dw_act_1', 'Y_proj_1', 'Y_norm_2', 'Y_v_conv_2', 'Y_dw_conv_2', 'Y_dw_norm_2', 'Y_dw_act_2', 'Y_proj_2', 'Y_dw_skip_2' and 'Y_skip_2' to AXI-Lite port control.
 INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_stage1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.46 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.9 seconds; current allocated memory: 977.086 MB.
-INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 2.61 seconds. CPU system time: 0.11 seconds. Elapsed time: 3.64 seconds; current allocated memory: 977.086 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.45 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.88 seconds; current allocated memory: 976.598 MB.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 2.65 seconds. CPU system time: 0.1 seconds. Elapsed time: 3.46 seconds; current allocated memory: 976.598 MB.
 INFO: [HLS 200-1603] Design has inferred MAXI bursts and missed bursts, see Vitis HLS GUI synthesis summary report for detailed information.
-INFO: [HLS 200-111] Finished Updating report files: CPU user time: 11.28 seconds. CPU system time: 0.08 seconds. Elapsed time: 11.49 seconds; current allocated memory: 1.017 GB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 11.28 seconds. CPU system time: 0.07 seconds. Elapsed time: 11.45 seconds; current allocated memory: 1.016 GB.
 INFO: [VHDL 208-304] Generating VHDL RTL for kernel_stage1.
 INFO: [VLOG 209-307] Generating Verilog RTL for kernel_stage1.
 INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
 INFO: [HLS 200-789] **** Estimated Fmax: 27.40 MHz
-INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 186.59 seconds. CPU system time: 11.47 seconds. Elapsed time: 203.68 seconds; current allocated memory: 264.914 MB.
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 186.02 seconds. CPU system time: 8.96 seconds. Elapsed time: 200.07 seconds; current allocated memory: 264.426 MB.
 INFO: [HLS 200-1510] Running: cosim_design 
 INFO: [COSIM 212-47] Using XSIM for RTL simulation.
 INFO: [COSIM 212-14] Instrumenting C test bench ...
@@ -578,7 +580,7 @@ INFO: [COSIM 212-12] Generating RTL test bench ...
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 
 source run_vivado_gen_ip.tcl -notrace
-create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 3236.027 ; gain = 2.023 ; free physical = 79319 ; free virtual = 167709
+create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 3247.934 ; gain = 2.023 ; free physical = 78411 ; free virtual = 163628
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/users/cad/xilinx/Vivado/2022.1/data/ip'.
@@ -612,7 +614,7 @@ INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_stage1_dmu
 WARNING: [IP_Flow 19-4832] The IP name 'kernel_stage1_fcmp_32ns_32ns_1_1_no_dsp_1_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
 INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'kernel_stage1_fcmp_32ns_32ns_1_1_no_dsp_1_ip'...
 INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_stage1_fcmp_32ns_32ns_1_1_no_dsp_1_ip'...
-INFO: [Common 17-206] Exiting Vivado at Sun Oct  1 21:10:42 2023...
+INFO: [Common 17-206] Exiting Vivado at Fri Sep 29 18:37:04 2023...
 INFO: [COSIM 212-1] *** C/RTL co-simulation file generation completed. ***
 INFO: [COSIM 212-323] Starting verilog simulation. 
 INFO: [COSIM 212-15] Starting XSIM ...
@@ -646,29 +648,32 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22
 INFO: [VRFC 10-311] analyzing module kernel_stage1_DW_conv_9_21_24_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_BatchNorm_1_2_3_4_5_19_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_BatchNorm_1_2_3_4_5_19_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_5ns_6ns_11_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_5ns_6ns_11_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/AESL_axi_master_gmem0.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module AESL_axi_master_gmem0
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_4ns_5ns_9_1_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_4ns_5ns_9_1_1
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mac_muladd_4ns_2ns_1s_6_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_4ns_2ns_1s_6_4_1_DSP48_3
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_4ns_2ns_1s_6_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mac_muladd_4ns_10ns_11s_14_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_4ns_10ns_11s_14_4_1_DSP48_4
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_4ns_10ns_11s_14_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_mul_6ns_11ns_17_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_mul_6ns_11ns_17_4_1_DSP48_1
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_mul_6ns_11ns_17_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_dsqrt_64ns_64ns_64_5_no_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_dsqrt_64ns_64ns_64_5_no_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_6ns_6ns_12_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_6ns_6ns_12_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_fcmp_32ns_32ns_1_1_no_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_fcmp_32ns_32ns_1_1_no_dsp_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/AESL_axi_master_gmem3.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module AESL_axi_master_gmem3
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_5ns_9ns_13_1_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_5ns_9ns_13_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_12ns_62s_62_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_12ns_62s_62_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_DW_conv_9_21_24_1_Pipeline_In_Channel.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_DW_conv_9_21_24_1_Pipeline_In_Channel
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ddiv_64ns_64ns_64_5_no_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_ddiv_64ns_64ns_64_5_no_dsp_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_fptrunc_64ns_32_1_no_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_fptrunc_64ns_32_1_no_dsp_1
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_10ns_62s_62_1_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_10ns_62s_62_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_gmem3_m_axi.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem3_m_axi
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem3_m_axi_load
@@ -685,6 +690,8 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22
 INFO: [VRFC 10-311] analyzing module kernel_stage1_ConvNormAct
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_Pointwise_conv_6_7_18_22_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_Pointwise_conv_6_7_18_22_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_3ns_6ns_9_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_3ns_6ns_9_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_gmem2_m_axi.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem2_m_axi
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem2_m_axi_load
@@ -699,6 +706,9 @@ INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem2_m_axi_srl
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem2_m_axi_mem
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ConvNormAct_Pipeline_VITIS_LOOP_16_4.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_ConvNormAct_Pipeline_VITIS_LOOP_16_4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ama_addmuladd_9ns_6ns_6ns_6ns_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_9ns_6ns_6ns_6ns_15_4_1_DSP48_0
+INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_9ns_6ns_6ns_6ns_15_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_3ns_5ns_8_1_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_3ns_5ns_8_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/AESL_axi_master_gmem.v" into library xil_defaultlib
@@ -717,16 +727,26 @@ INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem0_m_axi_srl
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem0_m_axi_mem
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_Pointwise_conv_6_27_31_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_Pointwise_conv_6_27_31_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_7s_6ns_13_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_7s_6ns_13_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_4ns_6ns_10_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_4ns_6ns_10_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_urem_4ns_4ns_4_8_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_urem_4ns_4ns_4_8_1_divider
 INFO: [VRFC 10-311] analyzing module kernel_stage1_urem_4ns_4ns_4_8_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_srem_32ns_2ns_1_36_seq_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_srem_32ns_2ns_1_36_seq_1_divseq
 INFO: [VRFC 10-311] analyzing module kernel_stage1_srem_32ns_2ns_1_36_seq_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ama_addmuladd_11ns_6ns_6ns_6ns_17_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_11ns_6ns_6ns_6ns_17_4_1_DSP48_2
+INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_11ns_6ns_6ns_6ns_17_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_fsub_32ns_32ns_32_1_full_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_fsub_32ns_32ns_32_1_full_dsp_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_dadd_64ns_64ns_64_1_full_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_dadd_64ns_64ns_64_1_full_dsp_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mac_muladd_5ns_2ns_1s_7_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_5ns_2ns_1s_7_4_1_DSP48_3
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_5ns_2ns_1s_7_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_gmem1_m_axi.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem1_m_axi
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem1_m_axi_load
@@ -739,9 +759,6 @@ INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem1_m_axi_reg_slice
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem1_m_axi_fifo
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem1_m_axi_srl
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem1_m_axi_mem
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mac_muladd_4ns_8ns_9s_12_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_4ns_8ns_9s_12_4_1_DSP48_4
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mac_muladd_4ns_8ns_9s_12_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_32s_5ns_32_1_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_32s_5ns_32_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1.v" into library xil_defaultlib
@@ -750,19 +767,14 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22
 INFO: [VRFC 10-311] analyzing module kernel_stage1_Compute_skip_30_32_34_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_dmul_64ns_64ns_64_2_max_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_dmul_64ns_64ns_64_2_max_dsp_1
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ama_addmuladd_10ns_5ns_5ns_5ns_15_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_10ns_5ns_5ns_5ns_15_4_1_DSP48_2
-INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_10ns_5ns_5ns_5ns_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_9ns_6ns_15_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_9ns_6ns_15_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/AESL_axi_master_gmem2.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module AESL_axi_master_gmem2
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_6s_5ns_11_1_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_6s_5ns_11_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_fpext_32ns_64_1_no_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_fpext_32ns_64_1_no_dsp_1
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_5ns_5ns_10_1_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_5ns_5ns_10_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_udiv_5ns_5ns_5_9_seq_1.v" into library xil_defaultlib
@@ -773,7 +785,7 @@ INFO: [VRFC 10-311] analyzing module kernel_stage1_BatchNorm_1_2_3_4_5_19_1_Pipe
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1.autotb.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module apatb_kernel_stage1_top
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_mul_5ns_10ns_15_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_mul_5ns_10ns_15_4_1_DSP48_1
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_mul_5ns_10ns_15_4_1_DSP48_5
 INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_mul_5ns_10ns_15_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_Pointwise_conv_6_27_31_1_Pipeline_In_Channel.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_Pointwise_conv_6_27_31_1_Pipeline_In_Channel
@@ -781,9 +793,6 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22
 INFO: [VRFC 10-311] analyzing module kernel_stage1_flow_control_loop_pipe_sequential_init
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ConvNormAct_Pipeline_VITIS_LOOP_7_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_ConvNormAct_Pipeline_VITIS_LOOP_7_1
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_ama_addmuladd_8ns_5ns_5ns_5ns_13_4_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_8ns_5ns_5ns_5ns_13_4_1_DSP48_0
-INFO: [VRFC 10-311] analyzing module kernel_stage1_ama_addmuladd_8ns_5ns_5ns_5ns_13_4_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_gmem_m_axi.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem_m_axi
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem_m_axi_load
@@ -798,8 +807,6 @@ INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem_m_axi_srl
 INFO: [VRFC 10-311] analyzing module kernel_stage1_gmem_m_axi_mem
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/AESL_axi_slave_control.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module AESL_axi_slave_control
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_8ns_5ns_13_1_1.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_8ns_5ns_13_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_fmul_32ns_32ns_32_1_max_dsp_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_fmul_32ns_32ns_32_1_max_dsp_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_5ns_4ns_8_1_1.v" into library xil_defaultlib
@@ -811,6 +818,8 @@ INFO: [VRFC 10-311] analyzing module kernel_stage1_urem_5ns_5ns_1_9_seq_1_divseq
 INFO: [VRFC 10-311] analyzing module kernel_stage1_urem_5ns_5ns_1_9_seq_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_control_s_axi.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module kernel_stage1_control_s_axi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1_mul_6ns_5ns_11_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kernel_stage1_mul_6ns_5ns_11_1_1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/AESL_axi_master_gmem1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module AESL_axi_master_gmem1
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/dataflow_monitor.sv" into library xil_defaultlib
@@ -1365,9 +1374,9 @@ Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7
 Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14 [\floating_point_v7_1_14(c_xdevic...]
 Compiling module xil_defaultlib.kernel_stage1_dsqrt_64ns_64ns_64...
 Compiling module xil_defaultlib.kernel_stage1_dsqrt_64ns_64ns_64...
-Compiling module xil_defaultlib.kernel_stage1_mul_4ns_5ns_9_1_1(...
-Compiling module xil_defaultlib.kernel_stage1_mul_3ns_5ns_8_1_1(...
-Compiling module xil_defaultlib.kernel_stage1_mul_8ns_5ns_13_1_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_4ns_6ns_10_1_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_3ns_6ns_9_1_1(...
+Compiling module xil_defaultlib.kernel_stage1_mul_9ns_6ns_15_1_1...
 Compiling module xil_defaultlib.kernel_stage1_BatchNorm_1_2_3_4_...
 Compiling architecture rtl of entity floating_point_v7_1_14.flt_add [\flt_add(c_xdevicefamily="virtex...]
 Compiling architecture xilinx of entity floating_point_v7_1_14.floating_point_v7_1_14_viv [\floating_point_v7_1_14_viv(c_xd...]
@@ -1392,28 +1401,30 @@ Compiling module xil_defaultlib.kernel_stage1_fmul_32ns_32ns_32_...
 Compiling module xil_defaultlib.kernel_stage1_fmul_32ns_32ns_32_...
 Compiling module xil_defaultlib.kernel_stage1_urem_4ns_4ns_4_8_1...
 Compiling module xil_defaultlib.kernel_stage1_urem_4ns_4ns_4_8_1...
-Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_8ns_...
-Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_8ns_...
+Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_9ns_...
+Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_9ns_...
 Compiling module xil_defaultlib.kernel_stage1_Pointwise_conv_6_7...
-Compiling module xil_defaultlib.kernel_stage1_mul_5ns_5ns_10_1_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_6ns_5ns_11_1_1...
 Compiling module xil_defaultlib.kernel_stage1_mul_5ns_4ns_8_1_1(...
-Compiling module xil_defaultlib.kernel_stage1_mul_mul_5ns_10ns_1...
-Compiling module xil_defaultlib.kernel_stage1_mul_mul_5ns_10ns_1...
-Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_10ns...
-Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_10ns...
+Compiling module xil_defaultlib.kernel_stage1_mul_5ns_6ns_11_1_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_mul_6ns_11ns_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_mul_6ns_11ns_1...
+Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_11ns...
+Compiling module xil_defaultlib.kernel_stage1_ama_addmuladd_11ns...
 Compiling module xil_defaultlib.kernel_stage1_Pointwise_conv_6_7...
-Compiling module xil_defaultlib.kernel_stage1_mul_10ns_62s_62_1_...
+Compiling module xil_defaultlib.kernel_stage1_mul_12ns_62s_62_1_...
 Compiling module xil_defaultlib.kernel_stage1_srem_32ns_2ns_1_36...
 Compiling module xil_defaultlib.kernel_stage1_srem_32ns_2ns_1_36...
 Compiling module xil_defaultlib.kernel_stage1_DW_conv_9_21_24_1_...
 Compiling module xil_defaultlib.kernel_stage1_udiv_5ns_5ns_5_9_s...
 Compiling module xil_defaultlib.kernel_stage1_udiv_5ns_5ns_5_9_s...
-Compiling module xil_defaultlib.kernel_stage1_mul_6s_5ns_11_1_1(...
+Compiling module xil_defaultlib.kernel_stage1_mul_6ns_6ns_12_1_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_7s_6ns_13_1_1(...
 Compiling module xil_defaultlib.kernel_stage1_mul_32s_5ns_32_1_1...
 Compiling module xil_defaultlib.kernel_stage1_urem_5ns_5ns_1_9_s...
 Compiling module xil_defaultlib.kernel_stage1_urem_5ns_5ns_1_9_s...
-Compiling module xil_defaultlib.kernel_stage1_mac_muladd_4ns_2ns...
-Compiling module xil_defaultlib.kernel_stage1_mac_muladd_4ns_2ns...
+Compiling module xil_defaultlib.kernel_stage1_mac_muladd_5ns_2ns...
+Compiling module xil_defaultlib.kernel_stage1_mac_muladd_5ns_2ns...
 Compiling module xil_defaultlib.kernel_stage1_DW_conv_9_21_24_1
 Compiling architecture synth of entity floating_point_v7_1_14.compare_eq_im [\compare_eq_im(c_xdevicefamily="...]
 Compiling architecture synth of entity floating_point_v7_1_14.compare_ne_im [\compare_ne_im(c_xdevicefamily="...]
@@ -1428,11 +1439,13 @@ Compiling module xil_defaultlib.kernel_stage1_ConvNormAct_Pipeli...
 Compiling module xil_defaultlib.kernel_stage1_ConvNormAct_Pipeli...
 Compiling module xil_defaultlib.kernel_stage1_ConvNormAct
 Compiling module xil_defaultlib.kernel_stage1_Pointwise_conv_6_2...
-Compiling module xil_defaultlib.kernel_stage1_mac_muladd_4ns_8ns...
-Compiling module xil_defaultlib.kernel_stage1_mac_muladd_4ns_8ns...
+Compiling module xil_defaultlib.kernel_stage1_mul_3ns_5ns_8_1_1(...
+Compiling module xil_defaultlib.kernel_stage1_mac_muladd_4ns_10n...
+Compiling module xil_defaultlib.kernel_stage1_mac_muladd_4ns_10n...
 Compiling module xil_defaultlib.kernel_stage1_Pointwise_conv_6_2...
 Compiling module xil_defaultlib.kernel_stage1_Compute_skip_30_32...
-Compiling module xil_defaultlib.kernel_stage1_mul_5ns_9ns_13_1_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_mul_5ns_10ns_1...
+Compiling module xil_defaultlib.kernel_stage1_mul_mul_5ns_10ns_1...
 Compiling module xil_defaultlib.kernel_stage1_Compute_skip_30_32...
 Compiling module xil_defaultlib.kernel_stage1_control_s_axi
 Compiling module xil_defaultlib.kernel_stage1_gmem_m_axi_srl(DAT...
@@ -1602,20 +1615,23 @@ source kernel_stage1.tcl
 ////////////////////////////////////////////////////////////////////////////////////
 // RTL Simulation : 0 / 1 [n/a] @ "225000"
 Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
-Time: 68631775 ns  Iteration: 19  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Pointwise_conv_6_7_18_22_1_fu_506/grp_Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel_fu_214/fadd_32ns_32ns_32_1_full_dsp_1_U47/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Time: 273255775 ns  Iteration: 19  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Pointwise_conv_6_7_18_22_1_fu_506/grp_Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel_fu_220/fadd_32ns_32ns_32_1_full_dsp_1_U47/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+// RTL Simulation : 0 / 1 [n/a] @ "500000325000"
+// RTL Simulation : 0 / 1 [n/a] @ "1000000375000"
 Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
-Time: 260482725 ns  Iteration: 19  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Pointwise_conv_6_7_18_22_1_fu_506/grp_Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel_fu_214/fadd_32ns_32ns_32_1_full_dsp_1_U47/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+Time: 1054060925 ns  Iteration: 19  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Pointwise_conv_6_7_18_22_1_fu_506/grp_Pointwise_conv_6_7_18_22_1_Pipeline_In_Channel_fu_220/fadd_32ns_32ns_32_1_full_dsp_1_U47/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+// RTL Simulation : 0 / 1 [n/a] @ "1500000425000"
 Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
-Time: 370653475 ns  Iteration: 18  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Compute_skip_30_32_34_1_fu_599/grp_Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3_fu_70/fadd_32ns_32ns_32_1_full_dsp_1_U203/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
-// RTL Simulation : 1 / 1 [n/a] @ "376433175000"
+Time: 1514318675 ns  Iteration: 18  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Compute_skip_30_32_34_1_fu_599/grp_Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3_fu_70/fadd_32ns_32ns_32_1_full_dsp_1_U206/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+// RTL Simulation : 1 / 1 [n/a] @ "1537145625000"
 ////////////////////////////////////////////////////////////////////////////////////
 Warning: OPMODE Input Warning : The OPMODE 0110X0X with CARRYINSEL  000 to DSP48E1 instance is invalid.
-Time: 376433225 ns  Iteration: 18  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Compute_skip_30_32_34_1_fu_599/grp_Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3_fu_70/fadd_32ns_32ns_32_1_full_dsp_1_U203/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
-$finish called at time : 376433475 ns : File "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1.autotb.v" Line 1277
-run: Time (s): cpu = 00:00:02 ; elapsed = 00:26:58 . Memory (MB): peak = 2834.391 ; gain = 0.000 ; free physical = 79795 ; free virtual = 168297
+Time: 1537145675 ns  Iteration: 18  Process: /apatb_kernel_stage1_top/AESL_inst_kernel_stage1/grp_Compute_skip_30_32_34_1_fu_599/grp_Compute_skip_30_32_34_1_Pipeline_VITIS_LOOP_20_3_fu_70/fadd_32ns_32ns_32_1_full_dsp_1_U206/kernel_stage1_fadd_32ns_32ns_32_1_full_dsp_1_ip_u/inst/i_synth/addsub_op/ADDSUB/dsp/OP/dsp48e1_body/ALIGN_ADD/DSP2/i_no_versal_es1_workaround/DSP/prcs_opmode_drc  File: /users/cad/xilinx/Vivado/2022.1/data/vhdl/src/unisims/primitive/DSP48E1.vhd
+$finish called at time : 1537145925 ns : File "/users/student/mr111/jhchen22/ViT_HLS/kernel_stage1/proj_kernel_stage1/solution1/sim/verilog/kernel_stage1.autotb.v" Line 1277
+run: Time (s): cpu = 00:00:02 ; elapsed = 01:47:47 . Memory (MB): peak = 2834.391 ; gain = 0.000 ; free physical = 77623 ; free virtual = 163231
 ## quit
-INFO: xsimkernel Simulation Memory Usage: 183424 KB (Peak: 218236 KB), Simulation CPU Usage: 1617740 ms
-INFO: [Common 17-206] Exiting xsim at Sun Oct  1 21:38:46 2023...
+INFO: xsimkernel Simulation Memory Usage: 271376 KB (Peak: 320528 KB), Simulation CPU Usage: 6467430 ms
+INFO: [Common 17-206] Exiting xsim at Fri Sep 29 20:25:59 2023...
 INFO: [COSIM 212-316] Starting C post checking ...
 44.9084 58.7795 59.2237 59.2237 59.2237 59.2237 59.2237 59.2237
 59.5907 81.5469 82.3629 82.3629 82.3629 82.3629 82.3629 82.3629
@@ -1627,7 +1643,7 @@ INFO: [COSIM 212-316] Starting C post checking ...
 67.2148 93.8105 94.94 94.94 94.94 94.94 94.94 94.94
 INFO: [COSIM 212-1000] *** C/RTL co-simulation finished: PASS ***
 INFO: [COSIM 212-211] II is measurable only when transaction number is greater than 1 in RTL simulation. Otherwise, they will be marked as all NA. If user wants to calculate them, please make sure there are at least 2 transactions in RTL simulation.
-INFO: [HLS 200-111] Finished Command cosim_design CPU user time: 1860.88 seconds. CPU system time: 16.31 seconds. Elapsed time: 1797.53 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-111] Finished Command cosim_design CPU user time: 6713.36 seconds. CPU system time: 16.48 seconds. Elapsed time: 6647.02 seconds; current allocated memory: 0.000 MB.
 INFO: [HLS 200-1510] Running: export_design 
 INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
 
@@ -1637,7 +1653,7 @@ INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 
 source run_ippack.tcl -notrace
-create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 3244.906 ; gain = 2.023 ; free physical = 79191 ; free virtual = 167692
+create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 3247.934 ; gain = 2.023 ; free physical = 77157 ; free virtual = 162745
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/users/cad/xilinx/Vivado/2022.1/data/ip'.
@@ -1674,8 +1690,8 @@ INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'kernel_stage1_fsu
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/users/cad/xilinx/Vivado/2022.1/data/ip'.
-INFO: [Common 17-206] Exiting Vivado at Sun Oct  1 21:39:35 2023...
+INFO: [Common 17-206] Exiting Vivado at Fri Sep 29 20:26:49 2023...
 INFO: [HLS 200-802] Generated output file proj_kernel_stage1/solution1/impl/export.zip
-INFO: [HLS 200-111] Finished Command export_design CPU user time: 41.11 seconds. CPU system time: 3.13 seconds. Elapsed time: 47.58 seconds; current allocated memory: 0.000 MB.
-INFO: [HLS 200-112] Total CPU user time: 2131.92 seconds. Total CPU system time: 34.77 seconds. Total elapsed time: 2094.8 seconds; peak allocated memory: 1.017 GB.
-INFO: [Common 17-206] Exiting vitis_hls at Sun Oct  1 21:39:36 2023...
+INFO: [HLS 200-111] Finished Command export_design CPU user time: 41.33 seconds. CPU system time: 2.84 seconds. Elapsed time: 48.23 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-112] Total CPU user time: 6983.49 seconds. Total CPU system time: 31.94 seconds. Total elapsed time: 6940.86 seconds; peak allocated memory: 1.016 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Fri Sep 29 20:26:51 2023...

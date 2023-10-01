@@ -29,7 +29,7 @@ extern "C"
                        float* Y_dw_skip_2, float* Y_skip_2
                        )
     {
-    #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 18816
+    #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 4704
     // depth 1
     #pragma HLS INTERFACE m_axi port = norm_1_weight depth = 6
     #pragma HLS INTERFACE m_axi port = norm_1_bias depth = 6
@@ -65,51 +65,51 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = proj_2_weight depth = 128
 
     // in and out depth 1
-    #pragma HLS INTERFACE m_axi port = Y_norm_1 bundle = gmem1 depth = 18816
-    #pragma HLS INTERFACE m_axi port = Y_v_conv_1 bundle = gmem2 depth = 75264
-    #pragma HLS INTERFACE m_axi port = Y_dw_conv_1 bundle = gmem0 depth = 18816
-    #pragma HLS INTERFACE m_axi port = Y_dw_norm_1 bundle = gmem1 depth = 18816
-    #pragma HLS INTERFACE m_axi port = Y_dw_act_1 bundle = gmem3 depth = 18816
-    #pragma HLS INTERFACE m_axi port = Y_proj_1 bundle = gmem0 depth = 6272
+    #pragma HLS INTERFACE m_axi port = Y_norm_1 bundle = gmem1 depth = 4704
+    #pragma HLS INTERFACE m_axi port = Y_v_conv_1 bundle = gmem2 depth = 18816
+    #pragma HLS INTERFACE m_axi port = Y_dw_conv_1 bundle = gmem0 depth = 4704
+    #pragma HLS INTERFACE m_axi port = Y_dw_norm_1 bundle = gmem1 depth = 4704
+    #pragma HLS INTERFACE m_axi port = Y_dw_act_1 bundle = gmem3 depth = 4704
+    #pragma HLS INTERFACE m_axi port = Y_proj_1 bundle = gmem0 depth = 1568
 
     // in and out depth 2
-    #pragma HLS INTERFACE m_axi port = Y_norm_2 bundle = gmem2 depth = 6272
-    #pragma HLS INTERFACE m_axi port = Y_v_conv_2 bundle = gmem1 depth = 12544
-    #pragma HLS INTERFACE m_axi port = Y_dw_conv_2 bundle = gmem3 depth = 12544
-    #pragma HLS INTERFACE m_axi port = Y_dw_norm_2 bundle = gmem0 depth = 12544
-    #pragma HLS INTERFACE m_axi port = Y_dw_act_2 bundle = gmem2 depth = 12544
-    #pragma HLS INTERFACE m_axi port = Y_proj_2 bundle = gmem1 depth = 6272
-    #pragma HLS INTERFACE m_axi port = Y_dw_skip_2 bundle = gmem3 depth = 12544
-    #pragma HLS INTERFACE m_axi port = Y_skip_2 bundle = gmem2 depth = 6272
+    #pragma HLS INTERFACE m_axi port = Y_norm_2 bundle = gmem2 depth = 1568
+    #pragma HLS INTERFACE m_axi port = Y_v_conv_2 bundle = gmem1 depth = 3136
+    #pragma HLS INTERFACE m_axi port = Y_dw_conv_2 bundle = gmem3 depth = 3136
+    #pragma HLS INTERFACE m_axi port = Y_dw_norm_2 bundle = gmem0 depth = 3136
+    #pragma HLS INTERFACE m_axi port = Y_dw_act_2 bundle = gmem2 depth = 3136
+    #pragma HLS INTERFACE m_axi port = Y_proj_2 bundle = gmem1 depth = 1568
+    #pragma HLS INTERFACE m_axi port = Y_dw_skip_2 bundle = gmem3 depth = 3136
+    #pragma HLS INTERFACE m_axi port = Y_skip_2 bundle = gmem2 depth = 1568
 
     // depth 1
-    int norm_1_X_num[4] = {1, 6, 56, 56};
-    int dw_conv_1_shape_para[7] = {1, 24, 56, 56, 24, 28, 28};
+    int norm_1_X_num[4] = {1, 6, 28, 28};
+    int dw_conv_1_shape_para[7] = {1, 24, 28, 28, 24, 14, 14};
     int dw_conv_1_conv_para[6] = {3, 0, 2, 1, 24, 1};
-    int dw_1_X_num[4] = {1, 24, 28, 28};
+    int dw_1_X_num[4] = {1, 24, 14, 14};
 
     // depth 2
-    int norm_2_X_num[4] = {1, 8, 28, 28};
-    int dw_conv_2_shape_para[7] = {1, 16, 28, 28, 16, 28, 28};
+    int norm_2_X_num[4] = {1, 8, 14, 14};
+    int dw_conv_2_shape_para[7] = {1, 16, 14, 14, 16, 14, 14};
     int dw_conv_2_conv_para[6] = {3, 0, 1, 1, 16, 1};
-    int dw_2_X_num[4] = {1, 16, 28, 28};
+    int dw_2_X_num[4] = {1, 16, 14, 14};
 
     // depth 1
     BatchNorm(X_data, Y_norm_1, norm_1_X_num, norm_1_running_mean, norm_1_running_var, norm_1_weight, norm_1_bias);
-    Pointwise_conv(Y_norm_1, Y_v_conv_1, v_conv_1_weight, v_conv_1_bias, 1, 6, 24, 56, 56, 1);
+    Pointwise_conv(Y_norm_1, Y_v_conv_1, v_conv_1_weight, v_conv_1_bias, 1, 6, 24, 28, 28, 1);
     ConvNormAct(Y_v_conv_1, dw_conv_1_filter, nullptr, dw_conv_1_shape_para, dw_conv_1_conv_para,
                 Y_dw_conv_1, Y_dw_norm_1, dw_norm_1_mean, dw_norm_1_var, dw_norm_1_gamma, dw_norm_1_beta,
                 Y_dw_act_1, 0, dw_1_X_num);
-    Pointwise_conv(Y_dw_act_1, Y_proj_1, proj_1_weight, nullptr, 1, 24, 8, 28, 28, 0);
+    Pointwise_conv(Y_dw_act_1, Y_proj_1, proj_1_weight, nullptr, 1, 24, 8, 14, 14, 0);
 
     // depth 2
     BatchNorm(Y_proj_1, Y_norm_2, norm_2_X_num, norm_2_running_mean, norm_2_running_var, norm_2_weight, norm_2_bias);
-    Pointwise_conv(Y_norm_2, Y_v_conv_2, v_conv_2_weight, v_conv_2_bias, 1, 8, 16, 28, 28, 1);
+    Pointwise_conv(Y_norm_2, Y_v_conv_2, v_conv_2_weight, v_conv_2_bias, 1, 8, 16, 14, 14, 1);
     ConvNormAct(Y_v_conv_2, dw_conv_2_filter, nullptr, dw_conv_2_shape_para, dw_conv_2_conv_para,
                 Y_dw_conv_2, Y_dw_norm_2, dw_norm_2_mean, dw_norm_2_var, dw_norm_2_gamma, dw_norm_2_beta,
                 Y_dw_act_2, 0, dw_2_X_num);
     Compute_skip(Y_v_conv_2, Y_dw_act_2, Y_dw_skip_2, dw_2_X_num);
-    Pointwise_conv(Y_dw_skip_2, Y_proj_2, proj_2_weight, nullptr, 1, 16, 8, 28, 28, 0);
+    Pointwise_conv(Y_dw_skip_2, Y_proj_2, proj_2_weight, nullptr, 1, 16, 8, 14, 14, 0);
     Compute_skip(Y_proj_1, Y_proj_2, Y_skip_2, norm_2_X_num);
     }
 }
