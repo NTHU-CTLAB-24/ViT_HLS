@@ -6,7 +6,7 @@
 
 source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'jhchen22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Sun Oct 01 22:25:58 CST 2023
+INFO: [HLS 200-10] For user 'jhchen22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Sun Oct 01 23:11:10 CST 2023
 INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
 INFO: [HLS 200-10] In directory '/users/student/mr111/jhchen22/ViT_HLS/Testing'
 Sourcing Tcl script 'run_hls.tcl'
@@ -51,16 +51,16 @@ INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
    Compiling ../../../../kernel_stage0.cpp in debug mode
    Generating csim.exe
  after Proj - [0, 0]
-1.9 2.8 2.8 2.8 2.8 2.8 2.8 2.8
-5.5 8.2 8.2 8.2 8.2 8.2 8.2 8.2
-9.1 13.6 13.6 13.6 13.6 13.6 13.6 13.6
-12.7 19 19 19 19 19 19 19
-16.3 24.4 24.4 24.4 24.4 24.4 24.4 24.4
-19.9 29.8 29.8 29.8 29.8 29.8 29.8 29.8
-23.5 35.2 35.2 35.2 35.2 35.2 35.2 35.2
-27.1 40.6 40.6 40.6 40.6 40.6 40.6 40.6
+-0.349947 -0.252898 -0.252898 -0.252898 -0.252898 -0.252898 -0.252898 -0.252898
+0.0382509 0.329399 0.329399 0.329399 0.329399 0.329399 0.329399 0.329399
+0.426449 0.911696 0.911696 0.911696 0.911696 0.911696 0.911696 0.911696
+0.814647 1.49399 1.49399 1.49399 1.49399 1.49399 1.49399 1.49399
+1.20284 2.07629 2.07629 2.07629 2.07629 2.07629 2.07629 2.07629
+1.59104 2.65859 2.65859 2.65859 2.65859 2.65859 2.65859 2.65859
+1.97924 3.24088 3.24088 3.24088 3.24088 3.24088 3.24088 3.24088
+2.36744 3.82318 3.82318 3.82318 3.82318 3.82318 3.82318 3.82318
 INFO: [SIM 211-1] CSim done with 0 errors.
 INFO: [SIM 211-3] *************** CSIM finish ***************
-INFO: [HLS 200-111] Finished Command csim_design CPU user time: 38.03 seconds. CPU system time: 2.5 seconds. Elapsed time: 40.86 seconds; current allocated memory: 0.000 MB.
-INFO: [HLS 200-112] Total CPU user time: 42.81 seconds. Total CPU system time: 3.64 seconds. Total elapsed time: 45.4 seconds; peak allocated memory: 776.172 MB.
-INFO: [Common 17-206] Exiting vitis_hls at Sun Oct  1 22:26:43 2023...
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 38.07 seconds. CPU system time: 2.52 seconds. Elapsed time: 40.78 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-112] Total CPU user time: 42.84 seconds. Total CPU system time: 3.7 seconds. Total elapsed time: 45.04 seconds; peak allocated memory: 776.172 MB.
+INFO: [Common 17-206] Exiting vitis_hls at Sun Oct  1 23:11:55 2023...

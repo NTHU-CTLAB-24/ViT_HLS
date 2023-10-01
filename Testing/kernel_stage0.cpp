@@ -144,10 +144,10 @@ extern "C"
     //int data_shape[4] = {1, 3, 56, 56};
     //Mspatch
     //group=1 as normal convolution
-    DW_conv(X_data, msp_filter, msp_bias, shape_para, conv_para, Y_proj);
+    DW_conv(X_data, msp_filter, msp_bias, shape_para, conv_para, X_conv);
     //load_data(X_data, X_data_copy, data_shape);
     // Convolution(X_data, X_num, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias);
-    // BatchNorm(X_conv, Y_proj, msp_num, mean1, var1, gamma1, beta1);
+    BatchNorm(X_conv, Y_proj, msp_num, mean1, var1, gamma1, beta1);
 
     //Depth-Wise Conv
     // DW_conv(Y_msp, dw_filter, nullptr, dw_shape_num, dw_conv_num, X_dwconv);

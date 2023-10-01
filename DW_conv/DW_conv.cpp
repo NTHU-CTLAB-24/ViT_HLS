@@ -73,13 +73,12 @@ Batch:
                                 if ((in_ch + 1) % inGroupNums == 0)
                                     break;
                             }
-                            if (isConvBias && biasFlag){
+                            if (isConvBias && biasFlag)
                                 out[out_pos] += bias[out_ch];
-                                biasFlag = 0;
-                            }
                             if ((out_ch + 1) % outGroupNums == 0)
                                 groupIndex++;
                         }
+                        biasFlag = 0;
                     }
                 }
             }
