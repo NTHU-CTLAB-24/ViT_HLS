@@ -158,9 +158,16 @@ int main() {
         for (int c = 0; c < 1; c++) {
             for (int h = 0; h < out_size; h++) {
                 for (int w = 0; w < out_size; w++) {
-                    cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << " ";
+                    if(w == 7){
+                        cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << endl;
+                        break;
+                    }
+                    else
+                        cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << " ";
                 }
-                cout << endl;
+                if(h == 7)
+                    break;
+                // cout << endl;
             }
         }
     }

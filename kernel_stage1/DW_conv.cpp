@@ -55,10 +55,10 @@ Batch:
                         for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
                         {
                             out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
+                            kernelChannelIdx = 0;
                         In_Channel:
                             for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
                             {
-                                kernelChannelIdx = 0;
                                 in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
                                 kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
                                 out[out_pos] += in[in_pos] * kernel[kernel_pos];

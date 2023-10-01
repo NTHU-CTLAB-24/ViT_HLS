@@ -144,27 +144,27 @@ extern "C"
     //int data_shape[4] = {1, 3, 56, 56};
     //Mspatch
     //group=1 as normal convolution
-    //DW_conv(X_data, msp_filter, msp_bias, shape_para, conv_para, X_conv);
+    DW_conv(X_data, msp_filter, msp_bias, shape_para, conv_para, Y_proj);
     //load_data(X_data, X_data_copy, data_shape);
-    Convolution(X_data, X_num, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias);
-    BatchNorm(X_conv, Y_msp, msp_num, mean1, var1, gamma1, beta1);
+    // Convolution(X_data, X_num, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias);
+    // BatchNorm(X_conv, Y_proj, msp_num, mean1, var1, gamma1, beta1);
 
     //Depth-Wise Conv
-    DW_conv(Y_msp, dw_filter, nullptr, dw_shape_num, dw_conv_num, X_dwconv);
-    BatchNorm(X_dwconv, Y_dw, dw_norm_num, mean2, var2, gamma2, beta2);
+    // DW_conv(Y_msp, dw_filter, nullptr, dw_shape_num, dw_conv_num, X_dwconv);
+    // BatchNorm(X_dwconv, Y_dw, dw_norm_num, mean2, var2, gamma2, beta2);
     //ReLU(X_dwnorm, Y_dwact, dw_norm_num, 0);
 
     
     //SE
-    Compute_mean(Y_dw, se_data_num, X_mean);
-    Pointwise_conv(X_mean, X_reduce, reduce_filter, reduce_bias, 1, 24, 24, 1, 1, 1);
-    ReLU(X_reduce, X_relu, X_reduce_num, 0);
-    Pointwise_conv(X_relu, X_expand, expand_filter, expand_bias, 1, 24, 24, 1, 1, 1);
-    Sigmoid(X_expand, X_sigmoid, X_expand_num);
-    Compute_mul(Y_dw, X_sigmoid, Y_se, se_data_num);
+    // Compute_mean(Y_dw, se_data_num, X_mean);
+    // Pointwise_conv(X_mean, X_reduce, reduce_filter, reduce_bias, 1, 24, 24, 1, 1, 1);
+    // ReLU(X_reduce, X_relu, X_reduce_num, 0);
+    // Pointwise_conv(X_relu, X_expand, expand_filter, expand_bias, 1, 24, 24, 1, 1, 1);
+    // Sigmoid(X_expand, X_sigmoid, X_expand_num);
+    // Compute_mul(Y_dw, X_sigmoid, Y_se, se_data_num);
 
     //Projection
-    Pointwise_conv(Y_se, Y_proj, proj_filter, nullptr, 1, 24, 24, 28, 28, 0);
+    // Pointwise_conv(Y_se, Y_proj, proj_filter, nullptr, 1, 24, 24, 28, 28, 0);
     
     }
 }
