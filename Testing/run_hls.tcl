@@ -30,11 +30,11 @@ create_clock -period 15
 
 csim_design
 # Run Synthesis
-# csynth_design
-# # RTL Simulation
-# cosim_design 
-# # RTL implementation
-# export_design 
+csynth_design
+# RTL Simulation
+cosim_design 
+# RTL implementation
+export_design 
 
 
 exit

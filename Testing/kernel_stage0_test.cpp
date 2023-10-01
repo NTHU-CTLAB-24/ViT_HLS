@@ -153,25 +153,17 @@ int main() {
 
     out_size = 28;
 
-     cout << " after Proj - [0, 0]" << endl;
+     cout << " after proj- [0, 0]" << endl;
     for (int b = 0; b < 1; b++) {
-        for (int c = 1; c < 2; c++) {
+        for (int c = 0; c < 1; c++) {
             for (int h = 0; h < out_size; h++) {
                 for (int w = 0; w < out_size; w++) {
-                    if(w == 7){
-                        cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << endl;
-                        break;
-                    }else
-                        cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << " ";
+                    cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << " ";
                 }
-                if(h == 7)
-                    break;
-                // cout << endl;
+                cout << endl;
             }
         }
     }
 
-   
-  
   return EXIT_SUCCESS;
 }
