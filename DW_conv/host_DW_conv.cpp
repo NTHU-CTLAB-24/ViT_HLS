@@ -456,7 +456,7 @@ int main(int argc, char *argv[])
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Allocating Memory buffer_result for RES Array ... " << endl;
 #endif
-    OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_WRITE_ONLY, size_out_bytes, NULL, &err));
+    OCL_CHECK(err, cl::Buffer buffer_result(context, CL_MEM_READ_WRITE, size_out_bytes, NULL, &err));
 #ifdef ALL_MESSAGES
     cout << "HOST-Info: Mapping buffer_result to Out ... " << endl;
 #endif
