@@ -71,13 +71,13 @@ Batch:
 						#pragma HLS LOOP_TRIPCOUNT min = 24 max = 24
                         	out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
                             out_val = out[out_pos];
-                        In_Channel:
+                            kernelChannelIdx = 0;
                             kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
                             kernel_val = kernel[kernel_pos];
+                        In_Channel:
                             for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
                             {
 							#pragma HLS LOOP_TRIPCOUNT min = 0 max = 24
-                                kernelChannelIdx = 0;
                                 in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
                                 out_val += in[in_pos] * kernel_val;
                                 kernelChannelIdx++;
