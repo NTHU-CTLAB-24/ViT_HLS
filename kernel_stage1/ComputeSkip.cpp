@@ -1,5 +1,5 @@
-#include <stdint.h>
 #include "kernel_stage1.hpp"
+#include <stdint.h>
 using namespace std;
 
 void Compute_skip(float *in1, float *in2, float *out, int *X_num)
@@ -19,6 +19,7 @@ Skip:
             {
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
+// #pragma HLS UNROLL
                     pos = n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w;
                     out[pos] = in1[pos] + in2[pos];
                 }

@@ -1,5 +1,5 @@
-#include <stdint.h>
 #include "kernel_stage1.hpp"
+#include <stdint.h>
 using namespace std;
 
 void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out)
@@ -49,16 +49,18 @@ Batch:
                         int groupIndex = 0;
                         in_row = row * STRIDE + kernel_row - PADDING;
                         in_col = col * STRIDE + kernel_col - PADDING;
-                        if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN )
+                        if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN)
                             continue;
                     Output_Channel:
                         for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
                         {
+// #pragma HLS UNROLL
                             out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
                             kernelChannelIdx = 0;
                         In_Channel:
                             for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
                             {
+// #pragma HLS UNROLL
                                 in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
                                 kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
                                 out[out_pos] += in[in_pos] * kernel[kernel_pos];
