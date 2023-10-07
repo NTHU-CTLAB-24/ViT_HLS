@@ -1,38 +1,35 @@
 #include "kernel_stage0.hpp"
+#include <cmath>
+#include <math.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
-float X_data[9408];
-float msp_filter[648];
-float msp_bias[24];
-float dw_filter[216];
-float dw_bias[24];
-float reduce_filter[576];
-float reduce_bias[24];
-float expand_filter[576];
-float expand_bias[24];
-float proj_filter[576];
+float X_data[150528];
+float msp_conv_weight[648], msp_conv_bias[24];
+float msp_norm_weight[24], msp_norm_bias[24], msp_norm_running_mean[24], msp_norm_running_var[24];
+float dw_conv_weight[216];
+float norm_1_weight[24], norm_1_bias[24], norm_1_running_mean[24], norm_1_running_var[24];
+float se_conv_reduce_weight[576], se_conv_reduce_bias[24];
+float se_conv_expand_weight[576], se_conv_expand_bias[24];
+float proj_conv_weight[576];
 
-float mean1[24];
-float var1[24];
-float gamma1[24];
-float beta1[24];
-
-float mean2[24];
-float var2[24];
-float gamma2[24];
-float beta2[24];
-    
-float X_conv[18816];
-float X_dwconv[18816];
-float X_mean[24];
-float X_reduce[24];
-float X_relu[24];
-float X_expand[24];
-float X_sigmoid[24];
-float Y_msp[18816];
-float Y_dw[18816];
-float Y_se[18816];
-float Y_proj[18816];
+float Y_msp_conv[301056];
+float Y_msp_norm[301056];
+float Y_dw_conv[301056];
+float Y_dw_norm[301056];
+float Y_dw_act[301056];
+float Y_mean[24];
+float Y_reduce[24];
+float Y_relu[24];
+float Y_expand[24];
+float Y_sigmoid[24];
+float Y_se[301056];
+float Y_proj[301056];
 
 void dataPrepare(float* Array, int batch, int channel, int height, int width){
      for (int b = 0; b < batch; b++){
@@ -45,119 +42,95 @@ void dataPrepare(float* Array, int batch, int channel, int height, int width){
         }
     }
 }
-void mspbiasPrepare(float* Array, int channel) {
-    for (int c = 0; c < channel; c++) {
-        Array[c] = c + 0.1;
+
+int main() {
+    // init input (image) data
+    dataPrepare(X_data, 1, 3, 224, 224);
+    //for (int i=0; i<648; i++) msp_conv_weight[i] = 0.1;
+    //for (int i=0; i<24; i++) msp_conv_bias[i] = i+0.1;
+    for (int i=0; i<24; i++) {
+        msp_norm_weight[i] = 0.5;
+        msp_norm_bias[i] = 0.2;
+        msp_norm_running_mean[i] = 8;
+        msp_norm_running_var[i] = 21.5;
     }
-}
-void mspfilterPrepare(float* Array, int channel_out, int channel_in, int kernel_size) {
-    for (int i = 0; i < channel_out; i++) {
-        for (int j = 0; j < channel_in; j++) {
-            for (int kh = 0; kh < kernel_size; kh++) {
-                for (int kw = 0; kw < kernel_size; kw++) {
-                    Array[i*channel_in*kernel_size*kernel_size + j*kernel_size*kernel_size + kh*kernel_size + kw] = 0.1;
+
+    //init output
+    for (int i = 0; i < 301056; i++) Y_msp_conv[i] = 0;
+    for (int i = 0; i < 301056; i++) Y_msp_norm[i] = 0; 
+    for (int i = 0; i < 301056; i++) Y_proj[i] = 0;
+     // init parameters value
+    ifstream file("./stage0_parameters.txt");
+    if (!file.is_open())
+        cerr << "Failed to open the parameter file." << std::endl;
+    
+    unordered_map<string, vector<float>> parameterData;
+    string line;
+    string current_key;
+    while (std::getline(file, line))
+    {
+        if (!line.empty())
+        {
+            if (line[0] == 's'){ // key
+                current_key = line;
+                cout << "HOST-INFO: loading " << current_key << " value..." << endl;
+            } 
+            else
+            {
+                istringstream iss(line);
+                float value;
+                while (iss >> value)
+                {
+                    parameterData[current_key].push_back(value);
                 }
             }
         }
     }
-}
-void meanPrepare(float* Array, int channel) {
-    for (int i = 0; i < channel; i++){
-        Array[i] = 8;
-    }
-}
-void varPrepare(float* Array, int channel) {
-       for (int i = 0; i < channel; i++){
-        Array[i] = 21.5;
-    }
-}
-void gammaPrepare(float* Array, int channel) {
-    for (int i = 0; i < channel; i++){
-        Array[i] = 0.5;
-    }
-}
-void betaPrepare(float* Array, int channel) {
-    for (int i = 0; i < channel; i++){
-        Array[i] = 0.2;
-    }
-}
 
-void dwfilterPrepare(float* Array, int filtersize) {
-    for (int i = 0; i < filtersize; i++) {
-        Array[i] = 0.002;
-    }
-}
-void dwbiasPrepare(float* Array, int channel) {
-    for (int c = 0; c < channel; c++) {
-        Array[c] = c + 0.01;
-    }
-}
-void reducefilterPrepare(float* Array, int channel_out, int channel_in) {
-    for (int i = 0; i < channel_out; i++) {
-        for (int j = 0; j < channel_in; j++) {
-            Array[i*channel_in + j] = 0.01;
-        }
-    }
-}
-void reducebiasPrepare(float* Array, int channel) {
-    for (int i = 0; i < channel; i++) {
-        Array[i] = i + 0.1;
-    }
-}
-void expandfilterPrepare(float* Array, int channel_out, int channel_in) {
-     for (int i = 0; i < channel_out; i++) {
-        for (int j = 0; j < channel_in; j++) {
-            Array[i*channel_in + j] = 0.005;
-        }
-    }
-}
-void expandbiasPrepare(float* Array, int channel) {
-    for (int i = 0; i < channel; i++) {
-        Array[i] = i + 0.1;
-    }
-}
-void projfilterPrepare(float* Array, int channel_out, int channel_in) {
-     for (int i = 0; i < channel_out; i++) {
-        for (int j = 0; j < channel_in; j++) {
-            Array[i*channel_in + j] = -0.25;
-        }
-    }
-}
+    for (int i = 0; i < 648; i++) msp_conv_weight[i] = parameterData["stage0.0.convs.0.0.weight"][i];
+    for (int i = 0; i < 24; i++) msp_conv_bias[i] = parameterData["stage0.0.convs.0.0.bias"][i];
+    for (int i = 0; i < 24; i++) msp_norm_weight[i] = parameterData["stage0.0.convs.0.1.weight"][i];
+    for (int i = 0; i < 24; i++) msp_norm_bias[i] = parameterData["stage0.0.convs.0.1.bias"][i];
+    for (int i = 0; i < 24; i++) msp_norm_running_mean[i] = parameterData["stage0.0.convs.0.1.running_mean"][i];    
+    for (int i = 0; i < 24; i++) msp_norm_running_var[i] = parameterData["stage0.0.convs.0.1.running_var"][i];      
+    for (int i = 0; i < 216; i++) dw_conv_weight[i] = parameterData["stage0.1.conv_local.conv.weight"][i];
+    for (int i = 0; i < 24; i++) norm_1_weight[i] = parameterData["stage0.1.conv_local.norm.weight"][i];
+    for (int i = 0; i < 24; i++) norm_1_bias[i] = parameterData["stage0.1.conv_local.norm.bias"][i];
+    for (int i = 0; i < 24; i++) norm_1_running_mean[i] = parameterData["stage0.1.conv_local.norm.running_mean"][i];
+    for (int i = 0; i < 24; i++) norm_1_running_var[i] = parameterData["stage0.1.conv_local.norm.running_var"][i];  
+    for (int i = 0; i < 576; i++) se_conv_reduce_weight[i] = parameterData["stage0.1.se.conv_reduce.weight"][i];
+    for (int i = 0; i < 24; i++) se_conv_reduce_bias[i] = parameterData["stage0.1.se.conv_reduce.bias"][i];
+    for (int i = 0; i < 576; i++) se_conv_expand_weight[i] = parameterData["stage0.1.se.conv_expand.weight"][i];
+    for (int i = 0; i < 24; i++) se_conv_expand_bias[i] = parameterData["stage0.1.se.conv_expand.bias"][i];
+    for (int i = 0; i < 576; i++) proj_conv_weight[i] = parameterData["stage0.1.proj.conv.weight"][i];
+    
 
-int main() {
-
-    dataPrepare(X_data, 1, 3, 56, 56);
-    mspfilterPrepare(msp_filter, 24, 3, 3);
-    mspbiasPrepare(msp_bias, 24);
-    meanPrepare(mean1, 24);
-    varPrepare(var1, 24);
-    gammaPrepare(gamma1, 24);
-    betaPrepare(beta1, 24);
-    meanPrepare(mean2, 24);
-    varPrepare(var2, 24);
-    gammaPrepare(gamma2, 24);
-    betaPrepare(beta2, 24);
-    dwfilterPrepare(dw_filter, 216);
-    dwbiasPrepare(dw_bias, 24);
-    reducefilterPrepare(reduce_filter, 24, 24);
-    reducebiasPrepare(reduce_bias, 24);
-    expandfilterPrepare(expand_filter, 24, 24);
-    expandbiasPrepare(expand_bias, 24);
-    projfilterPrepare(proj_filter, 24, 24);
-
-    kernel_stage0(X_data, msp_filter, msp_bias, dw_filter, dw_bias, reduce_filter, reduce_bias, 
-                    expand_filter, expand_bias, proj_filter, mean1, var1, gamma1, beta1,
-                    mean2, var2, gamma2, beta2, X_conv, X_dwconv, 
-                    X_mean, X_reduce, X_relu, X_expand, X_sigmoid, Y_msp, Y_dw, Y_se, Y_proj);
+    kernel_stage0(X_data, msp_conv_weight, msp_conv_bias, msp_norm_weight, msp_norm_bias, msp_norm_running_mean, msp_norm_running_var,
+                    dw_conv_weight, norm_1_weight, norm_1_bias, norm_1_running_mean, norm_1_running_var,
+                    se_conv_reduce_weight, se_conv_reduce_bias, se_conv_expand_weight, se_conv_expand_bias,
+                    proj_conv_weight, Y_msp_conv, Y_msp_norm, Y_dw_conv, Y_dw_norm, Y_dw_act, Y_mean, Y_reduce, 
+                    Y_relu, Y_expand, Y_sigmoid, Y_se, Y_proj);
     int out_size;
 
-    out_size = 28;
+    out_size = 112;
 
-     cout << " after proj- [0, 0]" << endl;
+    cout << " after msp norm  - [0, 1, 10:20, 10:20]" << endl;
     for (int b = 0; b < 1; b++) {
-        for (int c = 0; c < 1; c++) {
-            for (int h = 0; h < out_size; h++) {
-                for (int w = 0; w < out_size; w++) {
+        for (int c = 1; c < 2; c++) {
+            for (int h = 10; h < 20; h++) {
+                for (int w = 10; w < 20; w++) {
+                    cout << Y_msp_norm[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << " ";
+                }
+                cout << endl;
+            }
+        }
+    }
+
+    cout << " after proj- [0, 1, 10:15, 10:15]" << endl;
+    for (int b = 0; b < 1; b++) {
+        for (int c = 1; c < 2; c++) {
+            for (int h = 10; h < 15; h++) {
+                for (int w = 10; w < 15; w++) {
                     cout << Y_proj[b*24*out_size*out_size + c*out_size*out_size + h*out_size + w] << " ";
                 }
                 cout << endl;

@@ -9,13 +9,11 @@
 const int size = 4096;
 
 extern "C" {
-    void kernel_stage0(float* X_data, float* msp_filter, float* msp_bias, float* dw_filter, float* dw_bias,
-                        float* reduce_filter, float* reduce_bias, float* expand_filter, float* expand_bias, float* proj_filter,
-                        float* mean1, float* var1, float* gamma1, float* beta1,
-                        float* mean2, float* var2, float* gamma2, float* beta2,
-                        float* X_conv, float* X_dwconv, 
-                        float* X_mean, float* X_reduce, float* X_relu, float* X_expand, float* X_sigmoid,
-                        float* Y_msp, float* Y_dwact, float* Y_se, float* Y_proj);
+    void kernel_stage0(float* X_data, float* msp_conv_weight, float* msp_conv_bias, float* msp_norm_weight, float* msp_norm_bias, float* msp_norm_running_mean, float* msp_norm_running_var,
+                    float* dw_conv_weight, float* norm_1_weight, float* norm_1_bias, float* norm_1_running_mean, float* norm_1_running_var,
+                    float* se_conv_reduce_weight, float* se_conv_reduce_bias, float* se_conv_expand_weight, float* se_conv_expand_bias,
+                    float* proj_conv_weight, float* Y_msp_conv, float* Y_msp_norm, float* Y_dw_conv, float* Y_dw_norm, float* Y_dw_act, float* Y_mean, float* Y_reduce, 
+                    float* Y_relu, float* Y_expand, float* Y_sigmoid, float* Y_se, float* Y_proj);
     void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out);
     void BatchNorm(float *X_data, float *Y_data, int *X_num, float *mean, float *var, float *gamma, float *beta);
     void ReLU(float *X_data, float *Y_data, int *X_num, int zp);
