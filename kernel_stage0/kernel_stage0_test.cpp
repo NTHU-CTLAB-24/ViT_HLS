@@ -23,10 +23,10 @@ float Y_msp_norm[301056];
 float Y_dw_conv[301056];
 float Y_dw_norm[301056];
 float Y_dw_act[301056];
-float Y_mean[24];
-float Y_reduce[24];
-float Y_relu[24];
-float Y_expand[24];
+float Y_se_mean[24];
+float Y_se_reduce[24];
+float Y_se_act[24];
+float Y_se_expand[24];
 float Y_sigmoid[24];
 float Y_se[301056];
 float Y_proj[301056];
@@ -108,8 +108,8 @@ int main() {
     kernel_stage0(X_data, msp_conv_weight, msp_conv_bias, msp_norm_weight, msp_norm_bias, msp_norm_running_mean, msp_norm_running_var,
                     dw_conv_weight, norm_1_weight, norm_1_bias, norm_1_running_mean, norm_1_running_var,
                     se_conv_reduce_weight, se_conv_reduce_bias, se_conv_expand_weight, se_conv_expand_bias,
-                    proj_conv_weight, Y_msp_conv, Y_msp_norm, Y_dw_conv, Y_dw_norm, Y_dw_act, Y_mean, Y_reduce, 
-                    Y_relu, Y_expand, Y_sigmoid, Y_se, Y_proj);
+                    proj_conv_weight, Y_msp_conv, Y_msp_norm, Y_dw_conv, Y_dw_norm, Y_dw_act, Y_se_mean, Y_se_reduce, 
+                    Y_se_act, Y_se_expand, Y_sigmoid, Y_se, Y_proj);
     int out_size;
 
     out_size = 112;

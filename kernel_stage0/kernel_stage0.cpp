@@ -4,101 +4,13 @@
 #include <stdint.h>
 #include "kernel_stage0.hpp"
 
-void Padding(float* X_data, float* Y_data, int* X_num, int padding) {
-    //get X(input) size
-    int XN = X_num[0];
-    int XC = X_num[1];
-    int XH = X_num[2];
-    int XW = X_num[3];
-
-    int YH = XH + 2*padding;
-    int YW = XW + 2*padding;
-   
-   for (int n = 0; n < XN; n++) {
-        for (int c = 0; c < XC; c++) {
-            for (int h = 0; h < YH; h++) {
-                for (int w = 0; w < YW; w++) {
-                    int y_pos = n*XC*YH*YW + c*YH*YW + h*YW + w;
-                    if (h<padding || h>=XH+padding || w<padding || w>=XW+padding) Y_data[y_pos] = 0;
-                    else Y_data[y_pos] = X_data[n*XC*XH*XW + c*XH*XW + (h-padding)*XW + w-padding];
-                }
-            }
-        }
-   }
-}
-
-
-void Convolution(float* X_data, int* X_num, float* Y_data, int* Y_num,  float* filter, int* filter_num, float* bias) {
-    //get X(input) size
-    int XN = X_num[0];
-    int XC = X_num[1];
-    int XH = X_num[2];
-    int XW = X_num[3];
-
-    //get filter size
-    int KC = filter_num[0];
-    int KD = filter_num[1];
-    int KH = filter_num[2];
-    int KW = filter_num[3];
-    int padding = filter_num[4];
-    int stride = filter_num[5];
-    int isBias = filter_num[6];
-
-    //get Y(output) size
-    int YN = Y_num[0];
-    int YC = Y_num[1];
-    int YH = Y_num[2];
-    int YW = Y_num[3];
-
-    int x_pos, k_pos, y_pos;
-    for (int yn = 0; yn < YN; yn++) {
-        for (int yh = 0; yh < YH; yh++) {
-            for (int yw = 0; yw < YW; yw++) {
-                for (int yc = 0; yc < YC; yc++) {
-                    for (int xc = 0; xc < XC; xc++) {
-                        for (int kh = 0; kh < KH; kh++) {
-                            for (int kw = 0; kw < KW; kw++) {
-                                x_pos = yn*XC*XH*XW + xc*XH*XW + (yh*stride+kh)*XW + (yw*stride+kw);
-                                k_pos = yc*KD*KH*KW + xc*KW*KW + kh*KW + kw;
-                                y_pos = yn*YC*YH*YW + yc*YH*YW + yh*YW + yw;
-                                Y_data[y_pos] += X_data[x_pos] * filter[k_pos];
-                            }
-
-                        }
-                    }
-                    if (isBias) Y_data[y_pos] += bias[yc];
-                }
-            }
-        }
-    }
-}
-
-
-void BatchNorm(float* X_data, float* Y_data, int* X_num, float* mean, float* var, float* gamma, float* beta) {
-    //get X(input) size
-    int N = X_num[0];
-    int C = X_num[1];
-    int H = X_num[2];
-    int W = X_num[3];
-    
-   for (int n = 0; n < N; n++) {
-        for (int c = 0; c < C; c++) {
-            for (int h = 0; h < H; h++) {
-                for (int w = 0; w < W; w++) {
-                    Y_data[n*C*H*W + c*H*W + h*W + w] = (X_data[n*C*H*W + c*H*W + h*W + w] - mean[c]) / sqrt(var[c] + 1e-6) * gamma[c] + beta[c];
-                }
-            }
-        }
-   }
-}
-
 void Compute_mean(float* X_data, int* X_num, float* Y_data) {
     int XN = X_num[0];
     int XC = X_num[1];
     int XH = X_num[2];
     int XW = X_num[3];
 
-    int total_num = XH * XW;
+    float total_num = XH * XW;
     for (int n = 0; n < XN; n++) {
         for (int c = 0; c < XC; c++) {
             float temp = 0;
@@ -111,13 +23,7 @@ void Compute_mean(float* X_data, int* X_num, float* Y_data) {
         }
     }
 }
-void ReLU(float* X_data, float* Y_data, int* X_num, int zp){
-	
-	for(int i = X_num[0] * X_num[1] * X_num[2] * X_num[3] - 1; i >= 0; i--) // traverse all data
-		Y_data[i] = (X_data[i] > zp) ? X_data[i] : zp;
-	
-	return;
-}
+
 void Sigmoid(float* X_data, float* Y_data, int* X_num){
     int XN = X_num[0];
     int XC = X_num[1];
@@ -142,192 +48,94 @@ void Compute_mul(float* X_data, float* feature, float* Y_data, int* X_num) {
     int XH = X_num[2];
     int XW = X_num[3];
 
-    for (int h = 0; h < XH; h++) {
-        for (int w = 0; w < XW; w++) {
-            for (int n = 0; n < XN; n++) {
-                for (int c = 0; c < XC; c++) {
-                    int pos = n*XC*XH*XW + c*XH*XW + h*XW + w;
-                    float val = feature[n*XC + c];
-                    Y_data[pos] = X_data[pos] * val;
+    float scale;
+    int pos;
+    for (int b = 0; b < XN; b++) {
+        for (int c = 0; c < XC; c++) {
+            scale = feature[b*XC + c];
+            for (int h = 0; h < XH; h++) {
+                for (int w = 0; w < XW; w++) {
+                    pos = b*XC*XH*XW + c*XH*XW + h*XW + w;
+                    Y_data[pos] = X_data[pos] * scale;
                 }
             }
         }
     }
-}
-void Mspatch(float* X_data, int* X_num, float* X_pad, float* X_conv, int* msp_num, float* filter, int* filter_num, 
-                float* bias, float* running_mean, float* running_var, float* gamma, float* beta, float* Y_data) {
-
-    int padding = filter_num[4];
-    int stride = filter_num[5];
-
-    Padding(X_data, X_pad, X_num, padding);
-
-    
-    int x_pad_num[4];
-    x_pad_num[0] = X_num[0];
-    x_pad_num[1] = X_num[1];
-    x_pad_num[2] = X_num[2] + 2*padding;
-    x_pad_num[3] = X_num[3] + 2*padding;
-
-    Convolution(X_pad, x_pad_num, X_conv, msp_num, filter, filter_num, bias);
-    BatchNorm(X_conv, Y_data, msp_num, running_mean, running_var, gamma, beta);
-}
-
-void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out)
-{
-
-    int BATCH_SIZE = shape_para[0];
-    int CHANNEL_IN = shape_para[1];
-    int HEIGHT_IN = shape_para[2];
-    int WIDTH_IN = shape_para[3];
-    int CHANNEL_OUT = shape_para[4];
-    int HEIGHT_OUT = shape_para[5];
-    int WIDTH_OUT = shape_para[6];
-
-    int KERNEL_SIZE = conv_para[0];
-    int isConvBias = conv_para[1];
-    int STRIDE = conv_para[2];
-    int PADDING = conv_para[3];
-    int GROUP = conv_para[4];
-    int KERNEL_CHANNEL = conv_para[5];
-
-    int inGroupNums = CHANNEL_IN / GROUP;
-    int outGroupNums = CHANNEL_OUT / GROUP;
-
-    int kernelChannelIdx;
-    int out_pos;
-    int in_row;
-    int in_col;
-    int in_pos;
-    int kernel_pos;
-
-execute:
-Batch:
-    for (int batch = 0; batch < BATCH_SIZE; batch++){
-    Out_Row:
-        for (int row = 0; row < HEIGHT_OUT; row++)
-        {
-        Out_Column:
-            for (int col = 0; col < WIDTH_OUT; col++)
-            {
-                int biasFlag = 1; // 這種迴圈架構的bias會被重複計算，需要此flag限制只加一次
-            Kernel_Row:
-                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
-                {
-                Kernel_Col:
-                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
-                    {
-                        int groupIndex = 0;
-                        in_row = row * STRIDE + kernel_row - PADDING;
-                        in_col = col * STRIDE + kernel_col - PADDING;
-                        if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN)
-                            continue;
-                    Output_Channel:
-                        for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
-                        {
-                            out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
-                            kernelChannelIdx = 0;
-                        In_Channel:
-                            for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
-                            {
-                                in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
-                                kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
-                                out[out_pos] += in[in_pos] * kernel[kernel_pos];
-                                kernelChannelIdx++;
-                                if ((in_ch + 1) % inGroupNums == 0)
-                                    break;
-                            }
-                            if (isConvBias && biasFlag)
-                                out[out_pos] += bias[out_ch];
-                            if ((out_ch + 1) % outGroupNums == 0)
-                                groupIndex++;
-                        }
-                        biasFlag = 0;
-                    }
-                }
-            }
-        }
-    }
-
-    return;
-}
-void SE(float* X_data, float* Y_data, int* X_num, float* X_mean, float* X_reduce, float* X_relu, float* X_expand, float* X_sigmoid, float* reduce_filter, float* reduce_bias, float* expand_filter, float* expand_bias) {
-    float se_ratio = 1;
-    Compute_mean(X_data, X_num, X_mean);
-    int X_mean_num[4] = {X_num[0], X_num[1], 1, 1};
-    int XC = X_num[1];
-    int SEC = int(XC * se_ratio);
-    int reduce_filter_num[7] = {SEC, XC, 1, 1, 0, 1, 1};
-    int expand_filter_num[7] = {XC, SEC, 1, 1, 0, 1, 1};
-
-    int X_reduce_num[4];
-    X_reduce_num[0] = X_num[0];
-    X_reduce_num[1] = reduce_filter_num[0];
-    X_reduce_num[2] = (X_mean_num[2] - reduce_filter_num[2]) + 1;
-    X_reduce_num[3] = (X_mean_num[3] - reduce_filter_num[3]) + 1;
-
-    int X_expand_num[4];
-    X_expand_num[0] = X_num[0];
-    X_expand_num[1] = expand_filter_num[0];
-    X_expand_num[2] = (X_reduce_num[2] - expand_filter_num[2]) + 1;
-    X_expand_num[3] = (X_reduce_num[3] - expand_filter_num[3]) + 1;
-
-    //reduce convolution
-    Convolution(X_mean, X_mean_num, X_reduce, X_reduce_num, reduce_filter, reduce_filter_num, reduce_bias);
-    ReLU(X_reduce, X_relu, X_reduce_num, 0);
-    //expand convolution
-    Convolution(X_relu, X_reduce_num, X_expand, X_expand_num, expand_filter, expand_filter_num, expand_bias);
-    Sigmoid(X_expand, X_sigmoid, X_expand_num);
-    Compute_mul(X_data, X_sigmoid, Y_data, X_num);
 }
 
 extern "C"
 {
-    void kernel_stage0(float* X_data, float* msp_filter, float* msp_bias, float* dw_filter, float* dw_bias,
-                        float* mean, float* var, float* gamma, float* beta,
-                        float* X_pad, float* X_conv, float* X_dwconv, float* X_dwnorm,
-                        float* Y_msp, float* Y_dwact)
+    void kernel_stage0(float* X_data, float* msp_conv_weight, float* msp_conv_bias, float* msp_norm_weight, float* msp_norm_bias, float* msp_norm_running_mean, float* msp_norm_running_var,
+                    float* dw_conv_weight, float* norm_1_weight, float* norm_1_bias, float* norm_1_running_mean, float* norm_1_running_var,
+                    float* se_conv_reduce_weight, float* se_conv_reduce_bias, float* se_conv_expand_weight, float* se_conv_expand_bias,
+                    float* proj_conv_weight, float* Y_msp_conv, float* Y_msp_norm, float* Y_dw_conv, float* Y_dw_norm, float* Y_dw_act, float* Y_se_mean, float* Y_se_reduce, 
+                    float* Y_se_act, float* Y_se_expand, float* Y_se_sigmoid, float* Y_se, float* Y_proj)
     {
-    #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 768
-    #pragma HLS INTERFACE m_axi port = msp_filter depth = 648
-    #pragma HLS INTERFACE m_axi port = msp_bias depth = 24
-    #pragma HLS INTERFACE m_axi port = dw_filter depth = 216
-    #pragma HLS INTERFACE m_axi port = dw_bias depth = 24
-    //#pragma HLS INTERFACE m_axi port = reduce_filter depth = 576
-    //#pragma HLS INTERFACE m_axi port = reduce_bias depth = 24
-    //#pragma HLS INTERFACE m_axi port = expand_filter depth = 576
-    //#pragma HLS INTERFACE m_axi port = expand_bias depth = 24
-    #pragma HLS INTERFACE m_axi port = mean depth = 24
-    #pragma HLS INTERFACE m_axi port = var depth = 24
-    #pragma HLS INTERFACE m_axi port = gamma depth = 24
-    #pragma HLS INTERFACE m_axi port = beta depth = 24
+    #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 150528
+    #pragma HLS INTERFACE m_axi port = msp_conv_weight depth = 648
+    #pragma HLS INTERFACE m_axi port = msp_conv_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = msp_norm_weight depth = 24
+    #pragma HLS INTERFACE m_axi port = msp_norm_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = msp_norm_running_mean depth = 24
+    #pragma HLS INTERFACE m_axi port = msp_norm_running_var depth = 24
+    #pragma HLS INTERFACE m_axi port = dw_conv_weight depth = 216
+    #pragma HLS INTERFACE m_axi port = norm_1_weight depth = 24
+    #pragma HLS INTERFACE m_axi port = norm_1_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = norm_1_running_mean depth = 24
+    #pragma HLS INTERFACE m_axi port = norm_1_running_var depth = 24
+    #pragma HLS INTERFACE m_axi port = se_conv_reduce_weight depth = 576
+    #pragma HLS INTERFACE m_axi port = se_conv_reduce_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = se_conv_expand_weight depth = 576
+    #pragma HLS INTERFACE m_axi port = se_conv_expand_bias depth = 24
+    #pragma HLS INTERFACE m_axi port = proj_conv_weight depth = 576
 
-#pragma HLS INTERFACE m_axi port = X_pad bundle = gmem1 depth = 972
-#pragma HLS INTERFACE m_axi port = X_conv bundle = gmem0 depth = 1536
-#pragma HLS INTERFACE m_axi port = X_dwconv bundle = gmem1 depth = 1536
-#pragma HLS INTERFACE m_axi port = X_dwnorm bundle = gmem0 depth = 1536
-//#pragma HLS INTERFACE m_axi port = X_mean bundle = gmem1 depth = 24
-//#pragma HLS INTERFACE m_axi port = X_reduce bundle = gmem0 depth = 24
-//#pragma HLS INTERFACE m_axi port = X_relu bundle = gmem1 depth = 24
-//#pragma HLS INTERFACE m_axi port = X_expand bundle = gmem0 depth = 24
-//#pragma HLS INTERFACE m_axi port = X_sigmoid bundle = gmem1 depth = 24
+    #pragma HLS INTERFACE m_axi port = Y_msp_conv depth = 301056 bundle = gmem1
+    #pragma HLS INTERFACE m_axi port = Y_msp_norm depth = 301056 bundle = gmem2
+    #pragma HLS INTERFACE m_axi port = Y_dw_conv depth = 301056 bundle = gmem3
+    #pragma HLS INTERFACE m_axi port = Y_dw_norm depth = 301056 bundle = gmem0
+    #pragma HLS INTERFACE m_axi port = Y_dw_act depth = 301056 bundle = gmem1
+    #pragma HLS INTERFACE m_axi port = Y_se_mean depth = 24 bundle = gmem2 
+    #pragma HLS INTERFACE m_axi port = Y_se_reduce depth = 24 bundle = gmem3
+    #pragma HLS INTERFACE m_axi port = Y_se_act depth = 24 bundle = gmem0
+    #pragma HLS INTERFACE m_axi port = Y_se_expand depth = 24 bundle = gmem1
+    #pragma HLS INTERFACE m_axi port = Y_se_sigmoid depth = 24 bundle = gmem2
+    #pragma HLS INTERFACE m_axi port = Y_se depth = 301056 bundle = gmem3
+    #pragma HLS INTERFACE m_axi port = Y_proj depth = 301056 bundle = gmem0
 
-#pragma HLS INTERFACE m_axi port = Y_msp bundle = gmem2 depth = 1536
-#pragma HLS INTERFACE m_axi port = Y_dwact bundle = gmem3 depth = 1536
-//#pragma HLS INTERFACE m_axi port = Y_se bundle = gmem0 depth = 75264
+    int X_num[4] = {1, 3, 224, 224};
+    int shape_para[7] = {1, 3, 224, 224, 24, 112, 112};
+    int conv_para[6] = {3, 1, 2, 1, 1, 3};
+    int msp_num[4] = {1, 24, 112, 112};
 
-    int X_num[4] = {1, 3, 16, 16};
-    int msp_num[4] = {1, 24, 8, 8};
-    int msp_filter_num[7] = {24, 3, 3, 3, 1, 2, 1};
-    int dw_shape_num[7] = {1, 24, 8, 8, 24, 8, 8};
+    int dw_shape_num[7] = {1, 24, 112, 112, 24, 112, 112};
     int dw_conv_num[6] = {3, 0, 1, 1, 24, 1};
-    int dw_norm_num[4] = {1, 24, 8, 8};
+    int dw_norm_num[4] = {1, 24, 112, 112};
 
-    Mspatch(X_data, X_num, X_pad, X_conv, msp_num, msp_filter, msp_filter_num, msp_bias, mean, var, gamma, beta, Y_msp);
-    DW_conv(Y_msp, dw_filter, dw_bias, dw_shape_num, dw_conv_num, X_dwconv);
-    BatchNorm(X_dwconv, Y_dwact, dw_norm_num, mean, var, gamma, beta);
-    //ReLU(X_dwnorm, Y_dwact, dw_norm_num, 0);
-    //SE( Y_msp,  Y_se,  msp_num,  X_mean,  X_reduce,  X_relu,  X_expand,  X_sigmoid,  reduce_filter,  reduce_bias,  expand_filter,  expand_bias);
-    //Projection();
+    int se_data_num[4] = {1, 24, 112, 112};
+    int X_reduce_num[4] = {1, 24, 1, 1};
+    int X_expand_num[4] = {1, 24, 1, 1};
+
+    //Mspatch
+    //group=1 as normal convolution
+    DW_conv(X_data, msp_conv_weight, msp_conv_bias, shape_para, conv_para, Y_msp_conv);
+    BatchNorm(Y_msp_conv, Y_msp_norm, msp_num, msp_norm_running_mean, msp_norm_running_var, msp_norm_weight, msp_norm_bias);
+
+    //Depth-Wise Conv
+    DW_conv(Y_msp_norm, dw_conv_weight, nullptr, dw_shape_num, dw_conv_num, Y_dw_conv);
+    BatchNorm(Y_dw_conv, Y_dw_norm, dw_norm_num, norm_1_running_mean, norm_1_running_var, norm_1_weight, norm_1_bias);
+    SiLU(Y_dw_norm, Y_dw_act, dw_norm_num);
+
+    
+    //SE
+    Compute_mean(Y_dw_act, se_data_num, Y_se_mean);
+    Pointwise_conv(Y_se_mean, Y_se_reduce, se_conv_reduce_weight, se_conv_reduce_bias, 1, 24, 24, 1, 1, 1);
+    SiLU(Y_se_reduce, Y_se_act, X_reduce_num);
+    Pointwise_conv(Y_se_act, Y_se_expand, se_conv_expand_weight, se_conv_expand_bias, 1, 24, 24, 1, 1, 1);
+    Sigmoid(Y_se_expand, Y_se_sigmoid, X_expand_num);
+    Compute_mul(Y_dw_act, Y_se_sigmoid, Y_se, se_data_num);
+
+    //Projection
+    Pointwise_conv(Y_se, Y_proj, proj_conv_weight, nullptr, 1, 24, 24, 112, 112, 0);
+    
     }
 }

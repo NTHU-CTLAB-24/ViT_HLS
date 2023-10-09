@@ -31,34 +31,34 @@ void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_p
 
 execute:
 Batch:
-    for (int batch = 0; batch < BATCH_SIZE; batch++)
-    {
+    for (int batch = 0; batch < BATCH_SIZE; batch++){
+#pragma HLS LOOP_TRIPCOUNT min = 1 max = 1
     Out_Row:
-        for (int row = 0; row < HEIGHT_OUT; row++)
-        {
+        for (int row = 0; row < HEIGHT_OUT; row++){
+#pragma HLS LOOP_TRIPCOUNT min = 112 max = 112
         Out_Column:
-            for (int col = 0; col < WIDTH_OUT; col++)
-            {
+            for (int col = 0; col < WIDTH_OUT; col++){
+#pragma HLS LOOP_TRIPCOUNT min = 112 max = 112
                 int biasFlag = 1; // 這種迴圈架構的bias會被重複計算，需要此flag限制只加一次
             Kernel_Row:
-                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++)
-                {
+                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++){
+#pragma HLS LOOP_TRIPCOUNT min = 3 max = 3
                 Kernel_Col:
-                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++)
-                    {
+                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++){
+#pragma HLS LOOP_TRIPCOUNT min = 3 max = 3
                         int groupIndex = 0;
                         in_row = row * STRIDE + kernel_row - PADDING;
                         in_col = col * STRIDE + kernel_col - PADDING;
                         if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN )
                             continue;
                     Output_Channel:
-                        for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++)
-                        {
+                        for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++){
+#pragma HLS LOOP_TRIPCOUNT min = 24 max = 24
                             out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
                             kernelChannelIdx = 0;
                         In_Channel:
-                            for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++)
-                            {
+                            for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++){
+#pragma HLS LOOP_TRIPCOUNT min = 0 max = 24
                                 in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
                                 kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
                                 out[out_pos] += in[in_pos] * kernel[kernel_pos];

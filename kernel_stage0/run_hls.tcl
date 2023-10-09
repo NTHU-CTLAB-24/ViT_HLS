@@ -8,6 +8,7 @@ add_files BatchNorm.cpp
 add_files DW_conv.cpp
 add_files Pointwise_conv.cpp
 add_files ReLU.cpp
+add_files SiLU.cpp
 
 # Add test bench & files
 add_files -tb kernel_stage0_test.cpp
