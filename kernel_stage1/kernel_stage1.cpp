@@ -14,6 +14,11 @@ void ConvNormAct(float* dw_in, float* dw_kernel, float* dw_bias, int* dw_shape_p
     SiLU(norm_out, act_out, dw_X_num);
 }
 
+// void load_array(float* host_data, float* array_data, int size){
+//     for (int i = 0; i < size; i++)
+//         array_data[i] = host_data[i];
+// }
+
 extern "C"
 {
     void kernel_stage1(float* X_data, 
@@ -98,6 +103,17 @@ extern "C"
     int dw_conv_2_shape_para[7] = {1, 64, 56, 56, 64, 56, 56};
     int dw_conv_2_conv_para[6] = {3, 0, 1, 1, 64, 1};
     int dw_2_X_num[4] = {1, 64, 56, 56};
+
+//     float DW_CONV_1_FILTER[96 * 1 * 3 * 3];
+// #pragma HLS array_partition variable = DW_CONV_1_FILTER complete dim = 1
+//     float Y_V_ACT_1[1 * 96 * 112 * 112];
+// #pragma HLS array_partition variable = Y_V_ACT_1 complete dim = 1
+//     float Y_DW_CONV_1[1 * 96 * 56 * 56];
+// #pragma HLS array_partition variable = Y_DW_CONV_1 complete dim = 1
+
+    // load_array(dw_conv_1_filter, DW_CONV_1_FILTER, 864);
+    // load_array(Y_v_act_1, Y_V_ACT_1, 1204224);
+    // load_array(Y_dw_conv_1, Y_DW_CONV_1, 301056);
 
     // depth 1
     BatchNorm(X_data, Y_norm_1, norm_1_X_num, norm_1_running_mean, norm_1_running_var, norm_1_weight, norm_1_bias);

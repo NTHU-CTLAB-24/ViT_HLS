@@ -99,61 +99,6 @@ int main()
         Y_dw_skip_2[i] = 0;
     }
 
-    // // init value
-    // // depth 1
-    // for (int i = 0; i < 24; i++)
-    // {
-    //     norm_1_weight[i] = 0.5;
-    //     norm_1_bias[i] = 0.2;
-    //     norm_1_running_mean[i] = 8;
-    //     norm_1_running_var[i] = 21.5;
-    // }
-
-    // for (int i = 0; i < 2304; i++)
-    //     v_conv_1_weight[i] = 0.3;
-
-    // for (int i = 0; i < 96; i++)
-    // {
-    //     v_conv_1_bias[i] = i + 0.01;
-    //     dw_norm_1_gamma[i] = 0.5;
-    //     dw_norm_1_beta[i] = 0.2;
-    //     dw_norm_1_mean[i] = 8;
-    //     dw_norm_1_var[i] = 21.5;
-    // }
-
-    // for (int i = 0; i < 864; i++)
-    //     dw_conv_1_filter[i] = 0.3;
-
-    // for (int i = 0; i < 3072; i++)
-    //     proj_1_weight[i] = 0.3;
-
-    // // depth 2
-    // for (int i = 0; i < 32; i++)
-    // {
-    //     norm_2_weight[i] = 0.5;
-    //     norm_2_bias[i] = 0.2;
-    //     norm_2_running_mean[i] = 8;
-    //     norm_2_running_var[i] = 21.5;
-    // }
-
-    // for (int i = 0; i < 2048; i++)
-    //     v_conv_2_weight[i] = 0.3;
-
-    // for (int i = 0; i < 64; i++)
-    // {
-    //     v_conv_2_bias[i] = i + 0.01;
-    //     dw_norm_2_gamma[i] = 0.5;
-    //     dw_norm_2_beta[i] = 0.2;
-    //     dw_norm_2_mean[i] = 8;
-    //     dw_norm_2_var[i] = 21.5;
-    // }
-
-    // for (int i = 0; i < 576; i++)
-    //     dw_conv_2_filter[i] = 0.3;
-
-    // for (int i = 0; i < 2048; i++)
-    //     proj_2_weight[i] = 0.3;
-
     // init parameters value
     ifstream file("./stage1_parameters.txt");
     if (!file.is_open())

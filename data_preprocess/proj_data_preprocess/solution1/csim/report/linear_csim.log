@@ -1,0 +1,27 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../data_preprocess.cpp in debug mode
+   Compiling ../../../../linear.cpp in debug mode
+   Generating csim.exe
+Origin image: 500 375 3
+Croped image: 224 224 3
+Image Preprocess result: 
+-1.12471 -1.08985 -1.14213 -1.17699 -1.12471 -1.07242 -1.0027 -1.07242
+-1.05499 -1.02013 -1.07242 -1.12471 -1.03756 -0.985272 -0.950414 -1.02013
+-1.03756 -0.985272 -0.985272 -1.02013 -0.985272 -1.0027 -1.02013 -1.03756
+-1.05499 -0.950414 -0.950414 -0.967843 -1.02013 -1.03756 -1.07242 -1.07242
+-1.08985 -0.985272 -1.0027 -1.0027 -1.07242 -1.08985 -1.07242 -1.05499
+-1.08985 -1.03756 -1.08985 -1.07242 -1.10728 -1.10728 -1.07242 -1.05499
+-1.03756 -1.03756 -1.0027 -1.0027 -1.08985 -1.05499 -1.03756 -1.02013
+-1.0027 -1.02013 -1.0027 -0.985272 -1.05499 -1.03756 -1.02013 -1.0027
+
+HOST-INFO: loading norm.norm.weight value...
+HOST-INFO: loading norm.norm.bias value...
+HOST-INFO: loading head.weight value...
+HOST-INFO: loading head.bias value...
+
+Linear result: 
+-0.789721 0.38872 0.407852 -0.0586682 -0.471347 -0.413131 -0.393396 0.28662 -0.0951742 0.0338863
+
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************
