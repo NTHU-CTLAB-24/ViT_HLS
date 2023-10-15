@@ -1,0 +1,356 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'cppan22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Mon Oct 09 15:35:03 CST 2023
+INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
+INFO: [HLS 200-10] In directory '/users/student/mr111/cppan22/kernel_stage1'
+Sourcing Tcl script 'run_hls.tcl'
+INFO: [HLS 200-1510] Running: open_project -reset proj_kernel_stage1 
+INFO: [HLS 200-10] Opening and resetting project '/users/student/mr111/cppan22/kernel_stage1/proj_kernel_stage1'.
+WARNING: [HLS 200-40] No /users/student/mr111/cppan22/kernel_stage1/proj_kernel_stage1/solution1/solution1.aps file found.
+INFO: [HLS 200-1510] Running: add_files kernel_stage1.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_stage1.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files BatchNorm.cpp 
+INFO: [HLS 200-10] Adding design file 'BatchNorm.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ComputeSkip.cpp 
+INFO: [HLS 200-10] Adding design file 'ComputeSkip.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files DW_conv.cpp 
+INFO: [HLS 200-10] Adding design file 'DW_conv.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files Pointwise_conv.cpp 
+INFO: [HLS 200-10] Adding design file 'Pointwise_conv.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ReLU.cpp 
+INFO: [HLS 200-10] Adding design file 'ReLU.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files kernel_attention.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_attention.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb kernel_stage1_test.cpp 
+INFO: [HLS 200-10] Adding test bench file 'kernel_stage1_test.cpp' to the project
+INFO: [HLS 200-1510] Running: set_top kernel_stage1 
+INFO: [HLS 200-1510] Running: open_solution -reset solution1 
+INFO: [HLS 200-10] Creating and opening solution '/users/student/mr111/cppan22/kernel_stage1/proj_kernel_stage1/solution1'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+WARNING: [HLS 200-40] No /users/student/mr111/cppan22/kernel_stage1/proj_kernel_stage1/solution1/solution1.aps file found.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1510] Running: set_part xcu250-figd2104-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu250-figd2104-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 50 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 50ns.
+INFO: [HLS 200-1510] Running: csim_design 
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../kernel_stage1_test.cpp in debug mode
+   Compiling ../../../../kernel_attention.cpp in debug mode
+   Compiling ../../../../ReLU.cpp in debug mode
+   Compiling ../../../../Pointwise_conv.cpp in debug mode
+   Compiling ../../../../DW_conv.cpp in debug mode
+   Compiling ../../../../ComputeSkip.cpp in debug mode
+   Compiling ../../../../BatchNorm.cpp in debug mode
+   Compiling ../../../../kernel_stage1.cpp in debug mode
+   Generating csim.exe
+10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 11.2461 11.1882 11.1882 10.5761 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5182 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 11.1882 11.1214 11.1214 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 10.5182 10.5182 10.5761 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 51.32 seconds. CPU system time: 3.29 seconds. Elapsed time: 54.9 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Analyzing design file 'kernel_attention.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'ReLU.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Pointwise_conv.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'DW_conv.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'ComputeSkip.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'BatchNorm.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_stage1.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 189.12 seconds. CPU system time: 11.47 seconds. Elapsed time: 201.98 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-178] Inlining function 'load_softmax(float*, float*, int*)' into 'krnl_softmax(float*, float*, float*, int*)' (kernel_attention.cpp:365:0)
+INFO: [HLS 214-178] Inlining function 'compute_softmax(float*, float*, int*)' into 'krnl_softmax(float*, float*, float*, int*)' (kernel_attention.cpp:365:0)
+INFO: [HLS 214-178] Inlining function 'pad_f(float*, float*, int*, int*)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'rearrangeX(float*, float*, int*)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'rearrangeX2(float*, float*, int*)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'rearrangeQKX(float*, float*, int*)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'compute_act(float*, float*, int*, int)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'rearrangeX3(float*, float*, int*)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'store_result(float*, float*, int*)' into 'kernel_attention' (kernel_attention.cpp:787:0)
+INFO: [HLS 214-178] Inlining function 'BatchNorm' into 'ConvNormAct(float*, float*, float*, int*, int*, float*, float*, float*, float*, float*, float*, float*, int, int*)' (kernel_stage1.cpp:12:0)
+INFO: [HLS 214-178] Inlining function 'ReLU' into 'ConvNormAct(float*, float*, float*, int*, int*, float*, float*, float*, float*, float*, float*, float*, int, int*)' (kernel_stage1.cpp:12:0)
+INFO: [HLS 214-178] Inlining function 'ConvNormAct(float*, float*, float*, int*, int*, float*, float*, float*, float*, float*, float*, float*, int, int*)' into 'kernel_stage1' (kernel_stage1.cpp:61:0)
+INFO: [HLS 214-178] Inlining function 'Pointwise_conv' into 'kernel_stage1' (kernel_stage1.cpp:61:0)
+INFO: [HLS 214-115] Multiple burst reads of length 1024 and bit width 32 in loop 'VITIS_LOOP_596_4'(kernel_attention.cpp:596:31) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:596:31)
+INFO: [HLS 214-115] Multiple burst writes of variable length and bit width 32 in loop 'VITIS_LOOP_484_3'(kernel_attention.cpp:484:35) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:484:35)
+INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in loop 'VITIS_LOOP_737_3'(kernel_attention.cpp:737:35) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:737:35)
+INFO: [HLS 214-115] Multiple burst writes of variable length and bit width 32 in loop 'VITIS_LOOP_737_3'(kernel_attention.cpp:737:35) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:737:35)
+INFO: [HLS 214-115] Multiple burst reads of length 196 and bit width 32 in loop 'VITIS_LOOP_96_3'(kernel_attention.cpp:96:34) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:96:34)
+INFO: [HLS 214-115] Multiple burst reads of length 21609 and bit width 32 in loop 'mem_rd'(kernel_attention.cpp:284:5) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:284:5)
+INFO: [HLS 214-115] Multiple burst writes of length 21609 and bit width 32 in loop 'mem_rd'(kernel_attention.cpp:284:5) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:284:5)
+INFO: [HLS 214-115] Multiple burst reads of length 49 and bit width 32 in loop 'count_sum'(kernel_attention.cpp:346:17) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:346:17)
+INFO: [HLS 214-115] Multiple burst reads of length 1024 and bit width 32 in loop 'VITIS_LOOP_70_2'(kernel_attention.cpp:70:26) has been inferred on bundle 'gmem1'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:70:26)
+INFO: [HLS 214-115] Multiple burst writes of length 16 and bit width 32 in loop 'VITIS_LOOP_72_4'(kernel_attention.cpp:72:34) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:72:34)
+INFO: [HLS 214-115] Multiple burst reads of length 1764 and bit width 32 in loop 'VITIS_LOOP_133_2'(kernel_attention.cpp:133:27) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:133:27)
+INFO: [HLS 214-115] Multiple burst reads of length 1764 and bit width 32 in loop 'VITIS_LOOP_160_1'(kernel_attention.cpp:160:23) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:160:23)
+INFO: [HLS 214-115] Multiple burst reads of length 1764 and bit width 32 in loop 'VITIS_LOOP_227_1'(kernel_attention.cpp:227:23) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:227:23)
+INFO: [HLS 214-115] Multiple burst reads of length 5292 and bit width 32 in loop 'VITIS_LOOP_664_1'(kernel_attention.cpp:664:27) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:664:27)
+INFO: [HLS 214-115] Multiple burst reads of length 5292 and bit width 32 in loop 'VITIS_LOOP_196_2'(kernel_attention.cpp:196:27) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_attention.cpp:196:27)
+INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in loop 'VITIS_LOOP_20_3'(ComputeSkip.cpp:20:34) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (ComputeSkip.cpp:20:34)
+INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in loop 'VITIS_LOOP_20_3'(ComputeSkip.cpp:20:34) has been inferred on bundle 'gmem2'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (ComputeSkip.cpp:20:34)
+INFO: [HLS 214-115] Multiple burst writes of variable length and bit width 32 in loop 'VITIS_LOOP_20_3'(ComputeSkip.cpp:20:34) has been inferred on bundle 'gmem3'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (ComputeSkip.cpp:20:34)
+INFO: [HLS 214-115] Multiple burst reads of length 3072 and bit width 32 in loop 'VITIS_LOOP_14_2'(BatchNorm.cpp:14:26) has been inferred on bundle 'gmem3'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (BatchNorm.cpp:14:26)
+INFO: [HLS 214-115] Multiple burst writes of length 3072 and bit width 32 in loop 'VITIS_LOOP_14_2'(BatchNorm.cpp:14:26) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (BatchNorm.cpp:14:26)
+INFO: [HLS 214-115] Multiple burst reads of length 48 and bit width 32 in loop 'Output_Channel'(Pointwise_conv.cpp:25:17) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (Pointwise_conv.cpp:25:17)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 11.42 seconds. CPU system time: 0.97 seconds. Elapsed time: 13.14 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.25 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.42 seconds; current allocated memory: 776.172 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.52 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.62 seconds; current allocated memory: 840.172 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_287_3' (kernel_attention.cpp:287) in function 'krnl_softmax' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_344_3' (kernel_attention.cpp:344) in function 'krnl_softmax' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_100_5' (kernel_attention.cpp:100) in function 'get_qk' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_737_3' (kernel_attention.cpp:737) in function 'compute_skip' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_600_6' (kernel_attention.cpp:600) in function 'compute_norm' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_615_8' (kernel_attention.cpp:615) in function 'compute_norm' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_638_11' (kernel_attention.cpp:638) in function 'compute_norm' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_257_4' (kernel_attention.cpp:257) in function 'compute_multiplication' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_270_6' (kernel_attention.cpp:270) in function 'compute_multiplication' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_484_3' (kernel_attention.cpp:484) in function 'compute_conv' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'In_Channel' (kernel_attention.cpp:515) in function 'compute_conv' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_428_3' (kernel_attention.cpp:428) in function 'compute_PADDING' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_71_3' (kernel_attention.cpp:71) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_141_6' (kernel_attention.cpp:141) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_168_5' (kernel_attention.cpp:168) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_234_5' (kernel_attention.cpp:234) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_670_4' (kernel_attention.cpp:670) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_204_6' (kernel_attention.cpp:204) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_385_4' (kernel_attention.cpp:385) in function 'kernel_attention.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Kernel_Col' (DW_conv.cpp:42) in function 'DW_conv.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_20_3' (ComputeSkip.cpp:20) in function 'Compute_skip.1.2.3.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_16_4' (BatchNorm.cpp:16) in function 'kernel_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_7_1' (ReLU.cpp:7) in function 'kernel_stage1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Out_Column' (Pointwise_conv.cpp:22) in function 'kernel_stage1' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_344_3' (kernel_attention.cpp:344) in function 'krnl_softmax' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Out_Column' (Pointwise_conv.cpp:22) in function 'kernel_stage1' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_71_3' (kernel_attention.cpp:71) in function 'kernel_attention.1' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_615_8' (kernel_attention.cpp:615) in function 'compute_norm' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_638_11' (kernel_attention.cpp:638) in function 'compute_norm' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Kernel_Col' (DW_conv.cpp:42) in function 'DW_conv.1' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'count_sum' (kernel_attention.cpp:341) in function 'krnl_softmax' completely with a factor of 49.
+INFO: [HLS 200-489] Unrolling loop 'divide' (kernel_attention.cpp:351) in function 'krnl_softmax' completely with a factor of 49.
+INFO: [HLS 200-489] Unrolling loop 'Output_Channel' (Pointwise_conv.cpp:25) in function 'kernel_stage1' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'In_Channel' (Pointwise_conv.cpp:28) in function 'kernel_stage1' completely with a factor of 12.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_72_4' (kernel_attention.cpp:72) in function 'kernel_attention.1' completely with a factor of 16.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_619_9' (kernel_attention.cpp:617) in function 'compute_norm' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_640_12' (kernel_attention.cpp:640) in function 'compute_norm' completely with a factor of 4.
+INFO: [HLS 200-489] Unrolling loop 'Output_Channel' (DW_conv.cpp:42) in function 'DW_conv.1' completely with a factor of 12.
+INFO: [XFORM 203-102] Partitioning array 'skip2_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'skip1_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'pad2_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'pad1_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'norm_2_X_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'mul2_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'mul1_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'dw_2_X_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv2_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'conv1_num' automatically.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 7 for loop 'VITIS_LOOP_737_3' in function 'compute_skip'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 7 for loop 'VITIS_LOOP_737_3' in function 'compute_skip'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 49 for loop 'VITIS_LOOP_255_2' in function 'compute_multiplication'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 49 for loop 'VITIS_LOOP_255_2' in function 'compute_multiplication'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 49 for loop 'VITIS_LOOP_269_5' in function 'compute_multiplication'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 49 for loop 'VITIS_LOOP_269_5' in function 'compute_multiplication'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 7 for loop 'VITIS_LOOP_484_3' in function 'compute_conv'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 7 for loop 'VITIS_LOOP_484_3' in function 'compute_conv'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 9 for loop 'init_output' in function 'compute_conv'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 9 for loop 'init_output' in function 'compute_conv'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 9 for loop 'Batch' in function 'compute_conv'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 9 for loop 'Batch' in function 'compute_conv'.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 16 for loop 'VITIS_LOOP_20_3' in function 'Compute_skip.1.2.3.1'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 16 for loop 'VITIS_LOOP_20_3' in function 'Compute_skip.1.2.3.1'.
+INFO: [XFORM 203-11] Balancing expressions in function 'kernel_attention.1' (kernel_attention.cpp:70:43)...6 expression(s) balanced.
+INFO: [XFORM 203-11] Balancing expressions in function 'compute_conv' (kernel_attention.cpp:478:29)...3 expression(s) balanced.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 1.51 seconds. CPU system time: 0.11 seconds. Elapsed time: 2 seconds; current allocated memory: 904.172 MB.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_286_2' (kernel_attention.cpp:286:40) in function 'krnl_softmax'.
+INFO: [XFORM 203-541] Flattening a loop nest 'mem_rd' (kernel_attention.cpp:284:14) in function 'krnl_softmax'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_342_1' (kernel_attention.cpp:342:31) in function 'krnl_softmax'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_15_3' (BatchNorm.cpp:15:39) in function 'kernel_stage1'.
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_14_2' (BatchNorm.cpp:14:35) in function 'kernel_stage1' the outer loop is not a perfect loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (Pointwise_conv.cpp:19:18) in function 'kernel_stage1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_70_2' (kernel_attention.cpp:70:34) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_139_5' (kernel_attention.cpp:139:48) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_137_4' (kernel_attention.cpp:137:44) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_135_3' (kernel_attention.cpp:135:40) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_133_2' (kernel_attention.cpp:133:36) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_166_4' (kernel_attention.cpp:166:44) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_164_3' (kernel_attention.cpp:164:40) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_160_1' (kernel_attention.cpp:160:32) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_233_4' (kernel_attention.cpp:233:44) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_231_3' (kernel_attention.cpp:231:40) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_227_1' (kernel_attention.cpp:227:32) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_668_3' (kernel_attention.cpp:668:44) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_666_2' (kernel_attention.cpp:666:40) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_664_1' (kernel_attention.cpp:664:36) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_202_5' (kernel_attention.cpp:202:48) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_200_4' (kernel_attention.cpp:200:44) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_198_3' (kernel_attention.cpp:198:40) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_196_2' (kernel_attention.cpp:196:36) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_384_3' (kernel_attention.cpp:384:39) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_383_2' (kernel_attention.cpp:383:35) in function 'kernel_attention.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_98_4' (kernel_attention.cpp:98:47) in function 'get_qk'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_96_3' (kernel_attention.cpp:96:43) in function 'get_qk'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_92_1' (kernel_attention.cpp:92:32) in function 'get_qk'.
+INFO: [XFORM 203-541] Flattening a loop nest 'init_in' (kernel_attention.cpp:90:11) in function 'get_qk'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_735_2' (kernel_attention.cpp:735:40) in function 'compute_skip'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_733_1' (kernel_attention.cpp:733:36) in function 'compute_skip'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Skip' (kernel_attention.cpp:731:14) in function 'compute_skip'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_598_5' (kernel_attention.cpp:598:44) in function 'compute_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_596_4' (kernel_attention.cpp:596:40) in function 'compute_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_613_7' (kernel_attention.cpp:613:40) in function 'compute_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_636_10' (kernel_attention.cpp:636:41) in function 'compute_norm'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_256_3' (kernel_attention.cpp:256:43) in function 'compute_multiplication'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_255_2' (kernel_attention.cpp:255:39) in function 'compute_multiplication'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_269_5' (kernel_attention.cpp:269:39) in function 'compute_multiplication'.
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_253_1' (kernel_attention.cpp:253:35) in function 'compute_multiplication' more than one sub loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'execute' (kernel_attention.cpp:252:13) in function 'compute_multiplication'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_482_2' (kernel_attention.cpp:482:40) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_480_1' (kernel_attention.cpp:480:36) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'init_output' (kernel_attention.cpp:478:14) in function 'compute_conv'.
+WARNING: [HLS 200-960] Cannot flatten loop 'Output_Channel' (kernel_attention.cpp:511:29) in function 'compute_conv' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'Kernel_Col' (kernel_attention.cpp:509:30) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Kernel_Row' (kernel_attention.cpp:506:26) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Column' (kernel_attention.cpp:503:22) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (kernel_attention.cpp:500:18) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Batch' (kernel_attention.cpp:497:14) in function 'compute_conv'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_426_2' (kernel_attention.cpp:426:40) in function 'compute_PADDING'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_424_1' (kernel_attention.cpp:424:36) in function 'compute_PADDING'.
+INFO: [XFORM 203-541] Flattening a loop nest 'PADDING1' (kernel_attention.cpp:422:14) in function 'compute_PADDING'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Kernel_Row' (DW_conv.cpp:42:21) in function 'DW_conv.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Column' (DW_conv.cpp:40:22) in function 'DW_conv.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (DW_conv.cpp:37:18) in function 'DW_conv.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_18_2' (ComputeSkip.cpp:18:39) in function 'Compute_skip.1.2.3.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_16_1' (ComputeSkip.cpp:16:35) in function 'Compute_skip.1.2.3.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Skip' (ComputeSkip.cpp:14:14) in function 'Compute_skip.1.2.3.1'.
+INTERNAL-INFO: never seen llvm instruction 'dexp'(522)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 3.01 seconds. CPU system time: 0.16 seconds. Elapsed time: 3.47 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'kernel_stage1' ...
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' to 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_133_2_VITIS_LOOP_137_4_VITIS_LOOP_139_5_V' to 'kernel_attention_1_Pipeline_VITIS_LOOP_133_2_VITIS_LOOP_137_4_VITIS_LOOP_139_5_V'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_160_1_VITIS_LOOP_166_4_VITIS_LOOP_168_5' to 'kernel_attention_1_Pipeline_VITIS_LOOP_160_1_VITIS_LOOP_166_4_VITIS_LOOP_168_5'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_227_1_VITIS_LOOP_233_4_VITIS_LOOP_234_5' to 'kernel_attention_1_Pipeline_VITIS_LOOP_227_1_VITIS_LOOP_233_4_VITIS_LOOP_234_5'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_664_1_VITIS_LOOP_668_3_VITIS_LOOP_670_4' to 'kernel_attention_1_Pipeline_VITIS_LOOP_664_1_VITIS_LOOP_668_3_VITIS_LOOP_670_4'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_196_2_VITIS_LOOP_200_4_VITIS_LOOP_202_5_V' to 'kernel_attention_1_Pipeline_VITIS_LOOP_196_2_VITIS_LOOP_200_4_VITIS_LOOP_202_5_V'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1_Pipeline_VITIS_LOOP_383_2_VITIS_LOOP_384_3_VITIS_LOOP_385_4' to 'kernel_attention_1_Pipeline_VITIS_LOOP_383_2_VITIS_LOOP_384_3_VITIS_LOOP_385_4'.
+WARNING: [SYN 201-103] Legalizing function name 'kernel_attention.1' to 'kernel_attention_1'.
+WARNING: [SYN 201-103] Legalizing function name 'DW_conv.1' to 'DW_conv_1'.
+WARNING: [SYN 201-103] Legalizing function name 'Compute_skip.1.2.3.1' to 'Compute_skip_1_2_3_1'.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_Pipeline_VITIS_LOOP_596_4_VITIS_LOOP_598_5_VITIS_LOOP_600_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_596_4_VITIS_LOOP_598_5_VITIS_LOOP_600_6'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 9, loop 'VITIS_LOOP_596_4_VITIS_LOOP_598_5_VITIS_LOOP_600_6'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.67 seconds. CPU system time: 0.1 seconds. Elapsed time: 1.97 seconds; current allocated memory: 1.258 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.09 seconds. CPU system time: 0 seconds. Elapsed time: 0.11 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_Pipeline_VITIS_LOOP_613_7_VITIS_LOOP_615_8' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_613_7_VITIS_LOOP_615_8'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_613_7_VITIS_LOOP_615_8' (loop 'VITIS_LOOP_613_7_VITIS_LOOP_615_8'): Unable to schedule bus request operation ('gmem0_load_1_req', kernel_attention.cpp:621) on port 'gmem0' (kernel_attention.cpp:621) due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_613_7_VITIS_LOOP_615_8' (loop 'VITIS_LOOP_613_7_VITIS_LOOP_615_8'): Unable to schedule bus request operation ('gmem0_load_2_req', kernel_attention.cpp:621) on port 'gmem0' (kernel_attention.cpp:621) due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_613_7_VITIS_LOOP_615_8' (loop 'VITIS_LOOP_613_7_VITIS_LOOP_615_8'): Unable to schedule bus request operation ('gmem0_load_3_req', kernel_attention.cpp:621) on port 'gmem0' (kernel_attention.cpp:621) due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 4, Depth = 23, loop 'VITIS_LOOP_613_7_VITIS_LOOP_615_8'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.31 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.44 seconds; current allocated memory: 1.258 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.17 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.19 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'.
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' (loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'): Unable to schedule bus request operation ('gmem_load_4_req', kernel_attention.cpp:636) on port 'gmem' (kernel_attention.cpp:636) due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' (loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'): Unable to schedule bus request operation ('gmem_load_49_req', kernel_attention.cpp:642) on port 'gmem' (kernel_attention.cpp:642) due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' (loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'): Unable to schedule bus request operation ('gmem_load_50_req', kernel_attention.cpp:643) on port 'gmem' (kernel_attention.cpp:643) due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' (loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'): Unable to schedule bus request operation ('gmem_load_51_req', kernel_attention.cpp:643) on port 'gmem' (kernel_attention.cpp:643) due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' (loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'): Unable to schedule bus request operation ('gmem_load_58_req', kernel_attention.cpp:642) on port 'gmem' (kernel_attention.cpp:642) due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'compute_norm_Pipeline_VITIS_LOOP_636_10_VITIS_LOOP_638_11' (loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'): Unable to schedule bus request operation ('gmem_load_60_req', kernel_attention.cpp:643) on port 'gmem' (kernel_attention.cpp:643) due to limited memory ports (II = 13). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 14, Depth = 35, loop 'VITIS_LOOP_636_10_VITIS_LOOP_638_11'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.62 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.71 seconds; current allocated memory: 1.258 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.3 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.32 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_norm' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.27 seconds. CPU system time: 0 seconds. Elapsed time: 0.3 seconds; current allocated memory: 1.258 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.15 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.17 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP latency (root=empty_118) to 3 in order to utilize available DSP registers.
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'.
+WARNING: [HLS 200-880] The II Violation in module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' (loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus read operation ('gmem1_addr_read_15', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73) and bus read operation ('gmem1_addr_read', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' (loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus read operation ('gmem1_addr_read_15', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73) and bus read operation ('gmem1_addr_read', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' (loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus read operation ('gmem1_addr_read_15', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73) and bus read operation ('gmem1_addr_read', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' (loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between bus read operation ('gmem1_addr_read_15', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73) and bus read operation ('gmem1_addr_read', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' (loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'): Unable to enforce a carried dependence constraint (II = 11, distance = 1, offset = 1) between bus read operation ('gmem1_addr_read_15', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73) and bus read operation ('gmem1_addr_read', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'kernel_attention_1_Pipeline_VITIS_LOOP_70_2_VITIS_LOOP_71_3' (loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'): Unable to enforce a carried dependence constraint (II = 15, distance = 1, offset = 1) between bus read operation ('gmem1_addr_read_15', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73) and bus read operation ('gmem1_addr_read', kernel_attention.cpp:73) on port 'gmem1' (kernel_attention.cpp:73).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 16, Depth = 26, loop 'VITIS_LOOP_70_2_VITIS_LOOP_71_3'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.42 seconds. CPU system time: 0 seconds. Elapsed time: 0.49 seconds; current allocated memory: 1.258 GB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.18 seconds; current allocated memory: 1.258 GB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_attention_1_Pipeline_VITIS_LOOP_133_2_VITIS_LOOP_137_4_VITIS_LOOP_139_5_V' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP latency (root=mul_ln143) to 3 in order to
