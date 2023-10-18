@@ -1,55 +1,9 @@
-
+//memory 579952
 // Includes
 
 #include <stdint.h>
 #include <hls_math.h>
 #include <hls_stream.h>
-
-//#include "kernel_conv_norm_act.cpp"
-//#include "kernel_conv_norm_act2.cpp"
-//#include "kernel_conv_norm_act0.cpp"
-// TRIPCOUNT identifier
-// TRIPCOUNT identifier
-/*const int BATCH_SIZE = 1;
-
-const int CHANNEL_IN = 4;
-const int CHANNEL_OUT = 8;
-const int WIDTH_IN = 16;
-const int HEIGHT_IN = 16;
-//const int CHANNEL_OUT = 3;
-const int WINDOW_SIZE = 7;
-const int WINDOW_SIZE_W = WINDOW_SIZE <= 0 ? WIDTH_IN: WINDOW_SIZE;
-const int WINDOW_SIZE_H = WINDOW_SIZE <= 0 ? HEIGHT_IN: WINDOW_SIZE;
-const int pad_l = 0;
-const int pad_t = 0;
-const int pad_r = (WINDOW_SIZE_W - WIDTH_IN % WINDOW_SIZE_W) % WINDOW_SIZE_W;
-const int pad_b = (WINDOW_SIZE_H - HEIGHT_IN % WINDOW_SIZE_H) % WINDOW_SIZE_H;
-const int n1 = 3 ;// window_size_H
-const int n2 = 3 ;// window_size_W
-
-const int NEW_HEIGHT_IN = HEIGHT_IN+pad_t+pad_b;
-const int NEW_WIDTH_IN = WIDTH_IN+pad_l+pad_r;
-const int NEW_BATCH_SIZE = BATCH_SIZE * n1 * n2;
-const int h1 =  7;// window_size_W
-const int w1 =  7;// window_size_W
-const int dim_head = 4;
-const int HEIGHT_OUT = 7;
-const int WIDTH_OUT = 7;
-const int HEAD_SIZE = 1;
-const int DIM_HEAD_SIZE = 4;
-const int X_DIM_HEAD_SIZE = 4;
-const int QK_SIZE = 2;
-const int NEW_CHANNEL_OUT = 12;
-const float scale = 1/sqrt(dim_head);
-*/
-// Convolution parameters
-//const int KERNEL_SIZE = 3;
-//const int PADDING = 0;
-//const int STRIDE = 1;
-//const bool isBias = true;
-//const bool isSkip = false;
-//const int HEIGHT_OUT = (HEIGHT_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-//const int WIDTH_OUT = (WIDTH_IN - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
 
 void pad_f(float* x, float* afterPad, int* X_num, int* padding){
     int B = X_num[0];//BATCH_SIZE
@@ -58,15 +12,7 @@ void pad_f(float* x, float* afterPad, int* X_num, int* padding){
     int W = X_num[3];//WIDTH_IN
     int NH = X_num[2] + padding[1] + padding[3];//NEW_HEIGHT_IN                       pad l t r b
     int NW = X_num[3] + padding[0] + padding[2];//NEW_WIDTH_IN
-    /*for(int i = 0; i < B; i++){
-        for(int j = 0; j < C; j++){
-            for(int k = 0; k < NH; k++){
-                for(int l = 0; l < NW; l++){
-                    afterPad[i * C * NH * NW + j * NH * NW + k * NW + l] = 0;
-                }
-            }
-        }
-    }*/
+    
     for(int i = 0; i < B; i++){
         for(int j = 0; j < C; j++){
             for(int k = 0; k < H; k++){
@@ -108,7 +54,7 @@ init_in:
 																			   h * W +
 																			   w];
                             else
-                                in_k[b * DH * W * H * C + c * DH * W * H + (h * W + w) * DH + dh]
+                                in_k[b * DH * W * H * C + c * DH * W * H + dh * H * W + h * W + w]
                                                                              = in_qk[b * QK * C * DH * H * W+
 																			   qk * C * DH * H * W+
 																			   c * DH * H * W + dh * H * W +
@@ -142,7 +88,10 @@ void rearrangeX(float* afterPad, float* afterRearrangeX, int* X_num){
                         for (int n = 0; n < N2; n++)
                         {
                            afterRearrangeX[(i * N1 * N2 + l * N2 + n) * C * H1 * W1 + j * H1 * W1 + k * W1 + m] = 
-                           afterPad[i * H1 * N1 * W1 * N2 * C + j * H1 * N1 * W1 * N2 + (k * N1 + l) * W1 * N2 + m * N2 + n];
+                           afterPad[i * H1 * N1 * W1 * N2 * C + 
+                                    j * H1 * N1 * W1 * N2 + 
+                                    (k * N1 + l) * W1 * N2 + 
+                                    m * N2 + n];
                         }
                     }
                 }
@@ -242,95 +191,31 @@ void rearrangeQKX(float* afterQKXMultiplication, float* afterRearrangeQKX, int* 
 
     }
 }
-void compute_multiplication(float* in_q, float* in_k, float* afterQKMultiplication,float* sum, int* X_num, float scale, int times)
+void compute_multiplication(float* in_q, float* in_k, float* afterQKMultiplication, int* X_num, float scale)
 {
     int B = X_num[0];//BATCH_SIZE*n1*n2
     int C = X_num[1];//HEAD_SIZE
     int H = X_num[2];//HEIGHT_OUT*WIDTH_OUT
     int W = X_num[3];//DIM_HEAD_SIZE
     int NW = X_num[4];//HEIGHT_OUT*WIDTH_OUT
+    float sum = 0;
 execute:
     for(int b = 0; b < B; b++){
         for(int c = 0;c < C; c++){
-            //float sum[H*NW]={};
-            for(int i = 0; i < H; i++){
-                for(int j = 0; j < W; j++){
-                    for(int k = 0; k < NW; k++){
-                    	if(times==1){
-                    		sum[i*NW+k]+=in_q[b * C * H * W + c * H * W + i * W + j]
-                                   *in_k[b * C * W * NW + c * W * NW + k * W + j]*scale;
-                    	}
-                    	else{
-                    		sum[i*NW+k]+=in_q[b * C * H * W + c * H * W + i * W + j]
-                    		                                   *in_k[b * C * W * NW + c * W * NW + j * NW + k]*scale;
-                    	}
-					}
-                }
-            }
             for(int i = 0; i < H; i++){
                 for(int k = 0; k < NW; k++){
-                    afterQKMultiplication[b * H * NW * C + c * H * NW + i * NW+ k] = sum[i*NW+k];
-                    sum[i*NW+k]=0;
+                    for(int j = 0; j < W; j++){
+                        sum += in_q[b * C * H * W + c * H * W + i * W + j]
+                        *in_k[b * C * W * NW + c * W * NW + j * NW + k]*scale;
+					}
+                    afterQKMultiplication[b * H * NW * C + c * H * NW + i * NW+ k] = sum;
+                    sum = 0;
                 }
             }
         }
     }
 }
-void load_softmax(float* in, float* out, int* X_num) {
-    int B = X_num[0];//BATCH_SIZE*n1*n2
-    int C = X_num[1];//HEAD_SIZE
-    int H = X_num[2];//HEIGHT_OUT*WIDTH_OUT
-    int W = X_num[3];//HEIGHT_OUT*WIDTH_OUT
-mem_rd:
-    for (int b = 0; b < B; b++) {
-        for (int h = 0; h < C; h++) {
-            for (int hw = 0; hw < H; hw++) {
-                for (int i = 0; i < W; i++) {
-                    float tmp = in[b * H * W * C + h * H * W + hw * W + i];
-                    /*float expo = 1;
-                    int neg = tmp>=0?0:1;
-                    if(neg)tmp = -tmp;
-                    if(tmp>=9) expo*=8103.083928,tmp-=9;//e^9
-                    else if(tmp>=8) expo*=2980.957987,tmp-=8;//e^8
-                    else if(tmp>=7) expo*=1096.633158,tmp-=7;//e^7
-                    else if(tmp>=6) expo*=403.428793,tmp-=6;//e^6
-                    else if(tmp>=5) expo*=148.413159,tmp-=5;//e^5
-                    else if(tmp>=4) expo*=54.598150,tmp-=4;//e^4
-                    else if(tmp>=3) expo*=20.085537,tmp-=3;//e^3
-                    else if(tmp>=2) expo*=7.389056,tmp-=2;//e^2
-                    else if(tmp>=1) expo*=2.718282,tmp-=1;//e^1
-                    //if tmp>=0 expo =expo,tmp-=0
 
-                    if(tmp>=0.9) expo*=2.459603,tmp-=0.9;//e^0.9
-                    else if(tmp>=0.8) expo*=2.225541,tmp-=0.8;//e^0.8
-                    else if(tmp>=0.7) expo*=2.013753,tmp-=0.7;//e^0.7
-                    else if(tmp>=0.6) expo*=1.822119,tmp-=0.6;//e^0.6
-                    else if(tmp>=0.5) expo*=1.648721,tmp-=0.5;//e^0.5
-                    else if(tmp>=0.4) expo*=1.491825,tmp-=0.4;//e^0.4
-                    else if(tmp>=0.3) expo*=1.349859,tmp-=0.3;//e^0.3
-                    else if(tmp>=0.2) expo*=1.221403,tmp-=0.2;//e^0.2
-                    else if(tmp>=0.1) expo*=1.105171,tmp-=0.1;//e^0.1
-
-                    //do the rounding
-                    if(tmp>=0.085) expo*=1.094174;//e^0.09
-                    else if(tmp>=0.075) expo*=1.083287;//e^0.08
-                    else if(tmp>=0.065) expo*=1.072508;//e^0.07
-                    else if(tmp>=0.055) expo*=1.061837;//e^0.06
-                    else if(tmp>=0.045) expo*=1.051271;//e^0.05
-                    else if(tmp>=0.035) expo*=1.040811;//e^0.04
-                    else if(tmp>=0.025) expo*=1.030455;//e^0.03
-                    else if(tmp>=0.015) expo*=1.020201;//e^0.02
-                    else if(tmp>=0.005) expo*=1.010050;//e^0.01
-
-                    if(neg)out[b][h][hw][i] = 1/expo;
-                    else out[b][h][hw][i] = expo;*/
-                    out[b * H * W * C + h * H * W + hw * W + i] = exp(tmp);
-                    //std::cout<<out[b][h][hw][i]<<"\n";
-                }
-            }
-        }
-    }
-}
 void compute_softmax(float* inStream,float* out_stream, int* X_num)
 {
     int B = X_num[0];//BATCH_SIZE*n1*n2
@@ -340,15 +225,23 @@ void compute_softmax(float* inStream,float* out_stream, int* X_num)
 gen_output2:
     //float tmp_in[W];
     float sum = 0;
+    float tmp_in = 0;
+    float tmp_in2 = 0;
     for(int b = 0; b < B; ++b){
         for(int h = 0; h < C; ++h){
             for (int i = 0; i < H; ++i) {
             count_sum:
                 for (int j = 0; j < W; ++j) {
-                    //tmp_in[j] = inStream[b * H * W * C + h * H * W + i * W + j];
-                    sum += inStream[b * H * W * C + h * H * W + i * W + j];
+                    tmp_in = inStream[b * H * W * C + h * H * W + i * W + j];
+                    for(int k = 0; k < W;k++){
+                        tmp_in2 = inStream[b * H * W * C + h * H * W + i * W + k];
+                        sum = sum + pow(2.718281828459,tmp_in2-tmp_in);//expf(tmp_in-tmp_in2);
+                    }
+                    out_stream[b * H * W * C + h * H * W + i * W + j] = 1 / sum;
+                    //sum += inStream[b * H * W * C + h * H * W + i * W + j];
+                    sum = 0;
                 }
-            divide:
+            /*divide:
                 for (int j = 0; j < W; ++j) {
                     if(sum==0){
                         out_stream[b * W * H * C + h * H * W + i * W + j] = 0;
@@ -358,22 +251,13 @@ gen_output2:
                     }
 
                 }
-                sum = 0;
+                sum = 0;*/
             }
         }
     }
 }
-void krnl_softmax(float* afterQKMultiplication, float* in1_stream, float* afterSoftmax, int* X_num){
-    //float in1_stream[BATCH_SIZE*n1*n2*HEAD_SIZE*HEIGHT_OUT*WIDTH_OUT*HEIGHT_OUT*WIDTH_OUT];
-
-    // dataflow pragma instruct compiler to run following three APIs in parallel
-    load_softmax(afterQKMultiplication, in1_stream, X_num);
-    compute_softmax(in1_stream, afterSoftmax, X_num);
-}
 
 void store_result(float* buffer_out,float* buffer_result, int* X_num){
-    //std::cout<<BATCH_SIZE<<" "<<NEW_CHANNEL_OUT<<" "<<HEIGHT_OUT*n1<<" "<<WIDTH_OUT*n2<<"\n";
-   // std::cout<<BATCH_SIZE * NEW_CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT<<"\n";
     int B = X_num[0];//BATCH_SIZE
     int C = X_num[1];//NEW_CHANNEL_OUT
     int H = X_num[2];//HEIGHT_IN
@@ -385,7 +269,6 @@ void store_result(float* buffer_out,float* buffer_result, int* X_num){
             for(int k = 0; k < NH; k++){
                 for(int l = 0; l < NW; l++){
                     if(k < H && l < W){
-                        //std::cout<<i<<" "<<j<<" "<<k<<" "<<l<<" "<<i*C*H*W+j*H*W+k*W+l<<"\n";
                         buffer_result[i * C * H * W + j * H * W + k * W + l] = 
                         buffer_out[i * NW * NH * C + j * NW * NH + k * NW + l];
                     }
@@ -394,89 +277,96 @@ void store_result(float* buffer_out,float* buffer_result, int* X_num){
         }
     }
 }
-void compute_PADDING(float* in, float* in_pad, int* X_num)
+void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out)
 {
-    //float in[BATCH_SIZE1][CHANNEL_IN1][HEIGHT_IN1][WIDTH_IN1]
-    //float in_pad[BATCH_SIZE1][CHANNEL_IN1][new_HEIGHT_IN1][new_WIDTH_IN1]
-    //int PADDING = X_num[0];
-    int B = X_num[0];//BATCH_SIZE
-    int C = X_num[1];//NEW_CHANNEL_OUT
-    int H = X_num[2];//HEIGHT_IN
-    int W = X_num[3];//WIDTH_IN
-    
-    int KERNEL_SIZE = X_num[4];
-    int STRIDE = X_num[5];
-    
-    int PADDING = (KERNEL_SIZE - STRIDE) % 2 == 0 ? (KERNEL_SIZE - STRIDE) / 2 : (KERNEL_SIZE - STRIDE) / 2 + 1;
-    int NH = H + 2 * PADDING;
-    int NW = W + 2 * PADDING;
-    //int HO = (H - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-    //int WO = (W - KERNEL_SIZE + 2 * PADDING) / STRIDE + 1;
-    /*
-    const int PADDING1 = (KERNEL_SIZE1 - STRIDE1) % 2 == 0 ? (KERNEL_SIZE1 - STRIDE1) / 2 : (KERNEL_SIZE1 - STRIDE1) / 2 + 1;
-    const int new_HEIGHT_IN1 = HEIGHT_IN1 + 2 * PADDING1;
-    const int new_WIDTH_IN1 = WIDTH_IN1 + 2 * PADDING1;
-    const int HEIGHT_OUT1 = (HEIGHT_IN1 - KERNEL_SIZE1 + 2 * PADDING1) / STRIDE1 + 1;
-    const int WIDTH_OUT1 = (WIDTH_IN1 - KERNEL_SIZE1 + 2 * PADDING1) / STRIDE1 + 1;
-    */
-PADDING1:
-    for (int n = 0; n < B; n++)
-    {
-        for (int c = 0; c < C; c++)
-        {
-            for (int h = 0; h < NH; h++)
-            {
-                for (int w = 0; w < NW; w++)
-                {
-                    if (h < PADDING || h >= H + PADDING || W < PADDING || w >= W + PADDING)
-                        in_pad[n*C*NH*NW+c*NH*NW+h*NW+w] = 0;
-                    else
-                        in_pad[n*C*NH*NW+c*NH*NW+h*NW+w] = in[n*C*H*W+c*H*W+(h - PADDING)*W+w - PADDING];
+    int BATCH_SIZE = shape_para[0];
+    int CHANNEL_IN = shape_para[1];
+    int HEIGHT_IN = shape_para[2];
+    int WIDTH_IN = shape_para[3];
+    int CHANNEL_OUT = shape_para[4];
+    int HEIGHT_OUT = shape_para[5];
+    int WIDTH_OUT = shape_para[6];
+
+    int KERNEL_SIZE = conv_para[0];
+    int isConvBias = conv_para[1];
+    int STRIDE = conv_para[2];
+    int PADDING = conv_para[3];
+    int GROUP = conv_para[4];
+    int KERNEL_CHANNEL = conv_para[5];
+
+    int inGroupNums = CHANNEL_IN / GROUP;
+    int outGroupNums = CHANNEL_OUT / GROUP;
+
+    int kernelChannelIdx;
+    int out_pos;
+    int in_row;
+    int in_col;
+    int in_pos;
+    int kernel_pos;
+
+execute:
+Batch:
+    for (int batch = 0; batch < BATCH_SIZE; batch++){
+//#pragma HLS LOOP_TRIPCOUNT min = 1 max = 1
+    Out_Row:
+        for (int row = 0; row < HEIGHT_OUT; row++){
+//#pragma HLS LOOP_TRIPCOUNT min = 112 max = 112
+        Out_Column:
+            for (int col = 0; col < WIDTH_OUT; col++){
+//#pragma HLS LOOP_TRIPCOUNT min = 112 max = 112
+                int biasFlag = 1; // 這種迴圈架構的bias會被重複計算，需要此flag限制只加一次
+            Kernel_Row:
+                for (int kernel_row = 0; kernel_row < KERNEL_SIZE; kernel_row++){
+//#pragma HLS LOOP_TRIPCOUNT min = 3 max = 3
+                Kernel_Col:
+                    for (int kernel_col = 0; kernel_col < KERNEL_SIZE; kernel_col++){
+//#pragma HLS LOOP_TRIPCOUNT min = 3 max = 3
+                        int groupIndex = 0;
+                        in_row = row * STRIDE + kernel_row - PADDING;
+                        in_col = col * STRIDE + kernel_col - PADDING;
+                        if (in_row < 0 || in_row >= HEIGHT_IN || in_col < 0 || in_col >= WIDTH_IN )
+                            continue;
+                    Output_Channel:
+                        for (int out_ch = 0; out_ch < CHANNEL_OUT; out_ch++){
+//#pragma HLS LOOP_TRIPCOUNT min = 24 max = 24
+                            out_pos = batch * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + out_ch * HEIGHT_OUT * WIDTH_OUT + row * WIDTH_OUT + col;
+                            kernelChannelIdx = 0;
+                        In_Channel:
+                            for (int in_ch = groupIndex * inGroupNums; in_ch < CHANNEL_IN; in_ch++){
+//#pragma HLS LOOP_TRIPCOUNT min = 0 max = 24
+                                in_pos = batch * CHANNEL_IN * HEIGHT_IN * WIDTH_IN + in_ch * HEIGHT_IN * WIDTH_IN + in_row * WIDTH_IN + in_col;
+                                kernel_pos = out_ch * KERNEL_CHANNEL * KERNEL_SIZE * KERNEL_SIZE + kernelChannelIdx * KERNEL_SIZE * KERNEL_SIZE + kernel_row * KERNEL_SIZE + kernel_col;
+                                out[out_pos] += in[in_pos] * kernel[kernel_pos];
+                                kernelChannelIdx++;
+                                if ((in_ch + 1) % inGroupNums == 0)
+                                    break;
+                            }
+                            if (isConvBias && biasFlag)
+                                out[out_pos] += bias[out_ch];
+                            if ((out_ch + 1) % outGroupNums == 0)
+                                groupIndex++;
+                        }
+                        biasFlag = 0;
+                    }
                 }
             }
         }
     }
-}
-/*
-    float in_pad[BATCH_SIZE1][CHANNEL_IN1][new_HEIGHT_IN1][new_WIDTH_IN1],
-                         float afterConv[BATCH_SIZE1][CHANNEL_OUT1][HEIGHT_OUT1][WIDTH_OUT1],
-                         float kernel[CHANNEL_OUT1][KERNEL_CHANNEL1][KERNEL_SIZE1][KERNEL_SIZE1],
-                         float bias[CHANNEL_OUT1]
-    */
-    //float kernel[CHANNEL_OUT1][KERNEL_CHANNEL1][KERNEL_SIZE1][KERNEL_SIZE1];
-    //float bias[CHANNEL_OUT1];
 
-/*init_kernel_bias:
-    for (int k = 0; k < CHANNEL_OUT1; k++)
-    {
-        bias[k] = k + 0.5;
-        for (int l = 0; l < KERNEL_CHANNEL1; l++)
-        {
-            for (int i = 0; i < KERNEL_SIZE1; i++)
-            {
-                for (int j = 0; j < KERNEL_SIZE1; j++)
-                {
-                    kernel[k][l][i][j] = (k+j+i+l)*0.1;
-                }
-            }
-        }
-    }*/
-void compute_conv(float* in_pad, float* afterConv, float* kernel, float* bias, int* X_num, int isBias1)
+    return;
+}
+
+void BatchNorm(float *X_data, float *Y_data, int *X_num, float *running_mean, float *running_var, float *gamma, float *beta)
 {
-    int B = X_num[0];//BATCH*n1*n2
-    int C = X_num[1];//CHANNEL_OUT
-    int H = X_num[2];//HEIGHT_OUT
-    int W = X_num[3];//
-    int K = X_num[4];//KERNEL_SIZE1
-    int CI = X_num[5];//CHANNEL_IN
-    int HI = X_num[6];//CHANNEL_IN
-    int WI = X_num[7];//CHANNEL_IN
-    int IGN = X_num[8];//inGROUP1Nums1
-    int OGN = X_num[9];//outGROUP1Nums1
-    int S = X_num[10];//STRIDE1
-    int KC = X_num[11];//KERNEL_CHANNEL
-init_output:
-    for (int n = 0; n < B; n++)
+    // get X(input) size
+    int N = X_num[0];
+    int C = X_num[1];
+    int H = X_num[2];
+    int W = X_num[3];
+    // #pragma HLS INTERFACE mode=ap_fifo port=X_data
+    // #pragma HLS INTERFACE mode=ap_fifo port=Y_data
+
+    for (int n = 0; n < N; n++)
     {
         for (int c = 0; c < C; c++)
         {
@@ -484,66 +374,25 @@ init_output:
             {
                 for (int w = 0; w < W; w++)
                 {
-                    if (isBias1)
-                        afterConv[n*C*H*W+c*H*W+h*W+w] = bias[c];
-                    else
-                        afterConv[n*C*H*W+c*H*W+h*W+w] = 0;
+// #pragma HLS UNROLL
+// #pragma HLS PIPELINE
+                    Y_data[n * C * H * W + c * H * W + h * W + w] = (X_data[n * C * H * W + c * H * W + h * W + w] - running_mean[c]) / sqrt(running_var[c] + 1e-6) * gamma[c] + beta[c];
                 }
             }
         }
     }
-
-execute:
-Batch:
-    for (int batch = 0; batch < B; batch++)
-    {
-    Out_Row:
-        for (int row = 0; row < H; row++)
-        {
-        Out_Column:
-            for (int col = 0; col < W; col++)
-            {
-            Kernel_Row:
-                for (int kernel_row = 0; kernel_row < K; kernel_row++)
-                {
-                Kernel_Col:
-                    for (int kernel_col = 0; kernel_col < K; kernel_col++)
-                    {
-                        int GROUP1Index = 0;
-                    Output_Channel:
-                        for (int out_ch = 0; out_ch < C; out_ch++)
-                        {
-                            int kernelChannelIdx = 0;
-                        In_Channel:
-                            for (int in_ch = GROUP1Index * IGN; in_ch < CI; in_ch++)
-                            {
-                                afterConv[batch * C * W * H + out_ch * W * H + row * W + col] += 
-                                    in_pad[batch * CI * HI * WI + in_ch * HI * WI + (row * S + kernel_row) * WI + col * S + kernel_col] * 
-                                    kernel[out_ch*KC*K*K+kernelChannelIdx*K+kernel_row*K+kernel_col];
-                                kernelChannelIdx++;
-                                if ((in_ch + 1) % IGN == 0)
-                                    break;
-                            }
-                            if ((out_ch + 1) % OGN == 0)
-                                GROUP1Index++;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-static void compute_norm(float* afterConv, float* afterNorm, float* RUNNING_MEAN, float* RUNNING_VAR, float* weight, float* bias, float* ln_in, int* X_num, int NORM_LAYER)
+}/*
+void compute_norm(float* afterConv, float* afterNorm, float* RUNNING_MEAN, float* RUNNING_VAR, float* weight, float* bias, int* X_num, int NORM_LAYER)
 {
-    /*
-    float* afterConv[BATCH_SIZE2][CHANNEL_OUT2][HEIGHT_OUT2][WIDTH_OUT2],
-    float* afterNorm[BATCH_SIZE2][CHANNEL_OUT2][HEIGHT_OUT2][WIDTH_OUT2]
-    float ln_in[BATCH_SIZE0][HEIGHT_IN0][WIDTH_IN0][CHANNEL_IN0];
-    float weight[HEIGHT_IN0][WIDTH_IN0][CHANNEL_IN0];
-    float bias[HEIGHT_IN0][WIDTH_IN0][CHANNEL_IN0];
-    float mean[BATCH_SIZE0*HEIGHT_IN0*WIDTH_IN0];
-    float var[BATCH_SIZE0*HEIGHT_IN0*WIDTH_IN0];
-*/
+    
+    //float* afterConv[BATCH_SIZE2][CHANNEL_OUT2][HEIGHT_OUT2][WIDTH_OUT2],
+    //float* afterNorm[BATCH_SIZE2][CHANNEL_OUT2][HEIGHT_OUT2][WIDTH_OUT2]
+    //float ln_in[BATCH_SIZE0][HEIGHT_IN0][WIDTH_IN0][CHANNEL_IN0];
+    //float weight[HEIGHT_IN0][WIDTH_IN0][CHANNEL_IN0];
+    //float bias[HEIGHT_IN0][WIDTH_IN0][CHANNEL_IN0];
+    //float mean[BATCH_SIZE0*HEIGHT_IN0*WIDTH_IN0];
+    //float var[BATCH_SIZE0*HEIGHT_IN0*WIDTH_IN0];
+
     int B = X_num[0];//
     int C = X_num[1];//
     int H = X_num[2];//
@@ -559,13 +408,13 @@ init_output:
         //float bias[C];
 
     init_parameters:
-        /*for (int c = 0; c < CHANNEL_OUT2; c++)
-        {
-            RUNNING_MEAN[c] = 8;
-            RUNNING_VAR[c] = 21.5;
-            weight[c] = 0.5;
-            bias[c] = 0.2;
-        }*/
+        //for (int c = 0; c < CHANNEL_OUT2; c++)
+        //{
+        //    RUNNING_MEAN[c] = 8;
+        //    RUNNING_VAR[c] = 21.5;
+        //    weight[c] = 0.5;
+        //    bias[c] = 0.2;
+        //}
 
     Batch_norm:
         for (int n = 0; n < B; n++)
@@ -591,22 +440,15 @@ init_output:
         float mean[BATCH_SIZE0*HEIGHT_IN0*WIDTH_IN0];
         float var[BATCH_SIZE0*HEIGHT_IN0*WIDTH_IN0];*/
 
-    Reshape:
-        for (int n = 0; n < B; n++)
-        {
-            for (int c = 0; c < C; c++)
-            {
-                for (int h = 0; h < H; h++)
-                {
-                    for (int w = 0; w < W; w++)
-                    {
-                        ln_in[n*C*H*W + h*W*C + w*C + c] = afterConv[n*C*H*W + c*H*W + h*W+w];
-                    }
-                }
-            }
-        }
+    /*Reshape:
 
-        int total =  C;
+        float total =  1./C;
+        float sum = 0;
+        float squareSum = 0;
+        float tmp = 0;
+        float tmp_mean = 0;
+        float tmp_mean2 = 0;
+        float tmp_var2 = 0;
     Layer_Norm_Init:
         for (int n = 0; n < B; n++)
         {
@@ -615,17 +457,18 @@ init_output:
             {
                 for (int w = 0; w < W; w++)
                 {
-                    float sum = 0;
-                    float squareSum = 0;
+                    
                     for (int c = 0; c < C; c++)
                     {
-                        sum += afterConv[n*C*H*W + c*H*W + h*W + w];
-                        squareSum += afterConv[n*C*H*W + c*H*W + h*W+w] * afterConv[n*C*H*W + c*H*W + h*W+w];
-                        //weight[h][w][c] = 0.5;
-                        //bias[h][w][c] = 0.2;
+                        tmp = afterConv[n*C*H*W + c*H*W + h*W + w];
+                        sum += tmp;
+                        squareSum += tmp*tmp;
                     }
-                    RUNNING_MEAN[n*H*W + h*W + w] = sum / total;
-                    RUNNING_VAR[n*H*W + h*W + w] = (squareSum / total) - (RUNNING_MEAN[n*H*W + h*W + w] * RUNNING_MEAN[n*H*W + h*W + w]);
+                    tmp_mean = sum * total;
+                    RUNNING_MEAN[n*H*W + h*W + w] = tmp_mean;
+                    RUNNING_VAR[n*H*W + h*W + w] = (squareSum * total) - (sum*total*total  *sum);
+                    sum = 0;
+                    squareSum = 0;
                 }
             }
 
@@ -638,10 +481,13 @@ init_output:
             {
                 for (int w = 0; w < W; w++)
                 {
+                	tmp_mean2 = RUNNING_MEAN[n*H*W + h*W + w];
+                	tmp_var2 = sqrt(RUNNING_VAR[n*H*W + h*W + w] + 1e-6);
                     for (int c = 0; c < C; c++)
                     {
-                        afterNorm[n*C*H*W + c*H*W + h*W + w] = (ln_in[n*C*H*W + h*W*C + w*C + c] - RUNNING_MEAN[n*H*W + h*W + w]) / sqrt(RUNNING_VAR[n*H*W + h*W + w] + 1e-6)
-                        * weight[h*W*C+w*C+c] + bias[h*W*C+w*C+c];
+                        afterNorm[n*C*H*W + c*H*W + h*W + w] = 
+                            (afterConv[n*C*H*W + c*H*W + h*W + w] - tmp_mean2) /
+							tmp_var2 * weight[c] + bias[c];
                     }
                 }
             }
@@ -652,7 +498,7 @@ init_output:
     default:
         break;
     }
-}
+}*/
 void compute_act(float* afterNorm, float* afterAct, int* X_num, int ACT_LAYER)
 {
     int B = X_num[0];//
@@ -761,7 +607,7 @@ extern "C"
 
 void kernel_attention(float *buffer_DataIn_1,
                               float *afterNorm,
-                              float *norm1_mean, float *norm1_var, float *norm1_weight, float *norm1_bias, float *norm1_ln_in,
+                              float *norm1_mean, float *norm1_var, float *norm1_weight, float *norm1_bias,
                               float *afterPad,
                               float *afterRearrangeX,
                               float *afterPad1,
@@ -783,115 +629,120 @@ void kernel_attention(float *buffer_DataIn_1,
                               float *afterAct2,
                               float *QKV,
                               float *buffer_out,
-                              float *in1_stream,
-                              float *sumQK,
-                              float *sumQKX,
                               float *buffer_result)
     {
-#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 1024
+#pragma HLS INTERFACE m_axi port = buffer_DataIn_1 bundle = gmem0 depth = 15680
 
         // dataflow pragma instruct compiler to run following three APIs in parallel
-#pragma HLS INTERFACE m_axi port = afterNorm bundle = gmem1 depth = 1024
+#pragma HLS INTERFACE m_axi port = afterNorm bundle = gmem1 depth = 15680
 //        float afterNorm[BATCH_SIZE*CHANNEL_IN*HEIGHT_IN*WIDTH_IN];
-#pragma HLS INTERFACE m_axi port = norm1_mean depth = 256
-#pragma HLS INTERFACE m_axi port = norm1_var depth = 256
-#pragma HLS INTERFACE m_axi port = norm1_weight depth = 1024
-#pragma HLS INTERFACE m_axi port = norm1_bias depth = 1024
-#pragma HLS INTERFACE m_axi port = norm1_ln_in depth = 1024
+#pragma HLS INTERFACE m_axi port = norm1_mean depth = 80
+#pragma HLS INTERFACE m_axi port = norm1_var depth = 80
+#pragma HLS INTERFACE m_axi port = norm1_weight depth = 80
+#pragma HLS INTERFACE m_axi port = norm1_bias depth = 80
         // dataflow pragma instruct compiler to run following three APIs in parallel
 //#pragma HLS INTERFACE m_axi port = x bundle = gmem2 depth = 3136
 //        float x[BATCH_SIZE][CHANNEL_IN][HEIGHT_IN][WIDTH_IN];
-#pragma HLS INTERFACE m_axi port = afterPad depth = 1764
+#pragma HLS INTERFACE m_axi port = afterPad depth = 15680
 //        float afterPad[BATCH_SIZE][CHANNEL_IN][NEW_HEIGHT_IN][NEW_WIDTH_IN];
 
-#pragma HLS INTERFACE m_axi port = afterRearrangeX depth = 1764
+#pragma HLS INTERFACE m_axi port = afterRearrangeX depth = 15680
 
-#pragma HLS INTERFACE m_axi port = afterPad1 depth = 1764
-#pragma HLS INTERFACE m_axi port = afterConv1 depth = 3528
-#pragma HLS INTERFACE m_axi port = kernel1 depth = 32
-#pragma HLS INTERFACE m_axi port = bias1 depth = 8
+#pragma HLS INTERFACE m_axi port = afterPad1 depth = 15680
+#pragma HLS INTERFACE m_axi port = afterConv1 depth = 31360
+#pragma HLS INTERFACE m_axi port = kernel1 depth = 12800
+#pragma HLS INTERFACE m_axi port = bias1 depth = 160
 //        float afterRearrangeX[BATCH_SIZE*n1*n2*CHANNEL_IN*h1*w1];
-#pragma HLS INTERFACE m_axi port = in_qk depth = 3528
+#pragma HLS INTERFACE m_axi port = in_qk depth = 31360
 //        float in_qk[BATCH_SIZE*n1*n2*CHANNEL_OUT*HEIGHT_OUT*WIDTH_OUT];
-#pragma HLS INTERFACE m_axi port = in_q depth = 1764
+#pragma HLS INTERFACE m_axi port = in_q depth = 15680
 //        float in_q[BATCH_SIZE*n1*n2][HEAD_SIZE][HEIGHT_OUT*WIDTH_OUT][DIM_HEAD_SIZE];
-#pragma HLS INTERFACE m_axi port = in_k depth = 1764
+#pragma HLS INTERFACE m_axi port = in_k depth = 15680
 //        float in_k[BATCH_SIZE*n1*n2][HEAD_SIZE][HEIGHT_OUT*WIDTH_OUT][DIM_HEAD_SIZE];
-#pragma HLS INTERFACE m_axi port = afterQKMultiplication depth = 21609
+#pragma HLS INTERFACE m_axi port = afterQKMultiplication depth = 38416
 //        float afterQKMultiplication[BATCH_SIZE*n1*n2][HEAD_SIZE][HEIGHT_OUT*WIDTH_OUT][HEIGHT_OUT*WIDTH_OUT];
-#pragma HLS INTERFACE m_axi port = afterSoftmax depth = 21609
+#pragma HLS INTERFACE m_axi port = afterSoftmax depth = 38416
 //        float afterSoftmax[BATCH_SIZE*n1*n2][HEAD_SIZE][HEIGHT_OUT*WIDTH_OUT][HEIGHT_OUT*WIDTH_OUT];
-#pragma HLS INTERFACE m_axi port = afterRearrangeX2 depth = 1764
+#pragma HLS INTERFACE m_axi port = afterRearrangeX2 depth = 15680
 //        float afterRearrangeX2[BATCH_SIZE*n1*n2][HEAD_SIZE][HEIGHT_OUT*WIDTH_OUT][X_DIM_HEAD_SIZE];
-#pragma HLS INTERFACE m_axi port = afterQKXMultiplication depth = 1764
+#pragma HLS INTERFACE m_axi port = afterQKXMultiplication depth = 15680
  //       float afterQKXMultiplication[BATCH_SIZE*n1*n2][HEAD_SIZE][HEIGHT_OUT*WIDTH_OUT][X_DIM_HEAD_SIZE];
-#pragma HLS INTERFACE m_axi port = afterRearrangeQKX depth = 1764
+#pragma HLS INTERFACE m_axi port = afterRearrangeQKX depth = 15680
 
-#pragma HLS INTERFACE m_axi port = afterPad2 depth = 1764
-#pragma HLS INTERFACE m_axi port = afterConv2 depth = 5292
-#pragma HLS INTERFACE m_axi port = kernel2 depth = 48
-#pragma HLS INTERFACE m_axi port = bias2 depth = 12
-#pragma HLS INTERFACE m_axi port = afterAct2 depth = 5292
+#pragma HLS INTERFACE m_axi port = afterPad2 depth = 15680
+#pragma HLS INTERFACE m_axi port = afterConv2 depth = 47040
+#pragma HLS INTERFACE m_axi port = kernel2 depth = 19200
+#pragma HLS INTERFACE m_axi port = bias2 depth = 240
+#pragma HLS INTERFACE m_axi port = afterAct2 depth = 47040
 //        float afterRearrangeQKX[BATCH_SIZE*n1*n2*HEAD_SIZE*HEIGHT_OUT*WIDTH_OUT*X_DIM_HEAD_SIZE];
-#pragma HLS INTERFACE m_axi port = QKV depth = 5292
+#pragma HLS INTERFACE m_axi port = QKV depth = 47040
 //        float QKV[BATCH_SIZE*n1*n2 * NEW_CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT];
-#pragma HLS INTERFACE m_axi port = buffer_out depth = 5292
+#pragma HLS INTERFACE m_axi port = buffer_out depth = 47040
 //        float buffer_out[BATCH_SIZE][NEW_CHANNEL_OUT][h1*n1][w1*n2];
-#pragma HLS INTERFACE m_axi port = in1_stream depth = 21609
-#pragma HLS INTERFACE m_axi port = sumQK depth = 2401
-#pragma HLS INTERFACE m_axi port = sumQKX depth = 196
-#pragma HLS INTERFACE m_axi port = buffer_result bundle  = gmem0 depth = 3072
+#pragma HLS INTERFACE m_axi port = buffer_result bundle  = gmem0 depth = 47040
 //        float in1_stream[BATCH_SIZE*n1*n2*HEAD_SIZE*HEIGHT_OUT*WIDTH_OUT*HEIGHT_OUT*WIDTH_OUT];
         int norm_layer = 1;
         int act_layer = 0;
         int isBias1 = 1;
         int isSkip = 0;
-        float scale = 1./sqrt(4.);//scale = 1/sqrt(dim_head);
-        int norm_num[4]={1,4,16,16};//BATCH CHANNEL_IN HEIGHT_IN WIDTH_IN
-        int pad_num[4]={1,4,16,16};//BATCH CHANNEL_IN HEIGHT_IN WIDTH_IN
-        int pad_ltrb[4]={0,0,5,5};// l t r b
-        int rearrangex_num[6]={1,4,7,7,3,3};//BATCH CHANNEL_IN h1 w1 n1 n2
+        float scale = 1./sqrt(20);//scale = 1/sqrt(dim_head);
+        int norm_num[4]={1,80,14,14};//BATCH CHANNEL_IN HEIGHT_IN WIDTH_IN
+        int pad_num[4]={1,80,14,14};//BATCH CHANNEL_IN HEIGHT_IN WIDTH_IN
+        int pad_ltrb[4]={0,0,0,0};// l t r b
+        int rearrangex_num[6]={1,80,7,7,2,2};//BATCH CHANNEL_IN h1 w1 n1 n2
         
-        int pad1_num[6]={9,4,7,7,1,1};//BATCH*n1*n2
-        int conv1_num[12]={9,8,7,7,
-                             1,4,7,7,
-                             4,8,1,4};
-        //BATCH*n1*n2 CHANNEL_OUT HEIGHT_OUT WIDTH_OUT KERNEL_SIZE CHANNEL_IN HEIGHT_IN WIDTH_IN inGROUPNums outGROUPNums STRIDE KERNEL_CHANNEL
-        int skip1_num[7]={9,8,7,7,4,7,7};//BATCH*n1*n2 CHANNEL_OUT HO WO CI HI WI
-        int qk_num[6]={2,9,1,4,7,7};//2 BATCH_SIZE*n1*n2 HEAD_SIZE DIM_HEAD_SIZE HEIGHT_OUT WIDTH_OUT
-        int mul1_num[5]={9,1,49,4,49};//B*n1*n2 HEAD_SIZE HO*WO DIM_HEAD_SIZE HO*WO
-        int softmax_num[4]={9,1,49,49};//B*n1*n2  HEAD_SIZE HO*WO HO*WO
-        int rearrangex2_num[5]={9,1,4,7,7};//B*n1*n2  HEAD_SIZE X_DIM_HEAD_SIZE HO WO
-        int mul2_num[5]={9,1,49,49,4};//BATCH_SIZE*n1*n2 HEAD_SIZE HEIGHT_OUT*WIDTH_OUT HEIGHT_OUT*WIDTH_OUT X_DIM_HEAD_SIZE
-        int rearrangeQKX_num[5]={9,1,7,7,4};//BATCH_SIZE*n1*n2 HEAD_SIZE  HO WO X_DIM_HEAD_SIZE
+        /*int pad1_num[6]={16,40,7,7,1,1};//BATCH*n1*n2
+        int conv1_num[12]={16,80,7,7,
+                             1,40,7,7,
+                             40,80,2,40};*/
+        int shape1_para[7] = {4, 80, 7, 7, 160, 7, 7};
+        int conv1_para[6] = {1, 1, 1, 0, 1, 80};
 
-        int pad2_num[6]={9,4,7,7,1,1};//BATCH*n1*n2 NEW_CHANNEL_OUT H W KERNEL_SIZE STRIDE
-        int conv2_num[12]={9,12,7,7,
-                             1,4,7,7,
-                             4,12,1,4};
-        int act2_num[4]={9,12,7,7};
-        int skip2_num[7]={9,12,7,7,4,7,7};
-        int rearrangex3_num[6]={1,12,3,3,7,7};//BATCH_SIZE NEW_CHANNEL_OUT n1 n2 H W
-        int out_num[6]={1,12,16,16,21,21};
-        compute_norm(buffer_DataIn_1, afterNorm, norm1_mean, norm1_var, norm1_weight, norm1_bias, norm1_ln_in, norm_num, norm_layer);
+        //BATCH*n1*n2 CHANNEL_OUT HEIGHT_OUT WIDTH_OUT 
+        //KERNEL_SIZE CHANNEL_IN HEIGHT_IN WIDTH_IN 
+        //inGROUPNums outGROUPNums STRIDE KERNEL_CHANNEL
+        int skip1_num[7]={4,160,7,7,80,7,7};//BATCH*n1*n2 CHANNEL_OUT HO WO CI HI WI
+        int qk_num[6]={2,4,4,20,7,7};//2 BATCH_SIZE*n1*n2 HEAD_SIZE DIM_HEAD_SIZE HEIGHT_OUT WIDTH_OUT
+        int mul1_num[5]={4,4,49,20,49};//B*n1*n2 HEAD_SIZE HO*WO DIM_HEAD_SIZE HO*WO
+        int softmax_num[4]={4,4,49,49};//B*n1*n2  HEAD_SIZE HO*WO HO*WO
+        int rearrangex2_num[5]={4,4,20,7,7};//B*n1*n2  HEAD_SIZE X_DIM_HEAD_SIZE HO WO
+        int mul2_num[5]={4,4,49,49,20};//BATCH_SIZE*n1*n2 HEAD_SIZE HEIGHT_OUT*WIDTH_OUT HEIGHT_OUT*WIDTH_OUT X_DIM_HEAD_SIZE
+        int rearrangeQKX_num[5]={4,4,7,7,20};//BATCH_SIZE*n1*n2 HEAD_SIZE  HO WO X_DIM_HEAD_SIZE
+
+        /*int pad2_num[6]={16,40,7,7,1,2};//BATCH*n1*n2 NEW_CHANNEL_OUT H W KERNEL_SIZE STRIDE
+        int conv2_num[12]={16,120,7,7,
+                             1,40,7,7,
+                             40,120,1,40};*/
+        int shape2_para[7] = {4, 80, 7, 7, 240, 7, 7};
+        int conv2_para[6] = {1, 1, 1, 0, 1, 80};
+        
+        int act2_num[4]={4,240,7,7};
+        int skip2_num[7]={4,240,7,7,80,7,7};
+        int rearrangex3_num[6]={1,240,2,2,7,7};//BATCH_SIZE NEW_CHANNEL_OUT n1 n2 H W
+        int out_num[6]={1,240,14,14,14,14};
+        //compute_norm(buffer_DataIn_1, afterNorm, norm1_mean, norm1_var, norm1_weight, norm1_bias, norm_num, norm_layer);
+        //BatchNorm(X_data, Y_norm_1, norm_1_X_num, norm_1_running_mean, norm_1_running_var, norm_1_weight, norm_1_bias);
+        BatchNorm(buffer_DataIn_1, afterNorm, norm_num, norm1_mean, norm1_var, norm1_weight, norm1_bias);
         //load_input(afterNorm, x);
         pad_f(afterNorm, afterPad, pad_num, pad_ltrb);
         rearrangeX(afterPad, afterRearrangeX, rearrangex_num);
         //kernel_conv_norm_act(afterRearrangeX, in_qk);
-        compute_PADDING(afterRearrangeX, afterPad1, pad1_num);
-        compute_conv(afterPad1, afterConv1, kernel1, bias1, conv1_num, isBias1);
+        DW_conv(afterRearrangeX, kernel1, bias1, shape1_para, conv1_para, afterConv1);
+        /*compute_PADDING(afterRearrangeX, afterPad1, pad1_num);
+        compute_conv(afterPad1, afterConv1, kernel1, bias1, conv1_num, isBias1);*/
         compute_skip(afterConv1, afterRearrangeX, in_qk, skip1_num, isSkip);
 
         get_qk(in_qk, in_q, in_k, qk_num);
-        compute_multiplication(in_q, in_k, afterQKMultiplication, sumQK, mul1_num, scale, 1);
-        krnl_softmax(afterQKMultiplication, in1_stream, afterSoftmax, softmax_num);
+        compute_multiplication(in_q, in_k, afterQKMultiplication, mul1_num, scale);
+        compute_softmax(afterQKMultiplication, afterSoftmax, softmax_num);
         rearrangeX2(afterRearrangeX, afterRearrangeX2, rearrangex2_num);
 
-        compute_multiplication(afterSoftmax, afterRearrangeX2, afterQKXMultiplication, sumQKX, mul2_num, 1, 2);
+        compute_multiplication(afterSoftmax, afterRearrangeX2, afterQKXMultiplication, mul2_num, 1);
         rearrangeQKX(afterQKXMultiplication, afterRearrangeQKX, rearrangeQKX_num);
         //kernel_conv_norm_act2(afterRearrangeQKX, QKV);
-        compute_PADDING(afterRearrangeQKX, afterPad2, pad2_num);
-        compute_conv(afterPad2, afterConv2, kernel2, bias2, conv2_num, isBias1);
+        DW_conv(afterRearrangeQKX, kernel2, bias2, shape2_para, conv2_para, afterConv2);
+        /*compute_PADDING(afterRearrangeQKX, afterPad2, pad2_num);
+        compute_conv(afterPad2, afterConv2, kernel2, bias2, conv2_num, isBias1);*/
         compute_act(afterConv2, afterAct2, act2_num, act_layer);
         compute_skip(afterAct2, afterRearrangeQKX, QKV, skip2_num, isSkip);
 
