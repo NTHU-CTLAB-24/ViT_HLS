@@ -26,7 +26,7 @@ const int Y_V_CONV_2_SIZE = 47040;
 // depth 0
 float norm_0_weight[48], norm_0_bias[48], norm_0_running_mean[48], norm_0_running_var[48];
 float v_conv_0_weight[13824], v_conv_0_bias[288];
-float dw_conv_0_filter[2592], dw_norm_0_weight[288], dw_norm_0_bias[288], dw_norm_0_mean[288], dw_norm_0_var[288];
+float dw_conv_0_filter[7200], dw_norm_0_weight[288], dw_norm_0_bias[288], dw_norm_0_mean[288], dw_norm_0_var[288];
 float proj_0_weight[23040];
 // depth 1
 float norm_2_weight[80], norm_2_bias[80], norm_2_running_mean[80], norm_2_running_var[80];
@@ -36,8 +36,8 @@ float proj_2_weight[19200];
 
 float X_data[X_DATA_SIZE];
 float Y_norm_0[X_DATA_SIZE];
-float Y_v_conv_0[Y_V_CONV_1_SIZE], Y_v_act_0[Y_V_CONV_1_SIZE];
-float Y_dw_conv_0[X_DATA_SIZE], Y_dw_norm_0[X_DATA_SIZE], Y_dw_act_0[X_DATA_SIZE];
+float Y_v_conv_0[225792], Y_v_act_0[225792];
+float Y_dw_conv_0[56448], Y_dw_norm_0[56448], Y_dw_act_0[56448];
 //float Y_proj_1[Y_PROJ_1_SIZE];
 
 float Y_norm_2[Y_PROJ_1_SIZE];
@@ -127,11 +127,11 @@ int main()
     for (int i = 0; i < 48; i++) norm_0_bias[i] = parameterData["stage3.0.norm.norm.bias"][i];
     for (int i = 0; i < 13824; i++) v_conv_0_weight[i] = parameterData["stage3.0.v.conv.weight"][i];
     for (int i = 0; i < 288; i++) v_conv_0_bias[i] = parameterData["stage3.0.v.conv.bias"][i];
-    for (int i = 0; i < 2592; i++) dw_conv_0_filter[i] = parameterData["stage3.0.conv_local.conv.weight"][i];
-    for (int i = 0; i < 288; i++) dw_norm_0_weight[i] = parameterData["stage3.0.conv_local.norm.weight"][i];
-    for (int i = 0; i < 288; i++) dw_norm_0_bias[i] = parameterData["stage3.0.conv_local.norm.bias"][i];
+    for (int i = 0; i < 7200; i++) dw_conv_0_filter[i] = parameterData["stage3.0.conv_local.conv.weight"][i];   
+    for (int i = 0; i < 288; i++) dw_norm_0_weight[i] = parameterData["stage3.0.conv_local.norm.weight"][i];    
+    for (int i = 0; i < 288; i++) dw_norm_0_bias[i] = parameterData["stage3.0.conv_local.norm.bias"][i];        
     for (int i = 0; i < 288; i++) dw_norm_0_mean[i] = parameterData["stage3.0.conv_local.norm.running_mean"][i];
-    for (int i = 0; i < 288; i++) dw_norm_0_var[i] = parameterData["stage3.0.conv_local.norm.running_var"][i];
+    for (int i = 0; i < 288; i++) dw_norm_0_var[i] = parameterData["stage3.0.conv_local.norm.running_var"][i];  
     for (int i = 0; i < 23040; i++) proj_0_weight[i] = parameterData["stage3.0.proj.conv.weight"][i];
 
     // init out
@@ -155,22 +155,24 @@ int main()
                 Y_dw_skip_2, Y_skip_2
                 );
 
-    cout << "after DW act [0, 0, :7, :7]" << endl;
+    
+    cout << "stage 3.0 result" << endl;
+    cout << "[0, 0, :7, :7]" << endl;
     for (int b = 0; b < 1; b++) {
         for (int c = 0; c < 1; c++) {
             for (int h = 0; h < 7; h++) {
                 for (int w = 0; w < 7; w++) {
-                    cout << Y_dw_act_0[b*288*14*14 + c*14*14+ h*14 + w] << " ";
+                    cout << result_30[b*80*14*14 + c*14*14 + h*14 + w] << " ";
                 }
                 cout << endl;
             }
         }
-    }    
-    cout << "stage 3.0 result" << endl;
+    }
+    cout << "[0, 79, 7:14, 7:14]" << endl;
     for (int b = 0; b < 1; b++) {
-        for (int c = 0; c < 1; c++) {
-            for (int h = 0; h < 7; h++) {
-                for (int w = 0; w < 7; w++) {
+        for (int c = 79; c < 80; c++) {
+            for (int h = 7; h < 14; h++) {
+                for (int w = 7; w < 14; w++) {
                     cout << result_30[b*80*14*14 + c*14*14 + h*14 + w] << " ";
                 }
                 cout << endl;

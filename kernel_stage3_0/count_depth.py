@@ -17,7 +17,7 @@ parameters = {
     'norm_0_bias': [48],
     'v_conv_0_weight': [288, 48, 1, 1],
     'v_conv_0_bias': [288],
-    'dw_conv_0_filter': [288, 1, 3, 3],
+    'dw_conv_0_filter': [288, 1, 5, 5],
     'dw_norm_0_weight': [288],
     'dw_norm_0_bias': [288],
     'dw_norm_0_mean': [288],

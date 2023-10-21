@@ -42,7 +42,7 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = v_conv_0_weight depth = 13824
     #pragma HLS INTERFACE m_axi port = v_conv_0_bias depth = 288
 
-    #pragma HLS INTERFACE m_axi port = dw_conv_0_filter depth = 2592//288*9
+    #pragma HLS INTERFACE m_axi port = dw_conv_0_filter depth = 7200
     #pragma HLS INTERFACE m_axi port = dw_norm_0_weight depth = 288
     #pragma HLS INTERFACE m_axi port = dw_norm_0_bias depth = 288
     #pragma HLS INTERFACE m_axi port = dw_norm_0_mean depth = 288
