@@ -1,0 +1,18 @@
+{"sourceFile": [{
+      "name": "",
+      "directive": [{
+          "functionName": "kernel_attention",
+          "label": "",
+          "functionLabel": "",
+          "id": "1",
+          "sourceFile": "\/users\/student\/mr111\/cppan22\/git_ViT_HLS\/ViT_HLS\/kernel_attention\/run_hls.tcl",
+          "sourceLine": "24",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "kernel_attention"
+              }]
+          }
+        }]
+    }]}
