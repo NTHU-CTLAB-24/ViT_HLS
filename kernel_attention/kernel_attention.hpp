@@ -11,7 +11,7 @@ extern "C"
 {
     void kernel_attention(float *buffer_DataIn_1,
                               float *afterNorm,
-                              float *norm1_mean, float *norm1_var, float *norm1_weight, float *norm1_bias, float *norm1_ln_in,
+                              float *norm1_mean, float *norm1_var, float *norm1_weight, float *norm1_bias, 
                               float *afterPad,
                               float *afterRearrangeX,
                               float *afterPad1,
@@ -33,9 +33,6 @@ extern "C"
                               float *afterAct2,
                               float *QKV,
                               float *buffer_out,
-                              float *in1_stream,
-                              float *sumQK,
-                              float *sumQKX,
                               float *buffer_result
                        );
 }

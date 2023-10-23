@@ -1,0 +1,80 @@
+{"sourceFile": [{
+      "name": "",
+      "directive": [
+        {
+          "functionName": "kernel_stage0",
+          "label": "",
+          "functionLabel": "",
+          "id": "1",
+          "sourceFile": "\/users\/student\/mr111\/cppan22\/git_ViT_HLS\/ViT_HLS\/kernel_stage0\/vitis_hls_stage0\/run_hls.tcl",
+          "sourceLine": "34",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "kernel_stage0"
+              }]
+          }
+        },
+        {
+          "functionName": "kernel_stage0",
+          "label": "",
+          "functionLabel": "",
+          "id": "2",
+          "sourceFile": "\/users\/student\/mr111\/cppan22\/git_ViT_HLS\/ViT_HLS\/kernel_stage0\/vitis_hls_stage0\/run_hls.tcl",
+          "sourceLine": "34",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "kernel_stage0"
+              }]
+          }
+        },
+        {
+          "functionName": "kernel_stage0",
+          "label": "",
+          "functionLabel": "",
+          "id": "3",
+          "sourceFile": "\/users\/student\/mr111\/cppan22\/git_ViT_HLS\/ViT_HLS\/kernel_stage0\/vitis_hls_stage0\/run_hls.tcl",
+          "sourceLine": "34",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "kernel_stage0"
+              }]
+          }
+        },
+        {
+          "functionName": "kernel_stage0",
+          "label": "",
+          "functionLabel": "",
+          "id": "4",
+          "sourceFile": "\/users\/student\/mr111\/cppan22\/git_ViT_HLS\/ViT_HLS\/kernel_stage0\/vitis_hls_stage0\/run_hls.tcl",
+          "sourceLine": "34",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "kernel_stage0"
+              }]
+          }
+        },
+        {
+          "functionName": "kernel_stage0",
+          "label": "",
+          "functionLabel": "",
+          "id": "5",
+          "sourceFile": "\/users\/student\/mr111\/cppan22\/git_ViT_HLS\/ViT_HLS\/kernel_stage0\/vitis_hls_stage0\/run_hls.tcl",
+          "sourceLine": "34",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "kernel_stage0"
+              }]
+          }
+        }
+      ]
+    }]}
