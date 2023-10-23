@@ -2,7 +2,7 @@
 #include <hls_math.h>
 #include <hls_stream.h>
 #include <stdint.h>
-#include "kernel_stage1_2.hpp"
+#include "kernel_EMO.hpp"
 
 extern "C"
 {

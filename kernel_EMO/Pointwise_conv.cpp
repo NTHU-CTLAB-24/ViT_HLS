@@ -1,6 +1,6 @@
 // Includes
 #include <stdint.h>
-#include "kernel_stage1_2.hpp"
+#include "kernel_EMO.hpp"
 using namespace std;
 
 void Pointwise_conv(float *buffer_DataIn_1, float *out, float *buffer_kernel, float *buffer_bias,

@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "kernel_stage1_2.hpp"
+#include "kernel_EMO.hpp"
 using namespace std;
 
 void ReLU(float* X_data, float* Y_data, int* X_num, int zp){
