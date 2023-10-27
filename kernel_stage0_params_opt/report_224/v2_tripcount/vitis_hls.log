@@ -1,0 +1,665 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source /opt/Xilinx/Vitis_HLS/2021.2/scripts/vitis_hls/hls.tcl -notrace
+INFO: Applying HLS Y2K22 patch v1.2 for IP revision
+INFO: [HLS 200-10] Running '/opt/Xilinx/Vitis_HLS/2021.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'lthuang22' on host 'ic22' (Linux_x86_64 version 3.10.0-1160.45.1.el7.x86_64) on Sun Oct 08 16:14:21 CST 2023
+INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
+INFO: [HLS 200-10] In directory '/users/student/mr111/lthuang22/vitis_hls/test_stage0'
+Sourcing Tcl script 'run_hls.tcl'
+INFO: [HLS 200-1510] Running: open_project -reset proj_stage0_kernel 
+INFO: [HLS 200-10] Opening and resetting project '/users/student/mr111/lthuang22/vitis_hls/test_stage0/proj_stage0_kernel'.
+WARNING: [HLS 200-40] No /users/student/mr111/lthuang22/vitis_hls/test_stage0/proj_stage0_kernel/solution1/solution1.aps file found.
+INFO: [HLS 200-1510] Running: add_files kernel_stage0.cpp 
+INFO: [HLS 200-10] Adding design file 'kernel_stage0.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files BatchNorm.cpp 
+INFO: [HLS 200-10] Adding design file 'BatchNorm.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files DW_conv.cpp 
+INFO: [HLS 200-10] Adding design file 'DW_conv.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files Pointwise_conv.cpp 
+INFO: [HLS 200-10] Adding design file 'Pointwise_conv.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ReLU.cpp 
+INFO: [HLS 200-10] Adding design file 'ReLU.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb kernel_stage0_test.cpp 
+INFO: [HLS 200-10] Adding test bench file 'kernel_stage0_test.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files stage0_parameters.txt 
+INFO: [HLS 200-10] Adding design file 'stage0_parameters.txt' to the project
+INFO: [HLS 200-1510] Running: set_top kernel_stage0 
+INFO: [HLS 200-1510] Running: open_solution -reset solution1 
+INFO: [HLS 200-10] Creating and opening solution '/users/student/mr111/lthuang22/vitis_hls/test_stage0/proj_stage0_kernel/solution1'.
+INFO: [HLS 200-10] Cleaning up the solution database.
+WARNING: [HLS 200-40] No /users/student/mr111/lthuang22/vitis_hls/test_stage0/proj_stage0_kernel/solution1/solution1.aps file found.
+INFO: [HLS 200-1505] Using default flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xcu250-figd2104-2L-e 
+INFO: [HLS 200-1611] Setting target device to 'xcu250-figd2104-2L-e'
+INFO: [HLS 200-1510] Running: create_clock -period 15 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 15ns.
+INFO: [HLS 200-1510] Running: csim_design 
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../kernel_stage0_test.cpp in debug mode
+   Compiling ../../../../ReLU.cpp in debug mode
+   Compiling ../../../../Pointwise_conv.cpp in debug mode
+   Compiling ../../../../DW_conv.cpp in debug mode
+   Compiling ../../../../BatchNorm.cpp in debug mode
+   Compiling ../../../../kernel_stage0.cpp in debug mode
+   Generating csim.exe
+In file included from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_hotbm_apfixed.h:45:0,
+                 from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_math.h:1065,
+                 from ../../../../kernel_stage0.hpp:6,
+                 from ../../../../kernel_stage0_test.cpp:1:
+/opt/Xilinx/Vitis_HLS/2021.2/include/utils/x_hls_utils.h:246:10: warning: ‘hls_preserve’ attribute directive ignored [-Wattributes]
+ T reg(T d)
+          ^
+In file included from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_hotbm_apfixed.h:45:0,
+                 from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_math.h:1065,
+                 from ../../../../kernel_stage0.hpp:6,
+                 from ../../../../ReLU.cpp:2:
+/opt/Xilinx/Vitis_HLS/2021.2/include/utils/x_hls_utils.h:246:10: warning: ‘hls_preserve’ attribute directive ignored [-Wattributes]
+ T reg(T d)
+          ^
+In file included from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_hotbm_apfixed.h:45:0,
+                 from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_math.h:1065,
+                 from ../../../../kernel_stage0.hpp:6,
+                 from ../../../../Pointwise_conv.cpp:3:
+/opt/Xilinx/Vitis_HLS/2021.2/include/utils/x_hls_utils.h:246:10: warning: ‘hls_preserve’ attribute directive ignored [-Wattributes]
+ T reg(T d)
+          ^
+In file included from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_hotbm_apfixed.h:45:0,
+                 from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_math.h:1065,
+                 from ../../../../kernel_stage0.hpp:6,
+                 from ../../../../DW_conv.cpp:2:
+/opt/Xilinx/Vitis_HLS/2021.2/include/utils/x_hls_utils.h:246:10: warning: ‘hls_preserve’ attribute directive ignored [-Wattributes]
+ T reg(T d)
+          ^
+In file included from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_hotbm_apfixed.h:45:0,
+                 from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_math.h:1065,
+                 from ../../../../kernel_stage0.hpp:6,
+                 from ../../../../BatchNorm.cpp:2:
+/opt/Xilinx/Vitis_HLS/2021.2/include/utils/x_hls_utils.h:246:10: warning: ‘hls_preserve’ attribute directive ignored [-Wattributes]
+ T reg(T d)
+          ^
+In file included from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_hotbm_apfixed.h:45:0,
+                 from /opt/Xilinx/Vitis_HLS/2021.2/include/hls_math.h:1065,
+                 from ../../../../kernel_stage0.cpp:2:
+/opt/Xilinx/Vitis_HLS/2021.2/include/utils/x_hls_utils.h:246:10: warning: ‘hls_preserve’ attribute directive ignored [-Wattributes]
+ T reg(T d)
+          ^
+HOST-INFO: loading stage0.0.convs.0.0.weight value...
+HOST-INFO: loading stage0.0.convs.0.0.bias value...
+HOST-INFO: loading stage0.0.convs.0.1.weight value...
+HOST-INFO: loading stage0.0.convs.0.1.bias value...
+HOST-INFO: loading stage0.0.convs.0.1.running_mean value...
+HOST-INFO: loading stage0.0.convs.0.1.running_var value...
+HOST-INFO: loading stage0.0.convs.0.1.num_batches_tracked value...
+HOST-INFO: loading stage0.1.conv_local.conv.weight value...
+HOST-INFO: loading stage0.1.conv_local.norm.weight value...
+HOST-INFO: loading stage0.1.conv_local.norm.bias value...
+HOST-INFO: loading stage0.1.conv_local.norm.running_mean value...
+HOST-INFO: loading stage0.1.conv_local.norm.running_var value...
+HOST-INFO: loading stage0.1.conv_local.norm.num_batches_tracked value...
+HOST-INFO: loading stage0.1.se.conv_reduce.weight value...
+HOST-INFO: loading stage0.1.se.conv_reduce.bias value...
+HOST-INFO: loading stage0.1.se.conv_expand.weight value...
+HOST-INFO: loading stage0.1.se.conv_expand.bias value...
+HOST-INFO: loading stage0.1.proj.conv.weight value...
+ after msp norm  - [0, 1, 10:20, 10:20]
+-7.48745 -7.48745 -7.48745 -7.48745 -7.48745 -7.48745 -7.48745 -7.48745 -7.48745 -7.48745 
+-7.42603 -7.42603 -7.42603 -7.42603 -7.42603 -7.42603 -7.42603 -7.42603 -7.42603 -7.42603 
+-7.36459 -7.36459 -7.36459 -7.36459 -7.36459 -7.36459 -7.36459 -7.36459 -7.36459 -7.36459 
+-7.30317 -7.30317 -7.30317 -7.30317 -7.30317 -7.30317 -7.30317 -7.30317 -7.30317 -7.30317 
+-7.24174 -7.24174 -7.24174 -7.24174 -7.24174 -7.24174 -7.24174 -7.24174 -7.24174 -7.24174 
+-7.18032 -7.18032 -7.18032 -7.18032 -7.18032 -7.18032 -7.18032 -7.18032 -7.18032 -7.18032 
+-7.11889 -7.11889 -7.11889 -7.11889 -7.11889 -7.11889 -7.11889 -7.11889 -7.11889 -7.11889 
+-7.05746 -7.05746 -7.05746 -7.05746 -7.05746 -7.05746 -7.05746 -7.05746 -7.05746 -7.05746 
+-6.99605 -6.99605 -6.99605 -6.99605 -6.99605 -6.99605 -6.99605 -6.99605 -6.99605 -6.99605 
+-6.93464 -6.93464 -6.93464 -6.93464 -6.93464 -6.93464 -6.93464 -6.93464 -6.93464 -6.93464 
+ after proj- [0, 1, 10:15, 10:15]
+3.00033 3.00033 3.00033 3.00033 3.00033 
+3.15587 3.15587 3.15587 3.15587 3.15587 
+3.31143 3.31143 3.31143 3.31143 3.31143 
+3.46697 3.46697 3.46697 3.46697 3.46697 
+3.62251 3.62251 3.62251 3.62251 3.62251 
+INFO: [SIM 211-1] CSim done with 0 errors.
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 29.1 seconds. CPU system time: 2.18 seconds. Elapsed time: 30.68 seconds; current allocated memory: -937.109 MB.
+INFO: [HLS 200-1510] Running: csynth_design 
+WARNING: [HLS 200-40] Skipped source file 'stage0_parameters.txt'. Source files must have extensions .c, .C, .cc, .cpp, .c++, .cp, or .cxx.
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.01 seconds; current allocated memory: 264.160 MB.
+INFO: [HLS 200-10] Analyzing design file 'ReLU.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Pointwise_conv.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'DW_conv.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'BatchNorm.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'kernel_stage0.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 132.16 seconds. CPU system time: 7.25 seconds. Elapsed time: 140.15 seconds; current allocated memory: 264.160 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-284] Auto array partition mode is set into default.
+INFO: [HLS 214-178] Inlining function 'Compute_mean' into 'kernel_stage0' (kernel_stage0.cpp:73:0)
+INFO: [HLS 214-178] Inlining function 'ReLU' into 'kernel_stage0' (kernel_stage0.cpp:73:0)
+INFO: [HLS 214-178] Inlining function 'Sigmoid(float*, float*, int*)' into 'kernel_stage0' (kernel_stage0.cpp:73:0)
+INFO: [HLS 214-178] Inlining function 'Compute_mul(float*, float*, float*, int*)' into 'kernel_stage0' (kernel_stage0.cpp:73:0)
+INFO: [HLS 214-270] Starting automatic array partition analysis...
+INFO: [HLS 214-115] Multiple burst reads of length 301056 and bit width 32 in loop 'VITIS_LOOP_15_2'(kernel_stage0.cpp:15:26) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_stage0.cpp:15:26)
+INFO: [HLS 214-115] Multiple burst reads of length 24 and bit width 32 in loop 'VITIS_LOOP_34_2'(kernel_stage0.cpp:34:26) has been inferred on bundle 'gmem1'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_stage0.cpp:34:26)
+INFO: [HLS 214-115] Multiple burst writes of length 24 and bit width 32 in loop 'VITIS_LOOP_34_2'(kernel_stage0.cpp:34:26) has been inferred on bundle 'gmem2'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_stage0.cpp:34:26)
+INFO: [HLS 214-115] Multiple burst reads of length 301056 and bit width 32 in loop 'VITIS_LOOP_54_2'(kernel_stage0.cpp:54:26) has been inferred on bundle 'gmem0'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_stage0.cpp:54:26)
+INFO: [HLS 214-115] Multiple burst reads of length 24 and bit width 32 in loop 'VITIS_LOOP_54_2'(kernel_stage0.cpp:54:26) has been inferred on bundle 'gmem2'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_stage0.cpp:54:26)
+INFO: [HLS 214-115] Multiple burst writes of length 12544 and bit width 32 in loop 'VITIS_LOOP_56_3'(kernel_stage0.cpp:56:30) has been inferred on bundle 'gmem3'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (kernel_stage0.cpp:56:30)
+INFO: [HLS 214-115] Multiple burst reads of variable length and bit width 32 in loop 'VITIS_LOOP_16_4'(BatchNorm.cpp:16:34) has been inferred on bundle 'gmem1'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (BatchNorm.cpp:16:34)
+INFO: [HLS 214-115] Multiple burst writes of variable length and bit width 32 in loop 'VITIS_LOOP_16_4'(BatchNorm.cpp:16:34) has been inferred on bundle 'gmem2'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (BatchNorm.cpp:16:34)
+INFO: [HLS 214-115] Multiple burst reads of length 576 and bit width 32 in loop 'Output_Channel'(Pointwise_conv.cpp:25:17) has been inferred on bundle 'gmem'. These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. (Pointwise_conv.cpp:25:17)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 3.81 seconds. CPU system time: 0.41 seconds. Elapsed time: 4.51 seconds; current allocated memory: 264.160 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 264.160 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.08 seconds; current allocated memory: 264.160 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 328.160 MB.
+INFO: [XFORM 203-510] Pipelining loop 'Output_Channel' (Pointwise_conv.cpp:25) in function 'Pointwise_conv.2' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Output_Channel' (Pointwise_conv.cpp:25) in function 'Pointwise_conv.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'Kernel_Col' (DW_conv.cpp:42) in function 'DW_conv.2' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'In_Channel' (DW_conv.cpp:25) in function 'DW_conv.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_16_4' (BatchNorm.cpp:16) in function 'BatchNorm.1' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_18_4' (kernel_stage0.cpp:16) in function 'kernel_stage0' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_7_1' (ReLU.cpp:7) in function 'kernel_stage0' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_34_2' (kernel_stage0.cpp:34) in function 'kernel_stage0' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_57_4' (kernel_stage0.cpp:57) in function 'kernel_stage0' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Output_Channel' (Pointwise_conv.cpp:25) in function 'Pointwise_conv.2' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'Out_Row' (Pointwise_conv.cpp:19) in function 'Pointwise_conv.1' automatically.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'Out_Column' (Pointwise_conv.cpp:22) in function 'Pointwise_conv.1' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Output_Channel' (Pointwise_conv.cpp:25) in function 'Pointwise_conv.1' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'Batch' (DW_conv.cpp:34) in function 'DW_conv.2' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'Kernel_Col' (DW_conv.cpp:42) in function 'DW_conv.2' for pipelining.
+INFO: [XFORM 203-502] Unrolling small iteration loop 'Batch' (DW_conv.cpp:34) in function 'DW_conv.1' automatically.
+INFO: [HLS 200-489] Unrolling loop 'In_Channel' (Pointwise_conv.cpp:28) in function 'Pointwise_conv.2' completely with a factor of 24.
+INFO: [HLS 200-489] Unrolling loop 'Out_Row' (Pointwise_conv.cpp:19) in function 'Pointwise_conv.1' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'Out_Column' (Pointwise_conv.cpp:22) in function 'Pointwise_conv.1' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'In_Channel' (Pointwise_conv.cpp:28) in function 'Pointwise_conv.1' completely with a factor of 24.
+INFO: [HLS 200-489] Unrolling loop 'Batch' (DW_conv.cpp:34) in function 'DW_conv.2' completely with a factor of 1.
+INFO: [HLS 200-489] Unrolling loop 'Output_Channel' (DW_conv.cpp:49) in function 'DW_conv.2' completely with a factor of 24.
+INFO: [HLS 200-489] Unrolling loop 'Batch' (DW_conv.cpp:34) in function 'DW_conv.1' completely with a factor of 1.
+INFO: [XFORM 203-102] Partitioning array 'msp_num' automatically.
+INFO: [XFORM 203-102] Partitioning array 'dw_norm_num' automatically.
+WARNING: [XFORM 203-561] Updating loop upper bound from -1 to 112 for loop 'VITIS_LOOP_16_4' in function 'BatchNorm.1'.
+WARNING: [XFORM 203-561] Updating loop lower bound from 1 to 112 for loop 'VITIS_LOOP_16_4' in function 'BatchNorm.1'.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.45 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.57 seconds; current allocated memory: 328.160 MB.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_17_3' (kernel_stage0.cpp:16:19) in function 'kernel_stage0'.
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_15_2' (kernel_stage0.cpp:15:35) in function 'kernel_stage0' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_56_3' (kernel_stage0.cpp:56:39) in function 'kernel_stage0' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_54_2' (kernel_stage0.cpp:54:35) in function 'kernel_stage0' the outer loop is not a perfect loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Column' (Pointwise_conv.cpp:22:22) in function 'Pointwise_conv.2'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (Pointwise_conv.cpp:19:18) in function 'Pointwise_conv.2'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Kernel_Row' (DW_conv.cpp:42:6) in function 'DW_conv.2'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Column' (DW_conv.cpp:40:22) in function 'DW_conv.2'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (DW_conv.cpp:37:18) in function 'DW_conv.2'.
+WARNING: [HLS 200-960] Cannot flatten loop 'Output_Channel' (DW_conv.cpp:49:6) in function 'DW_conv.1' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-960.html
+WARNING: [HLS 200-960] Cannot flatten loop 'Kernel_Col' (DW_conv.cpp:42:6) in function 'DW_conv.1' the outer loop is not a perfect loop because there is nontrivial logic before entering the inner loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'Kernel_Row' (DW_conv.cpp:42:6) in function 'DW_conv.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Column' (DW_conv.cpp:40:22) in function 'DW_conv.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'Out_Row' (DW_conv.cpp:37:18) in function 'DW_conv.1'.
+WARNING: [HLS 200-960] Cannot flatten loop 'VITIS_LOOP_15_3' (BatchNorm.cpp:15:39) in function 'BatchNorm.1' the outer loop is not a perfect loop.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_14_2' (BatchNorm.cpp:14:35) in function 'BatchNorm.1'.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_13_1' (BatchNorm.cpp:13:30) in function 'BatchNorm.1'.
+INFO: [HLS 200-444] Inferring multiple bus burst write of a total cumulative length 24 on port 'gmem2' (kernel_stage0.cpp:22:30). These data requests might be further partitioned to multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.
+INTERNAL-INFO: never seen llvm instruction 'dexp'(522)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.62 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.75 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'kernel_stage0' ...
+WARNING: [SYN 201-103] Legalizing function name 'DW_conv.1_Pipeline_In_Channel' to 'DW_conv_1_Pipeline_In_Channel'.
+WARNING: [SYN 201-103] Legalizing function name 'DW_conv.1' to 'DW_conv_1'.
+WARNING: [SYN 201-103] Legalizing function name 'BatchNorm.1_Pipeline_VITIS_LOOP_16_4' to 'BatchNorm_1_Pipeline_VITIS_LOOP_16_4'.
+WARNING: [SYN 201-103] Legalizing function name 'BatchNorm.1' to 'BatchNorm_1'.
+WARNING: [SYN 201-103] Legalizing function name 'DW_conv.2' to 'DW_conv_2'.
+WARNING: [SYN 201-103] Legalizing function name 'Pointwise_conv.1_Pipeline_Output_Channel' to 'Pointwise_conv_1_Pipeline_Output_Channel'.
+WARNING: [SYN 201-103] Legalizing function name 'Pointwise_conv.1' to 'Pointwise_conv_1'.
+WARNING: [SYN 201-103] Legalizing function name 'Pointwise_conv.2' to 'Pointwise_conv_2'.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'DW_conv_1_Pipeline_In_Channel' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'In_Channel'.
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln66', DW_conv.cpp:66)) in the first pipeline iteration (II = 1 cycles).
+Resolution: For help on HLS 200-878 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-878.html
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln66', DW_conv.cpp:66)) in the first pipeline iteration (II = 2 cycles).
+Resolution: For help on HLS 200-878 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-878.html
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln66', DW_conv.cpp:66)) in the first pipeline iteration (II = 3 cycles).
+Resolution: For help on HLS 200-878 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-878.html
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln66', DW_conv.cpp:66)) in the first pipeline iteration (II = 4 cycles).
+Resolution: For help on HLS 200-878 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-878.html
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln66', DW_conv.cpp:66)) in the first pipeline iteration (II = 35 cycles).
+Resolution: For help on HLS 200-878 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-878.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 36, Depth = 36, loop 'In_Channel'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.49 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.64 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.22 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.28 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'DW_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.3 seconds. CPU system time: 0 seconds. Elapsed time: 0.31 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.34 seconds. CPU system time: 0 seconds. Elapsed time: 0.38 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'BatchNorm_1_Pipeline_VITIS_LOOP_16_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_16_4'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 32, loop 'VITIS_LOOP_16_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.45 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.5 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.17 seconds. CPU system time: 0 seconds. Elapsed time: 0.19 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'BatchNorm_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.19 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.22 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'DW_conv_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Kernel_Row_Kernel_Col'.
+WARNING: [HLS 200-880] The II Violation in module 'DW_conv_2' (loop 'Out_Row_Kernel_Row_Kernel_Col'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64) and bus request operation ('gmem3_load_req', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'DW_conv_2' (loop 'Out_Row_Kernel_Row_Kernel_Col'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64) and bus request operation ('gmem3_load_req', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'DW_conv_2' (loop 'Out_Row_Kernel_Row_Kernel_Col'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64) and bus request operation ('gmem3_load_req', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'DW_conv_2' (loop 'Out_Row_Kernel_Row_Kernel_Col'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64) and bus request operation ('gmem3_load_req', DW_conv.cpp:64) on port 'gmem3' (DW_conv.cpp:64).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-885] The II Violation in module 'DW_conv_2' (loop 'Out_Row_Kernel_Row_Kernel_Col'): Unable to schedule bus request operation ('gmem2_load_42_req', DW_conv.cpp:64) on port 'gmem2' (DW_conv.cpp:64) due to limited memory ports (II = 19). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html
+WARNING: [HLS 200-885] The II Violation in module 'DW_conv_2' (loop 'Out_Row_Kernel_Row_Kernel_Col'): Unable to schedule bus request operation ('gmem2_load_46_req', DW_conv.cpp:64) on port 'gmem2' (DW_conv.cpp:64) due to limited memory ports (II = 23). Please consider using a memory core with more ports or partitioning the array.
+Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 24, Depth = 426, loop 'Out_Row_Kernel_Row_Kernel_Col'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 4.03 seconds. CPU system time: 0.01 seconds. Elapsed time: 4.12 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.61 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.73 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_17_3_VITIS_LOOP_18_4'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 4, loop 'VITIS_LOOP_17_3_VITIS_LOOP_18_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.23 seconds. CPU system time: 0 seconds. Elapsed time: 1.33 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_1_Pipeline_Output_Channel' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Output_Channel'.
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 35, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 51, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 59, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_1_Pipeline_Output_Channel' (loop 'Output_Channel'): Unable to enforce a carried dependence constraint (II = 63, distance = 1, offset = 1) between bus response operation ('gmem3_addr_resp', Pointwise_conv.cpp:33) on port 'gmem3' (Pointwise_conv.cpp:33) and bus request operation ('gmem3_load_req', Pointwise_conv.cpp:30) on port 'gmem3' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 64, Depth = 67, loop 'Output_Channel'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.7 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.77 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.49 seconds. CPU system time: 0 seconds. Elapsed time: 0.52 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.44 seconds. CPU system time: 0 seconds. Elapsed time: 0.48 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.25 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.27 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_stage0_Pipeline_VITIS_LOOP_7_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_7_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 16, loop 'VITIS_LOOP_7_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.29 seconds. CPU system time: 0 seconds. Elapsed time: 0.34 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.1 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_stage0_Pipeline_VITIS_LOOP_34_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_34_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 22, loop 'VITIS_LOOP_34_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.15 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.11 seconds. CPU system time: 0 seconds. Elapsed time: 0.27 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_stage0_Pipeline_VITIS_LOOP_57_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_57_4'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 5, loop 'VITIS_LOOP_57_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.09 seconds. CPU system time: 0 seconds. Elapsed time: 0.12 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'Pointwise_conv_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-486] Changing DSP latency (root=empty_163) to 3 in order to utilize available DSP registers.
+INFO: [SCHED 204-61] Pipelining loop 'Out_Row_Out_Column_Output_Channel'.
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_2' (loop 'Out_Row_Out_Column_Output_Channel'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between bus read operation ('gmem_addr_read_23', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30) and bus read operation ('gmem_addr_read', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_2' (loop 'Out_Row_Out_Column_Output_Channel'): Unable to enforce a carried dependence constraint (II = 2, distance = 1, offset = 1) between bus read operation ('gmem_addr_read_23', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30) and bus read operation ('gmem_addr_read', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_2' (loop 'Out_Row_Out_Column_Output_Channel'): Unable to enforce a carried dependence constraint (II = 3, distance = 1, offset = 1) between bus read operation ('gmem_addr_read_23', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30) and bus read operation ('gmem_addr_read', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_2' (loop 'Out_Row_Out_Column_Output_Channel'): Unable to enforce a carried dependence constraint (II = 4, distance = 1, offset = 1) between bus read operation ('gmem_addr_read_23', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30) and bus read operation ('gmem_addr_read', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_2' (loop 'Out_Row_Out_Column_Output_Channel'): Unable to enforce a carried dependence constraint (II = 19, distance = 1, offset = 1) between bus read operation ('gmem_addr_read_23', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30) and bus read operation ('gmem_addr_read', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+WARNING: [HLS 200-880] The II Violation in module 'Pointwise_conv_2' (loop 'Out_Row_Out_Column_Output_Channel'): Unable to enforce a carried dependence constraint (II = 23, distance = 1, offset = 1) between bus read operation ('gmem_addr_read_23', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30) and bus read operation ('gmem_addr_read', Pointwise_conv.cpp:30) on port 'gmem' (Pointwise_conv.cpp:30).
+Resolution: For help on HLS 200-880 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-880.html
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 24, Depth = 68, loop 'Out_Row_Out_Column_Output_Channel'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.29 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.35 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.91 seconds. CPU system time: 0 seconds. Elapsed time: 0.95 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'kernel_stage0' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.12 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.18 seconds; current allocated memory: 456.160 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.94 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.99 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'DW_conv_1_Pipeline_In_Channel' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mul_62s_17ns_62_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'srem_32ns_3ns_3_36_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'DW_conv_1_Pipeline_In_Channel'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.98 seconds. CPU system time: 0 seconds. Elapsed time: 2.03 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'DW_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'DW_conv_1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.28 seconds. CPU system time: 0 seconds. Elapsed time: 0.33 seconds; current allocated memory: 456.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'BatchNorm_1_Pipeline_VITIS_LOOP_16_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'BatchNorm_1_Pipeline_VITIS_LOOP_16_4' pipeline 'VITIS_LOOP_16_4' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_9_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_1_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fsub_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'BatchNorm_1_Pipeline_VITIS_LOOP_16_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.93 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.08 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'BatchNorm_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dsqrt_64ns_64ns_64_8_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'BatchNorm_1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.29 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.37 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'DW_conv_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'DW_conv_2' pipeline 'Out_Row_Kernel_Row_Kernel_Col' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'DW_conv_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.96 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.04 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4' pipeline 'VITIS_LOOP_17_3_VITIS_LOOP_18_4' pipeline type 'loop pipeline'
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4/m_axi_gmem0_ARUSER' to 0.
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_stage0_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 3.7 seconds. CPU system time: 0.04 seconds. Elapsed time: 3.93 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_1_Pipeline_Output_Channel' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'Pointwise_conv_1_Pipeline_Output_Channel' pipeline 'Output_Channel' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_1_Pipeline_Output_Channel'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.2 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.27 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.94 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.01 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_stage0_Pipeline_VITIS_LOOP_7_1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_stage0_Pipeline_VITIS_LOOP_7_1' pipeline 'VITIS_LOOP_7_1' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_1_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_stage0_Pipeline_VITIS_LOOP_7_1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.44 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.52 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_stage0_Pipeline_VITIS_LOOP_34_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_stage0_Pipeline_VITIS_LOOP_34_2' pipeline 'VITIS_LOOP_34_2' pipeline type 'loop pipeline'
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem1_ARUSER' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_AWUSER' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_34_2/m_axi_gmem2_BREADY' to 0.
+INFO: [RTGEN 206-100] Generating core module 'dadd_64ns_64ns_64_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'ddiv_64ns_64ns_64_9_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'dexp_64ns_64ns_64_6_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fpext_32ns_64_1_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_1_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_stage0_Pipeline_VITIS_LOOP_34_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.25 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.45 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_stage0_Pipeline_VITIS_LOOP_57_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'kernel_stage0_Pipeline_VITIS_LOOP_57_4' pipeline 'VITIS_LOOP_57_4' pipeline type 'loop pipeline'
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem0_ARUSER' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWVALID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWADDR' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWID' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWLEN' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWSIZE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWBURST' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWLOCK' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWCACHE' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWPROT' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWQOS' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWREGION' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_AWUSER' to 0.
+WARNING: [RTGEN 206-101] Setting dangling out port 'kernel_stage0_Pipeline_VITIS_LOOP_57_4/m_axi_gmem3_BREADY' to 0.
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_stage0_Pipeline_VITIS_LOOP_57_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.27 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.58 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'Pointwise_conv_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'Pointwise_conv_2' pipeline 'Out_Row_Out_Column_Output_Channel' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'mac_muladd_5ns_14ns_15s_20_4_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'Pointwise_conv_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.41 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.5 seconds; current allocated memory: 520.160 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'kernel_stage0' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/gmem0' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/gmem' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/gmem1' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/gmem2' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/gmem3' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/X_data' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/msp_conv_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/msp_conv_bias' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/msp_norm_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/msp_norm_bias' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/msp_norm_running_mean' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/msp_norm_running_var' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/dw_conv_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/norm_1_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/norm_1_bias' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/norm_1_running_mean' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/norm_1_running_var' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/se_conv_reduce_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/se_conv_reduce_bias' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/se_conv_expand_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/se_conv_expand_bias' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/proj_conv_weight' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_msp_conv' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_msp_norm' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_dw_conv' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_dw_norm' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_dw_act' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_mean' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_reduce' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_relu' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_expand' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_sigmoid' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_se' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'kernel_stage0/Y_proj' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'kernel_stage0' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Bundling port 'X_data', 'msp_conv_weight', 'msp_conv_bias', 'msp_norm_weight', 'msp_norm_bias', 'msp_norm_running_mean', 'msp_norm_running_var', 'dw_conv_weight', 'norm_1_weight', 'norm_1_bias', 'norm_1_running_mean', 'norm_1_running_var', 'se_conv_reduce_weight', 'se_conv_reduce_bias', 'se_conv_expand_weight', 'se_conv_expand_bias', 'proj_conv_weight', 'Y_msp_conv', 'Y_msp_norm', 'Y_dw_conv', 'Y_dw_norm', 'Y_dw_act', 'Y_mean', 'Y_reduce', 'Y_relu', 'Y_expand', 'Y_sigmoid', 'Y_se', 'Y_proj' and 'ap_local_deadlock' to AXI-Lite port control.
+INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_2_full_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fdiv_32ns_32ns_32_5_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_2_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'kernel_stage0'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.76 seconds. CPU system time: 0.06 seconds. Elapsed time: 3.22 seconds; current allocated memory: 588.168 MB.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 4.86 seconds. CPU system time: 0.11 seconds. Elapsed time: 5.6 seconds; current allocated memory: 588.168 MB.
+INFO: [HLS 200-1603] Design has inferred MAXI bursts and missed bursts, see Vitis HLS GUI synthesis summary report for detailed information.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 8.93 seconds. CPU system time: 0.06 seconds. Elapsed time: 9.1 seconds; current allocated memory: 588.168 MB.
+INFO: [VHDL 208-304] Generating VHDL RTL for kernel_stage0.
+INFO: [VLOG 209-307] Generating Verilog RTL for kernel_stage0.
+INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [HLS 200-789] **** Estimated Fmax: 91.32 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 181.62 seconds. CPU system time: 8.26 seconds. Elapsed time: 195.12 seconds; current allocated memory: 324.008 MB.
+INFO: [HLS 200-112] Total CPU user time: 213.54 seconds. Total CPU system time: 11.1 seconds. Total elapsed time: 228.44 seconds; peak allocated memory: 588.168 MB.
+INFO: [Common 17-206] Exiting vitis_hls at Sun Oct  8 16:18:09 2023...
