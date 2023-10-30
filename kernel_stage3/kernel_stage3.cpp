@@ -259,7 +259,7 @@ extern "C"
     // self.v = ConvNormAct (後面的depth是做atten)
     Pointwise_conv(Y_norm_0, Y_v_conv_0, v_conv_0_weight, v_conv_0_bias, 1, 48, 288, 28, 28, 1);
     // 用relu會全部變成0，實際上應該要用gelu，先用silu代替
-    SiLU(Y_v_conv_0, Y_v_act_0, v_conv_0_X_num);
+    GeLU(Y_v_conv_0, Y_v_act_0, v_conv_0_X_num);
     
     // self.local_conv = ConvNormAct
     ConvNormAct(Y_v_act_0, dw_conv_0_filter, nullptr, dw_conv_0_shape_para, dw_conv_0_conv_para,
