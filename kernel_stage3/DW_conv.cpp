@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "kernel_stage1.hpp"
+#include "kernel_stage3.hpp"
 using namespace std;
 
 void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out)

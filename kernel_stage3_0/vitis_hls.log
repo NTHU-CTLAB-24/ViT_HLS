@@ -6,13 +6,12 @@
 
 source /users/cad/xilinx/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/users/cad/xilinx/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'lthuang22' on host 'ic53' (Linux_x86_64 version 3.10.0-1160.88.1.el7.x86_64) on Sat Oct 21 14:27:26 CST 2023
+INFO: [HLS 200-10] For user 'cppan22' on host 'ic21' (Linux_x86_64 version 3.10.0-1160.62.1.el7.x86_64) on Thu Oct 26 16:19:00 CST 2023
 INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
-INFO: [HLS 200-10] In directory '/users/student/mr111/lthuang22/vitis_hls/test_stage3'
+INFO: [HLS 200-10] In directory '/users/student/mr111/cppan22/git_ViT_HLS/ViT_HLS/kernel_stage3_0'
 Sourcing Tcl script 'run_hls.tcl'
 INFO: [HLS 200-1510] Running: open_project -reset proj_kernel_stage3 
-INFO: [HLS 200-10] Opening and resetting project '/users/student/mr111/lthuang22/vitis_hls/test_stage3/proj_kernel_stage3'.
-WARNING: [HLS 200-40] No /users/student/mr111/lthuang22/vitis_hls/test_stage3/proj_kernel_stage3/solution1/solution1.aps file found.
+INFO: [HLS 200-10] Creating and opening project '/users/student/mr111/cppan22/git_ViT_HLS/ViT_HLS/kernel_stage3_0/proj_kernel_stage3'.
 INFO: [HLS 200-1510] Running: add_files kernel_stage3.cpp 
 INFO: [HLS 200-10] Adding design file 'kernel_stage3.cpp' to the project
 INFO: [HLS 200-1510] Running: add_files BatchNorm.cpp 
@@ -37,9 +36,9 @@ INFO: [HLS 200-1510] Running: add_files stage3_parameters.txt
 INFO: [HLS 200-10] Adding design file 'stage3_parameters.txt' to the project
 INFO: [HLS 200-1510] Running: set_top kernel_stage3 
 INFO: [HLS 200-1510] Running: open_solution -reset solution1 
-INFO: [HLS 200-10] Creating and opening solution '/users/student/mr111/lthuang22/vitis_hls/test_stage3/proj_kernel_stage3/solution1'.
+INFO: [HLS 200-10] Creating and opening solution '/users/student/mr111/cppan22/git_ViT_HLS/ViT_HLS/kernel_stage3_0/proj_kernel_stage3/solution1'.
 INFO: [HLS 200-10] Cleaning up the solution database.
-WARNING: [HLS 200-40] No /users/student/mr111/lthuang22/vitis_hls/test_stage3/proj_kernel_stage3/solution1/solution1.aps file found.
+WARNING: [HLS 200-40] No /users/student/mr111/cppan22/git_ViT_HLS/ViT_HLS/kernel_stage3_0/proj_kernel_stage3/solution1/solution1.aps file found.
 INFO: [HLS 200-1505] Using default flow_target 'vivado'
 Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
 INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
@@ -183,6 +182,6 @@ stage 3.0 result
 
 INFO: [SIM 211-1] CSim done with 0 errors.
 INFO: [SIM 211-3] *************** CSIM finish ***************
-INFO: [HLS 200-111] Finished Command csim_design CPU user time: 89.11 seconds. CPU system time: 3.71 seconds. Elapsed time: 96.65 seconds; current allocated memory: 0.000 MB.
-INFO: [HLS 200-112] Total CPU user time: 93.56 seconds. Total CPU system time: 4.7 seconds. Total elapsed time: 100.8 seconds; peak allocated memory: 776.172 MB.
-INFO: [Common 17-206] Exiting vitis_hls at Sat Oct 21 14:29:07 2023...
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 108.2 seconds. CPU system time: 3.38 seconds. Elapsed time: 115.64 seconds; current allocated memory: 0.000 MB.
+INFO: [HLS 200-112] Total CPU user time: 112.99 seconds. Total CPU system time: 4.27 seconds. Total elapsed time: 131.16 seconds; peak allocated memory: 776.172 MB.
+INFO: [Common 17-206] Exiting vitis_hls at Thu Oct 26 16:21:10 2023...

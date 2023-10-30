@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "kernel_stage1.hpp"
+#include "kernel_stage3.hpp"
 using namespace std;
 
 void Compute_skip(float *in1, float *in2, float *out, int *X_num)
