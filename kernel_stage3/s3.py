@@ -38,7 +38,7 @@ class iRMB(nn.Module):
         else:
             if v_proj:
                 self.v = ConvNormAct(dim_in, dim_mid, kernel_size=1, bias=qkv_bias,
-                                     norm_layer='none', act_layer='silu', inplace=inplace)
+                                     norm_layer='none', act_layer='gelu', inplace=inplace)
             else:
                 self.v = nn.Identity()
         # DW-Conv: conv_local先做一次DepthWise-Conv萃取局部特徵，之後再應用SE模塊對通道的重要程度加權，以增強特徵
@@ -214,7 +214,7 @@ norm_in = True
 has_skip = False
 exp_ratio = 3
 norm_layer = 'ln_2d'
-act_layer = 'silu'
+act_layer = 'gelu'
 v_proj = True
 dw_ks = 5
 stride = 1
