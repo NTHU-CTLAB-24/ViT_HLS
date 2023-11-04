@@ -14,6 +14,8 @@ add_files ReLU.cpp
 add_files GeLU.cpp
 add_files SiLU.cpp
 add_files kernel_attention.cpp
+add_files Clear_data.cpp
+add_files Split_data_to_7.cpp
 
 # Add test bench & files
 add_files -tb kernel_stage3_test.cpp
@@ -32,7 +34,7 @@ create_clock -period 15
 
 csim_design
 # Run Synthesis
-# csynth_design
+csynth_design
 # RTL Simulation
 # -disable_depchk can ignore warning message
 # cosim_design 

@@ -70,6 +70,15 @@ extern "C"
                             float *buffer_out,
                             float *buffer_result
                        );
+    void clear_data(
+        float *afterNorm, float *afterRearrangeX, float *afterConv1,
+        float *in_q, float *in_k,
+        float *afterQKMultiplication, float *afterSoftmax, float *afterRearrangeX2, float *afterQKXMultiplication,
+        float *afterRearrangeQKX, float *afterConv2, float *afterAct2,
+        float *buffer_out, float *buffer_result,
+        float *Y_dw_conv_1, float *Y_dw_norm_1, float *Y_dw_act_1, float *Y_proj_1, float *Y_dw_skip_1
+    );
+    void split_data_to7(float *origin, float *l1, float *l2, float *l3, float *l4, float *l5, float *l6, float *l7, int n);
 }
 
 #endif
