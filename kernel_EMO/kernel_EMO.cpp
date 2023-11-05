@@ -239,9 +239,9 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = Y_norm_0_3 bundle = gmem1 depth = 37632
     #pragma HLS INTERFACE m_axi port = Y_v_conv_0_3 bundle = gmem2 depth = 225792
     #pragma HLS INTERFACE m_axi port = Y_v_act_0_3 bundle = gmem3 depth = 225792
-    #pragma HLS INTERFACE m_axi port = Y_dw_conv_0_3 bundle = gmem0 depth = 37632
-    #pragma HLS INTERFACE m_axi port = Y_dw_norm_0_3 bundle = gmem1 depth = 37632
-    #pragma HLS INTERFACE m_axi port = Y_dw_act_0_3 bundle = gmem3 depth = 37632
+    #pragma HLS INTERFACE m_axi port = Y_dw_conv_0_3 bundle = gmem0 depth = 56448
+    #pragma HLS INTERFACE m_axi port = Y_dw_norm_0_3 bundle = gmem1 depth = 56448
+    #pragma HLS INTERFACE m_axi port = Y_dw_act_0_3 bundle = gmem3 depth = 56448
     #pragma HLS INTERFACE m_axi port = result_30 bundle = gmem0 depth = 15680
 
     //stage 3 depth1-7
@@ -299,7 +299,7 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = dw_norm_0_mean_4 depth = 560
     #pragma HLS INTERFACE m_axi port = dw_norm_0_var_4 depth = 560
     
-    #pragma HLS INTERFACE m_axi port = proj_0_weight_4 depth = 94080//288*80
+    #pragma HLS INTERFACE m_axi port = proj_0_weight_4 depth = 94080//560*168
 
     #pragma HLS INTERFACE m_axi port = Y_norm_0_4 bundle = gmem1 depth = 15680
     #pragma HLS INTERFACE m_axi port = Y_v_conv_0_4 bundle = gmem2 depth = 109760
@@ -311,8 +311,8 @@ extern "C"
 
     //stage 4 depth1-2
     #pragma HLS INTERFACE m_axi port = afterNorm_4 bundle = gmem1 depth = 8232
-    #pragma HLS INTERFACE m_axi port = norm1_mean_4 depth = 49*2 //*7
-    #pragma HLS INTERFACE m_axi port = norm1_var_4 depth = 49*2 //*7
+    #pragma HLS INTERFACE m_axi port = norm1_mean_4 depth = 49 //*2 //*7
+    #pragma HLS INTERFACE m_axi port = norm1_var_4 depth = 49 //*2 //*7
     #pragma HLS INTERFACE m_axi port = norm1_weight_4 depth = 168*2
     #pragma HLS INTERFACE m_axi port = norm1_bias_4 depth = 168*2
 
@@ -323,8 +323,8 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = bias1_4 depth = 336*2
     #pragma HLS INTERFACE m_axi port = in_q_4 depth = 8232
     #pragma HLS INTERFACE m_axi port = in_k_4 depth = 8232
-    #pragma HLS INTERFACE m_axi port = afterQKMultiplication_4 depth = 19208
-    #pragma HLS INTERFACE m_axi port = afterSoftmax_4 depth = 19208
+    #pragma HLS INTERFACE m_axi port = afterQKMultiplication_4 depth = 2401//19208
+    #pragma HLS INTERFACE m_axi port = afterSoftmax_4 depth = 2401//19208
     #pragma HLS INTERFACE m_axi port = afterRearrangeX2_4 depth = 8232
     #pragma HLS INTERFACE m_axi port = afterQKXMultiplication_4 depth = 8232
     #pragma HLS INTERFACE m_axi port = afterRearrangeQKX_4 depth = 8232
@@ -337,7 +337,7 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = buffer_out_4 depth = 28812
     #pragma HLS INTERFACE m_axi port = buffer_result_4 bundle  = gmem0 depth = 28812
 
-    #pragma HLS INTERFACE m_axi port = dw_conv_1_filter_4 depth = 14700*2 //25*240
+    #pragma HLS INTERFACE m_axi port = dw_conv_1_filter_4 depth = 14700*2 //25*588
     #pragma HLS INTERFACE m_axi port = dw_norm_1_weight_4 depth = 588*2
     #pragma HLS INTERFACE m_axi port = dw_norm_1_bias_4 depth = 588*2
     #pragma HLS INTERFACE m_axi port = dw_norm_1_mean_4 depth = 588*2
