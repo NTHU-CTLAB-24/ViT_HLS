@@ -325,8 +325,8 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = bias1_4 depth = 336*2
     #pragma HLS INTERFACE m_axi port = in_q_4 depth = 8232
     #pragma HLS INTERFACE m_axi port = in_k_4 depth = 8232
-    #pragma HLS INTERFACE m_axi port = afterQKMultiplication_4 depth = 2401//19208
-    #pragma HLS INTERFACE m_axi port = afterSoftmax_4 depth = 2401//19208
+    #pragma HLS INTERFACE m_axi port = afterQKMultiplication_4 depth = 19208 //2401
+    #pragma HLS INTERFACE m_axi port = afterSoftmax_4 depth = 19208 //2401
     #pragma HLS INTERFACE m_axi port = afterRearrangeX2_4 depth = 8232
     #pragma HLS INTERFACE m_axi port = afterQKXMultiplication_4 depth = 8232
     #pragma HLS INTERFACE m_axi port = afterRearrangeQKX_4 depth = 8232
