@@ -86,7 +86,9 @@ extern "C"
                     float* dw_conv_1_filter_4, float* dw_norm_1_weight_4, float* dw_norm_1_bias_4, float* dw_norm_1_mean_4, float* dw_norm_1_var_4,
                     float* proj_1_weight_4,
                     float* Y_dw_conv_1_4, float* Y_dw_norm_1_4, float* Y_dw_act_1_4, float* Y_proj_1_4,
-                    float* Y_dw_skip_1_4, float* Y_skip_1_4
+                    float* Y_dw_skip_1_4, float* Y_skip_1_4,
+                    float* Y_linear_norm, float* linear_norm_mean, float* linear_norm_var, float* linear_norm_weight, float* linear_norm_bias,
+                    float* Y_linear_reduce, float* linear_weight, float* linear_bias, float* Y_out
                     )
     {
     // #pragma HLS INTERFACE m_axi port = X_data bundle = gmem0 depth = 301056
@@ -351,66 +353,77 @@ extern "C"
     #pragma HLS INTERFACE m_axi port = Y_dw_skip_1_4 bundle = gmem3 depth = 28812
     #pragma HLS INTERFACE m_axi port = Y_skip_1_4 bundle = gmem2 depth = 8232
 
-    // kernel_stage0(X_data, msp_conv_weight, msp_conv_bias, msp_norm_weight, msp_norm_bias, msp_norm_running_mean, msp_norm_running_var,
-    //               dw_conv_weight, dw_norm_gamma, dw_norm_beta, dw_norm_mean, dw_norm_var,
-    //               se_conv_reduce_weight, se_conv_reduce_bias, se_conv_expand_weight, se_conv_expand_bias,
-    //               proj_conv_weight, Y_msp_conv, Y_msp_norm, Y_dw_conv, Y_dw_norm, Y_dw_act, Y_se_mean, Y_se_reduce, 
-    //               Y_se_act, Y_se_expand, Y_se_sigmoid, Y_se, Y_proj);
+    #pragma HLS INTERFACE m_axi port = linear_norm_mean depth = 49
+    #pragma HLS INTERFACE m_axi port = linear_norm_var depth = 49
+    #pragma HLS INTERFACE m_axi port = linear_norm_weight depth = 168
+    #pragma HLS INTERFACE m_axi port = linear_norm_bias depth = 168
+    #pragma HLS INTERFACE m_axi port = Y_linear_norm bundle = gmem0 depth = 8232
+    
+    #pragma HLS INTERFACE m_axi port = Y_linear_reduce bundle = gmem1 depth = 168
+    #pragma HLS INTERFACE m_axi port = linear_weight depth = 168000
+    #pragma HLS INTERFACE m_axi port = linear_bias depth = 1000
+    #pragma HLS INTERFACE m_axi port = Y_out bundle = gmem2 depth = 1000
 
-    // kernel_stage1(Y_proj, 
-    //               norm_1_1_weight, norm_1_1_bias, norm_1_1_running_mean, norm_1_1_running_var,
-    //               v_conv_1_1_weight, v_conv_1_1_bias,
-    //               dw_conv_1_1_filter, dw_norm_1_1_gamma, dw_norm_1_1_beta, dw_norm_1_1_mean, dw_norm_1_1_var,
-    //               proj_1_1_weight,
-    //               norm_1_2_weight, norm_1_2_bias, norm_1_2_running_mean, norm_1_2_running_var,
-    //               v_conv_1_2_weight, v_conv_1_2_bias,
-    //               dw_conv_1_2_filter, dw_norm_1_2_gamma, dw_norm_1_2_beta, dw_norm_1_2_mean, dw_norm_1_2_var,
-    //               proj_1_2_weight,
-    //               Y_norm_1_1, Y_v_conv_1_1, Y_v_act_1_1, Y_dw_conv_1_1, Y_dw_norm_1_1, Y_dw_act_1_1, Y_proj_1_1,
-    //               Y_norm_1_2, Y_v_conv_1_2, Y_v_act_1_2, Y_dw_conv_1_2, Y_dw_norm_1_2, Y_dw_act_1_2, Y_proj_1_2,
-    //               Y_dw_skip_1_2, Y_skip_1_2
-    //              );
+    kernel_stage0(X_data, msp_conv_weight, msp_conv_bias, msp_norm_weight, msp_norm_bias, msp_norm_running_mean, msp_norm_running_var,
+                  dw_conv_weight, dw_norm_gamma, dw_norm_beta, dw_norm_mean, dw_norm_var,
+                  se_conv_reduce_weight, se_conv_reduce_bias, se_conv_expand_weight, se_conv_expand_bias,
+                  proj_conv_weight, Y_msp_conv, Y_msp_norm, Y_dw_conv, Y_dw_norm, Y_dw_act, Y_se_mean, Y_se_reduce, 
+                  Y_se_act, Y_se_expand, Y_se_sigmoid, Y_se, Y_proj);
 
-    // kernel_stage2(Y_skip_1_2,
-    //               norm_2_1_weight, norm_2_1_bias, norm_2_1_running_mean, norm_2_1_running_var,
-    //               v_conv_2_1_weight, v_conv_2_1_bias,
-    //               dw_conv_2_1_filter, dw_norm_2_1_gamma, dw_norm_2_1_beta, dw_norm_2_1_mean, dw_norm_2_1_var,
-    //               proj_2_1_weight,
-    //               norm_2_2_weight, norm_2_2_bias, norm_2_2_running_mean, norm_2_2_running_var,
-    //               v_conv_2_2_weight, v_conv_2_2_bias,
-    //               dw_conv_2_2_filter, dw_norm_2_2_gamma, dw_norm_2_2_beta, dw_norm_2_2_mean, dw_norm_2_2_var,
-    //               proj_2_2_weight,
-    //               Y_norm_2_1, Y_v_conv_2_1, Y_v_act_2_1, Y_dw_conv_2_1, Y_dw_norm_2_1, Y_dw_act_2_1, Y_proj_2_1,
-    //               Y_norm_2_2, Y_v_conv_2_2, Y_v_act_2_2, Y_dw_conv_2_2, Y_dw_norm_2_2, Y_dw_act_2_2, Y_proj_2_2,
-    //               Y_dw_skip_2_2, Y_skip_2_2
-    //               );
+    kernel_stage1(Y_proj, 
+                  norm_1_1_weight, norm_1_1_bias, norm_1_1_running_mean, norm_1_1_running_var,
+                  v_conv_1_1_weight, v_conv_1_1_bias,
+                  dw_conv_1_1_filter, dw_norm_1_1_gamma, dw_norm_1_1_beta, dw_norm_1_1_mean, dw_norm_1_1_var,
+                  proj_1_1_weight,
+                  norm_1_2_weight, norm_1_2_bias, norm_1_2_running_mean, norm_1_2_running_var,
+                  v_conv_1_2_weight, v_conv_1_2_bias,
+                  dw_conv_1_2_filter, dw_norm_1_2_gamma, dw_norm_1_2_beta, dw_norm_1_2_mean, dw_norm_1_2_var,
+                  proj_1_2_weight,
+                  Y_norm_1_1, Y_v_conv_1_1, Y_v_act_1_1, Y_dw_conv_1_1, Y_dw_norm_1_1, Y_dw_act_1_1, Y_proj_1_1,
+                  Y_norm_1_2, Y_v_conv_1_2, Y_v_act_1_2, Y_dw_conv_1_2, Y_dw_norm_1_2, Y_dw_act_1_2, Y_proj_1_2,
+                  Y_dw_skip_1_2, Y_skip_1_2
+                 );
 
-    // kernel_stage3(Y_skip_2_2, norm_0_weight_3, norm_0_bias_3, v_conv_0_weight_3, v_conv_0_bias_3,
-    //              dw_conv_0_filter_3, dw_norm_0_weight_3, dw_norm_0_bias_3, dw_norm_0_mean_3, dw_norm_0_var_3,
-    //              proj_0_weight_3, Y_norm_0_3, Y_v_conv_0_3, Y_v_act_0_3, Y_dw_conv_0_3, Y_dw_norm_0_3, Y_dw_act_0_3,
-    //              result_30, afterNorm_3,
-    //              norm1_mean_3, norm1_var_3, norm1_weight_3, norm1_bias_3,
-    //              afterRearrangeX_3,
-    //              afterConv1_3,
-    //              kernel1_3,
-    //              bias1_3,
-    //              in_q_3,
-    //              in_k_3,
-    //              afterQKMultiplication_3,
-    //              afterSoftmax_3,
-    //              afterRearrangeX2_3,
-    //              afterQKXMultiplication_3,
-    //              afterRearrangeQKX_3,
-    //              afterConv2_3,
-    //              kernel2_3,
-    //              bias2_3,
-    //              afterAct2_3,
-    //              buffer_out_3,
-    //              buffer_result_3,
-    //              dw_conv_1_filter_3, dw_norm_1_weight_3, dw_norm_1_bias_3, dw_norm_1_mean_3, dw_norm_1_var_3,
-    //              proj_1_weight_3, Y_dw_conv_1_3, Y_dw_norm_1_3, Y_dw_act_1_3, Y_proj_1_3,
-    //              Y_dw_skip_1_3, Y_skip_1_3
-    //              );
+    kernel_stage2(Y_skip_1_2,
+                  norm_2_1_weight, norm_2_1_bias, norm_2_1_running_mean, norm_2_1_running_var,
+                  v_conv_2_1_weight, v_conv_2_1_bias,
+                  dw_conv_2_1_filter, dw_norm_2_1_gamma, dw_norm_2_1_beta, dw_norm_2_1_mean, dw_norm_2_1_var,
+                  proj_2_1_weight,
+                  norm_2_2_weight, norm_2_2_bias, norm_2_2_running_mean, norm_2_2_running_var,
+                  v_conv_2_2_weight, v_conv_2_2_bias,
+                  dw_conv_2_2_filter, dw_norm_2_2_gamma, dw_norm_2_2_beta, dw_norm_2_2_mean, dw_norm_2_2_var,
+                  proj_2_2_weight,
+                  Y_norm_2_1, Y_v_conv_2_1, Y_v_act_2_1, Y_dw_conv_2_1, Y_dw_norm_2_1, Y_dw_act_2_1, Y_proj_2_1,
+                  Y_norm_2_2, Y_v_conv_2_2, Y_v_act_2_2, Y_dw_conv_2_2, Y_dw_norm_2_2, Y_dw_act_2_2, Y_proj_2_2,
+                  Y_dw_skip_2_2, Y_skip_2_2
+                  );
+
+    kernel_stage3(Y_skip_2_2, norm_0_weight_3, norm_0_bias_3, v_conv_0_weight_3, v_conv_0_bias_3,
+                 dw_conv_0_filter_3, dw_norm_0_weight_3, dw_norm_0_bias_3, dw_norm_0_mean_3, dw_norm_0_var_3,
+                 proj_0_weight_3, Y_norm_0_3, Y_v_conv_0_3, Y_v_act_0_3, Y_dw_conv_0_3, Y_dw_norm_0_3, Y_dw_act_0_3,
+                 result_30, afterNorm_3,
+                 norm1_mean_3, norm1_var_3, norm1_weight_3, norm1_bias_3,
+                 afterRearrangeX_3,
+                 afterConv1_3,
+                 kernel1_3,
+                 bias1_3,
+                 in_q_3,
+                 in_k_3,
+                 afterQKMultiplication_3,
+                 afterSoftmax_3,
+                 afterRearrangeX2_3,
+                 afterQKXMultiplication_3,
+                 afterRearrangeQKX_3,
+                 afterConv2_3,
+                 kernel2_3,
+                 bias2_3,
+                 afterAct2_3,
+                 buffer_out_3,
+                 buffer_result_3,
+                 dw_conv_1_filter_3, dw_norm_1_weight_3, dw_norm_1_bias_3, dw_norm_1_mean_3, dw_norm_1_var_3,
+                 proj_1_weight_3, Y_dw_conv_1_3, Y_dw_norm_1_3, Y_dw_act_1_3, Y_proj_1_3,
+                 Y_dw_skip_1_3, Y_skip_1_3
+                 );
     kernel_stage4(Y_skip_1_3, norm_0_weight_4, norm_0_bias_4, v_conv_0_weight_4, v_conv_0_bias_4,
                  dw_conv_0_filter_4, dw_norm_0_weight_4, dw_norm_0_bias_4, dw_norm_0_mean_4, dw_norm_0_var_4,
                  proj_0_weight_4, Y_norm_0_4, Y_v_conv_0_4, Y_v_act_0_4, Y_dw_conv_0_4, Y_dw_norm_0_4, Y_dw_act_0_4,
@@ -437,5 +450,7 @@ extern "C"
                  proj_1_weight_4, Y_dw_conv_1_4, Y_dw_norm_1_4, Y_dw_act_1_4, Y_proj_1_4,
                  Y_dw_skip_1_4, Y_skip_1_4
                  );
+    kernel_linear(Y_skip_1_4, Y_linear_norm, linear_norm_mean, linear_norm_var, linear_norm_weight, linear_norm_bias,
+                  Y_linear_reduce, linear_weight, linear_bias, Y_out);
     }
 }

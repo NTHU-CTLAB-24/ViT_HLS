@@ -2,7 +2,7 @@
 // Includes
 
 #include <stdint.h>
-//#include "kernel_stage3_1_7.hpp"
+#include "kernel_EMO.hpp"
 #include <hls_math.h>
 #include <hls_stream.h>
 
@@ -597,7 +597,9 @@ void kernel_attention_4(float *buffer_DataIn_1,
         int skip2_num[7]={1,588,7,7,168,7,7};
         int rearrangex3_num[6]={1,588,1,1,7,7};//BATCH_SIZE NEW_CHANNEL_OUT n1 n2 H W
         int out_num[6]={1,588,7,7,7,7};
-        LayerNorm_4(buffer_DataIn_1, afterNorm, norm_num, norm1_mean, norm1_var, norm1_weight, norm1_bias);
+        
+        // LayerNorm_4(buffer_DataIn_1, afterNorm, norm_num, norm1_mean, norm1_var, norm1_weight, norm1_bias);
+        LayerNorm(buffer_DataIn_1, afterNorm, norm_num, norm1_mean, norm1_var, norm1_weight, norm1_bias);
         rearrangeX_4(afterNorm, afterRearrangeX, rearrangex_num);
         DW_conv_4(afterRearrangeX, kernel1, bias1, shape1_para, conv1_para, afterConv1);
 

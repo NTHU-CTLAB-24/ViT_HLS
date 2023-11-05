@@ -1,6 +1,3 @@
-#ifndef _KRNL_STAGE1_2_H_
-#define _KRNL_STAGE1_2_H_
-
 // Includes
 #include <ap_int.h>
 #include <hls_stream.h>
@@ -94,7 +91,10 @@ extern "C"
                     float* dw_conv_1_filter_4, float* dw_norm_1_weight_4, float* dw_norm_1_bias_4, float* dw_norm_1_mean_4, float* dw_norm_1_var_4,
                     float* proj_1_weight_4,
                     float* Y_dw_conv_1_4, float* Y_dw_norm_1_4, float* Y_dw_act_1_4, float* Y_proj_1_4,
-                    float* Y_dw_skip_1_4, float* Y_skip_1_4
+                    float* Y_dw_skip_1_4, float* Y_skip_1_4,
+
+                    float* Y_linear_norm, float* linear_norm_mean, float* linear_norm_var, float* linear_norm_weight, float* linear_norm_bias,
+                    float* Y_linear_reduce, float* linear_weight, float* linear_bias, float* Y_out
                     );
 
     void kernel_stage0(float* X_data, float* msp_conv_weight, float* msp_conv_bias, float* msp_norm_weight, float* msp_norm_bias, float* msp_norm_running_mean, float* msp_norm_running_var,
@@ -181,6 +181,8 @@ extern "C"
                        float *proj_1_weight_4,
                        float *Y_dw_conv_1_4, float *Y_dw_norm_1_4, float *Y_dw_act_1_4, float *Y_proj_1_4,
                        float *Y_dw_skip_1_4, float *Y_skip_1_4);
+    void kernel_linear(float *X_data, float *Y_linear_norm, float *linear_norm_mean, float *linear_norm_var, float *linear_norm_weight, float *linear_norm_bias,
+                       float *Y_linear_reduce, float *linear_weight, float *linear_bias, float *Y_out);
     void kernel_attention_3(float *buffer_DataIn_1,
                             float *afterNorm,
                             float *norm1_mean, float *norm1_var, float *norm1_weight, float *norm1_bias, 
@@ -222,6 +224,7 @@ extern "C"
                             float *afterAct2,
                             float *buffer_out,
                             float *buffer_result);
+    void Linear(float *x, float *x_reduce, float *weight, float *bias, int *X_num, float *y);
 
     void DW_conv(float *in, float *kernel, float *bias, int *shape_para, int *conv_para, float *out);
     void BatchNorm(float *X_data, float *Y_data, int *X_num, float *mean, float *var, float *gamma, float *beta);
@@ -252,5 +255,3 @@ extern "C"
     void split_data_to7(float *origin, float *l1, float *l2, float *l3, float *l4, float *l5, float *l6, float *l7, int n);
 
 }
-
-#endif
