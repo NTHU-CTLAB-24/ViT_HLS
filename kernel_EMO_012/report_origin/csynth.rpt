@@ -1,0 +1,1355 @@
+
+
+================================================================
+== Synthesis Summary Report of 'kernel_EMO'
+================================================================
++ General Information: 
+    * Date:           Sat Nov  4 13:53:14 2023
+    * Version:        2022.1 (Build 3526262 on Mon Apr 18 15:47:01 MDT 2022)
+    * Project:        proj_kernel_EMO
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu250-figd2104-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------------------------------------------------------+------+-------+--------------+-----------+----------+--------------+---------+----------+------+----------+-------------+------------+-----+
+    |                            Modules                            | Issue|       |   Latency    |  Latency  | Iteration|              |   Trip  |          |      |          |             |            |     |
+    |                            & Loops                            | Type | Slack |   (cycles)   |    (ns)   |  Latency |   Interval   |  Count  | Pipelined| BRAM |    DSP   |      FF     |     LUT    | URAM|
+    +---------------------------------------------------------------+------+-------+--------------+-----------+----------+--------------+---------+----------+------+----------+-------------+------------+-----+
+    |+ kernel_EMO                                                   |     -|   0.00|  544109238137|  8.162e+12|         -|  544109238138|        -|        no|     -|  152 (1%)|   46270 (1%)|  62837 (3%)|    -|
+    | + kernel_stage0_1                                             |     -|   0.00|  121614648871|  1.824e+12|         -|  121614648871|        -|        no|     -|  90 (~0%)|  16767 (~0%)|  24827 (1%)|    -|
+    |  + DW_conv_2                                                  |     -|   0.00|   15802053121|  2.370e+11|         -|   15802053121|        -|        no|     -|   4 (~0%)|   3859 (~0%)|  4344 (~0%)|    -|
+    |   o Out_Row_Kernel_Row_Kernel_Col                             |     -|  10.95|   15802053120|  2.370e+11|    139970|             -|   112896|        no|     -|         -|            -|           -|    -|
+    |    o Output_Channel                                           |     -|  10.95|        139968|  2.100e+06|      5832|             -|       24|        no|     -|         -|            -|           -|    -|
+    |     + DW_conv_2_Pipeline_In_Channel                           |     -|   0.00|          5798|  8.697e+04|         -|          5798|        -|        no|     -|   4 (~0%)|   3025 (~0%)|  2608 (~0%)|    -|
+    |      o In_Channel                                             |    II|  10.95|          5795|  8.692e+04|        36|            36|      160|       yes|     -|         -|            -|           -|    -|
+    |  + BatchNorm_1                                                |     -|   0.00|       2974721|  4.462e+07|         -|       2974721|        -|        no|     -|  14 (~0%)|   2700 (~0%)|  3152 (~0%)|    -|
+    |   o VITIS_LOOP_13_1_VITIS_LOOP_15_2_VITIS_LOOP_17_3           |     -|  10.95|       2974720|  4.462e+07|       166|             -|    17920|        no|     -|         -|            -|           -|    -|
+    |    + BatchNorm_1_Pipeline_VITIS_LOOP_19_4                     |     -|   0.00|           144|  2.160e+03|         -|           144|        -|        no|     -|  10 (~0%)|   1185 (~0%)|   563 (~0%)|    -|
+    |     o VITIS_LOOP_19_4                                         |     -|  10.95|           142|  2.130e+03|        32|             1|      112|       yes|     -|         -|            -|           -|    -|
+    |  + DW_conv_1                                                  |     -|   0.00|  105310404879|  1.580e+12|         -|  105310404879|        -|        no|     -|  15 (~0%)|   4358 (~0%)|  4856 (~0%)|    -|
+    |   o Batch_Out_Column_Kernel_Row_Kernel_Col                    |     -|  10.95|  105310404867|  1.580e+12|    932809|             -|   112896|        no|     -|         -|            -|           -|    -|
+    |    o Output_Channel                                           |     -|  10.95|        932800|  1.399e+07|      5830|             -|      160|        no|     -|         -|            -|           -|    -|
+    |     + DW_conv_1_Pipeline_In_Channel                           |     -|   0.00|          5798|  8.697e+04|         -|          5798|        -|        no|     -|   9 (~0%)|   3367 (~0%)|  3160 (~0%)|    -|
+    |      o In_Channel                                             |    II|  10.95|          5795|  8.692e+04|        36|            36|      160|       yes|     -|         -|            -|           -|    -|
+    |  + kernel_stage0_1_Pipeline_SiLU                              |     -|   0.00|        301084|  4.516e+06|         -|        301084|        -|        no|     -|         -|    491 (~0%)|   353 (~0%)|    -|
+    |   o SiLU                                                      |     -|  10.95|        301082|  4.516e+06|        28|             1|   301056|       yes|     -|         -|            -|           -|    -|
+    |  + Pointwise_conv_1                                           |     -|   0.00|     188661764|  2.830e+09|         -|     188661764|        -|        no|     -|   8 (~0%)|   1111 (~0%)|  1555 (~0%)|    -|
+    |   o Out_Row_Out_Column_Output_Channel                         |     -|  10.95|     188661760|  2.830e+09|        94|             -|  2007040|        no|     -|         -|            -|           -|    -|
+    |    + Pointwise_conv_1_Pipeline_In_Channel                     |     -|   0.00|            64|    960.000|         -|            64|        -|        no|     -|   4 (~0%)|    442 (~0%)|   332 (~0%)|    -|
+    |     o In_Channel                                              |     -|  10.95|            62|    930.000|        16|             1|       48|       yes|     -|         -|            -|           -|    -|
+    |  + kernel_stage0_1_Pipeline_SiLU1                             |     -|   0.00|            52|    780.000|         -|            52|        -|        no|     -|         -|    477 (~0%)|   339 (~0%)|    -|
+    |   o SiLU                                                      |     -|  10.95|            50|    750.000|        28|             1|       24|       yes|     -|         -|            -|           -|    -|
+    |  + kernel_stage0_1_Pipeline_VITIS_LOOP_34_2                   |     -|   0.00|            46|    690.000|         -|            46|        -|        no|     -|  29 (~0%)|   1287 (~0%)|  2629 (~0%)|    -|
+    |   o VITIS_LOOP_34_2                                           |     -|  10.95|            44|    660.000|        22|             1|       24|       yes|     -|         -|            -|           -|    -|
+    |  + Pointwise_conv_2                                           |     -|   0.00|     118013956|  1.770e+09|         -|     118013956|        -|        no|     -|   8 (~0%)|    971 (~0%)|  1363 (~0%)|    -|
+    |   o Out_Row_Out_Column_Output_Channel                         |     -|  10.95|     118013952|  1.770e+09|       196|             -|   602112|        no|     -|         -|            -|           -|    -|
+    |    + Pointwise_conv_2_Pipeline_In_Channel                     |     -|   0.00|           176|  2.640e+03|         -|           176|        -|        no|     -|   6 (~0%)|    623 (~0%)|   563 (~0%)|    -|
+    |     o In_Channel                                              |     -|  10.95|           174|  2.610e+03|        16|             1|      160|       yes|     -|         -|            -|           -|    -|
+    |  o VITIS_LOOP_15_2                                            |     -|  10.95|        301344|  4.520e+06|     12556|             -|       24|        no|     -|         -|            -|           -|    -|
+    |   + kernel_stage0_1_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4  |     -|   0.00|         12548|  1.882e+05|         -|         12548|        -|        no|     -|         -|     87 (~0%)|   102 (~0%)|    -|
+    |    o VITIS_LOOP_17_3_VITIS_LOOP_18_4                          |     -|  10.95|         12546|  1.882e+05|         4|             1|    12544|       yes|     -|         -|            -|           -|    -|
+    |  o VITIS_LOOP_54_2                                            |     -|  10.95|        301368|  4.521e+06|     12557|             -|       24|        no|     -|         -|            -|           -|    -|
+    |   + kernel_stage0_1_Pipeline_VITIS_LOOP_57_4                  |     -|   0.00|         12554|  1.883e+05|         -|         12554|        -|        no|     -|         -|    439 (~0%)|   392 (~0%)|    -|
+    |    o VITIS_LOOP_56_3_VITIS_LOOP_57_4                          |     -|  10.95|         12552|  1.883e+05|        10|             1|    12544|       yes|     -|         -|            -|           -|    -|
+    | + BatchNorm_1                                                 |     -|   0.00|       2974721|  4.462e+07|         -|       2974721|        -|        no|     -|  14 (~0%)|   2700 (~0%)|  3152 (~0%)|    -|
+    |  o VITIS_LOOP_13_1_VITIS_LOOP_15_2_VITIS_LOOP_17_3            |     -|  10.95|       2974720|  4.462e+07|       166|             -|    17920|        no|     -|         -|            -|           -|    -|
+    |   + BatchNorm_1_Pipeline_VITIS_LOOP_19_4                      |     -|   0.00|           144|  2.160e+03|         -|           144|        -|        no|     -|  10 (~0%)|   1185 (~0%)|   563 (~0%)|    -|
+    |    o VITIS_LOOP_19_4                                          |     -|  10.95|           142|  2.130e+03|        32|             1|      112|       yes|     -|         -|            -|           -|    -|
+    | + Pointwise_conv_1                                            |     -|   0.00|     188661764|  2.830e+09|         -|     188661764|        -|        no|     -|   8 (~0%)|   1111 (~0%)|  1555 (~0%)|    -|
+    |  o Out_Row_Out_Column_Output_Channel                          |     -|  10.95|     188661760|  2.830e+09|        94|             -|  2007040|        no|     -|         -|            -|           -|    -|
+    |   + Pointwise_conv_1_Pipeline_In_Channel                      |     -|   0.00|            64|    960.000|         -|            64|        -|        no|     -|   4 (~0%)|    442 (~0%)|   332 (~0%)|    -|
+    |    o In_Channel                                               |     -|  10.95|            62|    930.000|        16|             1|       48|       yes|     -|         -|            -|           -|    -|
+    | + SiLU_1                                                      |     -|   0.00|        120457|  1.807e+06|         -|        120457|        -|        no|     -|  13 (~0%)|   1009 (~0%)|  1549 (~0%)|    -|
+    |  + SiLU_1_Pipeline_SiLU                                       |     -|   0.00|        120452|  1.807e+06|         -|        120452|        -|        no|     -|  12 (~0%)|    981 (~0%)|  1434 (~0%)|    -|
+    |   o SiLU                                                      |     -|  10.95|        120450|  1.807e+06|        28|             1|   120424|       yes|     -|         -|            -|           -|    -|
+    | + DW_conv_1                                                   |     -|   0.00|  105310404879|  1.580e+12|         -|  105310404879|        -|        no|     -|  15 (~0%)|   4358 (~0%)|  4856 (~0%)|    -|
+    |  o Batch_Out_Column_Kernel_Row_Kernel_Col                     |     -|  10.95|  105310404867|  1.580e+12|    932809|             -|   112896|        no|     -|         -|            -|           -|    -|
+    |   o Output_Channel                                            |     -|  10.95|        932800|  1.399e+07|      5830|             -|      160|        no|     -|         -|            -|           -|    -|
+    |    + DW_conv_1_Pipeline_In_Channel                            |     -|   0.00|          5798|  8.697e+04|         -|          5798|        -|        no|     -|   9 (~0%)|   3367 (~0%)|  3160 (~0%)|    -|
+    |     o In_Channel                                              |    II|  10.95|          5795|  8.692e+04|        36|            36|      160|       yes|     -|         -|            -|           -|    -|
+    | + Pointwise_conv_2                                            |     -|   0.00|     118013956|  1.770e+09|         -|     118013956|        -|        no|     -|   8 (~0%)|    971 (~0%)|  1363 (~0%)|    -|
+    |  o Out_Row_Out_Column_Output_Channel                          |     -|  10.95|     118013952|  1.770e+09|       196|             -|   602112|        no|     -|         -|            -|           -|    -|
+    |   + Pointwise_conv_2_Pipeline_In_Channel                      |     -|   0.00|           176|  2.640e+03|         -|           176|        -|        no|     -|   6 (~0%)|    623 (~0%)|   563 (~0%)|    -|
+    |    o In_Channel                                               |     -|  10.95|           174|  2.610e+03|        16|             1|      160|       yes|     -|         -|            -|           -|    -|
+    | + Compute_skip_1                                              |     -|   0.00|        376345|  5.645e+06|         -|        376345|        -|        no|     -|   4 (~0%)|    824 (~0%)|  1325 (~0%)|    -|
+    |  + Compute_skip_1_Pipeline_VITIS_LOOP_20_3                    |     -|   0.00|        376340|  5.645e+06|         -|        376340|        -|        no|     -|   3 (~0%)|    783 (~0%)|  1180 (~0%)|    -|
+    |   o Skip_VITIS_LOOP_18_2_VITIS_LOOP_20_3                      |     -|  10.95|        376338|  5.645e+06|        20|             1|   376320|       yes|     -|         -|            -|           -|    -|
+    +---------------------------------------------------------------+------+-------+--------------+-----------+----------+--------------+---------+----------+------+----------+-------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface   | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|             | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem  | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem0 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem1 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem2 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
+| m_axi_gmem3 | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 11            | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+-------------------------+--------+-------+--------+--------------------------------------+
+| Interface     | Register                | Offset | Width | Access | Description                          |
++---------------+-------------------------+--------+-------+--------+--------------------------------------+
+| s_axi_control | X_data_1                | 0x10   | 32    | W      | Data signal of X_data                |
+| s_axi_control | X_data_2                | 0x14   | 32    | W      | Data signal of X_data                |
+| s_axi_control | msp_conv_weight_1       | 0x1c   | 32    | W      | Data signal of msp_conv_weight       |
+| s_axi_control | msp_conv_weight_2       | 0x20   | 32    | W      | Data signal of msp_conv_weight       |
+| s_axi_control | msp_conv_bias_1         | 0x28   | 32    | W      | Data signal of msp_conv_bias         |
+| s_axi_control | msp_conv_bias_2         | 0x2c   | 32    | W      | Data signal of msp_conv_bias         |
+| s_axi_control | msp_norm_weight_1       | 0x34   | 32    | W      | Data signal of msp_norm_weight       |
+| s_axi_control | msp_norm_weight_2       | 0x38   | 32    | W      | Data signal of msp_norm_weight       |
+| s_axi_control | msp_norm_bias_1         | 0x40   | 32    | W      | Data signal of msp_norm_bias         |
+| s_axi_control | msp_norm_bias_2         | 0x44   | 32    | W      | Data signal of msp_norm_bias         |
+| s_axi_control | msp_norm_running_mean_1 | 0x4c   | 32    | W      | Data signal of msp_norm_running_mean |
+| s_axi_control | msp_norm_running_mean_2 | 0x50   | 32    | W      | Data signal of msp_norm_running_mean |
+| s_axi_control | msp_norm_running_var_1  | 0x58   | 32    | W      | Data signal of msp_norm_running_var  |
+| s_axi_control | msp_norm_running_var_2  | 0x5c   | 32    | W      | Data signal of msp_norm_running_var  |
+| s_axi_control | dw_conv_weight_1        | 0x64   | 32    | W      | Data signal of dw_conv_weight        |
+| s_axi_control | dw_conv_weight_2        | 0x68   | 32    | W      | Data signal of dw_conv_weight        |
+| s_axi_control | dw_norm_gamma_1         | 0x70   | 32    | W      | Data signal of dw_norm_gamma         |
+| s_axi_control | dw_norm_gamma_2         | 0x74   | 32    | W      | Data signal of dw_norm_gamma         |
+| s_axi_control | dw_norm_beta_1          | 0x7c   | 32    | W      | Data signal of dw_norm_beta          |
+| s_axi_control | dw_norm_beta_2          | 0x80   | 32    | W      | Data signal of dw_norm_beta          |
+| s_axi_control | dw_norm_mean_1          | 0x88   | 32    | W      | Data signal of dw_norm_mean          |
+| s_axi_control | dw_norm_mean_2          | 0x8c   | 32    | W      | Data signal of dw_norm_mean          |
+| s_axi_control | dw_norm_var_1           | 0x94   | 32    | W      | Data signal of dw_norm_var           |
+| s_axi_control | dw_norm_var_2           | 0x98   | 32    | W      | Data signal of dw_norm_var           |
+| s_axi_control | se_conv_reduce_weight_1 | 0xa0   | 32    | W      | Data signal of se_conv_reduce_weight |
+| s_axi_control | se_conv_reduce_weight_2 | 0xa4   | 32    | W      | Data signal of se_conv_reduce_weight |
+| s_axi_control | se_conv_reduce_bias_1   | 0xac   | 32    | W      | Data signal of se_conv_reduce_bias   |
+| s_axi_control | se_conv_reduce_bias_2   | 0xb0   | 32    | W      | Data signal of se_conv_reduce_bias   |
+| s_axi_control | se_conv_expand_weight_1 | 0xb8   | 32    | W      | Data signal of se_conv_expand_weight |
+| s_axi_control | se_conv_expand_weight_2 | 0xbc   | 32    | W      | Data signal of se_conv_expand_weight |
+| s_axi_control | se_conv_expand_bias_1   | 0xc4   | 32    | W      | Data signal of se_conv_expand_bias   |
+| s_axi_control | se_conv_expand_bias_2   | 0xc8   | 32    | W      | Data signal of se_conv_expand_bias   |
+| s_axi_control | proj_conv_weight_1      | 0xd0   | 32    | W      | Data signal of proj_conv_weight      |
+| s_axi_control | proj_conv_weight_2      | 0xd4   | 32    | W      | Data signal of proj_conv_weight      |
+| s_axi_control | norm_1_1_weight_1       | 0xdc   | 32    | W      | Data signal of norm_1_1_weight       |
+| s_axi_control | norm_1_1_weight_2       | 0xe0   | 32    | W      | Data signal of norm_1_1_weight       |
+| s_axi_control | norm_1_1_bias_1         | 0xe8   | 32    | W      | Data signal of norm_1_1_bias         |
+| s_axi_control | norm_1_1_bias_2         | 0xec   | 32    | W      | Data signal of norm_1_1_bias         |
+| s_axi_control | norm_1_1_running_mean_1 | 0xf4   | 32    | W      | Data signal of norm_1_1_running_mean |
+| s_axi_control | norm_1_1_running_mean_2 | 0xf8   | 32    | W      | Data signal of norm_1_1_running_mean |
+| s_axi_control | norm_1_1_running_var_1  | 0x100  | 32    | W      | Data signal of norm_1_1_running_var  |
+| s_axi_control | norm_1_1_running_var_2  | 0x104  | 32    | W      | Data signal of norm_1_1_running_var  |
+| s_axi_control | v_conv_1_1_weight_1     | 0x10c  | 32    | W      | Data signal of v_conv_1_1_weight     |
+| s_axi_control | v_conv_1_1_weight_2     | 0x110  | 32    | W      | Data signal of v_conv_1_1_weight     |
+| s_axi_control | v_conv_1_1_bias_1       | 0x118  | 32    | W      | Data signal of v_conv_1_1_bias       |
+| s_axi_control | v_conv_1_1_bias_2       | 0x11c  | 32    | W      | Data signal of v_conv_1_1_bias       |
+| s_axi_control | dw_conv_1_1_filter_1    | 0x124  | 32    | W      | Data signal of dw_conv_1_1_filter    |
+| s_axi_control | dw_conv_1_1_filter_2    | 0x128  | 32    | W      | Data signal of dw_conv_1_1_filter    |
+| s_axi_control | dw_norm_1_1_gamma_1     | 0x130  | 32    | W      | Data signal of dw_norm_1_1_gamma     |
+| s_axi_control | dw_norm_1_1_gamma_2     | 0x134  | 32    | W      | Data signal of dw_norm_1_1_gamma     |
+| s_axi_control | dw_norm_1_1_beta_1      | 0x13c  | 32    | W      | Data signal of dw_norm_1_1_beta      |
+| s_axi_control | dw_norm_1_1_beta_2      | 0x140  | 32    | W      | Data signal of dw_norm_1_1_beta      |
+| s_axi_control | dw_norm_1_1_mean_1      | 0x148  | 32    | W      | Data signal of dw_norm_1_1_mean      |
+| s_axi_control | dw_norm_1_1_mean_2      | 0x14c  | 32    | W      | Data signal of dw_norm_1_1_mean      |
+| s_axi_control | dw_norm_1_1_var_1       | 0x154  | 32    | W      | Data signal of dw_norm_1_1_var       |
+| s_axi_control | dw_norm_1_1_var_2       | 0x158  | 32    | W      | Data signal of dw_norm_1_1_var       |
+| s_axi_control | proj_1_1_weight_1       | 0x160  | 32    | W      | Data signal of proj_1_1_weight       |
+| s_axi_control | proj_1_1_weight_2       | 0x164  | 32    | W      | Data signal of proj_1_1_weight       |
+| s_axi_control | norm_1_2_weight_1       | 0x16c  | 32    | W      | Data signal of norm_1_2_weight       |
+| s_axi_control | norm_1_2_weight_2       | 0x170  | 32    | W      | Data signal of norm_1_2_weight       |
+| s_axi_control | norm_1_2_bias_1         | 0x178  | 32    | W      | Data signal of norm_1_2_bias         |
+| s_axi_control | norm_1_2_bias_2         | 0x17c  | 32    | W      | Data signal of norm_1_2_bias         |
+| s_axi_control | norm_1_2_running_mean_1 | 0x184  | 32    | W      | Data signal of norm_1_2_running_mean |
+| s_axi_control | norm_1_2_running_mean_2 | 0x188  | 32    | W      | Data signal of norm_1_2_running_mean |
+| s_axi_control | norm_1_2_running_var_1  | 0x190  | 32    | W      | Data signal of norm_1_2_running_var  |
+| s_axi_control | norm_1_2_running_var_2  | 0x194  | 32    | W      | Data signal of norm_1_2_running_var  |
+| s_axi_control | v_conv_1_2_weight_1     | 0x19c  | 32    | W      | Data signal of v_conv_1_2_weight     |
+| s_axi_control | v_conv_1_2_weight_2     | 0x1a0  | 32    | W      | Data signal of v_conv_1_2_weight     |
+| s_axi_control | v_conv_1_2_bias_1       | 0x1a8  | 32    | W      | Data signal of v_conv_1_2_bias       |
+| s_axi_control | v_conv_1_2_bias_2       | 0x1ac  | 32    | W      | Data signal of v_conv_1_2_bias       |
+| s_axi_control | dw_conv_1_2_filter_1    | 0x1b4  | 32    | W      | Data signal of dw_conv_1_2_filter    |
+| s_axi_control | dw_conv_1_2_filter_2    | 0x1b8  | 32    | W      | Data signal of dw_conv_1_2_filter    |
+| s_axi_control | dw_norm_1_2_gamma_1     | 0x1c0  | 32    | W      | Data signal of dw_norm_1_2_gamma     |
+| s_axi_control | dw_norm_1_2_gamma_2     | 0x1c4  | 32    | W      | Data signal of dw_norm_1_2_gamma     |
+| s_axi_control | dw_norm_1_2_beta_1      | 0x1cc  | 32    | W      | Data signal of dw_norm_1_2_beta      |
+| s_axi_control | dw_norm_1_2_beta_2      | 0x1d0  | 32    | W      | Data signal of dw_norm_1_2_beta      |
+| s_axi_control | dw_norm_1_2_mean_1      | 0x1d8  | 32    | W      | Data signal of dw_norm_1_2_mean      |
+| s_axi_control | dw_norm_1_2_mean_2      | 0x1dc  | 32    | W      | Data signal of dw_norm_1_2_mean      |
+| s_axi_control | dw_norm_1_2_var_1       | 0x1e4  | 32    | W      | Data signal of dw_norm_1_2_var       |
+| s_axi_control | dw_norm_1_2_var_2       | 0x1e8  | 32    | W      | Data signal of dw_norm_1_2_var       |
+| s_axi_control | proj_1_2_weight_1       | 0x1f0  | 32    | W      | Data signal of proj_1_2_weight       |
+| s_axi_control | proj_1_2_weight_2       | 0x1f4  | 32    | W      | Data signal of proj_1_2_weight       |
+| s_axi_control | norm_2_1_weight_1       | 0x1fc  | 32    | W      | Data signal of norm_2_1_weight       |
+| s_axi_control | norm_2_1_weight_2       | 0x200  | 32    | W      | Data signal of norm_2_1_weight       |
+| s_axi_control | norm_2_1_bias_1         | 0x208  | 32    | W      | Data signal of norm_2_1_bias         |
+| s_axi_control | norm_2_1_bias_2         | 0x20c  | 32    | W      | Data signal of norm_2_1_bias         |
+| s_axi_control | norm_2_1_running_mean_1 | 0x214  | 32    | W      | Data signal of norm_2_1_running_mean |
+| s_axi_control | norm_2_1_running_mean_2 | 0x218  | 32    | W      | Data signal of norm_2_1_running_mean |
+| s_axi_control | norm_2_1_running_var_1  | 0x220  | 32    | W      | Data signal of norm_2_1_running_var  |
+| s_axi_control | norm_2_1_running_var_2  | 0x224  | 32    | W      | Data signal of norm_2_1_running_var  |
+| s_axi_control | v_conv_2_1_weight_1     | 0x22c  | 32    | W      | Data signal of v_conv_2_1_weight     |
+| s_axi_control | v_conv_2_1_weight_2     | 0x230  | 32    | W      | Data signal of v_conv_2_1_weight     |
+| s_axi_control | v_conv_2_1_bias_1       | 0x238  | 32    | W      | Data signal of v_conv_2_1_bias       |
+| s_axi_control | v_conv_2_1_bias_2       | 0x23c  | 32    | W      | Data signal of v_conv_2_1_bias       |
+| s_axi_control | dw_conv_2_1_filter_1    | 0x244  | 32    | W      | Data signal of dw_conv_2_1_filter    |
+| s_axi_control | dw_conv_2_1_filter_2    | 0x248  | 32    | W      | Data signal of dw_conv_2_1_filter    |
+| s_axi_control | dw_norm_2_1_gamma_1     | 0x250  | 32    | W      | Data signal of dw_norm_2_1_gamma     |
+| s_axi_control | dw_norm_2_1_gamma_2     | 0x254  | 32    | W      | Data signal of dw_norm_2_1_gamma     |
+| s_axi_control | dw_norm_2_1_beta_1      | 0x25c  | 32    | W      | Data signal of dw_norm_2_1_beta      |
+| s_axi_control | dw_norm_2_1_beta_2      | 0x260  | 32    | W      | Data signal of dw_norm_2_1_beta      |
+| s_axi_control | dw_norm_2_1_mean_1      | 0x268  | 32    | W      | Data signal of dw_norm_2_1_mean      |
+| s_axi_control | dw_norm_2_1_mean_2      | 0x26c  | 32    | W      | Data signal of dw_norm_2_1_mean      |
+| s_axi_control | dw_norm_2_1_var_1       | 0x274  | 32    | W      | Data signal of dw_norm_2_1_var       |
+| s_axi_control | dw_norm_2_1_var_2       | 0x278  | 32    | W      | Data signal of dw_norm_2_1_var       |
+| s_axi_control | proj_2_1_weight_1       | 0x280  | 32    | W      | Data signal of proj_2_1_weight       |
+| s_axi_control | proj_2_1_weight_2       | 0x284  | 32    | W      | Data signal of proj_2_1_weight       |
+| s_axi_control | norm_2_2_weight_1       | 0x28c  | 32    | W      | Data signal of norm_2_2_weight       |
+| s_axi_control | norm_2_2_weight_2       | 0x290  | 32    | W      | Data signal of norm_2_2_weight       |
+| s_axi_control | norm_2_2_bias_1         | 0x298  | 32    | W      | Data signal of norm_2_2_bias         |
+| s_axi_control | norm_2_2_bias_2         | 0x29c  | 32    | W      | Data signal of norm_2_2_bias         |
+| s_axi_control | norm_2_2_running_mean_1 | 0x2a4  | 32    | W      | Data signal of norm_2_2_running_mean |
+| s_axi_control | norm_2_2_running_mean_2 | 0x2a8  | 32    | W      | Data signal of norm_2_2_running_mean |
+| s_axi_control | norm_2_2_running_var_1  | 0x2b0  | 32    | W      | Data signal of norm_2_2_running_var  |
+| s_axi_control | norm_2_2_running_var_2  | 0x2b4  | 32    | W      | Data signal of norm_2_2_running_var  |
+| s_axi_control | v_conv_2_2_weight_1     | 0x2bc  | 32    | W      | Data signal of v_conv_2_2_weight     |
+| s_axi_control | v_conv_2_2_weight_2     | 0x2c0  | 32    | W      | Data signal of v_conv_2_2_weight     |
+| s_axi_control | v_conv_2_2_bias_1       | 0x2c8  | 32    | W      | Data signal of v_conv_2_2_bias       |
+| s_axi_control | v_conv_2_2_bias_2       | 0x2cc  | 32    | W      | Data signal of v_conv_2_2_bias       |
+| s_axi_control | dw_conv_2_2_filter_1    | 0x2d4  | 32    | W      | Data signal of dw_conv_2_2_filter    |
+| s_axi_control | dw_conv_2_2_filter_2    | 0x2d8  | 32    | W      | Data signal of dw_conv_2_2_filter    |
+| s_axi_control | dw_norm_2_2_gamma_1     | 0x2e0  | 32    | W      | Data signal of dw_norm_2_2_gamma     |
+| s_axi_control | dw_norm_2_2_gamma_2     | 0x2e4  | 32    | W      | Data signal of dw_norm_2_2_gamma     |
+| s_axi_control | dw_norm_2_2_beta_1      | 0x2ec  | 32    | W      | Data signal of dw_norm_2_2_beta      |
+| s_axi_control | dw_norm_2_2_beta_2      | 0x2f0  | 32    | W      | Data signal of dw_norm_2_2_beta      |
+| s_axi_control | dw_norm_2_2_mean_1      | 0x2f8  | 32    | W      | Data signal of dw_norm_2_2_mean      |
+| s_axi_control | dw_norm_2_2_mean_2      | 0x2fc  | 32    | W      | Data signal of dw_norm_2_2_mean      |
+| s_axi_control | dw_norm_2_2_var_1       | 0x304  | 32    | W      | Data signal of dw_norm_2_2_var       |
+| s_axi_control | dw_norm_2_2_var_2       | 0x308  | 32    | W      | Data signal of dw_norm_2_2_var       |
+| s_axi_control | proj_2_2_weight_1       | 0x310  | 32    | W      | Data signal of proj_2_2_weight       |
+| s_axi_control | proj_2_2_weight_2       | 0x314  | 32    | W      | Data signal of proj_2_2_weight       |
+| s_axi_control | Y_msp_conv_1            | 0x31c  | 32    | W      | Data signal of Y_msp_conv            |
+| s_axi_control | Y_msp_conv_2            | 0x320  | 32    | W      | Data signal of Y_msp_conv            |
+| s_axi_control | Y_msp_norm_1            | 0x328  | 32    | W      | Data signal of Y_msp_norm            |
+| s_axi_control | Y_msp_norm_2            | 0x32c  | 32    | W      | Data signal of Y_msp_norm            |
+| s_axi_control | Y_dw_conv_1             | 0x334  | 32    | W      | Data signal of Y_dw_conv             |
+| s_axi_control | Y_dw_conv_2             | 0x338  | 32    | W      | Data signal of Y_dw_conv             |
+| s_axi_control | Y_dw_norm_1             | 0x340  | 32    | W      | Data signal of Y_dw_norm             |
+| s_axi_control | Y_dw_norm_2             | 0x344  | 32    | W      | Data signal of Y_dw_norm             |
+| s_axi_control | Y_dw_act_1              | 0x34c  | 32    | W      | Data signal of Y_dw_act              |
+| s_axi_control | Y_dw_act_2              | 0x350  | 32    | W      | Data signal of Y_dw_act              |
+| s_axi_control | Y_se_mean_1             | 0x358  | 32    | W      | Data signal of Y_se_mean             |
+| s_axi_control | Y_se_mean_2             | 0x35c  | 32    | W      | Data signal of Y_se_mean             |
+| s_axi_control | Y_se_reduce_1           | 0x364  | 32    | W      | Data signal of Y_se_reduce           |
+| s_axi_control | Y_se_reduce_2           | 0x368  | 32    | W      | Data signal of Y_se_reduce           |
+| s_axi_control | Y_se_act_1              | 0x370  | 32    | W      | Data signal of Y_se_act              |
+| s_axi_control | Y_se_act_2              | 0x374  | 32    | W      | Data signal of Y_se_act              |
+| s_axi_control | Y_se_expand_1           | 0x37c  | 32    | W      | Data signal of Y_se_expand           |
+| s_axi_control | Y_se_expand_2           | 0x380  | 32    | W      | Data signal of Y_se_expand           |
+| s_axi_control | Y_se_sigmoid_1          | 0x388  | 32    | W      | Data signal of Y_se_sigmoid          |
+| s_axi_control | Y_se_sigmoid_2          | 0x38c  | 32    | W      | Data signal of Y_se_sigmoid          |
+| s_axi_control | Y_se_1                  | 0x394  | 32    | W      | Data signal of Y_se                  |
+| s_axi_control | Y_se_2                  | 0x398  | 32    | W      | Data signal of Y_se                  |
+| s_axi_control | Y_proj_1                | 0x3a0  | 32    | W      | Data signal of Y_proj                |
+| s_axi_control | Y_proj_2                | 0x3a4  | 32    | W      | Data signal of Y_proj                |
+| s_axi_control | Y_norm_1_1_1            | 0x3ac  | 32    | W      | Data signal of Y_norm_1_1            |
+| s_axi_control | Y_norm_1_1_2            | 0x3b0  | 32    | W      | Data signal of Y_norm_1_1            |
+| s_axi_control | Y_v_conv_1_1_1          | 0x3b8  | 32    | W      | Data signal of Y_v_conv_1_1          |
+| s_axi_control | Y_v_conv_1_1_2          | 0x3bc  | 32    | W      | Data signal of Y_v_conv_1_1          |
+| s_axi_control | Y_v_act_1_1_1           | 0x3c4  | 32    | W      | Data signal of Y_v_act_1_1           |
+| s_axi_control | Y_v_act_1_1_2           | 0x3c8  | 32    | W      | Data signal of Y_v_act_1_1           |
+| s_axi_control | Y_dw_conv_1_1_1         | 0x3d0  | 32    | W      | Data signal of Y_dw_conv_1_1         |
+| s_axi_control | Y_dw_conv_1_1_2         | 0x3d4  | 32    | W      | Data signal of Y_dw_conv_1_1         |
+| s_axi_control | Y_dw_norm_1_1_1         | 0x3dc  | 32    | W      | Data signal of Y_dw_norm_1_1         |
+| s_axi_control | Y_dw_norm_1_1_2         | 0x3e0  | 32    | W      | Data signal of Y_dw_norm_1_1         |
+| s_axi_control | Y_dw_act_1_1_1          | 0x3e8  | 32    | W      | Data signal of Y_dw_act_1_1          |
+| s_axi_control | Y_dw_act_1_1_2          | 0x3ec  | 32    | W      | Data signal of Y_dw_act_1_1          |
+| s_axi_control | Y_proj_1_1_1            | 0x3f4  | 32    | W      | Data signal of Y_proj_1_1            |
+| s_axi_control | Y_proj_1_1_2            | 0x3f8  | 32    | W      | Data signal of Y_proj_1_1            |
+| s_axi_control | Y_norm_1_2_1            | 0x400  | 32    | W      | Data signal of Y_norm_1_2            |
+| s_axi_control | Y_norm_1_2_2            | 0x404  | 32    | W      | Data signal of Y_norm_1_2            |
+| s_axi_control | Y_v_conv_1_2_1          | 0x40c  | 32    | W      | Data signal of Y_v_conv_1_2          |
+| s_axi_control | Y_v_conv_1_2_2          | 0x410  | 32    | W      | Data signal of Y_v_conv_1_2          |
+| s_axi_control | Y_v_act_1_2_1           | 0x418  | 32    | W      | Data signal of Y_v_act_1_2           |
+| s_axi_control | Y_v_act_1_2_2           | 0x41c  | 32    | W      | Data signal of Y_v_act_1_2           |
+| s_axi_control | Y_dw_conv_1_2_1         | 0x424  | 32    | W      | Data signal of Y_dw_conv_1_2         |
+| s_axi_control | Y_dw_conv_1_2_2         | 0x428  | 32    | W      | Data signal of Y_dw_conv_1_2         |
+| s_axi_control | Y_dw_norm_1_2_1         | 0x430  | 32    | W      | Data signal of Y_dw_norm_1_2         |
+| s_axi_control | Y_dw_norm_1_2_2         | 0x434  | 32    | W      | Data signal of Y_dw_norm_1_2         |
+| s_axi_control | Y_dw_act_1_2_1          | 0x43c  | 32    | W      | Data signal of Y_dw_act_1_2          |
+| s_axi_control | Y_dw_act_1_2_2          | 0x440  | 32    | W      | Data signal of Y_dw_act_1_2          |
+| s_axi_control | Y_proj_1_2_1            | 0x448  | 32    | W      | Data signal of Y_proj_1_2            |
+| s_axi_control | Y_proj_1_2_2            | 0x44c  | 32    | W      | Data signal of Y_proj_1_2            |
+| s_axi_control | Y_dw_skip_1_2_1         | 0x454  | 32    | W      | Data signal of Y_dw_skip_1_2         |
+| s_axi_control | Y_dw_skip_1_2_2         | 0x458  | 32    | W      | Data signal of Y_dw_skip_1_2         |
+| s_axi_control | Y_skip_1_2_1            | 0x460  | 32    | W      | Data signal of Y_skip_1_2            |
+| s_axi_control | Y_skip_1_2_2            | 0x464  | 32    | W      | Data signal of Y_skip_1_2            |
+| s_axi_control | Y_norm_2_1_1            | 0x46c  | 32    | W      | Data signal of Y_norm_2_1            |
+| s_axi_control | Y_norm_2_1_2            | 0x470  | 32    | W      | Data signal of Y_norm_2_1            |
+| s_axi_control | Y_v_conv_2_1_1          | 0x478  | 32    | W      | Data signal of Y_v_conv_2_1          |
+| s_axi_control | Y_v_conv_2_1_2          | 0x47c  | 32    | W      | Data signal of Y_v_conv_2_1          |
+| s_axi_control | Y_v_act_2_1_1           | 0x484  | 32    | W      | Data signal of Y_v_act_2_1           |
+| s_axi_control | Y_v_act_2_1_2           | 0x488  | 32    | W      | Data signal of Y_v_act_2_1           |
+| s_axi_control | Y_dw_conv_2_1_1         | 0x490  | 32    | W      | Data signal of Y_dw_conv_2_1         |
+| s_axi_control | Y_dw_conv_2_1_2         | 0x494  | 32    | W      | Data signal of Y_dw_conv_2_1         |
+| s_axi_control | Y_dw_norm_2_1_1         | 0x49c  | 32    | W      | Data signal of Y_dw_norm_2_1         |
+| s_axi_control | Y_dw_norm_2_1_2         | 0x4a0  | 32    | W      | Data signal of Y_dw_norm_2_1         |
+| s_axi_control | Y_dw_act_2_1_1          | 0x4a8  | 32    | W      | Data signal of Y_dw_act_2_1          |
+| s_axi_control | Y_dw_act_2_1_2          | 0x4ac  | 32    | W      | Data signal of Y_dw_act_2_1          |
+| s_axi_control | Y_proj_2_1_1            | 0x4b4  | 32    | W      | Data signal of Y_proj_2_1            |
+| s_axi_control | Y_proj_2_1_2            | 0x4b8  | 32    | W      | Data signal of Y_proj_2_1            |
+| s_axi_control | Y_norm_2_2_1            | 0x4c0  | 32    | W      | Data signal of Y_norm_2_2            |
+| s_axi_control | Y_norm_2_2_2            | 0x4c4  | 32    | W      | Data signal of Y_norm_2_2            |
+| s_axi_control | Y_v_conv_2_2_1          | 0x4cc  | 32    | W      | Data signal of Y_v_conv_2_2          |
+| s_axi_control | Y_v_conv_2_2_2          | 0x4d0  | 32    | W      | Data signal of Y_v_conv_2_2          |
+| s_axi_control | Y_v_act_2_2_1           | 0x4d8  | 32    | W      | Data signal of Y_v_act_2_2           |
+| s_axi_control | Y_v_act_2_2_2           | 0x4dc  | 32    | W      | Data signal of Y_v_act_2_2           |
+| s_axi_control | Y_dw_conv_2_2_1         | 0x4e4  | 32    | W      | Data signal of Y_dw_conv_2_2         |
+| s_axi_control | Y_dw_conv_2_2_2         | 0x4e8  | 32    | W      | Data signal of Y_dw_conv_2_2         |
+| s_axi_control | Y_dw_norm_2_2_1         | 0x4f0  | 32    | W      | Data signal of Y_dw_norm_2_2         |
+| s_axi_control | Y_dw_norm_2_2_2         | 0x4f4  | 32    | W      | Data signal of Y_dw_norm_2_2         |
+| s_axi_control | Y_dw_act_2_2_1          | 0x4fc  | 32    | W      | Data signal of Y_dw_act_2_2          |
+| s_axi_control | Y_dw_act_2_2_2          | 0x500  | 32    | W      | Data signal of Y_dw_act_2_2          |
+| s_axi_control | Y_proj_2_2_1            | 0x508  | 32    | W      | Data signal of Y_proj_2_2            |
+| s_axi_control | Y_proj_2_2_2            | 0x50c  | 32    | W      | Data signal of Y_proj_2_2            |
+| s_axi_control | Y_dw_skip_2_2_1         | 0x514  | 32    | W      | Data signal of Y_dw_skip_2_2         |
+| s_axi_control | Y_dw_skip_2_2_2         | 0x518  | 32    | W      | Data signal of Y_dw_skip_2_2         |
+| s_axi_control | Y_skip_2_2_1            | 0x520  | 32    | W      | Data signal of Y_skip_2_2            |
+| s_axi_control | Y_skip_2_2_2            | 0x524  | 32    | W      | Data signal of Y_skip_2_2            |
++---------------+-------------------------+--------+-------+--------+--------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++-----------------------+-----------+----------+
+| Argument              | Direction | Datatype |
++-----------------------+-----------+----------+
+| X_data                | inout     | float*   |
+| msp_conv_weight       | in        | float*   |
+| msp_conv_bias         | in        | float*   |
+| msp_norm_weight       | in        | float*   |
+| msp_norm_bias         | in        | float*   |
+| msp_norm_running_mean | in        | float*   |
+| msp_norm_running_var  | in        | float*   |
+| dw_conv_weight        | in        | float*   |
+| dw_norm_gamma         | in        | float*   |
+| dw_norm_beta          | in        | float*   |
+| dw_norm_mean          | in        | float*   |
+| dw_norm_var           | in        | float*   |
+| se_conv_reduce_weight | in        | float*   |
+| se_conv_reduce_bias   | in        | float*   |
+| se_conv_expand_weight | in        | float*   |
+| se_conv_expand_bias   | in        | float*   |
+| proj_conv_weight      | in        | float*   |
+| norm_1_1_weight       | in        | float*   |
+| norm_1_1_bias         | in        | float*   |
+| norm_1_1_running_mean | in        | float*   |
+| norm_1_1_running_var  | in        | float*   |
+| v_conv_1_1_weight     | in        | float*   |
+| v_conv_1_1_bias       | in        | float*   |
+| dw_conv_1_1_filter    | in        | float*   |
+| dw_norm_1_1_gamma     | in        | float*   |
+| dw_norm_1_1_beta      | in        | float*   |
+| dw_norm_1_1_mean      | in        | float*   |
+| dw_norm_1_1_var       | in        | float*   |
+| proj_1_1_weight       | in        | float*   |
+| norm_1_2_weight       | in        | float*   |
+| norm_1_2_bias         | in        | float*   |
+| norm_1_2_running_mean | in        | float*   |
+| norm_1_2_running_var  | in        | float*   |
+| v_conv_1_2_weight     | in        | float*   |
+| v_conv_1_2_bias       | in        | float*   |
+| dw_conv_1_2_filter    | in        | float*   |
+| dw_norm_1_2_gamma     | in        | float*   |
+| dw_norm_1_2_beta      | in        | float*   |
+| dw_norm_1_2_mean      | in        | float*   |
+| dw_norm_1_2_var       | in        | float*   |
+| proj_1_2_weight       | in        | float*   |
+| norm_2_1_weight       | in        | float*   |
+| norm_2_1_bias         | in        | float*   |
+| norm_2_1_running_mean | in        | float*   |
+| norm_2_1_running_var  | in        | float*   |
+| v_conv_2_1_weight     | in        | float*   |
+| v_conv_2_1_bias       | in        | float*   |
+| dw_conv_2_1_filter    | in        | float*   |
+| dw_norm_2_1_gamma     | in        | float*   |
+| dw_norm_2_1_beta      | in        | float*   |
+| dw_norm_2_1_mean      | in        | float*   |
+| dw_norm_2_1_var       | in        | float*   |
+| proj_2_1_weight       | in        | float*   |
+| norm_2_2_weight       | in        | float*   |
+| norm_2_2_bias         | in        | float*   |
+| norm_2_2_running_mean | in        | float*   |
+| norm_2_2_running_var  | in        | float*   |
+| v_conv_2_2_weight     | in        | float*   |
+| v_conv_2_2_bias       | in        | float*   |
+| dw_conv_2_2_filter    | in        | float*   |
+| dw_norm_2_2_gamma     | in        | float*   |
+| dw_norm_2_2_beta      | in        | float*   |
+| dw_norm_2_2_mean      | in        | float*   |
+| dw_norm_2_2_var       | in        | float*   |
+| proj_2_2_weight       | in        | float*   |
+| Y_msp_conv            | inout     | float*   |
+| Y_msp_norm            | inout     | float*   |
+| Y_dw_conv             | inout     | float*   |
+| Y_dw_norm             | inout     | float*   |
+| Y_dw_act              | inout     | float*   |
+| Y_se_mean             | inout     | float*   |
+| Y_se_reduce           | inout     | float*   |
+| Y_se_act              | inout     | float*   |
+| Y_se_expand           | inout     | float*   |
+| Y_se_sigmoid          | inout     | float*   |
+| Y_se                  | inout     | float*   |
+| Y_proj                | inout     | float*   |
+| Y_norm_1_1            | inout     | float*   |
+| Y_v_conv_1_1          | inout     | float*   |
+| Y_v_act_1_1           | inout     | float*   |
+| Y_dw_conv_1_1         | inout     | float*   |
+| Y_dw_norm_1_1         | inout     | float*   |
+| Y_dw_act_1_1          | inout     | float*   |
+| Y_proj_1_1            | inout     | float*   |
+| Y_norm_1_2            | inout     | float*   |
+| Y_v_conv_1_2          | inout     | float*   |
+| Y_v_act_1_2           | inout     | float*   |
+| Y_dw_conv_1_2         | inout     | float*   |
+| Y_dw_norm_1_2         | inout     | float*   |
+| Y_dw_act_1_2          | inout     | float*   |
+| Y_proj_1_2            | inout     | float*   |
+| Y_dw_skip_1_2         | inout     | float*   |
+| Y_skip_1_2            | inout     | float*   |
+| Y_norm_2_1            | inout     | float*   |
+| Y_v_conv_2_1          | inout     | float*   |
+| Y_v_act_2_1           | inout     | float*   |
+| Y_dw_conv_2_1         | inout     | float*   |
+| Y_dw_norm_2_1         | inout     | float*   |
+| Y_dw_act_2_1          | inout     | float*   |
+| Y_proj_2_1            | inout     | float*   |
+| Y_norm_2_2            | inout     | float*   |
+| Y_v_conv_2_2          | inout     | float*   |
+| Y_v_act_2_2           | inout     | float*   |
+| Y_dw_conv_2_2         | inout     | float*   |
+| Y_dw_norm_2_2         | inout     | float*   |
+| Y_dw_act_2_2          | inout     | float*   |
+| Y_proj_2_2            | inout     | float*   |
+| Y_dw_skip_2_2         | inout     | float*   |
+| Y_skip_2_2            | inout     | float*   |
++-----------------------+-----------+----------+
+
+* SW-to-HW Mapping
++-----------------------+---------------+-----------+----------+----------------------------------------------------+
+| Argument              | HW Interface  | HW Type   | HW Usage | HW Info                                            |
++-----------------------+---------------+-----------+----------+----------------------------------------------------+
+| X_data                | m_axi_gmem0   | interface |          |                                                    |
+| X_data                | s_axi_control | register  | offset   | name=X_data_1 offset=0x10 range=32                 |
+| X_data                | s_axi_control | register  | offset   | name=X_data_2 offset=0x14 range=32                 |
+| msp_conv_weight       | m_axi_gmem    | interface |          |                                                    |
+| msp_conv_weight       | s_axi_control | register  | offset   | name=msp_conv_weight_1 offset=0x1c range=32        |
+| msp_conv_weight       | s_axi_control | register  | offset   | name=msp_conv_weight_2 offset=0x20 range=32        |
+| msp_conv_bias         | m_axi_gmem    | interface |          |                                                    |
+| msp_conv_bias         | s_axi_control | register  | offset   | name=msp_conv_bias_1 offset=0x28 range=32          |
+| msp_conv_bias         | s_axi_control | register  | offset   | name=msp_conv_bias_2 offset=0x2c range=32          |
+| msp_norm_weight       | m_axi_gmem    | interface |          |                                                    |
+| msp_norm_weight       | s_axi_control | register  | offset   | name=msp_norm_weight_1 offset=0x34 range=32        |
+| msp_norm_weight       | s_axi_control | register  | offset   | name=msp_norm_weight_2 offset=0x38 range=32        |
+| msp_norm_bias         | m_axi_gmem    | interface |          |                                                    |
+| msp_norm_bias         | s_axi_control | register  | offset   | name=msp_norm_bias_1 offset=0x40 range=32          |
+| msp_norm_bias         | s_axi_control | register  | offset   | name=msp_norm_bias_2 offset=0x44 range=32          |
+| msp_norm_running_mean | m_axi_gmem    | interface |          |                                                    |
+| msp_norm_running_mean | s_axi_control | register  | offset   | name=msp_norm_running_mean_1 offset=0x4c range=32  |
+| msp_norm_running_mean | s_axi_control | register  | offset   | name=msp_norm_running_mean_2 offset=0x50 range=32  |
+| msp_norm_running_var  | m_axi_gmem    | interface |          |                                                    |
+| msp_norm_running_var  | s_axi_control | register  | offset   | name=msp_norm_running_var_1 offset=0x58 range=32   |
+| msp_norm_running_var  | s_axi_control | register  | offset   | name=msp_norm_running_var_2 offset=0x5c range=32   |
+| dw_conv_weight        | m_axi_gmem    | interface |          |                                                    |
+| dw_conv_weight        | s_axi_control | register  | offset   | name=dw_conv_weight_1 offset=0x64 range=32         |
+| dw_conv_weight        | s_axi_control | register  | offset   | name=dw_conv_weight_2 offset=0x68 range=32         |
+| dw_norm_gamma         | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_gamma         | s_axi_control | register  | offset   | name=dw_norm_gamma_1 offset=0x70 range=32          |
+| dw_norm_gamma         | s_axi_control | register  | offset   | name=dw_norm_gamma_2 offset=0x74 range=32          |
+| dw_norm_beta          | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_beta          | s_axi_control | register  | offset   | name=dw_norm_beta_1 offset=0x7c range=32           |
+| dw_norm_beta          | s_axi_control | register  | offset   | name=dw_norm_beta_2 offset=0x80 range=32           |
+| dw_norm_mean          | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_mean          | s_axi_control | register  | offset   | name=dw_norm_mean_1 offset=0x88 range=32           |
+| dw_norm_mean          | s_axi_control | register  | offset   | name=dw_norm_mean_2 offset=0x8c range=32           |
+| dw_norm_var           | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_var           | s_axi_control | register  | offset   | name=dw_norm_var_1 offset=0x94 range=32            |
+| dw_norm_var           | s_axi_control | register  | offset   | name=dw_norm_var_2 offset=0x98 range=32            |
+| se_conv_reduce_weight | m_axi_gmem    | interface |          |                                                    |
+| se_conv_reduce_weight | s_axi_control | register  | offset   | name=se_conv_reduce_weight_1 offset=0xa0 range=32  |
+| se_conv_reduce_weight | s_axi_control | register  | offset   | name=se_conv_reduce_weight_2 offset=0xa4 range=32  |
+| se_conv_reduce_bias   | m_axi_gmem    | interface |          |                                                    |
+| se_conv_reduce_bias   | s_axi_control | register  | offset   | name=se_conv_reduce_bias_1 offset=0xac range=32    |
+| se_conv_reduce_bias   | s_axi_control | register  | offset   | name=se_conv_reduce_bias_2 offset=0xb0 range=32    |
+| se_conv_expand_weight | m_axi_gmem    | interface |          |                                                    |
+| se_conv_expand_weight | s_axi_control | register  | offset   | name=se_conv_expand_weight_1 offset=0xb8 range=32  |
+| se_conv_expand_weight | s_axi_control | register  | offset   | name=se_conv_expand_weight_2 offset=0xbc range=32  |
+| se_conv_expand_bias   | m_axi_gmem    | interface |          |                                                    |
+| se_conv_expand_bias   | s_axi_control | register  | offset   | name=se_conv_expand_bias_1 offset=0xc4 range=32    |
+| se_conv_expand_bias   | s_axi_control | register  | offset   | name=se_conv_expand_bias_2 offset=0xc8 range=32    |
+| proj_conv_weight      | m_axi_gmem    | interface |          |                                                    |
+| proj_conv_weight      | s_axi_control | register  | offset   | name=proj_conv_weight_1 offset=0xd0 range=32       |
+| proj_conv_weight      | s_axi_control | register  | offset   | name=proj_conv_weight_2 offset=0xd4 range=32       |
+| norm_1_1_weight       | m_axi_gmem    | interface |          |                                                    |
+| norm_1_1_weight       | s_axi_control | register  | offset   | name=norm_1_1_weight_1 offset=0xdc range=32        |
+| norm_1_1_weight       | s_axi_control | register  | offset   | name=norm_1_1_weight_2 offset=0xe0 range=32        |
+| norm_1_1_bias         | m_axi_gmem    | interface |          |                                                    |
+| norm_1_1_bias         | s_axi_control | register  | offset   | name=norm_1_1_bias_1 offset=0xe8 range=32          |
+| norm_1_1_bias         | s_axi_control | register  | offset   | name=norm_1_1_bias_2 offset=0xec range=32          |
+| norm_1_1_running_mean | m_axi_gmem    | interface |          |                                                    |
+| norm_1_1_running_mean | s_axi_control | register  | offset   | name=norm_1_1_running_mean_1 offset=0xf4 range=32  |
+| norm_1_1_running_mean | s_axi_control | register  | offset   | name=norm_1_1_running_mean_2 offset=0xf8 range=32  |
+| norm_1_1_running_var  | m_axi_gmem    | interface |          |                                                    |
+| norm_1_1_running_var  | s_axi_control | register  | offset   | name=norm_1_1_running_var_1 offset=0x100 range=32  |
+| norm_1_1_running_var  | s_axi_control | register  | offset   | name=norm_1_1_running_var_2 offset=0x104 range=32  |
+| v_conv_1_1_weight     | m_axi_gmem    | interface |          |                                                    |
+| v_conv_1_1_weight     | s_axi_control | register  | offset   | name=v_conv_1_1_weight_1 offset=0x10c range=32     |
+| v_conv_1_1_weight     | s_axi_control | register  | offset   | name=v_conv_1_1_weight_2 offset=0x110 range=32     |
+| v_conv_1_1_bias       | m_axi_gmem    | interface |          |                                                    |
+| v_conv_1_1_bias       | s_axi_control | register  | offset   | name=v_conv_1_1_bias_1 offset=0x118 range=32       |
+| v_conv_1_1_bias       | s_axi_control | register  | offset   | name=v_conv_1_1_bias_2 offset=0x11c range=32       |
+| dw_conv_1_1_filter    | m_axi_gmem    | interface |          |                                                    |
+| dw_conv_1_1_filter    | s_axi_control | register  | offset   | name=dw_conv_1_1_filter_1 offset=0x124 range=32    |
+| dw_conv_1_1_filter    | s_axi_control | register  | offset   | name=dw_conv_1_1_filter_2 offset=0x128 range=32    |
+| dw_norm_1_1_gamma     | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_1_gamma     | s_axi_control | register  | offset   | name=dw_norm_1_1_gamma_1 offset=0x130 range=32     |
+| dw_norm_1_1_gamma     | s_axi_control | register  | offset   | name=dw_norm_1_1_gamma_2 offset=0x134 range=32     |
+| dw_norm_1_1_beta      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_1_beta      | s_axi_control | register  | offset   | name=dw_norm_1_1_beta_1 offset=0x13c range=32      |
+| dw_norm_1_1_beta      | s_axi_control | register  | offset   | name=dw_norm_1_1_beta_2 offset=0x140 range=32      |
+| dw_norm_1_1_mean      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_1_mean      | s_axi_control | register  | offset   | name=dw_norm_1_1_mean_1 offset=0x148 range=32      |
+| dw_norm_1_1_mean      | s_axi_control | register  | offset   | name=dw_norm_1_1_mean_2 offset=0x14c range=32      |
+| dw_norm_1_1_var       | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_1_var       | s_axi_control | register  | offset   | name=dw_norm_1_1_var_1 offset=0x154 range=32       |
+| dw_norm_1_1_var       | s_axi_control | register  | offset   | name=dw_norm_1_1_var_2 offset=0x158 range=32       |
+| proj_1_1_weight       | m_axi_gmem    | interface |          |                                                    |
+| proj_1_1_weight       | s_axi_control | register  | offset   | name=proj_1_1_weight_1 offset=0x160 range=32       |
+| proj_1_1_weight       | s_axi_control | register  | offset   | name=proj_1_1_weight_2 offset=0x164 range=32       |
+| norm_1_2_weight       | m_axi_gmem    | interface |          |                                                    |
+| norm_1_2_weight       | s_axi_control | register  | offset   | name=norm_1_2_weight_1 offset=0x16c range=32       |
+| norm_1_2_weight       | s_axi_control | register  | offset   | name=norm_1_2_weight_2 offset=0x170 range=32       |
+| norm_1_2_bias         | m_axi_gmem    | interface |          |                                                    |
+| norm_1_2_bias         | s_axi_control | register  | offset   | name=norm_1_2_bias_1 offset=0x178 range=32         |
+| norm_1_2_bias         | s_axi_control | register  | offset   | name=norm_1_2_bias_2 offset=0x17c range=32         |
+| norm_1_2_running_mean | m_axi_gmem    | interface |          |                                                    |
+| norm_1_2_running_mean | s_axi_control | register  | offset   | name=norm_1_2_running_mean_1 offset=0x184 range=32 |
+| norm_1_2_running_mean | s_axi_control | register  | offset   | name=norm_1_2_running_mean_2 offset=0x188 range=32 |
+| norm_1_2_running_var  | m_axi_gmem    | interface |          |                                                    |
+| norm_1_2_running_var  | s_axi_control | register  | offset   | name=norm_1_2_running_var_1 offset=0x190 range=32  |
+| norm_1_2_running_var  | s_axi_control | register  | offset   | name=norm_1_2_running_var_2 offset=0x194 range=32  |
+| v_conv_1_2_weight     | m_axi_gmem    | interface |          |                                                    |
+| v_conv_1_2_weight     | s_axi_control | register  | offset   | name=v_conv_1_2_weight_1 offset=0x19c range=32     |
+| v_conv_1_2_weight     | s_axi_control | register  | offset   | name=v_conv_1_2_weight_2 offset=0x1a0 range=32     |
+| v_conv_1_2_bias       | m_axi_gmem    | interface |          |                                                    |
+| v_conv_1_2_bias       | s_axi_control | register  | offset   | name=v_conv_1_2_bias_1 offset=0x1a8 range=32       |
+| v_conv_1_2_bias       | s_axi_control | register  | offset   | name=v_conv_1_2_bias_2 offset=0x1ac range=32       |
+| dw_conv_1_2_filter    | m_axi_gmem    | interface |          |                                                    |
+| dw_conv_1_2_filter    | s_axi_control | register  | offset   | name=dw_conv_1_2_filter_1 offset=0x1b4 range=32    |
+| dw_conv_1_2_filter    | s_axi_control | register  | offset   | name=dw_conv_1_2_filter_2 offset=0x1b8 range=32    |
+| dw_norm_1_2_gamma     | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_2_gamma     | s_axi_control | register  | offset   | name=dw_norm_1_2_gamma_1 offset=0x1c0 range=32     |
+| dw_norm_1_2_gamma     | s_axi_control | register  | offset   | name=dw_norm_1_2_gamma_2 offset=0x1c4 range=32     |
+| dw_norm_1_2_beta      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_2_beta      | s_axi_control | register  | offset   | name=dw_norm_1_2_beta_1 offset=0x1cc range=32      |
+| dw_norm_1_2_beta      | s_axi_control | register  | offset   | name=dw_norm_1_2_beta_2 offset=0x1d0 range=32      |
+| dw_norm_1_2_mean      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_2_mean      | s_axi_control | register  | offset   | name=dw_norm_1_2_mean_1 offset=0x1d8 range=32      |
+| dw_norm_1_2_mean      | s_axi_control | register  | offset   | name=dw_norm_1_2_mean_2 offset=0x1dc range=32      |
+| dw_norm_1_2_var       | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_1_2_var       | s_axi_control | register  | offset   | name=dw_norm_1_2_var_1 offset=0x1e4 range=32       |
+| dw_norm_1_2_var       | s_axi_control | register  | offset   | name=dw_norm_1_2_var_2 offset=0x1e8 range=32       |
+| proj_1_2_weight       | m_axi_gmem    | interface |          |                                                    |
+| proj_1_2_weight       | s_axi_control | register  | offset   | name=proj_1_2_weight_1 offset=0x1f0 range=32       |
+| proj_1_2_weight       | s_axi_control | register  | offset   | name=proj_1_2_weight_2 offset=0x1f4 range=32       |
+| norm_2_1_weight       | m_axi_gmem    | interface |          |                                                    |
+| norm_2_1_weight       | s_axi_control | register  | offset   | name=norm_2_1_weight_1 offset=0x1fc range=32       |
+| norm_2_1_weight       | s_axi_control | register  | offset   | name=norm_2_1_weight_2 offset=0x200 range=32       |
+| norm_2_1_bias         | m_axi_gmem    | interface |          |                                                    |
+| norm_2_1_bias         | s_axi_control | register  | offset   | name=norm_2_1_bias_1 offset=0x208 range=32         |
+| norm_2_1_bias         | s_axi_control | register  | offset   | name=norm_2_1_bias_2 offset=0x20c range=32         |
+| norm_2_1_running_mean | m_axi_gmem    | interface |          |                                                    |
+| norm_2_1_running_mean | s_axi_control | register  | offset   | name=norm_2_1_running_mean_1 offset=0x214 range=32 |
+| norm_2_1_running_mean | s_axi_control | register  | offset   | name=norm_2_1_running_mean_2 offset=0x218 range=32 |
+| norm_2_1_running_var  | m_axi_gmem    | interface |          |                                                    |
+| norm_2_1_running_var  | s_axi_control | register  | offset   | name=norm_2_1_running_var_1 offset=0x220 range=32  |
+| norm_2_1_running_var  | s_axi_control | register  | offset   | name=norm_2_1_running_var_2 offset=0x224 range=32  |
+| v_conv_2_1_weight     | m_axi_gmem    | interface |          |                                                    |
+| v_conv_2_1_weight     | s_axi_control | register  | offset   | name=v_conv_2_1_weight_1 offset=0x22c range=32     |
+| v_conv_2_1_weight     | s_axi_control | register  | offset   | name=v_conv_2_1_weight_2 offset=0x230 range=32     |
+| v_conv_2_1_bias       | m_axi_gmem    | interface |          |                                                    |
+| v_conv_2_1_bias       | s_axi_control | register  | offset   | name=v_conv_2_1_bias_1 offset=0x238 range=32       |
+| v_conv_2_1_bias       | s_axi_control | register  | offset   | name=v_conv_2_1_bias_2 offset=0x23c range=32       |
+| dw_conv_2_1_filter    | m_axi_gmem    | interface |          |                                                    |
+| dw_conv_2_1_filter    | s_axi_control | register  | offset   | name=dw_conv_2_1_filter_1 offset=0x244 range=32    |
+| dw_conv_2_1_filter    | s_axi_control | register  | offset   | name=dw_conv_2_1_filter_2 offset=0x248 range=32    |
+| dw_norm_2_1_gamma     | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_1_gamma     | s_axi_control | register  | offset   | name=dw_norm_2_1_gamma_1 offset=0x250 range=32     |
+| dw_norm_2_1_gamma     | s_axi_control | register  | offset   | name=dw_norm_2_1_gamma_2 offset=0x254 range=32     |
+| dw_norm_2_1_beta      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_1_beta      | s_axi_control | register  | offset   | name=dw_norm_2_1_beta_1 offset=0x25c range=32      |
+| dw_norm_2_1_beta      | s_axi_control | register  | offset   | name=dw_norm_2_1_beta_2 offset=0x260 range=32      |
+| dw_norm_2_1_mean      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_1_mean      | s_axi_control | register  | offset   | name=dw_norm_2_1_mean_1 offset=0x268 range=32      |
+| dw_norm_2_1_mean      | s_axi_control | register  | offset   | name=dw_norm_2_1_mean_2 offset=0x26c range=32      |
+| dw_norm_2_1_var       | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_1_var       | s_axi_control | register  | offset   | name=dw_norm_2_1_var_1 offset=0x274 range=32       |
+| dw_norm_2_1_var       | s_axi_control | register  | offset   | name=dw_norm_2_1_var_2 offset=0x278 range=32       |
+| proj_2_1_weight       | m_axi_gmem    | interface |          |                                                    |
+| proj_2_1_weight       | s_axi_control | register  | offset   | name=proj_2_1_weight_1 offset=0x280 range=32       |
+| proj_2_1_weight       | s_axi_control | register  | offset   | name=proj_2_1_weight_2 offset=0x284 range=32       |
+| norm_2_2_weight       | m_axi_gmem    | interface |          |                                                    |
+| norm_2_2_weight       | s_axi_control | register  | offset   | name=norm_2_2_weight_1 offset=0x28c range=32       |
+| norm_2_2_weight       | s_axi_control | register  | offset   | name=norm_2_2_weight_2 offset=0x290 range=32       |
+| norm_2_2_bias         | m_axi_gmem    | interface |          |                                                    |
+| norm_2_2_bias         | s_axi_control | register  | offset   | name=norm_2_2_bias_1 offset=0x298 range=32         |
+| norm_2_2_bias         | s_axi_control | register  | offset   | name=norm_2_2_bias_2 offset=0x29c range=32         |
+| norm_2_2_running_mean | m_axi_gmem    | interface |          |                                                    |
+| norm_2_2_running_mean | s_axi_control | register  | offset   | name=norm_2_2_running_mean_1 offset=0x2a4 range=32 |
+| norm_2_2_running_mean | s_axi_control | register  | offset   | name=norm_2_2_running_mean_2 offset=0x2a8 range=32 |
+| norm_2_2_running_var  | m_axi_gmem    | interface |          |                                                    |
+| norm_2_2_running_var  | s_axi_control | register  | offset   | name=norm_2_2_running_var_1 offset=0x2b0 range=32  |
+| norm_2_2_running_var  | s_axi_control | register  | offset   | name=norm_2_2_running_var_2 offset=0x2b4 range=32  |
+| v_conv_2_2_weight     | m_axi_gmem    | interface |          |                                                    |
+| v_conv_2_2_weight     | s_axi_control | register  | offset   | name=v_conv_2_2_weight_1 offset=0x2bc range=32     |
+| v_conv_2_2_weight     | s_axi_control | register  | offset   | name=v_conv_2_2_weight_2 offset=0x2c0 range=32     |
+| v_conv_2_2_bias       | m_axi_gmem    | interface |          |                                                    |
+| v_conv_2_2_bias       | s_axi_control | register  | offset   | name=v_conv_2_2_bias_1 offset=0x2c8 range=32       |
+| v_conv_2_2_bias       | s_axi_control | register  | offset   | name=v_conv_2_2_bias_2 offset=0x2cc range=32       |
+| dw_conv_2_2_filter    | m_axi_gmem    | interface |          |                                                    |
+| dw_conv_2_2_filter    | s_axi_control | register  | offset   | name=dw_conv_2_2_filter_1 offset=0x2d4 range=32    |
+| dw_conv_2_2_filter    | s_axi_control | register  | offset   | name=dw_conv_2_2_filter_2 offset=0x2d8 range=32    |
+| dw_norm_2_2_gamma     | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_2_gamma     | s_axi_control | register  | offset   | name=dw_norm_2_2_gamma_1 offset=0x2e0 range=32     |
+| dw_norm_2_2_gamma     | s_axi_control | register  | offset   | name=dw_norm_2_2_gamma_2 offset=0x2e4 range=32     |
+| dw_norm_2_2_beta      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_2_beta      | s_axi_control | register  | offset   | name=dw_norm_2_2_beta_1 offset=0x2ec range=32      |
+| dw_norm_2_2_beta      | s_axi_control | register  | offset   | name=dw_norm_2_2_beta_2 offset=0x2f0 range=32      |
+| dw_norm_2_2_mean      | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_2_mean      | s_axi_control | register  | offset   | name=dw_norm_2_2_mean_1 offset=0x2f8 range=32      |
+| dw_norm_2_2_mean      | s_axi_control | register  | offset   | name=dw_norm_2_2_mean_2 offset=0x2fc range=32      |
+| dw_norm_2_2_var       | m_axi_gmem    | interface |          |                                                    |
+| dw_norm_2_2_var       | s_axi_control | register  | offset   | name=dw_norm_2_2_var_1 offset=0x304 range=32       |
+| dw_norm_2_2_var       | s_axi_control | register  | offset   | name=dw_norm_2_2_var_2 offset=0x308 range=32       |
+| proj_2_2_weight       | m_axi_gmem    | interface |          |                                                    |
+| proj_2_2_weight       | s_axi_control | register  | offset   | name=proj_2_2_weight_1 offset=0x310 range=32       |
+| proj_2_2_weight       | s_axi_control | register  | offset   | name=proj_2_2_weight_2 offset=0x314 range=32       |
+| Y_msp_conv            | m_axi_gmem1   | interface |          |                                                    |
+| Y_msp_conv            | s_axi_control | register  | offset   | name=Y_msp_conv_1 offset=0x31c range=32            |
+| Y_msp_conv            | s_axi_control | register  | offset   | name=Y_msp_conv_2 offset=0x320 range=32            |
+| Y_msp_norm            | m_axi_gmem2   | interface |          |                                                    |
+| Y_msp_norm            | s_axi_control | register  | offset   | name=Y_msp_norm_1 offset=0x328 range=32            |
+| Y_msp_norm            | s_axi_control | register  | offset   | name=Y_msp_norm_2 offset=0x32c range=32            |
+| Y_dw_conv             | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_conv             | s_axi_control | register  | offset   | name=Y_dw_conv_1 offset=0x334 range=32             |
+| Y_dw_conv             | s_axi_control | register  | offset   | name=Y_dw_conv_2 offset=0x338 range=32             |
+| Y_dw_norm             | m_axi_gmem0   | interface |          |                                                    |
+| Y_dw_norm             | s_axi_control | register  | offset   | name=Y_dw_norm_1 offset=0x340 range=32             |
+| Y_dw_norm             | s_axi_control | register  | offset   | name=Y_dw_norm_2 offset=0x344 range=32             |
+| Y_dw_act              | m_axi_gmem1   | interface |          |                                                    |
+| Y_dw_act              | s_axi_control | register  | offset   | name=Y_dw_act_1 offset=0x34c range=32              |
+| Y_dw_act              | s_axi_control | register  | offset   | name=Y_dw_act_2 offset=0x350 range=32              |
+| Y_se_mean             | m_axi_gmem2   | interface |          |                                                    |
+| Y_se_mean             | s_axi_control | register  | offset   | name=Y_se_mean_1 offset=0x358 range=32             |
+| Y_se_mean             | s_axi_control | register  | offset   | name=Y_se_mean_2 offset=0x35c range=32             |
+| Y_se_reduce           | m_axi_gmem3   | interface |          |                                                    |
+| Y_se_reduce           | s_axi_control | register  | offset   | name=Y_se_reduce_1 offset=0x364 range=32           |
+| Y_se_reduce           | s_axi_control | register  | offset   | name=Y_se_reduce_2 offset=0x368 range=32           |
+| Y_se_act              | m_axi_gmem0   | interface |          |                                                    |
+| Y_se_act              | s_axi_control | register  | offset   | name=Y_se_act_1 offset=0x370 range=32              |
+| Y_se_act              | s_axi_control | register  | offset   | name=Y_se_act_2 offset=0x374 range=32              |
+| Y_se_expand           | m_axi_gmem1   | interface |          |                                                    |
+| Y_se_expand           | s_axi_control | register  | offset   | name=Y_se_expand_1 offset=0x37c range=32           |
+| Y_se_expand           | s_axi_control | register  | offset   | name=Y_se_expand_2 offset=0x380 range=32           |
+| Y_se_sigmoid          | m_axi_gmem2   | interface |          |                                                    |
+| Y_se_sigmoid          | s_axi_control | register  | offset   | name=Y_se_sigmoid_1 offset=0x388 range=32          |
+| Y_se_sigmoid          | s_axi_control | register  | offset   | name=Y_se_sigmoid_2 offset=0x38c range=32          |
+| Y_se                  | m_axi_gmem3   | interface |          |                                                    |
+| Y_se                  | s_axi_control | register  | offset   | name=Y_se_1 offset=0x394 range=32                  |
+| Y_se                  | s_axi_control | register  | offset   | name=Y_se_2 offset=0x398 range=32                  |
+| Y_proj                | m_axi_gmem0   | interface |          |                                                    |
+| Y_proj                | s_axi_control | register  | offset   | name=Y_proj_1 offset=0x3a0 range=32                |
+| Y_proj                | s_axi_control | register  | offset   | name=Y_proj_2 offset=0x3a4 range=32                |
+| Y_norm_1_1            | m_axi_gmem1   | interface |          |                                                    |
+| Y_norm_1_1            | s_axi_control | register  | offset   | name=Y_norm_1_1_1 offset=0x3ac range=32            |
+| Y_norm_1_1            | s_axi_control | register  | offset   | name=Y_norm_1_1_2 offset=0x3b0 range=32            |
+| Y_v_conv_1_1          | m_axi_gmem2   | interface |          |                                                    |
+| Y_v_conv_1_1          | s_axi_control | register  | offset   | name=Y_v_conv_1_1_1 offset=0x3b8 range=32          |
+| Y_v_conv_1_1          | s_axi_control | register  | offset   | name=Y_v_conv_1_1_2 offset=0x3bc range=32          |
+| Y_v_act_1_1           | m_axi_gmem3   | interface |          |                                                    |
+| Y_v_act_1_1           | s_axi_control | register  | offset   | name=Y_v_act_1_1_1 offset=0x3c4 range=32           |
+| Y_v_act_1_1           | s_axi_control | register  | offset   | name=Y_v_act_1_1_2 offset=0x3c8 range=32           |
+| Y_dw_conv_1_1         | m_axi_gmem0   | interface |          |                                                    |
+| Y_dw_conv_1_1         | s_axi_control | register  | offset   | name=Y_dw_conv_1_1_1 offset=0x3d0 range=32         |
+| Y_dw_conv_1_1         | s_axi_control | register  | offset   | name=Y_dw_conv_1_1_2 offset=0x3d4 range=32         |
+| Y_dw_norm_1_1         | m_axi_gmem1   | interface |          |                                                    |
+| Y_dw_norm_1_1         | s_axi_control | register  | offset   | name=Y_dw_norm_1_1_1 offset=0x3dc range=32         |
+| Y_dw_norm_1_1         | s_axi_control | register  | offset   | name=Y_dw_norm_1_1_2 offset=0x3e0 range=32         |
+| Y_dw_act_1_1          | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_act_1_1          | s_axi_control | register  | offset   | name=Y_dw_act_1_1_1 offset=0x3e8 range=32          |
+| Y_dw_act_1_1          | s_axi_control | register  | offset   | name=Y_dw_act_1_1_2 offset=0x3ec range=32          |
+| Y_proj_1_1            | m_axi_gmem0   | interface |          |                                                    |
+| Y_proj_1_1            | s_axi_control | register  | offset   | name=Y_proj_1_1_1 offset=0x3f4 range=32            |
+| Y_proj_1_1            | s_axi_control | register  | offset   | name=Y_proj_1_1_2 offset=0x3f8 range=32            |
+| Y_norm_1_2            | m_axi_gmem2   | interface |          |                                                    |
+| Y_norm_1_2            | s_axi_control | register  | offset   | name=Y_norm_1_2_1 offset=0x400 range=32            |
+| Y_norm_1_2            | s_axi_control | register  | offset   | name=Y_norm_1_2_2 offset=0x404 range=32            |
+| Y_v_conv_1_2          | m_axi_gmem1   | interface |          |                                                    |
+| Y_v_conv_1_2          | s_axi_control | register  | offset   | name=Y_v_conv_1_2_1 offset=0x40c range=32          |
+| Y_v_conv_1_2          | s_axi_control | register  | offset   | name=Y_v_conv_1_2_2 offset=0x410 range=32          |
+| Y_v_act_1_2           | m_axi_gmem0   | interface |          |                                                    |
+| Y_v_act_1_2           | s_axi_control | register  | offset   | name=Y_v_act_1_2_1 offset=0x418 range=32           |
+| Y_v_act_1_2           | s_axi_control | register  | offset   | name=Y_v_act_1_2_2 offset=0x41c range=32           |
+| Y_dw_conv_1_2         | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_conv_1_2         | s_axi_control | register  | offset   | name=Y_dw_conv_1_2_1 offset=0x424 range=32         |
+| Y_dw_conv_1_2         | s_axi_control | register  | offset   | name=Y_dw_conv_1_2_2 offset=0x428 range=32         |
+| Y_dw_norm_1_2         | m_axi_gmem0   | interface |          |                                                    |
+| Y_dw_norm_1_2         | s_axi_control | register  | offset   | name=Y_dw_norm_1_2_1 offset=0x430 range=32         |
+| Y_dw_norm_1_2         | s_axi_control | register  | offset   | name=Y_dw_norm_1_2_2 offset=0x434 range=32         |
+| Y_dw_act_1_2          | m_axi_gmem2   | interface |          |                                                    |
+| Y_dw_act_1_2          | s_axi_control | register  | offset   | name=Y_dw_act_1_2_1 offset=0x43c range=32          |
+| Y_dw_act_1_2          | s_axi_control | register  | offset   | name=Y_dw_act_1_2_2 offset=0x440 range=32          |
+| Y_proj_1_2            | m_axi_gmem1   | interface |          |                                                    |
+| Y_proj_1_2            | s_axi_control | register  | offset   | name=Y_proj_1_2_1 offset=0x448 range=32            |
+| Y_proj_1_2            | s_axi_control | register  | offset   | name=Y_proj_1_2_2 offset=0x44c range=32            |
+| Y_dw_skip_1_2         | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_skip_1_2         | s_axi_control | register  | offset   | name=Y_dw_skip_1_2_1 offset=0x454 range=32         |
+| Y_dw_skip_1_2         | s_axi_control | register  | offset   | name=Y_dw_skip_1_2_2 offset=0x458 range=32         |
+| Y_skip_1_2            | m_axi_gmem2   | interface |          |                                                    |
+| Y_skip_1_2            | s_axi_control | register  | offset   | name=Y_skip_1_2_1 offset=0x460 range=32            |
+| Y_skip_1_2            | s_axi_control | register  | offset   | name=Y_skip_1_2_2 offset=0x464 range=32            |
+| Y_norm_2_1            | m_axi_gmem1   | interface |          |                                                    |
+| Y_norm_2_1            | s_axi_control | register  | offset   | name=Y_norm_2_1_1 offset=0x46c range=32            |
+| Y_norm_2_1            | s_axi_control | register  | offset   | name=Y_norm_2_1_2 offset=0x470 range=32            |
+| Y_v_conv_2_1          | m_axi_gmem2   | interface |          |                                                    |
+| Y_v_conv_2_1          | s_axi_control | register  | offset   | name=Y_v_conv_2_1_1 offset=0x478 range=32          |
+| Y_v_conv_2_1          | s_axi_control | register  | offset   | name=Y_v_conv_2_1_2 offset=0x47c range=32          |
+| Y_v_act_2_1           | m_axi_gmem3   | interface |          |                                                    |
+| Y_v_act_2_1           | s_axi_control | register  | offset   | name=Y_v_act_2_1_1 offset=0x484 range=32           |
+| Y_v_act_2_1           | s_axi_control | register  | offset   | name=Y_v_act_2_1_2 offset=0x488 range=32           |
+| Y_dw_conv_2_1         | m_axi_gmem0   | interface |          |                                                    |
+| Y_dw_conv_2_1         | s_axi_control | register  | offset   | name=Y_dw_conv_2_1_1 offset=0x490 range=32         |
+| Y_dw_conv_2_1         | s_axi_control | register  | offset   | name=Y_dw_conv_2_1_2 offset=0x494 range=32         |
+| Y_dw_norm_2_1         | m_axi_gmem1   | interface |          |                                                    |
+| Y_dw_norm_2_1         | s_axi_control | register  | offset   | name=Y_dw_norm_2_1_1 offset=0x49c range=32         |
+| Y_dw_norm_2_1         | s_axi_control | register  | offset   | name=Y_dw_norm_2_1_2 offset=0x4a0 range=32         |
+| Y_dw_act_2_1          | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_act_2_1          | s_axi_control | register  | offset   | name=Y_dw_act_2_1_1 offset=0x4a8 range=32          |
+| Y_dw_act_2_1          | s_axi_control | register  | offset   | name=Y_dw_act_2_1_2 offset=0x4ac range=32          |
+| Y_proj_2_1            | m_axi_gmem0   | interface |          |                                                    |
+| Y_proj_2_1            | s_axi_control | register  | offset   | name=Y_proj_2_1_1 offset=0x4b4 range=32            |
+| Y_proj_2_1            | s_axi_control | register  | offset   | name=Y_proj_2_1_2 offset=0x4b8 range=32            |
+| Y_norm_2_2            | m_axi_gmem2   | interface |          |                                                    |
+| Y_norm_2_2            | s_axi_control | register  | offset   | name=Y_norm_2_2_1 offset=0x4c0 range=32            |
+| Y_norm_2_2            | s_axi_control | register  | offset   | name=Y_norm_2_2_2 offset=0x4c4 range=32            |
+| Y_v_conv_2_2          | m_axi_gmem1   | interface |          |                                                    |
+| Y_v_conv_2_2          | s_axi_control | register  | offset   | name=Y_v_conv_2_2_1 offset=0x4cc range=32          |
+| Y_v_conv_2_2          | s_axi_control | register  | offset   | name=Y_v_conv_2_2_2 offset=0x4d0 range=32          |
+| Y_v_act_2_2           | m_axi_gmem0   | interface |          |                                                    |
+| Y_v_act_2_2           | s_axi_control | register  | offset   | name=Y_v_act_2_2_1 offset=0x4d8 range=32           |
+| Y_v_act_2_2           | s_axi_control | register  | offset   | name=Y_v_act_2_2_2 offset=0x4dc range=32           |
+| Y_dw_conv_2_2         | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_conv_2_2         | s_axi_control | register  | offset   | name=Y_dw_conv_2_2_1 offset=0x4e4 range=32         |
+| Y_dw_conv_2_2         | s_axi_control | register  | offset   | name=Y_dw_conv_2_2_2 offset=0x4e8 range=32         |
+| Y_dw_norm_2_2         | m_axi_gmem0   | interface |          |                                                    |
+| Y_dw_norm_2_2         | s_axi_control | register  | offset   | name=Y_dw_norm_2_2_1 offset=0x4f0 range=32         |
+| Y_dw_norm_2_2         | s_axi_control | register  | offset   | name=Y_dw_norm_2_2_2 offset=0x4f4 range=32         |
+| Y_dw_act_2_2          | m_axi_gmem2   | interface |          |                                                    |
+| Y_dw_act_2_2          | s_axi_control | register  | offset   | name=Y_dw_act_2_2_1 offset=0x4fc range=32          |
+| Y_dw_act_2_2          | s_axi_control | register  | offset   | name=Y_dw_act_2_2_2 offset=0x500 range=32          |
+| Y_proj_2_2            | m_axi_gmem1   | interface |          |                                                    |
+| Y_proj_2_2            | s_axi_control | register  | offset   | name=Y_proj_2_2_1 offset=0x508 range=32            |
+| Y_proj_2_2            | s_axi_control | register  | offset   | name=Y_proj_2_2_2 offset=0x50c range=32            |
+| Y_dw_skip_2_2         | m_axi_gmem3   | interface |          |                                                    |
+| Y_dw_skip_2_2         | s_axi_control | register  | offset   | name=Y_dw_skip_2_2_1 offset=0x514 range=32         |
+| Y_dw_skip_2_2         | s_axi_control | register  | offset   | name=Y_dw_skip_2_2_2 offset=0x518 range=32         |
+| Y_skip_2_2            | m_axi_gmem2   | interface |          |                                                    |
+| Y_skip_2_2            | s_axi_control | register  | offset   | name=Y_skip_2_2_1 offset=0x520 range=32            |
+| Y_skip_2_2            | s_axi_control | register  | offset   | name=Y_skip_2_2_2 offset=0x524 range=32            |
++-----------------------+---------------+-----------+----------+----------------------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------------+-----------+----------+-------+--------------------------+
+| HW Interface | Loop            | Direction | Length   | Width | Location                 |
++--------------+-----------------+-----------+----------+-------+--------------------------+
+| m_axi_gmem11 | VITIS_LOOP_19_4 | read      | variable | 32    | BatchNorm.cpp:19:34      |
+| m_axi_gmem2  | VITIS_LOOP_19_4 | write     | variable | 32    | BatchNorm.cpp:19:34      |
+| m_axi_gmem   | In_Channel      | read      | variable | 32    | Pointwise_conv.cpp:29:21 |
+| m_axi_gmem1  | VITIS_LOOP_15_2 | read      | 301056   | 32    | kernel_stage0.cpp:15:26  |
+| m_axi_gmem1  | VITIS_LOOP_34_2 | read      | 24       | 32    | kernel_stage0.cpp:34:26  |
+| m_axi_gmem2  | VITIS_LOOP_34_2 | write     | 24       | 32    | kernel_stage0.cpp:34:26  |
+| m_axi_gmem1  | VITIS_LOOP_54_2 | read      | 301056   | 32    | kernel_stage0.cpp:54:26  |
+| m_axi_gmem2  | VITIS_LOOP_54_2 | read      | 24       | 32    | kernel_stage0.cpp:54:26  |
+| m_axi_gmem3  | VITIS_LOOP_56_3 | write     | 12544    | 32    | kernel_stage0.cpp:56:30  |
+| m_axi_gmem0  | VITIS_LOOP_20_3 | read      | variable | 32    | ComputeSkip.cpp:20:34    |
+| m_axi_gmem2  | VITIS_LOOP_20_3 | read      | variable | 32    | ComputeSkip.cpp:20:34    |
+| m_axi_gmem3  | VITIS_LOOP_20_3 | write     | variable | 32    | ComputeSkip.cpp:20:34    |
++--------------+-----------------+-----------+----------+-------+--------------------------+
+
+* Inferred Bursts and Widening Missed
++-------------------------------------------------------------------------+-----------------+-----------------+---------------------------------------------------------------------------------------------------------+------------+--------------------------+
+| HW Interface                                                            | Variable        | Loop            | Problem                                                                                                 | Resolution | Location                 |
++-------------------------------------------------------------------------+-----------------+-----------------+---------------------------------------------------------------------------------------------------------+------------+--------------------------+
+| m_axi_gmem2,gmem1,gmem1,gmem0,gmem2,gmem1,gmem1,gmem0                   | X_data          | SiLU            | Stride is incompatible                                                                                  | 214-230    | SiLU.cpp:9:2             |
+| m_axi_gmem3,gmem3,gmem0,gmem2,gmem3,gmem3,gmem0,gmem2                   | Y_data          | SiLU            | Stride is incompatible                                                                                  | 214-230    | SiLU.cpp:9:2             |
+| m_axi_gmem1,gmem3,gmem2,gmem3,gmem1,gmem3,gmem2,gmem3,gmem2,gmem0,gmem3 | buffer_DataIn_1 | In_Channel      | Stride is incompatible                                                                                  | 214-230    | Pointwise_conv.cpp:29:21 |
+| m_axi_gmem2,gmem0,gmem1,gmem1,gmem2,gmem0,gmem1,gmem1,gmem3,gmem1,gmem0 | out             | Output_Channel  | Access load is in the conditional branch                                                                | 214-232    | Pointwise_conv.cpp:25:17 |
+| m_axi_gmem2,gmem0,gmem1,gmem1,gmem2,gmem0,gmem1,gmem1,gmem3,gmem1,gmem0 | out             | Output_Channel  | Access load is in the conditional branch                                                                | 214-232    | Pointwise_conv.cpp:25:17 |
+| m_axi_gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem            | buffer_kernel   | Output_Channel  | Access call is in the conditional branch                                                                | 214-232    | Pointwise_conv.cpp:25:17 |
+| m_axi_gmem2,gmem0,gmem1,gmem1,gmem2,gmem0,gmem1,gmem1,gmem3,gmem1,gmem0 | out             | Output_Channel  | Access store is in the conditional branch                                                               | 214-232    | Pointwise_conv.cpp:25:17 |
+| m_axi_gmem2,gmem0,gmem1,gmem1,gmem2,gmem0,gmem1,gmem1,gmem3,gmem1,gmem0 | out             | Output_Channel  | Access store is in the conditional branch                                                               | 214-232    | Pointwise_conv.cpp:25:17 |
+| m_axi_gmem0,gmem3,gmem0,gmem3,gmem1,gmem3                               | out             | Output_Channel  | Access load is in the conditional branch                                                                | 214-232    | DW_conv.cpp:55:25        |
+| m_axi_gmem0,gmem3,gmem0,gmem3,gmem1,gmem3                               | out             | Output_Channel  | Access load is in the conditional branch                                                                | 214-232    | DW_conv.cpp:55:25        |
+| m_axi_gmem0,gmem3,gmem0,gmem3,gmem1,gmem3                               | out             | Output_Channel  | Access store is in the conditional branch                                                               | 214-232    | DW_conv.cpp:55:25        |
+| m_axi_gmem0,gmem3,gmem0,gmem3,gmem1,gmem3                               | out             | Output_Channel  | Access store is in the conditional branch                                                               | 214-232    | DW_conv.cpp:55:25        |
+| m_axi_gmem0,gmem3,gmem0,gmem3,gmem1,gmem3                               | out             | Output_Channel  | Access store is in the conditional branch                                                               | 214-232    | DW_conv.cpp:55:25        |
+| m_axi_gmem0,gmem0,gmem0,gmem0                                           | in1             | VITIS_LOOP_18_2 | Access call is in the conditional branch                                                                | 214-232    | ComputeSkip.cpp:18:30    |
+| m_axi_gmem2,gmem1,gmem2,gmem1                                           | in2             | VITIS_LOOP_18_2 | Access call is in the conditional branch                                                                | 214-232    | ComputeSkip.cpp:18:30    |
+| m_axi_gmem3,gmem2,gmem3,gmem2                                           | out             | VITIS_LOOP_18_2 | Access call is in the conditional branch                                                                | 214-232    | ComputeSkip.cpp:18:30    |
+| m_axi_gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem                 | running_mean    | VITIS_LOOP_17_3 | Access load is in the conditional branch                                                                | 214-232    | BatchNorm.cpp:17:30      |
+| m_axi_gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem                 | running_var     | VITIS_LOOP_17_3 | Access load is in the conditional branch                                                                | 214-232    | BatchNorm.cpp:17:30      |
+| m_axi_gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem                 | gamma           | VITIS_LOOP_17_3 | Access load is in the conditional branch                                                                | 214-232    | BatchNorm.cpp:17:30      |
+| m_axi_gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem                 | beta            | VITIS_LOOP_17_3 | Access load is in the conditional branch                                                                | 214-232    | BatchNorm.cpp:17:30      |
+| m_axi_gmem0,gmem0,gmem0,gmem3,gmem2,gmem0,gmem0,gmem3,gmem1,gmem3       | X_data          | VITIS_LOOP_17_3 | Access call is in the conditional branch                                                                | 214-232    | BatchNorm.cpp:17:30      |
+| m_axi_gmem1,gmem1,gmem2,gmem0,gmem1,gmem1,gmem2,gmem0,gmem2,gmem0       | Y_data          | VITIS_LOOP_17_3 | Access call is in the conditional branch                                                                | 214-232    | BatchNorm.cpp:17:30      |
+| m_axi_gmem0                                                             | Y_dw_norm       | SiLU            | Stride is incompatible                                                                                  | 214-230    | SiLU.cpp:9:2             |
+| m_axi_gmem1                                                             | Y_dw_act        | SiLU            | Stride is incompatible                                                                                  | 214-230    | SiLU.cpp:9:2             |
+| m_axi_gmem2                                                             | Y_se_mean       |                 | Access is clobbered by call                                                                             | 214-231    | kernel_stage0.cpp:22:30  |
+| m_axi_gmem3                                                             | Y_se_reduce     | SiLU            | Stride is incompatible                                                                                  | 214-230    | SiLU.cpp:9:2             |
+| m_axi_gmem0                                                             | Y_se_act        | SiLU            | Stride is incompatible                                                                                  | 214-230    | SiLU.cpp:9:2             |
+| m_axi_gmem3                                                             | Y_se            |                 | Access is clobbered by call                                                                             | 214-231    | kernel_stage0.cpp:56:30  |
+| m_axi_gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem,gmem            | buffer_kernel   | In_Channel      | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | Pointwise_conv.cpp:29:21 |
+| m_axi_gmem0,gmem0,gmem0,gmem0                                           | in1             | VITIS_LOOP_20_3 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | ComputeSkip.cpp:20:34    |
+| m_axi_gmem2,gmem1,gmem2,gmem1                                           | in2             | VITIS_LOOP_20_3 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | ComputeSkip.cpp:20:34    |
+| m_axi_gmem3,gmem2,gmem3,gmem2                                           | out             | VITIS_LOOP_20_3 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | ComputeSkip.cpp:20:34    |
+| m_axi_gmem0,gmem0,gmem0,gmem3,gmem2,gmem0,gmem0,gmem3,gmem1,gmem3       | X_data          | VITIS_LOOP_19_4 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | BatchNorm.cpp:19:34      |
+| m_axi_gmem1,gmem1,gmem2,gmem0,gmem1,gmem1,gmem2,gmem0,gmem2,gmem0       | Y_data          | VITIS_LOOP_19_4 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | BatchNorm.cpp:19:34      |
+| m_axi_gmem1                                                             | Y_dw_act        | VITIS_LOOP_57_4 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | kernel_stage0.cpp:57:34  |
+| m_axi_gmem3                                                             | Y_se            | VITIS_LOOP_57_4 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | kernel_stage0.cpp:57:34  |
+| m_axi_gmem2                                                             | Y_se_sigmoid    | VITIS_LOOP_54_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | kernel_stage0.cpp:54:26  |
+| m_axi_gmem1                                                             | Y_se_expand     | VITIS_LOOP_34_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | kernel_stage0.cpp:34:26  |
+| m_axi_gmem2                                                             | Y_se_sigmoid    | VITIS_LOOP_34_2 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | kernel_stage0.cpp:34:26  |
+| m_axi_gmem1                                                             | Y_dw_act        | VITIS_LOOP_18_4 | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | kernel_stage0.cpp:18:34  |
++-------------------------------------------------------------------------+-----------------+-----------------+---------------------------------------------------------------------------------------------------------+------------+--------------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++--------------------------------------------------------------------------------------------+-----+--------+------------+-------+---------+---------+
+| Name                                                                                       | DSP | Pragma | Variable   | Op    | Impl    | Latency |
++--------------------------------------------------------------------------------------------+-----+--------+------------+-------+---------+---------+
+| + kernel_EMO                                                                               | 152 |        |            |       |         |         |
+|  + kernel_stage0_1                                                                         | 90  |        |            |       |         |         |
+|    add_ln15_fu_652_p2                                                                      | -   |        | add_ln15   | add   | fabric  | 0       |
+|    fdiv_32ns_32ns_32_5_no_dsp_1_U235                                                       | -   |        | div_i2     | fdiv  | fabric  | 4       |
+|    add_ln54_1_fu_725_p2                                                                    | -   |        | add_ln54_1 | add   | fabric  | 0       |
+|    add_ln54_fu_737_p2                                                                      | -   |        | add_ln54   | add   | fabric  | 0       |
+|    add_ln55_fu_747_p2                                                                      | -   |        | add_ln55   | add   | fabric  | 0       |
+|   + DW_conv_2                                                                              | 4   |        |            |       |         |         |
+|     empty_fu_451_p2                                                                        | -   |        | empty      | sub   | fabric  | 0       |
+|     tmp_fu_481_p2                                                                          | -   |        | tmp        | add   | fabric  | 0       |
+|     empty_222_fu_491_p2                                                                    | -   |        | empty_222  | add   | fabric  | 0       |
+|     empty_223_fu_509_p2                                                                    | -   |        | empty_223  | sub   | fabric  | 0       |
+|     empty_224_fu_535_p2                                                                    | -   |        | empty_224  | sub   | fabric  | 0       |
+|     add_ln37_fu_547_p2                                                                     | -   |        | add_ln37   | add   | fabric  | 0       |
+|     add_ln37_1_fu_573_p2                                                                   | -   |        | add_ln37_1 | add   | fabric  | 0       |
+|     p_mid174_fu_603_p2                                                                     | -   |        | p_mid174   | sub   | fabric  | 0       |
+|     p_mid194_fu_653_p2                                                                     | -   |        | p_mid194   | add   | fabric  | 0       |
+|     p_mid1114_fu_687_p2                                                                    | -   |        | p_mid1114  | sub   | fabric  | 0       |
+|     add_ln40_fu_739_p2                                                                     | -   |        | add_ln40   | add   | fabric  | 0       |
+|     p_mid134_fu_787_p2                                                                     | -   |        | p_mid134   | add   | fabric  | 0       |
+|     p_mid154_fu_829_p2                                                                     | -   |        | p_mid154   | sub   | fabric  | 0       |
+|     add_ln44_fu_869_p2                                                                     | -   |        | add_ln44   | add   | fabric  | 0       |
+|     p_mid1_fu_903_p2                                                                       | -   |        | p_mid1     | add   | fabric  | 0       |
+|     p_mid113_fu_929_p2                                                                     | -   |        | p_mid113   | sub   | fabric  | 0       |
+|     p_mid115_fu_967_p2                                                                     | -   |        | p_mid115   | sub   | fabric  | 0       |
+|     add_ln52_1_fu_993_p2                                                                   | -   |        | add_ln52_1 | add   | fabric  | 0       |
+|     add_ln52_fu_1003_p2                                                                    | -   |        | add_ln52   | add   | fabric  | 0       |
+|     add_ln62_fu_1033_p2                                                                    | -   |        | add_ln62   | add   | fabric  | 0       |
+|     add_ln55_fu_1044_p2                                                                    | -   |        | add_ln55   | add   | fabric  | 0       |
+|     add_ln55_1_fu_1050_p2                                                                  | -   |        | add_ln55_1 | add   | fabric  | 0       |
+|     add_ln71_fu_1062_p2                                                                    | -   |        | add_ln71   | add   | fabric  | 0       |
+|     add_ln57_fu_1089_p2                                                                    | -   |        | add_ln57   | add   | fabric  | 0       |
+|     sub_ln60_fu_1100_p2                                                                    | -   |        | sub_ln60   | sub   | fabric  | 0       |
+|     empty_225_fu_1122_p2                                                                   | -   |        | empty_225  | add   | fabric  | 0       |
+|     add_ln70_fu_1247_p2                                                                    | -   |        | add_ln70   | add   | fabric  | 0       |
+|     add_ln71_1_fu_1303_p2                                                                  | -   |        | add_ln71_1 | add   | fabric  | 0       |
+|     add_ln72_fu_1322_p2                                                                    | -   |        | add_ln72   | add   | fabric  | 0       |
+|     add_ln47_fu_1148_p2                                                                    | -   |        | add_ln47   | add   | fabric  | 0       |
+|     add_ln44_1_fu_1153_p2                                                                  | -   |        | add_ln44_1 | add   | fabric  | 0       |
+|     add_ln40_1_fu_1166_p2                                                                  | -   |        | add_ln40_1 | add   | fabric  | 0       |
+|    + DW_conv_2_Pipeline_In_Channel                                                         | 4   |        |            |       |         |         |
+|      add_ln65_fu_252_p2                                                                    | -   |        | add_ln65   | add   | fabric  | 0       |
+|      mul_62s_17ns_62_1_1_U3                                                                | 4   |        | mul_ln62   | mul   | auto    | 0       |
+|      add_ln64_3_fu_268_p2                                                                  | -   |        | add_ln64_3 | add   | fabric  | 0       |
+|      add_ln64_fu_297_p2                                                                    | -   |        | add_ln64   | add   | fabric  | 0       |
+|      add_ln64_2_fu_341_p2                                                                  | -   |        | add_ln64_2 | add   | fabric  | 0       |
+|      add_ln66_fu_390_p2                                                                    | -   |        | add_ln66   | add   | fabric  | 0       |
+|      grp_fu_376_p0                                                                         | -   |        | add_ln66_1 | add   | fabric  | 0       |
+|   + BatchNorm_1 (grp_BatchNorm_1_fu_432)                                                   | 14  |        |            |       |         |         |
+|     mul_8ns_7ns_15_1_1_U51                                                                 | -   |        | bound      | mul   | auto    | 0       |
+|     empty_fu_393_p2                                                                        | -   |        | empty      | add   | fabric  | 0       |
+|     empty_241_fu_398_p2                                                                    | -   |        | empty_241  | add   | fabric  | 0       |
+|     empty_242_fu_403_p2                                                                    | -   |        | empty_242  | add   | fabric  | 0       |
+|     empty_243_fu_408_p2                                                                    | -   |        | empty_243  | add   | fabric  | 0       |
+|     tmp2_fu_413_p2                                                                         | -   |        | tmp2       | add   | fabric  | 0       |
+|     mul_8ns_7ns_15_1_1_U52                                                                 | -   |        | tmp3       | mul   | auto    | 0       |
+|     add_ln13_fu_473_p2                                                                     | -   |        | add_ln13   | add   | fabric  | 0       |
+|     add_ln15_fu_569_p2                                                                     | -   |        | add_ln15   | add   | fabric  | 0       |
+|     p_mid118_fu_587_p2                                                                     | -   |        | p_mid118   | add   | fabric  | 0       |
+|     p_mid120_fu_592_p2                                                                     | -   |        | p_mid120   | add   | fabric  | 0       |
+|     p_mid122_fu_597_p2                                                                     | -   |        | p_mid122   | add   | fabric  | 0       |
+|     p_mid124_fu_602_p2                                                                     | -   |        | p_mid124   | add   | fabric  | 0       |
+|     tmp2_mid1_fu_607_p2                                                                    | -   |        | tmp2_mid1  | add   | fabric  | 0       |
+|     mul_8ns_7ns_15_1_1_U53                                                                 | -   |        | tmp3_mid1  | mul   | auto    | 0       |
+|     dadd_64ns_64ns_64_2_full_dsp_1_U49                                                     | 3   |        | add_mid2   | dadd  | fulldsp | 1       |
+|     tmp1_fu_814_p2                                                                         | -   |        | tmp1       | add   | fabric  | 0       |
+|     mul_mul_15ns_7ns_21_4_1_U54                                                            | 1   |        | empty_244  | mul   | dsp48   | 3       |
+|     empty_245_fu_846_p2                                                                    | -   |        | empty_245  | add   | fabric  | 0       |
+|     empty_246_fu_851_p2                                                                    | -   |        | empty_246  | add   | fabric  | 0       |
+|     dsqrt_64ns_64ns_64_8_no_dsp_1_U50                                                      | -   |        | tmp        | dsqrt | fabric  | 7       |
+|     add_ln17_fu_824_p2                                                                     | -   |        | add_ln17   | add   | fabric  | 0       |
+|     add_ln15_1_fu_733_p2                                                                   | -   |        | add_ln15_1 | add   | fabric  | 0       |
+|   + BatchNorm_1_Pipeline_VITIS_LOOP_19_4 (grp_BatchNorm_1_Pipeline_VITIS_LOOP_19_4_fu_239) | 10  |        |            |       |         |         |
+|     add_ln19_fu_222_p2                                                                     | -   |        | add_ln19   | add   | fabric  | 0       |
+|     fsub_32ns_32ns_32_2_full_dsp_1_U26                                                     | 2   |        | sub        | fsub  | fulldsp | 1       |
+|     ddiv_64ns_64ns_64_9_no_dsp_1_U31                                                       | -   |        | div        | ddiv  | fabric  | 8       |
+|     dmul_64ns_64ns_64_2_max_dsp_1_U30                                                      | 8   |        | mul        | dmul  | maxdsp  | 1       |
+|   + DW_conv_1 (grp_DW_conv_1_fu_466)                                                       | 15  |        |            |       |         |         |
+|     mul_7ns_7ns_14_1_1_U95                                                                 | -   |        | mul_ln62   | mul   | auto    | 0       |
+|     bound10_fu_435_p2                                                                      | -   |        | bound10    | add   | fabric  | 0       |
+|     mul_mul_7ns_11ns_18_4_1_U103                                                           | 1   |        | bound43    | mul   | dsp48   | 3       |
+|     p_mid1144_fu_521_p2                                                                    | -   |        | p_mid1144  | sub   | fabric  | 0       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U104                                                       | 1   |        | empty_230  | mul   | dsp48   | 3       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U104                                                       | 1   |        | empty_231  | add   | dsp48   | 3       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U105                                                       | 1   |        | empty_232  | mul   | dsp48   | 3       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U105                                                       | 1   |        | add_ln51_1 | add   | dsp48   | 3       |
+|     empty_233_fu_560_p2                                                                    | -   |        | empty_233  | add   | fabric  | 0       |
+|     mul_9s_7ns_16_1_1_U96                                                                  | -   |        | empty_234  | mul   | auto    | 0       |
+|     add_ln34_fu_590_p2                                                                     | -   |        | add_ln34   | add   | fabric  | 0       |
+|     add_ln37_fu_667_p2                                                                     | -   |        | add_ln37   | add   | fabric  | 0       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U106                                                       | 1   |        | p_mid152   | mul   | dsp48   | 3       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U106                                                       | 1   |        | p_mid154   | add   | dsp48   | 3       |
+|     mul_9s_7ns_16_1_1_U97                                                                  | -   |        | p_mid180   | mul   | auto    | 0       |
+|     add_ln40_fu_708_p2                                                                     | -   |        | add_ln40   | add   | fabric  | 0       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U107                                                       | 1   |        | p_mid116   | mul   | dsp48   | 3       |
+|     mac_muladd_7ns_2ns_1s_9_4_1_U107                                                       | 1   |        | add_ln51_2 | add   | dsp48   | 3       |
+|     mul_9s_7ns_16_1_1_U98                                                                  | -   |        | p_mid132   | mul   | auto    | 0       |
+|     add_ln44_fu_905_p2                                                                     | -   |        | add_ln44   | add   | fabric  | 0       |
+|     p_mid1_fu_922_p2                                                                       | -   |        | p_mid1     | add   | fabric  | 0       |
+|     mul_9s_7ns_16_1_1_U99                                                                  | -   |        | p_mid16    | mul   | auto    | 0       |
+|     add_ln51_fu_992_p2                                                                     | -   |        | add_ln51   | add   | fabric  | 0       |
+|     add_ln62_fu_1035_p2                                                                    | -   |        | add_ln62   | add   | fabric  | 0       |
+|     add_ln71_fu_1046_p2                                                                    | -   |        | add_ln71   | add   | fabric  | 0       |
+|     add_ln57_fu_1052_p2                                                                    | -   |        | add_ln57   | add   | fabric  | 0       |
+|     mul_8ns_7ns_15_1_1_U100                                                                | -   |        | mul_ln57   | mul   | auto    | 0       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U108                                             | 1   |        | add_ln57_1 | add   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U108                                             | 1   |        | mul_ln57_1 | mul   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U108                                             | 1   |        | add_ln57_2 | add   | dsp48   | 3       |
+|     mul_32s_3ns_32_1_1_U101                                                                | -   |        | in_ch      | mul   | auto    | 0       |
+|     empty_235_fu_1167_p2                                                                   | -   |        | empty_235  | add   | fabric  | 0       |
+|     add_ln72_fu_1224_p2                                                                    | -   |        | add_ln72   | add   | fabric  | 0       |
+|     add_ln47_fu_1076_p2                                                                    | -   |        | add_ln47   | add   | fabric  | 0       |
+|     add_ln44_2_fu_1081_p2                                                                  | -   |        | add_ln44_2 | add   | fabric  | 0       |
+|     add_ln40_2_fu_1094_p2                                                                  | -   |        | add_ln40_2 | add   | fabric  | 0       |
+|     add_ln37_2_fu_1107_p2                                                                  | -   |        | add_ln37_2 | add   | fabric  | 0       |
+|   + DW_conv_1_Pipeline_In_Channel (grp_DW_conv_1_Pipeline_In_Channel_fu_327)               | 9   |        |            |       |         |         |
+|     add_ln65_fu_327_p2                                                                     | -   |        | add_ln65   | add   | fabric  | 0       |
+|     mul_14ns_62s_62_1_1_U73                                                                | 4   |        | mul_ln62   | mul   | auto    | 0       |
+|     add_ln63_fu_356_p2                                                                     | -   |        | add_ln63   | add   | fabric  | 0       |
+|     add_ln64_fu_392_p2                                                                     | -   |        | add_ln64   | add   | fabric  | 0       |
+|     add_ln64_2_fu_436_p2                                                                   | -   |        | add_ln64_2 | add   | fabric  | 0       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U72                                                      | 3   |        | mul        | fmul  | maxdsp  | 1       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U71                                                     | 2   |        | add        | fadd  | fulldsp | 1       |
+|     add_ln66_fu_484_p2                                                                     | -   |        | add_ln66   | add   | fabric  | 0       |
+|     grp_fu_471_p0                                                                          | -   |        | add_ln66_2 | add   | fabric  | 0       |
+|   + kernel_stage0_1_Pipeline_SiLU                                                          | 0   |        |            |       |         |         |
+|     add_ln12_fu_177_p2                                                                     | -   |        | add_ln12   | add   | fabric  | 0       |
+|     add_ln13_fu_203_p2                                                                     | -   |        | add_ln13   | add   | fabric  | 0       |
+|     add_ln9_fu_229_p2                                                                      | -   |        | add_ln9    | add   | fabric  | 0       |
+|   + kernel_stage0_1_Pipeline_VITIS_LOOP_17_3_VITIS_LOOP_18_4                               | 0   |        |            |       |         |         |
+|     add_ln17_fu_107_p2                                                                     | -   |        | add_ln17   | add   | fabric  | 0       |
+|   + Pointwise_conv_1 (grp_Pointwise_conv_1_fu_516)                                         | 8   |        |            |       |         |         |
+|     mul_7ns_8ns_15_1_1_U159                                                                | -   |        | bound      | mul   | auto    | 0       |
+|     mul_mul_7ns_15ns_22_4_1_U162                                                           | 1   |        | bound4     | mul   | dsp48   | 3       |
+|     add_ln19_fu_325_p2                                                                     | -   |        | add_ln19   | add   | fabric  | 0       |
+|     add_ln19_2_fu_345_p2                                                                   | -   |        | add_ln19_2 | add   | fabric  | 0       |
+|     add_ln22_fu_521_p2                                                                     | -   |        | add_ln22   | add   | fabric  | 0       |
+|     mul_8ns_6ns_13_1_1_U160                                                                | -   |        | empty      | mul   | auto    | 0       |
+|     empty_215_fu_414_p2                                                                    | -   |        | empty_215  | add   | fabric  | 0       |
+|     mul_8ns_7ns_15_1_1_U161                                                                | -   |        | empty_216  | mul   | auto    | 0       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U163                                             | 1   |        | empty_217  | add   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U163                                             | 1   |        | empty_218  | mul   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U163                                             | 1   |        | empty_219  | add   | dsp48   | 3       |
+|     empty_220_fu_554_p2                                                                    | -   |        | empty_220  | add   | fabric  | 0       |
+|     add_ln35_fu_446_p2                                                                     | -   |        | add_ln35   | add   | fabric  | 0       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U158                                                    | 2   |        | add1       | fadd  | fulldsp | 1       |
+|     add_ln25_fu_471_p2                                                                     | -   |        | add_ln25   | add   | fabric  | 0       |
+|     add_ln22_2_fu_477_p2                                                                   | -   |        | add_ln22_2 | add   | fabric  | 0       |
+|   + Pointwise_conv_1_Pipeline_In_Channel (grp_Pointwise_conv_1_Pipeline_In_Channel_fu_230) | 4   |        |            |       |         |         |
+|     add_ln29_fu_232_p2                                                                     | -   |        | add_ln29   | add   | fabric  | 0       |
+|     add_ln32_5_fu_241_p2                                                                   | -   |        | add_ln32_5 | add   | fabric  | 0       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U145                                             | 1   |        | add_ln32   | add   | dsp48   | 3       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U145                                             | 1   |        | mul_ln32   | mul   | dsp48   | 3       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U145                                             | 1   |        | add_ln32_3 | add   | dsp48   | 3       |
+|     add_ln32_4_fu_268_p2                                                                   | -   |        | add_ln32_4 | add   | fabric  | 0       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U144                                                     | 3   |        | mul        | fmul  | maxdsp  | 1       |
+|   + kernel_stage0_1_Pipeline_SiLU1                                                         | 0   |        |            |       |         |         |
+|     add_ln12_fu_177_p2                                                                     | -   |        | add_ln12   | add   | fabric  | 0       |
+|     add_ln13_fu_203_p2                                                                     | -   |        | add_ln13   | add   | fabric  | 0       |
+|     add_ln9_fu_229_p2                                                                      | -   |        | add_ln9    | add   | fabric  | 0       |
+|   + kernel_stage0_1_Pipeline_VITIS_LOOP_34_2                                               | 29  |        |            |       |         |         |
+|     add_ln34_fu_134_p2                                                                     | -   |        | add_ln34   | add   | fabric  | 0       |
+|     dexp_64ns_64ns_64_6_full_dsp_1_U190                                                    | 26  |        | tmp_2      | dexp  | fulldsp | 5       |
+|     dadd_64ns_64ns_64_2_full_dsp_1_U188                                                    | 3   |        | add33_i    | dadd  | fulldsp | 1       |
+|     ddiv_64ns_64ns_64_9_no_dsp_1_U189                                                      | -   |        | div_i3     | ddiv  | fabric  | 8       |
+|   + Pointwise_conv_2 (grp_Pointwise_conv_2_fu_560)                                         | 8   |        |            |       |         |         |
+|     mul_7ns_6ns_13_1_1_U216                                                                | -   |        | bound      | mul   | auto    | 0       |
+|     mul_mul_7ns_13ns_20_4_1_U219                                                           | 1   |        | bound4     | mul   | dsp48   | 3       |
+|     add_ln19_fu_303_p2                                                                     | -   |        | add_ln19   | add   | fabric  | 0       |
+|     add_ln19_1_fu_323_p2                                                                   | -   |        | add_ln19_1 | add   | fabric  | 0       |
+|     add_ln22_fu_458_p2                                                                     | -   |        | add_ln22   | add   | fabric  | 0       |
+|     mul_6ns_8ns_13_1_1_U217                                                                | -   |        | empty      | mul   | auto    | 0       |
+|     empty_208_fu_388_p2                                                                    | -   |        | empty_208  | add   | fabric  | 0       |
+|     mul_6ns_7ns_13_1_1_U218                                                                | -   |        | empty_209  | mul   | auto    | 0       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U220                                             | 1   |        | empty_210  | add   | dsp48   | 3       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U220                                             | 1   |        | empty_211  | mul   | dsp48   | 3       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U220                                             | 1   |        | empty_212  | add   | dsp48   | 3       |
+|     empty_213_fu_491_p2                                                                    | -   |        | empty_213  | add   | fabric  | 0       |
+|     add_ln25_fu_408_p2                                                                     | -   |        | add_ln25   | add   | fabric  | 0       |
+|     add_ln22_1_fu_414_p2                                                                   | -   |        | add_ln22_1 | add   | fabric  | 0       |
+|   + Pointwise_conv_2_Pipeline_In_Channel (grp_Pointwise_conv_2_Pipeline_In_Channel_fu_212) | 6   |        |            |       |         |         |
+|     add_ln29_fu_232_p2                                                                     | -   |        | add_ln29   | add   | fabric  | 0       |
+|     add_ln32_3_fu_241_p2                                                                   | -   |        | add_ln32_3 | add   | fabric  | 0       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U204                                             | 1   |        | add_ln32   | add   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U204                                             | 1   |        | mul_ln32   | mul   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U204                                             | 1   |        | add_ln32_1 | add   | dsp48   | 3       |
+|     add_ln32_2_fu_268_p2                                                                   | -   |        | add_ln32_2 | add   | fabric  | 0       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U203                                                     | 3   |        | mul        | fmul  | maxdsp  | 1       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U202                                                    | 2   |        | add        | fadd  | fulldsp | 1       |
+|   + kernel_stage0_1_Pipeline_VITIS_LOOP_57_4                                               | 0   |        |            |       |         |         |
+|     add_ln56_fu_189_p2                                                                     | -   |        | add_ln56   | add   | fabric  | 0       |
+|     add_ln56_1_fu_213_p2                                                                   | -   |        | add_ln56_1 | add   | fabric  | 0       |
+|     add_ln57_fu_230_p2                                                                     | -   |        | add_ln57   | add   | fabric  | 0       |
+|  + BatchNorm_1 (grp_BatchNorm_1_fu_1245)                                                   | 14  |        |            |       |         |         |
+|    mul_8ns_7ns_15_1_1_U51                                                                  | -   |        | bound      | mul   | auto    | 0       |
+|    empty_fu_393_p2                                                                         | -   |        | empty      | add   | fabric  | 0       |
+|    empty_241_fu_398_p2                                                                     | -   |        | empty_241  | add   | fabric  | 0       |
+|    empty_242_fu_403_p2                                                                     | -   |        | empty_242  | add   | fabric  | 0       |
+|    empty_243_fu_408_p2                                                                     | -   |        | empty_243  | add   | fabric  | 0       |
+|    tmp2_fu_413_p2                                                                          | -   |        | tmp2       | add   | fabric  | 0       |
+|    mul_8ns_7ns_15_1_1_U52                                                                  | -   |        | tmp3       | mul   | auto    | 0       |
+|    add_ln13_fu_473_p2                                                                      | -   |        | add_ln13   | add   | fabric  | 0       |
+|    add_ln15_fu_569_p2                                                                      | -   |        | add_ln15   | add   | fabric  | 0       |
+|    p_mid118_fu_587_p2                                                                      | -   |        | p_mid118   | add   | fabric  | 0       |
+|    p_mid120_fu_592_p2                                                                      | -   |        | p_mid120   | add   | fabric  | 0       |
+|    p_mid122_fu_597_p2                                                                      | -   |        | p_mid122   | add   | fabric  | 0       |
+|    p_mid124_fu_602_p2                                                                      | -   |        | p_mid124   | add   | fabric  | 0       |
+|    tmp2_mid1_fu_607_p2                                                                     | -   |        | tmp2_mid1  | add   | fabric  | 0       |
+|    mul_8ns_7ns_15_1_1_U53                                                                  | -   |        | tmp3_mid1  | mul   | auto    | 0       |
+|    dadd_64ns_64ns_64_2_full_dsp_1_U49                                                      | 3   |        | add_mid2   | dadd  | fulldsp | 1       |
+|    tmp1_fu_814_p2                                                                          | -   |        | tmp1       | add   | fabric  | 0       |
+|    mul_mul_15ns_7ns_21_4_1_U54                                                             | 1   |        | empty_244  | mul   | dsp48   | 3       |
+|    empty_245_fu_846_p2                                                                     | -   |        | empty_245  | add   | fabric  | 0       |
+|    empty_246_fu_851_p2                                                                     | -   |        | empty_246  | add   | fabric  | 0       |
+|    dsqrt_64ns_64ns_64_8_no_dsp_1_U50                                                       | -   |        | tmp        | dsqrt | fabric  | 7       |
+|    add_ln17_fu_824_p2                                                                      | -   |        | add_ln17   | add   | fabric  | 0       |
+|    add_ln15_1_fu_733_p2                                                                    | -   |        | add_ln15_1 | add   | fabric  | 0       |
+|   + BatchNorm_1_Pipeline_VITIS_LOOP_19_4 (grp_BatchNorm_1_Pipeline_VITIS_LOOP_19_4_fu_239) | 10  |        |            |       |         |         |
+|     add_ln19_fu_222_p2                                                                     | -   |        | add_ln19   | add   | fabric  | 0       |
+|     fsub_32ns_32ns_32_2_full_dsp_1_U26                                                     | 2   |        | sub        | fsub  | fulldsp | 1       |
+|     ddiv_64ns_64ns_64_9_no_dsp_1_U31                                                       | -   |        | div        | ddiv  | fabric  | 8       |
+|     dmul_64ns_64ns_64_2_max_dsp_1_U30                                                      | 8   |        | mul        | dmul  | maxdsp  | 1       |
+|  + Pointwise_conv_1 (grp_Pointwise_conv_1_fu_1281)                                         | 8   |        |            |       |         |         |
+|    mul_7ns_8ns_15_1_1_U159                                                                 | -   |        | bound      | mul   | auto    | 0       |
+|    mul_mul_7ns_15ns_22_4_1_U162                                                            | 1   |        | bound4     | mul   | dsp48   | 3       |
+|    add_ln19_fu_325_p2                                                                      | -   |        | add_ln19   | add   | fabric  | 0       |
+|    add_ln19_2_fu_345_p2                                                                    | -   |        | add_ln19_2 | add   | fabric  | 0       |
+|    add_ln22_fu_521_p2                                                                      | -   |        | add_ln22   | add   | fabric  | 0       |
+|    mul_8ns_6ns_13_1_1_U160                                                                 | -   |        | empty      | mul   | auto    | 0       |
+|    empty_215_fu_414_p2                                                                     | -   |        | empty_215  | add   | fabric  | 0       |
+|    mul_8ns_7ns_15_1_1_U161                                                                 | -   |        | empty_216  | mul   | auto    | 0       |
+|    ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U163                                              | 1   |        | empty_217  | add   | dsp48   | 3       |
+|    ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U163                                              | 1   |        | empty_218  | mul   | dsp48   | 3       |
+|    ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U163                                              | 1   |        | empty_219  | add   | dsp48   | 3       |
+|    empty_220_fu_554_p2                                                                     | -   |        | empty_220  | add   | fabric  | 0       |
+|    add_ln35_fu_446_p2                                                                      | -   |        | add_ln35   | add   | fabric  | 0       |
+|    fadd_32ns_32ns_32_2_full_dsp_1_U158                                                     | 2   |        | add1       | fadd  | fulldsp | 1       |
+|    add_ln25_fu_471_p2                                                                      | -   |        | add_ln25   | add   | fabric  | 0       |
+|    add_ln22_2_fu_477_p2                                                                    | -   |        | add_ln22_2 | add   | fabric  | 0       |
+|   + Pointwise_conv_1_Pipeline_In_Channel (grp_Pointwise_conv_1_Pipeline_In_Channel_fu_230) | 4   |        |            |       |         |         |
+|     add_ln29_fu_232_p2                                                                     | -   |        | add_ln29   | add   | fabric  | 0       |
+|     add_ln32_5_fu_241_p2                                                                   | -   |        | add_ln32_5 | add   | fabric  | 0       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U145                                             | 1   |        | add_ln32   | add   | dsp48   | 3       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U145                                             | 1   |        | mul_ln32   | mul   | dsp48   | 3       |
+|     ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U145                                             | 1   |        | add_ln32_3 | add   | dsp48   | 3       |
+|     add_ln32_4_fu_268_p2                                                                   | -   |        | add_ln32_4 | add   | fabric  | 0       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U144                                                     | 3   |        | mul        | fmul  | maxdsp  | 1       |
+|  + SiLU_1                                                                                  | 13  |        |            |       |         |         |
+|    mul_7ns_7ns_14_1_1_U286                                                                 | -   |        | mul_ln9    | mul   | auto    | 0       |
+|    mac_muladd_14ns_8ns_1s_21_4_1_U287                                                      | 1   |        | mul_ln9_1  | mul   | dsp48   | 3       |
+|    mac_muladd_14ns_8ns_1s_21_4_1_U287                                                      | 1   |        | add_ln9    | add   | dsp48   | 3       |
+|   + SiLU_1_Pipeline_SiLU                                                                   | 12  |        |            |       |         |         |
+|     add_ln12_fu_175_p2                                                                     | -   |        | add_ln12   | add   | fabric  | 0       |
+|     fexp_32ns_32ns_32_4_full_dsp_1_U280                                                    | 7   |        | tmp        | fexp  | fulldsp | 3       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U277                                                    | 2   |        | add        | fadd  | fulldsp | 1       |
+|     fdiv_32ns_32ns_32_5_no_dsp_1_U279                                                      | -   |        | div        | fdiv  | fabric  | 4       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U278                                                     | 3   |        | mul8       | fmul  | maxdsp  | 1       |
+|     add_ln13_fu_200_p2                                                                     | -   |        | add_ln13   | add   | fabric  | 0       |
+|     add_ln9_fu_225_p2                                                                      | -   |        | add_ln9    | add   | fabric  | 0       |
+|  + DW_conv_1 (grp_DW_conv_1_fu_1341)                                                       | 15  |        |            |       |         |         |
+|    mul_7ns_7ns_14_1_1_U95                                                                  | -   |        | mul_ln62   | mul   | auto    | 0       |
+|    bound10_fu_435_p2                                                                       | -   |        | bound10    | add   | fabric  | 0       |
+|    mul_mul_7ns_11ns_18_4_1_U103                                                            | 1   |        | bound43    | mul   | dsp48   | 3       |
+|    p_mid1144_fu_521_p2                                                                     | -   |        | p_mid1144  | sub   | fabric  | 0       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U104                                                        | 1   |        | empty_230  | mul   | dsp48   | 3       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U104                                                        | 1   |        | empty_231  | add   | dsp48   | 3       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U105                                                        | 1   |        | empty_232  | mul   | dsp48   | 3       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U105                                                        | 1   |        | add_ln51_1 | add   | dsp48   | 3       |
+|    empty_233_fu_560_p2                                                                     | -   |        | empty_233  | add   | fabric  | 0       |
+|    mul_9s_7ns_16_1_1_U96                                                                   | -   |        | empty_234  | mul   | auto    | 0       |
+|    add_ln34_fu_590_p2                                                                      | -   |        | add_ln34   | add   | fabric  | 0       |
+|    add_ln37_fu_667_p2                                                                      | -   |        | add_ln37   | add   | fabric  | 0       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U106                                                        | 1   |        | p_mid152   | mul   | dsp48   | 3       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U106                                                        | 1   |        | p_mid154   | add   | dsp48   | 3       |
+|    mul_9s_7ns_16_1_1_U97                                                                   | -   |        | p_mid180   | mul   | auto    | 0       |
+|    add_ln40_fu_708_p2                                                                      | -   |        | add_ln40   | add   | fabric  | 0       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U107                                                        | 1   |        | p_mid116   | mul   | dsp48   | 3       |
+|    mac_muladd_7ns_2ns_1s_9_4_1_U107                                                        | 1   |        | add_ln51_2 | add   | dsp48   | 3       |
+|    mul_9s_7ns_16_1_1_U98                                                                   | -   |        | p_mid132   | mul   | auto    | 0       |
+|    add_ln44_fu_905_p2                                                                      | -   |        | add_ln44   | add   | fabric  | 0       |
+|    p_mid1_fu_922_p2                                                                        | -   |        | p_mid1     | add   | fabric  | 0       |
+|    mul_9s_7ns_16_1_1_U99                                                                   | -   |        | p_mid16    | mul   | auto    | 0       |
+|    add_ln51_fu_992_p2                                                                      | -   |        | add_ln51   | add   | fabric  | 0       |
+|    add_ln62_fu_1035_p2                                                                     | -   |        | add_ln62   | add   | fabric  | 0       |
+|    add_ln71_fu_1046_p2                                                                     | -   |        | add_ln71   | add   | fabric  | 0       |
+|    add_ln57_fu_1052_p2                                                                     | -   |        | add_ln57   | add   | fabric  | 0       |
+|    mul_8ns_7ns_15_1_1_U100                                                                 | -   |        | mul_ln57   | mul   | auto    | 0       |
+|    ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U108                                              | 1   |        | add_ln57_1 | add   | dsp48   | 3       |
+|    ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U108                                              | 1   |        | mul_ln57_1 | mul   | dsp48   | 3       |
+|    ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U108                                              | 1   |        | add_ln57_2 | add   | dsp48   | 3       |
+|    mul_32s_3ns_32_1_1_U101                                                                 | -   |        | in_ch      | mul   | auto    | 0       |
+|    empty_235_fu_1167_p2                                                                    | -   |        | empty_235  | add   | fabric  | 0       |
+|    add_ln72_fu_1224_p2                                                                     | -   |        | add_ln72   | add   | fabric  | 0       |
+|    add_ln47_fu_1076_p2                                                                     | -   |        | add_ln47   | add   | fabric  | 0       |
+|    add_ln44_2_fu_1081_p2                                                                   | -   |        | add_ln44_2 | add   | fabric  | 0       |
+|    add_ln40_2_fu_1094_p2                                                                   | -   |        | add_ln40_2 | add   | fabric  | 0       |
+|    add_ln37_2_fu_1107_p2                                                                   | -   |        | add_ln37_2 | add   | fabric  | 0       |
+|   + DW_conv_1_Pipeline_In_Channel (grp_DW_conv_1_Pipeline_In_Channel_fu_327)               | 9   |        |            |       |         |         |
+|     add_ln65_fu_327_p2                                                                     | -   |        | add_ln65   | add   | fabric  | 0       |
+|     mul_14ns_62s_62_1_1_U73                                                                | 4   |        | mul_ln62   | mul   | auto    | 0       |
+|     add_ln63_fu_356_p2                                                                     | -   |        | add_ln63   | add   | fabric  | 0       |
+|     add_ln64_fu_392_p2                                                                     | -   |        | add_ln64   | add   | fabric  | 0       |
+|     add_ln64_2_fu_436_p2                                                                   | -   |        | add_ln64_2 | add   | fabric  | 0       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U72                                                      | 3   |        | mul        | fmul  | maxdsp  | 1       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U71                                                     | 2   |        | add        | fadd  | fulldsp | 1       |
+|     add_ln66_fu_484_p2                                                                     | -   |        | add_ln66   | add   | fabric  | 0       |
+|     grp_fu_471_p0                                                                          | -   |        | add_ln66_2 | add   | fabric  | 0       |
+|  + Pointwise_conv_2 (grp_Pointwise_conv_2_fu_1388)                                         | 8   |        |            |       |         |         |
+|    mul_7ns_6ns_13_1_1_U216                                                                 | -   |        | bound      | mul   | auto    | 0       |
+|    mul_mul_7ns_13ns_20_4_1_U219                                                            | 1   |        | bound4     | mul   | dsp48   | 3       |
+|    add_ln19_fu_303_p2                                                                      | -   |        | add_ln19   | add   | fabric  | 0       |
+|    add_ln19_1_fu_323_p2                                                                    | -   |        | add_ln19_1 | add   | fabric  | 0       |
+|    add_ln22_fu_458_p2                                                                      | -   |        | add_ln22   | add   | fabric  | 0       |
+|    mul_6ns_8ns_13_1_1_U217                                                                 | -   |        | empty      | mul   | auto    | 0       |
+|    empty_208_fu_388_p2                                                                     | -   |        | empty_208  | add   | fabric  | 0       |
+|    mul_6ns_7ns_13_1_1_U218                                                                 | -   |        | empty_209  | mul   | auto    | 0       |
+|    ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U220                                              | 1   |        | empty_210  | add   | dsp48   | 3       |
+|    ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U220                                              | 1   |        | empty_211  | mul   | dsp48   | 3       |
+|    ama_addmuladd_13ns_7ns_7ns_7ns_20_4_1_U220                                              | 1   |        | empty_212  | add   | dsp48   | 3       |
+|    empty_213_fu_491_p2                                                                     | -   |        | empty_213  | add   | fabric  | 0       |
+|    add_ln25_fu_408_p2                                                                      | -   |        | add_ln25   | add   | fabric  | 0       |
+|    add_ln22_1_fu_414_p2                                                                    | -   |        | add_ln22_1 | add   | fabric  | 0       |
+|   + Pointwise_conv_2_Pipeline_In_Channel (grp_Pointwise_conv_2_Pipeline_In_Channel_fu_212) | 6   |        |            |       |         |         |
+|     add_ln29_fu_232_p2                                                                     | -   |        | add_ln29   | add   | fabric  | 0       |
+|     add_ln32_3_fu_241_p2                                                                   | -   |        | add_ln32_3 | add   | fabric  | 0       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U204                                             | 1   |        | add_ln32   | add   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U204                                             | 1   |        | mul_ln32   | mul   | dsp48   | 3       |
+|     ama_addmuladd_15ns_7ns_7ns_7ns_21_4_1_U204                                             | 1   |        | add_ln32_1 | add   | dsp48   | 3       |
+|     add_ln32_2_fu_268_p2                                                                   | -   |        | add_ln32_2 | add   | fabric  | 0       |
+|     fmul_32ns_32ns_32_2_max_dsp_1_U203                                                     | 3   |        | mul        | fmul  | maxdsp  | 1       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U202                                                    | 2   |        | add        | fadd  | fulldsp | 1       |
+|  + Compute_skip_1                                                                          | 4   |        |            |       |         |         |
+|    mul_6ns_6ns_12_1_1_U317                                                                 | -   |        | bound      | mul   | auto    | 0       |
+|    mul_mul_7ns_12ns_19_4_1_U318                                                            | 1   |        | bound23    | mul   | dsp48   | 3       |
+|   + Compute_skip_1_Pipeline_VITIS_LOOP_20_3                                                | 3   |        |            |       |         |         |
+|     tmp2_fu_364_p2                                                                         | -   |        | tmp2       | add   | fabric  | 0       |
+|     mul_7ns_6ns_13_1_1_U297                                                                | -   |        | tmp3       | mul   | auto    | 0       |
+|     tmp1_fu_383_p2                                                                         | -   |        | tmp1       | add   | fabric  | 0       |
+|     add_ln14_fu_394_p2                                                                     | -   |        | add_ln14   | add   | fabric  | 0       |
+|     add_ln16_fu_516_p2                                                                     | -   |        | add_ln16   | add   | fabric  | 0       |
+|     tmp2_mid1_fu_542_p2                                                                    | -   |        | tmp2_mid1  | add   | fabric  | 0       |
+|     mul_7ns_6ns_13_1_1_U298                                                                | -   |        | tmp3_mid1  | mul   | auto    | 0       |
+|     add_ln18_fu_588_p2                                                                     | -   |        | add_ln18   | add   | fabric  | 0       |
+|     tmp1_mid1_fu_604_p2                                                                    | -   |        | tmp1_mid1  | add   | fabric  | 0       |
+|     mul_mul_13ns_6ns_19_4_1_U299                                                           | 1   |        | mul_ln18   | mul   | dsp48   | 3       |
+|     add_ln18_1_fu_739_p2                                                                   | -   |        | add_ln18_1 | add   | fabric  | 0       |
+|     add_ln18_2_fu_754_p2                                                                   | -   |        | add_ln18_2 | add   | fabric  | 0       |
+|     add_ln18_3_fu_769_p2                                                                   | -   |        | add_ln18_3 | add   | fabric  | 0       |
+|     fadd_32ns_32ns_32_2_full_dsp_1_U296                                                    | 2   |        | add        | fadd  | fulldsp | 1       |
+|     add_ln20_fu_633_p2                                                                     | -   |        | add_ln20   | add   | fabric  | 0       |
+|     add_ln18_4_fu_670_p2                                                                   | -   |        | add_ln18_4 | add   | fabric  | 0       |
+|     add_ln16_1_fu_684_p2                                                                   | -   |        | add_ln16_1 | add   | fabric  | 0       |
++--------------------------------------------------------------------------------------------+-----+--------+------------+-------+---------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++----------------+----------------------------------------------------------+----------------------------------+
+| Type           | Options                                                  | Location                         |
++----------------+----------------------------------------------------------+----------------------------------+
+| loop_tripcount | min = 1 max = 1                                          | DW_conv.cpp:35 in dw_conv        |
+| loop_tripcount | min = 28 max = 112                                       | DW_conv.cpp:38 in dw_conv        |
+| loop_tripcount | min = 28 max = 112                                       | DW_conv.cpp:41 in dw_conv        |
+| loop_tripcount | min = 3 max = 3                                          | DW_conv.cpp:45 in dw_conv        |
+| loop_tripcount | min = 3 max = 3                                          | DW_conv.cpp:48 in dw_conv        |
+| loop_tripcount | min = 24 max = 160                                       | DW_conv.cpp:56 in dw_conv        |
+| loop_tripcount | min = 3 max = 160                                        | DW_conv.cpp:61 in dw_conv        |
+| interface      | m_axi port = X_data bundle = gmem0 depth = 150528        | kernel_EMO.cpp:41 in kernel_emo  |
+| interface      | m_axi port = msp_conv_weight depth = 648                 | kernel_EMO.cpp:44 in kernel_emo  |
+| interface      | m_axi port = msp_conv_bias depth = 24                    | kernel_EMO.cpp:45 in kernel_emo  |
+| interface      | m_axi port = msp_norm_weight depth = 24                  | kernel_EMO.cpp:46 in kernel_emo  |
+| interface      | m_axi port = msp_norm_bias depth = 24                    | kernel_EMO.cpp:47 in kernel_emo  |
+| interface      | m_axi port = msp_norm_running_mean depth = 24            | kernel_EMO.cpp:48 in kernel_emo  |
+| interface      | m_axi port = msp_norm_running_var depth = 24             | kernel_EMO.cpp:49 in kernel_emo  |
+| interface      | m_axi port = dw_conv_weight depth = 216                  | kernel_EMO.cpp:50 in kernel_emo  |
+| interface      | m_axi port = dw_norm_gamma depth = 24                    | kernel_EMO.cpp:51 in kernel_emo  |
+| interface      | m_axi port = dw_norm_beta depth = 24                     | kernel_EMO.cpp:52 in kernel_emo  |
+| interface      | m_axi port = dw_norm_mean depth = 24                     | kernel_EMO.cpp:53 in kernel_emo  |
+| interface      | m_axi port = dw_norm_var depth = 24                      | kernel_EMO.cpp:54 in kernel_emo  |
+| interface      | m_axi port = se_conv_reduce_weight depth = 576           | kernel_EMO.cpp:55 in kernel_emo  |
+| interface      | m_axi port = se_conv_reduce_bias depth = 24              | kernel_EMO.cpp:56 in kernel_emo  |
+| interface      | m_axi port = se_conv_expand_weight depth = 576           | kernel_EMO.cpp:57 in kernel_emo  |
+| interface      | m_axi port = se_conv_expand_bias depth = 24              | kernel_EMO.cpp:58 in kernel_emo  |
+| interface      | m_axi port = proj_conv_weight depth = 576                | kernel_EMO.cpp:59 in kernel_emo  |
+| interface      | m_axi port = norm_1_1_weight depth = 24                  | kernel_EMO.cpp:62 in kernel_emo  |
+| interface      | m_axi port = norm_1_1_bias depth = 24                    | kernel_EMO.cpp:63 in kernel_emo  |
+| interface      | m_axi port = norm_1_1_running_mean depth = 24            | kernel_EMO.cpp:64 in kernel_emo  |
+| interface      | m_axi port = norm_1_1_running_var depth = 24             | kernel_EMO.cpp:65 in kernel_emo  |
+| interface      | m_axi port = v_conv_1_1_weight depth = 2304              | kernel_EMO.cpp:66 in kernel_emo  |
+| interface      | m_axi port = v_conv_1_1_bias depth = 96                  | kernel_EMO.cpp:67 in kernel_emo  |
+| interface      | m_axi port = dw_conv_1_1_filter depth = 864              | kernel_EMO.cpp:68 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_1_gamma depth = 96                | kernel_EMO.cpp:69 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_1_beta depth = 96                 | kernel_EMO.cpp:70 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_1_mean depth = 96                 | kernel_EMO.cpp:71 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_1_var depth = 96                  | kernel_EMO.cpp:72 in kernel_emo  |
+| interface      | m_axi port = proj_1_1_weight depth = 3072                | kernel_EMO.cpp:73 in kernel_emo  |
+| interface      | m_axi port = norm_1_2_weight depth = 32                  | kernel_EMO.cpp:76 in kernel_emo  |
+| interface      | m_axi port = norm_1_2_bias depth = 32                    | kernel_EMO.cpp:77 in kernel_emo  |
+| interface      | m_axi port = norm_1_2_running_mean depth = 32            | kernel_EMO.cpp:78 in kernel_emo  |
+| interface      | m_axi port = norm_1_2_running_var depth = 32             | kernel_EMO.cpp:79 in kernel_emo  |
+| interface      | m_axi port = v_conv_1_2_weight depth = 2048              | kernel_EMO.cpp:80 in kernel_emo  |
+| interface      | m_axi port = v_conv_1_2_bias depth = 64                  | kernel_EMO.cpp:81 in kernel_emo  |
+| interface      | m_axi port = dw_conv_1_2_filter depth = 576              | kernel_EMO.cpp:82 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_2_gamma depth = 64                | kernel_EMO.cpp:83 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_2_beta depth = 64                 | kernel_EMO.cpp:84 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_2_mean depth = 64                 | kernel_EMO.cpp:85 in kernel_emo  |
+| interface      | m_axi port = dw_norm_1_2_var depth = 64                  | kernel_EMO.cpp:86 in kernel_emo  |
+| interface      | m_axi port = proj_1_2_weight depth = 2048                | kernel_EMO.cpp:87 in kernel_emo  |
+| interface      | m_axi port = norm_2_1_weight depth = 32                  | kernel_EMO.cpp:90 in kernel_emo  |
+| interface      | m_axi port = norm_2_1_bias depth = 32                    | kernel_EMO.cpp:91 in kernel_emo  |
+| interface      | m_axi port = norm_2_1_running_mean depth = 32            | kernel_EMO.cpp:92 in kernel_emo  |
+| interface      | m_axi port = norm_2_1_running_var depth = 32             | kernel_EMO.cpp:93 in kernel_emo  |
+| interface      | m_axi port = v_conv_2_1_weight depth = 5120              | kernel_EMO.cpp:94 in kernel_emo  |
+| interface      | m_axi port = v_conv_2_1_bias depth = 160                 | kernel_EMO.cpp:95 in kernel_emo  |
+| interface      | m_axi port = dw_conv_2_1_filter depth = 1440             | kernel_EMO.cpp:96 in kernel_emo  |
+| interface      | m_axi port = dw_norm_2_1_gamma depth = 160               | kernel_EMO.cpp:97 in kernel_emo  |
+| interface      | m_axi port = dw_norm_2_1_beta depth = 160                | kernel_EMO.cpp:98 in kernel_emo  |
+| interface      | m_axi port = dw_norm_2_1_mean depth = 160                | kernel_EMO.cpp:99 in kernel_emo  |
+| interface      | m_axi port = dw_norm_2_1_var depth = 160                 | kernel_EMO.cpp:100 in kernel_emo |
+| interface      | m_axi port = proj_2_1_weight depth = 7680                | kernel_EMO.cpp:101 in kernel_emo |
+| interface      | m_axi port = norm_2_2_weight depth = 48                  | kernel_EMO.cpp:104 in kernel_emo |
+| interface      | m_axi port = norm_2_2_bias depth = 48                    | kernel_EMO.cpp:105 in kernel_emo |
+| interface      | m_axi port = norm_2_2_running_mean depth = 48            | kernel_EMO.cpp:106 in kernel_emo |
+| interface      | m_axi port = norm_2_2_running_var depth = 48             | kernel_EMO.cpp:107 in kernel_emo |
+| interface      | m_axi port = v_conv_2_2_weight depth = 5760              | kernel_EMO.cpp:108 in kernel_emo |
+| interface      | m_axi port = v_conv_2_2_bias depth = 120                 | kernel_EMO.cpp:109 in kernel_emo |
+| interface      | m_axi port = dw_conv_2_2_filter depth = 1080             | kernel_EMO.cpp:110 in kernel_emo |
+| interface      | m_axi port = dw_norm_2_2_gamma depth = 120               | kernel_EMO.cpp:111 in kernel_emo |
+| interface      | m_axi port = dw_norm_2_2_beta depth = 120                | kernel_EMO.cpp:112 in kernel_emo |
+| interface      | m_axi port = dw_norm_2_2_mean depth = 120                | kernel_EMO.cpp:113 in kernel_emo |
+| interface      | m_axi port = dw_norm_2_2_var depth = 120                 | kernel_EMO.cpp:114 in kernel_emo |
+| interface      | m_axi port = proj_2_2_weight depth = 5760                | kernel_EMO.cpp:115 in kernel_emo |
+| interface      | m_axi port = Y_msp_conv depth = 301056 bundle = gmem1    | kernel_EMO.cpp:118 in kernel_emo |
+| interface      | m_axi port = Y_msp_norm depth = 301056 bundle = gmem2    | kernel_EMO.cpp:119 in kernel_emo |
+| interface      | m_axi port = Y_dw_conv depth = 301056 bundle = gmem3     | kernel_EMO.cpp:120 in kernel_emo |
+| interface      | m_axi port = Y_dw_norm depth = 301056 bundle = gmem0     | kernel_EMO.cpp:121 in kernel_emo |
+| interface      | m_axi port = Y_dw_act depth = 301056 bundle = gmem1      | kernel_EMO.cpp:122 in kernel_emo |
+| interface      | m_axi port = Y_se_mean depth = 24 bundle = gmem2         | kernel_EMO.cpp:123 in kernel_emo |
+| interface      | m_axi port = Y_se_reduce depth = 24 bundle = gmem3       | kernel_EMO.cpp:124 in kernel_emo |
+| interface      | m_axi port = Y_se_act depth = 24 bundle = gmem0          | kernel_EMO.cpp:125 in kernel_emo |
+| interface      | m_axi port = Y_se_expand depth = 24 bundle = gmem1       | kernel_EMO.cpp:126 in kernel_emo |
+| interface      | m_axi port = Y_se_sigmoid depth = 24 bundle = gmem2      | kernel_EMO.cpp:127 in kernel_emo |
+| interface      | m_axi port = Y_se depth = 301056 bundle = gmem3          | kernel_EMO.cpp:128 in kernel_emo |
+| interface      | m_axi port = Y_proj depth = 301056 bundle = gmem0        | kernel_EMO.cpp:129 in kernel_emo |
+| interface      | m_axi port = Y_norm_1_1 bundle = gmem1 depth = 301056    | kernel_EMO.cpp:132 in kernel_emo |
+| interface      | m_axi port = Y_v_conv_1_1 bundle = gmem2 depth = 1204224 | kernel_EMO.cpp:133 in kernel_emo |
+| interface      | m_axi port = Y_v_act_1_1 bundle = gmem3 depth = 1204224  | kernel_EMO.cpp:134 in kernel_emo |
+| interface      | m_axi port = Y_dw_conv_1_1 bundle = gmem0 depth = 301056 | kernel_EMO.cpp:135 in kernel_emo |
+| interface      | m_axi port = Y_dw_norm_1_1 bundle = gmem1 depth = 301056 | kernel_EMO.cpp:136 in kernel_emo |
+| interface      | m_axi port = Y_dw_act_1_1 bundle = gmem3 depth = 301056  | kernel_EMO.cpp:137 in kernel_emo |
+| interface      | m_axi port = Y_proj_1_1 bundle = gmem0 depth = 100352    | kernel_EMO.cpp:138 in kernel_emo |
+| interface      | m_axi port = Y_norm_1_2 bundle = gmem2 depth = 100352    | kernel_EMO.cpp:141 in kernel_emo |
+| interface      | m_axi port = Y_v_conv_1_2 bundle = gmem1 depth = 200704  | kernel_EMO.cpp:142 in kernel_emo |
+| interface      | m_axi port = Y_v_act_1_2 bundle = gmem0 depth = 200704   | kernel_EMO.cpp:143 in kernel_emo |
+| interface      | m_axi port = Y_dw_conv_1_2 bundle = gmem3 depth = 200704 | kernel_EMO.cpp:144 in kernel_emo |
+| interface      | m_axi port = Y_dw_norm_1_2 bundle = gmem0 depth = 200704 | kernel_EMO.cpp:145 in kernel_emo |
+| interface      | m_axi port = Y_dw_act_1_2 bundle = gmem2 depth = 200704  | kernel_EMO.cpp:146 in kernel_emo |
+| interface      | m_axi port = Y_proj_1_2 bundle = gmem1 depth = 100352    | kernel_EMO.cpp:147 in kernel_emo |
+| interface      | m_axi port = Y_dw_skip_1_2 bundle = gmem3 depth = 200704 | kernel_EMO.cpp:148 in kernel_emo |
+| interface      | m_axi port = Y_skip_1_2 bundle = gmem2 depth = 100352    | kernel_EMO.cpp:149 in kernel_emo |
+| interface      | m_axi port = Y_norm_2_1 bundle = gmem1 depth = 100352    | kernel_EMO.cpp:152 in kernel_emo |
+| interface      | m_axi port = Y_v_conv_2_1 bundle = gmem2 depth = 501760  | kernel_EMO.cpp:153 in kernel_emo |
+| interface      | m_axi port = Y_v_act_2_1 bundle = gmem3 depth = 501760   | kernel_EMO.cpp:154 in kernel_emo |
+| interface      | m_axi port = Y_dw_conv_2_1 bundle = gmem0 depth = 125440 | kernel_EMO.cpp:155 in kernel_emo |
+| interface      | m_axi port = Y_dw_norm_2_1 bundle = gmem1 depth = 125440 | kernel_EMO.cpp:156 in kernel_emo |
+| interface      | m_axi port = Y_dw_act_2_1 bundle = gmem3 depth = 125440  | kernel_EMO.cpp:157 in kernel_emo |
+| interface      | m_axi port = Y_proj_2_1 bundle = gmem0 depth = 37632     | kernel_EMO.cpp:158 in kernel_emo |
+| interface      | m_axi port = Y_norm_2_2 bundle = gmem2 depth = 37632     | kernel_EMO.cpp:161 in kernel_emo |
+| interface      | m_axi port = Y_v_conv_2_2 bundle = gmem1 depth = 94080   | kernel_EMO.cpp:162 in kernel_emo |
+| interface      | m_axi port = Y_v_act_2_2 bundle = gmem0 depth = 94080    | kernel_EMO.cpp:163 in kernel_emo |
+| interface      | m_axi port = Y_dw_conv_2_2 bundle = gmem3 depth = 94080  | kernel_EMO.cpp:164 in kernel_emo |
+| interface      | m_axi port = Y_dw_norm_2_2 bundle = gmem0 depth = 94080  | kernel_EMO.cpp:165 in kernel_emo |
+| interface      | m_axi port = Y_dw_act_2_2 bundle = gmem2 depth = 94080   | kernel_EMO.cpp:166 in kernel_emo |
+| interface      | m_axi port = Y_proj_2_2 bundle = gmem1 depth = 37632     | kernel_EMO.cpp:167 in kernel_emo |
+| interface      | m_axi port = Y_dw_skip_2_2 bundle = gmem3 depth = 94080  | kernel_EMO.cpp:168 in kernel_emo |
+| interface      | m_axi port = Y_skip_2_2 bundle = gmem2 depth = 37632     | kernel_EMO.cpp:169 in kernel_emo |
+| loop_tripcount | min = 24 max = 120424                                    | SiLU.cpp:10 in silu              |
++----------------+----------------------------------------------------------+----------------------------------+
+
+
