@@ -25,10 +25,12 @@ Batch:
                 for (int out_ch = 0; out_ch < channel_out; out_ch++)
                 {
                     // #pragma HLS UNROLL
+                    // #pragma HLS PIPELINE
                 In_Channel:
                     for (int in_ch = 0; in_ch < channel_in; in_ch++)
                     {
                         // #pragma HLS UNROLL
+                        // #pragma HLS PIPELINE
                         out[batch * channel_out * height_out * width_out + out_ch * height_out * width_out + row * width_out + col] += buffer_DataIn_1[batch * channel_in * height_in * width_in + in_ch * height_in * width_in + row * width_in + col] * buffer_kernel[out_ch * kernel_channel + in_ch];
                     }
                     if (is_conv_bias)

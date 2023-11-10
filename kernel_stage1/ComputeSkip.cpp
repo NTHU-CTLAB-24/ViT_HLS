@@ -20,6 +20,7 @@ Skip:
                 for (int w = 0; w < WIDTH_OUT; w++)
                 {
 // #pragma HLS UNROLL
+// #pragma HLS PIPELINE
                     pos = n * CHANNEL_OUT * HEIGHT_OUT * WIDTH_OUT + c * HEIGHT_OUT * WIDTH_OUT + h * WIDTH_OUT + w;
                     out[pos] = in1[pos] + in2[pos];
                 }

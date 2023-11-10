@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <queue>
 
 using namespace cv;
 using namespace std;
@@ -266,12 +267,12 @@ int main()
     // init parameters value
     ifstream file_0("./stage0_parameters.txt");
     if (!file_0.is_open())
-        cerr << "Failed to open the parameter file_0." << std::endl;
+        cerr << "Failed to open the parameter file_0." << endl;
     
     unordered_map<string, vector<float>> parameterData;
     string line;
     string current_key;
-    while (std::getline(file_0, line))
+    while (getline(file_0, line))
     {
         if (!line.empty())
         {
@@ -311,9 +312,9 @@ int main()
     // init parameters value
     ifstream file_1("./stage1_parameters.txt");
     if (!file_1.is_open())
-        cerr << "Failed to open the parameter file_1." << std::endl;
+        cerr << "Failed to open the parameter file_1." << endl;
     
-    while (std::getline(file_1, line))
+    while (getline(file_1, line))
     {
         if (!line.empty())
         {
@@ -360,9 +361,9 @@ int main()
 
     ifstream file_2("./stage2_parameters.txt");
     if (!file_2.is_open())
-        cerr << "Failed to open the parameter file_2." << std::endl;
+        cerr << "Failed to open the parameter file_2." << endl;
     
-    while (std::getline(file_2, line))
+    while (getline(file_2, line))
     {
         if (!line.empty())
         {
@@ -409,9 +410,9 @@ int main()
 
     ifstream file_3("./stage3_parameters.txt");
     if (!file_3.is_open())
-        cerr << "Failed to open the parameter file_3." << std::endl;
+        cerr << "Failed to open the parameter file_3." << endl;
     
-    while (std::getline(file_3, line))
+    while (getline(file_3, line))
     {
         if (!line.empty())
         {
@@ -565,9 +566,9 @@ int main()
 
     ifstream file_4("./stage4_parameters.txt");
     if (!file_4.is_open())
-        cerr << "Failed to open the parameter file_4." << std::endl;
+        cerr << "Failed to open the parameter file_4." << endl;
     
-    while (std::getline(file_4, line))
+    while (getline(file_4, line))
     {
         if (!line.empty())
         {
@@ -662,9 +663,9 @@ int main()
 
     ifstream file_linear("./linear_parameters.txt");
     if (!file_linear.is_open())
-        cerr << "Failed to open the parameter file_linear." << std::endl;
+        cerr << "Failed to open the parameter file_linear." << endl;
 
-    while (std::getline(file_linear, line))
+    while (getline(file_linear, line))
     {
         if (!line.empty())
         {
@@ -774,8 +775,23 @@ int main()
 
     // print output
     for (int i = 100; i < 116; i++){
-        if(i % 4 == 3) std::cout << Y_out[i] << std::endl;
-        else std::cout << Y_out[i] << ' ';
+        if(i % 4 == 3) cout << Y_out[i] << endl;
+        else cout << Y_out[i] << ' ';
     }
+    cout << endl;
+
+    // Check Top 5
+    cout << "Top 5" << endl;
+    priority_queue<pair<int, int>> pq;
+    for (int i = 0; i < 1000; i++){
+        pq.push({Y_out[i], i});
+    }
+    
+    for (int i = 0; i < 5; i++)
+    {
+        cout << pq.top().second << endl;
+        pq.pop();
+    }
+
     return EXIT_SUCCESS;
 }
